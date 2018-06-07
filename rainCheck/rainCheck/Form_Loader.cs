@@ -20,7 +20,7 @@ namespace rainCheck
             if (rectangleShape_loader_1.Width >= 535)
             {
                 timer.Stop();
-                Form_Login form_login = new Form_Login();
+                Form_Landing form_login = new Form_Landing();
                 this.Hide();
                 form_login.ShowDialog();
                 this.Close();

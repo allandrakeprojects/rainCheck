@@ -58,11 +58,11 @@
     <Compile Include="Form_Loader.Designer.cs">
       <DependentUpon>Form_Loader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Login.cs">
+    <Compile Include="Form_Landing.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Login.Designer.cs">
-      <DependentUpon>Form_Login.cs</DependentUpon>
+    <Compile Include="Form_Landing.Designer.cs">
+      <DependentUpon>Form_Landing.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Registration.cs">
       <SubType>Form</SubType>
@@ -75,8 +75,8 @@
     <EmbeddedResource Include="Form_Loader.resx">
       <DependentUpon>Form_Loader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Login.resx">
-      <DependentUpon>Form_Login.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Landing.resx">
+      <DependentUpon>Form_Landing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Registration.resx">
       <DependentUpon>Form_Registration.cs</DependentUpon>

@@ -54,7 +54,7 @@
             this.label_raincheck.AutoSize = true;
             this.label_raincheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_raincheck.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
-            this.label_raincheck.Location = new System.Drawing.Point(252, 27);
+            this.label_raincheck.Location = new System.Drawing.Point(291, 71);
             this.label_raincheck.Name = "label_raincheck";
             this.label_raincheck.Size = new System.Drawing.Size(165, 38);
             this.label_raincheck.TabIndex = 4;
@@ -73,7 +73,7 @@
             this.panel_credential.Controls.Add(this.label_line);
             this.panel_credential.Controls.Add(this.label_credential);
             this.panel_credential.Controls.Add(this.label_username);
-            this.panel_credential.Location = new System.Drawing.Point(143, 83);
+            this.panel_credential.Location = new System.Drawing.Point(182, 127);
             this.panel_credential.Name = "panel_credential";
             this.panel_credential.Size = new System.Drawing.Size(339, 241);
             this.panel_credential.TabIndex = 5;
@@ -192,7 +192,7 @@
             this.panel_bottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(144)))), ((int)(((byte)(193)))));
             this.panel_bottom.Controls.Add(this.label_register);
             this.panel_bottom.Controls.Add(this.label_notyetregistered);
-            this.panel_bottom.Location = new System.Drawing.Point(143, 326);
+            this.panel_bottom.Location = new System.Drawing.Point(182, 370);
             this.panel_bottom.Name = "panel_bottom";
             this.panel_bottom.Size = new System.Drawing.Size(339, 37);
             this.panel_bottom.TabIndex = 6;
@@ -208,6 +208,7 @@
             this.label_register.Size = new System.Drawing.Size(46, 13);
             this.label_register.TabIndex = 1;
             this.label_register.Text = "Register";
+            this.label_register.Click += new System.EventHandler(this.label_register_Click);
             // 
             // label_notyetregistered
             // 
@@ -223,7 +224,7 @@
             // label_logo
             // 
             this.label_logo.Image = global::rainCheck.Properties.Resources.icon_32x32;
-            this.label_logo.Location = new System.Drawing.Point(204, 28);
+            this.label_logo.Location = new System.Drawing.Point(243, 72);
             this.label_logo.Name = "label_logo";
             this.label_logo.Size = new System.Drawing.Size(56, 39);
             this.label_logo.TabIndex = 3;
@@ -233,7 +234,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
-            this.ClientSize = new System.Drawing.Size(628, 395);
+            this.ClientSize = new System.Drawing.Size(704, 481);
             this.Controls.Add(this.panel_bottom);
             this.Controls.Add(this.panel_credential);
             this.Controls.Add(this.label_raincheck);
@@ -241,9 +242,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(644, 434);
+            this.MaximumSize = new System.Drawing.Size(720, 520);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(644, 434);
+            this.MinimumSize = new System.Drawing.Size(720, 520);
             this.Name = "Form_Login";
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

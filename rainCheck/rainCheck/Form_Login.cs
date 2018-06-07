@@ -27,6 +27,8 @@ namespace rainCheck
 
         private void textBox_username_Enter(object sender, EventArgs e)
         {
+            this.Text = "asd";
+
             if (textBox_password.Text == "")
             {
                 textBox_password.Text = "Password";
@@ -77,6 +79,14 @@ namespace rainCheck
             {
                 textBox_password.PasswordChar = '•';
             }
+        }
+
+        private void label_register_Click(object sender, EventArgs e)
+        {
+            Form_Registration form_registration = new Form_Registration();
+            this.Hide();
+            form_registration.ShowDialog();
+            this.Close();
         }
     }
 }

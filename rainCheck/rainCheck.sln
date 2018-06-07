@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rainCheck", "rainCheck\rainCheck.csproj", "{C951C81D-9E8A-4575-9BF6-D1878AD67759}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{376F54A5-36BE-4D82-9539-3CFCC27F3AD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376F54A5-36BE-4D82-9539-3CFCC27F3AD9}.Debug|Any CPU.ActiveCfg = Debug
+		{376F54A5-36BE-4D82-9539-3CFCC27F3AD9}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9ED338EA-13A5-4133-AF48-D1CB059C58B1}
+	EndGlobalSection
+EndGlobal

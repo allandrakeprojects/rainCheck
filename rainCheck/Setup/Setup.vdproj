@@ -118,6 +118,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -318,7 +326,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:rainCheck"
         "ProductCode" = "8:{F8DCA2C6-7EBA-45E9-A965-30F98BAE0BE1}"
-        "PackageCode" = "8:{44703568-E2A2-422E-B88A-3520AB2F16F9}"
+        "PackageCode" = "8:{EC6213D3-568E-4891-9E80-E8B07E3A9034}"
         "UpgradeCode" = "8:{057C0883-B90D-45DB-9679-A58F26B16B87}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

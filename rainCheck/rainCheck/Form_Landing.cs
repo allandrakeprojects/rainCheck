@@ -13,8 +13,9 @@ namespace rainCheck
             InitializeComponent();
 
             // -------------- Design
-            panel_login.BringToFront();
             label_login.Select();
+            //panel_registration.BringToFront();
+            panel_login.BringToFront();
             textBox_name_registration.Enabled = false;
             textBox_username_registration.Enabled = false;
             textBox_password_registration.Enabled = false;
@@ -22,7 +23,10 @@ namespace rainCheck
         }
 
         // -------------- Design
+
+        //
         // Login
+        //
         private void label_username_login_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, label_username_login.DisplayRectangle, Color.LightGray, ButtonBorderStyle.Solid);
@@ -72,6 +76,7 @@ namespace rainCheck
                 textBox_password_login.PasswordChar = Char.MinValue;
             }
         }
+
         private void button_login_Enter(object sender, EventArgs e)
         {
             if (textBox_username_login.Text == "")
@@ -148,8 +153,10 @@ namespace rainCheck
         {
             label_register.Font = new Font(label_register.Font.Name, label_register.Font.SizeInPoints, FontStyle.Regular);
         }
-
+        
+        //
         // Registration
+        //
         private void label_back_MouseLeave(object sender, EventArgs e)
         {
             label_back.Font = new Font(label_back.Font.Name, label_back.Font.SizeInPoints, FontStyle.Regular);
@@ -344,6 +351,51 @@ namespace rainCheck
         {
             if (e.KeyCode == Keys.Enter)
                 e.SuppressKeyPress = true;
+        }
+                
+        private void label_password_view_MouseEnter(object sender, EventArgs e)
+        {
+            textBox_password_registration.UseSystemPasswordChar = true;
+        }
+
+        private void label_password_view_MouseLeave(object sender, EventArgs e)
+        {
+            textBox_password_registration.UseSystemPasswordChar = false;
+        }
+
+        private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(textBox_name_registration.Text) && textBox_name_registration.Text != "Name" || 
+                !String.IsNullOrEmpty(textBox_username_registration.Text) && textBox_username_registration.Text != "Username" ||
+                !String.IsNullOrEmpty(textBox_password_registration.Text) && textBox_password_registration.Text != "Password")
+            {
+                DialogResult dr = MessageBox.Show("Leave? Changes you made may not be saved.",
+                                        "rainCheck says...", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    panel_registration.BringToFront();
+
+                    textBox_name_registration.Enabled = true;
+                    textBox_username_registration.Enabled = true;
+                    textBox_password_registration.Enabled = true;
+                    button_submit.Enabled = true;
+
+                    if (textBox_password_registration.Text == "Password")
+                    {
+                        textBox_password_registration.PasswordChar = Char.MinValue;
+                    }
+
+                    label_register.Focus();
+
+                    panel_registration.BringToFront();
+                }
+            }
+        }
+
+        private void button_login_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("asd");
         }
     }
 }

@@ -30,9 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Landing));
             this.panel_registration = new System.Windows.Forms.Panel();
-            this.panel_bottom_registration = new System.Windows.Forms.Panel();
-            this.label_back = new System.Windows.Forms.Label();
             this.panel_registration_form = new System.Windows.Forms.Panel();
+            this.label_password_view = new System.Windows.Forms.Label();
             this.textBox_password_registration = new System.Windows.Forms.TextBox();
             this.label_password_registration = new System.Windows.Forms.Label();
             this.button_submit = new System.Windows.Forms.Button();
@@ -40,6 +39,8 @@
             this.label_username_registration = new System.Windows.Forms.Label();
             this.textBox_name_registration = new System.Windows.Forms.TextBox();
             this.label_name_registration = new System.Windows.Forms.Label();
+            this.panel_bottom_registration = new System.Windows.Forms.Panel();
+            this.label_back = new System.Windows.Forms.Label();
             this.label_registration = new System.Windows.Forms.Label();
             this.label_logo_registration = new System.Windows.Forms.Label();
             this.panel_login = new System.Windows.Forms.Panel();
@@ -59,8 +60,8 @@
             this.label_login = new System.Windows.Forms.Label();
             this.label_logo_login = new System.Windows.Forms.Label();
             this.panel_registration.SuspendLayout();
-            this.panel_bottom_registration.SuspendLayout();
             this.panel_registration_form.SuspendLayout();
+            this.panel_bottom_registration.SuspendLayout();
             this.panel_login.SuspendLayout();
             this.panel_bottom_login.SuspendLayout();
             this.panel_login_form.SuspendLayout();
@@ -68,8 +69,8 @@
             // 
             // panel_registration
             // 
-            this.panel_registration.Controls.Add(this.panel_bottom_registration);
             this.panel_registration.Controls.Add(this.panel_registration_form);
+            this.panel_registration.Controls.Add(this.panel_bottom_registration);
             this.panel_registration.Controls.Add(this.label_registration);
             this.panel_registration.Controls.Add(this.label_logo_registration);
             this.panel_registration.Location = new System.Drawing.Point(88, 32);
@@ -77,33 +78,10 @@
             this.panel_registration.Size = new System.Drawing.Size(524, 415);
             this.panel_registration.TabIndex = 11;
             // 
-            // panel_bottom_registration
-            // 
-            this.panel_bottom_registration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(144)))), ((int)(((byte)(193)))));
-            this.panel_bottom_registration.Controls.Add(this.label_back);
-            this.panel_bottom_registration.Location = new System.Drawing.Point(93, 336);
-            this.panel_bottom_registration.Name = "panel_bottom_registration";
-            this.panel_bottom_registration.Size = new System.Drawing.Size(339, 37);
-            this.panel_bottom_registration.TabIndex = 10;
-            // 
-            // label_back
-            // 
-            this.label_back.AutoSize = true;
-            this.label_back.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_back.ForeColor = System.Drawing.Color.White;
-            this.label_back.Location = new System.Drawing.Point(27, 11);
-            this.label_back.Name = "label_back";
-            this.label_back.Size = new System.Drawing.Size(32, 13);
-            this.label_back.TabIndex = 1;
-            this.label_back.Text = "Back";
-            this.label_back.Click += new System.EventHandler(this.label_back_Click);
-            this.label_back.MouseEnter += new System.EventHandler(this.label_back_MouseEnter);
-            this.label_back.MouseLeave += new System.EventHandler(this.label_back_MouseLeave);
-            // 
             // panel_registration_form
             // 
             this.panel_registration_form.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(249)))));
+            this.panel_registration_form.Controls.Add(this.label_password_view);
             this.panel_registration_form.Controls.Add(this.textBox_password_registration);
             this.panel_registration_form.Controls.Add(this.label_password_registration);
             this.panel_registration_form.Controls.Add(this.button_submit);
@@ -115,6 +93,18 @@
             this.panel_registration_form.Name = "panel_registration_form";
             this.panel_registration_form.Size = new System.Drawing.Size(339, 241);
             this.panel_registration_form.TabIndex = 9;
+            // 
+            // label_password_view
+            // 
+            this.label_password_view.BackColor = System.Drawing.Color.White;
+            this.label_password_view.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label_password_view.Image = global::rainCheck.Properties.Resources.eye;
+            this.label_password_view.Location = new System.Drawing.Point(278, 127);
+            this.label_password_view.Name = "label_password_view";
+            this.label_password_view.Size = new System.Drawing.Size(22, 23);
+            this.label_password_view.TabIndex = 11;
+            this.label_password_view.MouseEnter += new System.EventHandler(this.label_password_view_MouseEnter);
+            this.label_password_view.MouseLeave += new System.EventHandler(this.label_password_view_MouseLeave);
             // 
             // textBox_password_registration
             // 
@@ -203,6 +193,30 @@
             this.label_name_registration.Size = new System.Drawing.Size(279, 29);
             this.label_name_registration.TabIndex = 3;
             this.label_name_registration.Paint += new System.Windows.Forms.PaintEventHandler(this.label_name_registration_Paint);
+            // 
+            // panel_bottom_registration
+            // 
+            this.panel_bottom_registration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(144)))), ((int)(((byte)(193)))));
+            this.panel_bottom_registration.Controls.Add(this.label_back);
+            this.panel_bottom_registration.Location = new System.Drawing.Point(93, 336);
+            this.panel_bottom_registration.Name = "panel_bottom_registration";
+            this.panel_bottom_registration.Size = new System.Drawing.Size(339, 37);
+            this.panel_bottom_registration.TabIndex = 10;
+            // 
+            // label_back
+            // 
+            this.label_back.AutoSize = true;
+            this.label_back.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_back.ForeColor = System.Drawing.Color.White;
+            this.label_back.Location = new System.Drawing.Point(27, 11);
+            this.label_back.Name = "label_back";
+            this.label_back.Size = new System.Drawing.Size(32, 13);
+            this.label_back.TabIndex = 1;
+            this.label_back.Text = "Back";
+            this.label_back.Click += new System.EventHandler(this.label_back_Click);
+            this.label_back.MouseEnter += new System.EventHandler(this.label_back_MouseEnter);
+            this.label_back.MouseLeave += new System.EventHandler(this.label_back_MouseLeave);
             // 
             // label_registration
             // 
@@ -320,6 +334,7 @@
             this.button_login.Text = "Login";
             this.button_login.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button_login.UseVisualStyleBackColor = false;
+            this.button_login.Click += new System.EventHandler(this.button_login_Click);
             this.button_login.Enter += new System.EventHandler(this.button_login_Enter);
             // 
             // textBox_password_login
@@ -425,12 +440,13 @@
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Landing_FormClosing);
             this.panel_registration.ResumeLayout(false);
             this.panel_registration.PerformLayout();
-            this.panel_bottom_registration.ResumeLayout(false);
-            this.panel_bottom_registration.PerformLayout();
             this.panel_registration_form.ResumeLayout(false);
             this.panel_registration_form.PerformLayout();
+            this.panel_bottom_registration.ResumeLayout(false);
+            this.panel_bottom_registration.PerformLayout();
             this.panel_login.ResumeLayout(false);
             this.panel_login.PerformLayout();
             this.panel_bottom_login.ResumeLayout(false);
@@ -471,5 +487,6 @@
         private System.Windows.Forms.Label label_username_login;
         private System.Windows.Forms.Label label_login;
         private System.Windows.Forms.Label label_logo_login;
+        private System.Windows.Forms.Label label_password_view;
     }
 }

@@ -46,12 +46,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_90259501F22063B6B76FF2CC8D1CA215"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9E225AD3579542FDB4F5836FE676DC66"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -59,6 +53,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_77F2890DACF0D8C82E74C7DEADF25E49"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_90259501F22063B6B76FF2CC8D1CA215"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -79,6 +79,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -95,6 +111,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -294,7 +318,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:rainCheck"
         "ProductCode" = "8:{F8DCA2C6-7EBA-45E9-A965-30F98BAE0BE1}"
-        "PackageCode" = "8:{AF605039-3161-464A-B624-8CA9E2036675}"
+        "PackageCode" = "8:{44703568-E2A2-422E-B88A-3520AB2F16F9}"
         "UpgradeCode" = "8:{057C0883-B90D-45DB-9679-A58F26B16B87}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

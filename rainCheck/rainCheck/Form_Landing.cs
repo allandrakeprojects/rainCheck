@@ -332,6 +332,7 @@ namespace rainCheck
                 string hex = "#BFCDDB";
                 Color color = ColorTranslator.FromHtml(hex);
                 textBox_password_registration.ForeColor = color;
+                textBox_password_registration.PasswordChar = Char.MinValue;
             }
         }
 
@@ -369,8 +370,7 @@ namespace rainCheck
                 !String.IsNullOrEmpty(textBox_username_registration.Text) && textBox_username_registration.Text != "Username" ||
                 !String.IsNullOrEmpty(textBox_password_registration.Text) && textBox_password_registration.Text != "Password")
             {
-                DialogResult dr = MessageBox.Show("Leave? Changes you made may not be saved.",
-                                        "rainCheck says...", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dr = MessageBox.Show("Leave? Changes you made may not be saved.", "rainCheck says...", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.No)
                 {
                     e.Cancel = true;
@@ -395,7 +395,10 @@ namespace rainCheck
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("asd");
+            Form_Main form_main = new Form_Main();
+            this.Hide();
+            form_main.ShowDialog();
+            this.Close();
         }
     }
 }

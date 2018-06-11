@@ -1,26 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Globalization;
+﻿using System;
+using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace rainCheck
 {
     public partial class Form_Landing : Form
     {
-
-        Timer timer_authorisation = new Timer();
-        Timer timer_main = new Timer();
-
         public Form_Landing()
         {
             InitializeComponent();
         }
 
+        // Form load
         private void Form_Landing_Load(object sender, EventArgs e)
         {
-            goToPanelAuthorisation();
+            label_ip.Text = getExternalIp();
+        }
+
+        // Get external IP
+        private string getExternalIp()
+        {
+            try
+            {
+                string externalIP;
+                externalIP = (new WebClient()).DownloadString("https://canihazip.com/s");
+                externalIP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"))
+                             .Matches(externalIP)[0].ToString();
+                return externalIP;
+            }
+            catch { return null; }
         }
 
         // Checking if connected to internet
@@ -39,7 +51,7 @@ namespace rainCheck
                 return false;
             }
         }
-                
+
         // Get MAC Address
         public void GetMACAddress()
         {
@@ -56,144 +68,47 @@ namespace rainCheck
             //label_mac_address.Text = sMacAddress;
         }
 
-        int i_authorisation = 0;
-        private void goToPanelAuthorisation() {
-            panel_loader.BringToFront();
-            timer_authorisation.Enabled = true;
-            timer_authorisation.Interval = 500;
-            timer_authorisation.Tick += (t, args) =>
-            {
-                i_authorisation++;
-                label4.Text = i_authorisation.ToString();
-
-                if (i_authorisation == 4)
-                {
-                    timer_authorisation.Stop();
-                    if (CheckForInternetConnection())
-                    {
-                        panel_authorization.BringToFront();
-                    }
-                    else
-                    {
-                        panel_retry_authorisation.BringToFront();
-                    }
-                }
-            };
-        }
-
-        int i_main = 0;
-        private void goToPanelMain()
+        int i = 0;
+        private void timer_Tick(object sender, EventArgs e)
         {
-            if (CheckForInternetConnection())
-            {
-                Form_Main form_main = new Form_Main();
-                this.Hide();
-                form_main.ShowDialog();
-                this.Close();
-            }
-            else
-            {
-                panel_loader.BringToFront();
-                timer_main.Interval = 500;
-                timer_main.Tick += (t, args) =>
-                {
-                    i_main++;
-                    label4.Text = i_main.ToString();
+            panel_loader.BringToFront();
+            i++;
 
-                    if (i_main == 4)
-                    {
-                        timer_main.Stop();
-                        if (CheckForInternetConnection())
-                        {
-                            Form_Main form_main = new Form_Main();
-                            this.Hide();
-                            form_main.ShowDialog();
-                            this.Close();
-                        }
-                        else
-                        {
-                            panel_retry_main.BringToFront();
-                        }
-                    }
-                };
-                timer_main.Enabled = true;
+            label4.Text = i.ToString();
+
+            if (i >= 20)
+            {
+                timer.Stop();
+                if (CheckForInternetConnection())
+                {
+                    panel_authorization.BringToFront();
+                    button_retry.Enabled = false;
+                }
+                else
+                {
+                    panel_retry.BringToFront();
+                    button_retry.Enabled = true;
+                }
             }
         }
 
         // Button retry
-        private void button_retry_authorisation_Click(object sender, EventArgs e)
+        private void button_retry_Click(object sender, EventArgs e)
         {
-            panel_loader.BringToFront();
-            timer_authorisation.Start();
-            timer_authorisation.Interval = 500;
-            timer_authorisation.Tick += (t, args) =>
-            {
-                i_authorisation++;
+            i = 0;
+            timer.Start();
+        }
 
-                if (i_authorisation >= 4)
+        private void button_retry_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                if(i >= 20)
                 {
-                    timer_authorisation.Stop();
-                    if (CheckForInternetConnection())
-                    {
-                        panel_authorization.BringToFront();
-                    }
-                    else
-                    {
-                        panel_retry_authorisation.BringToFront();
-                    }
+                    i = 0;
+                    timer.Start();
                 }
-            };
-        }
-
-        private void button_retry_main_Click(object sender, EventArgs e)
-        {
-            panel_loader.BringToFront();
-            timer_main.Start();
-            timer_main.Interval = 500;
-            timer_main.Tick += (t, args) =>
-            {
-                i_main++;
-
-                if (i_main >= 4)
-                {
-                    timer_main.Stop();
-                    if (CheckForInternetConnection())
-                    {
-                        Form_Main form_main = new Form_Main();
-                        this.Hide();
-                        form_main.ShowDialog();
-                        this.Close();
-                    }
-                    else
-                    {
-                        panel_retry_main.BringToFront();
-                    }
-                }
-            };
-        }
-
-        // Country
-        public static string GetUserCountryByIp(string ip)
-        {
-            IpInfo ipInfo = new IpInfo();
-            try
-            {
-                string info = new WebClient().DownloadString("http://ipinfo.io/" + ip);
-                ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
-                RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
-                ipInfo.Country = myRI1.EnglishName;
             }
-            catch (Exception)
-            {
-                ipInfo.Country = null;
-            }
-
-            return ipInfo.Country;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            goToPanelMain();
         }
     }
 }

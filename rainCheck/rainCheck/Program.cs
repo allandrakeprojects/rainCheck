@@ -13,7 +13,7 @@ namespace rainCheck
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_Landing());
+            Application.Run(new Form_Loader());
         }
     }
 }

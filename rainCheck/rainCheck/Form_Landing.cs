@@ -15,12 +15,6 @@ namespace rainCheck
             InitializeComponent();
         }
 
-        // Form load
-        private void Form_Landing_Load(object sender, EventArgs e)
-        {
-            label_ip.Text = getExternalIp();
-        }
-
         // Get external IP
         private string getExternalIp()
         {
@@ -74,13 +68,37 @@ namespace rainCheck
             panel_loader.BringToFront();
             i++;
 
-            label4.Text = i.ToString();
+            //label4.Text = i.ToString();
 
             if (i >= 20)
             {
                 timer.Stop();
                 if (CheckForInternetConnection())
                 {
+                    label_ip.Text = getExternalIp();
+
+                    var API_PATH_IP_API = "http://ip-api.com/json/" + getExternalIp();
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                        client.BaseAddress = new Uri(API_PATH_IP_API);
+                        HttpResponseMessage response = client.GetAsync(API_PATH_IP_API).GetAwaiter().GetResult();
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var locationDetails = response.Content.ReadAsAsync<IpInfo>().GetAwaiter().GetResult();
+                            if (locationDetails != null)
+                            {
+                                label_city.Text = locationDetails.city;
+                                label_region.Text = locationDetails.regionName;
+                                label_country.Text = locationDetails.country;
+                                label_isp.Text = locationDetails.isp;
+                            }
+                        }
+                    }
+
                     panel_authorization.BringToFront();
                     button_retry.Enabled = false;
                 }

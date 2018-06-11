@@ -43,7 +43,6 @@
             this.label_login = new System.Windows.Forms.Label();
             this.label_logo_login = new System.Windows.Forms.Label();
             this.panel_loader = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
             this.panel_retry = new System.Windows.Forms.Panel();
@@ -81,7 +80,7 @@
             // label_isp
             // 
             this.label_isp.AutoSize = true;
-            this.label_isp.Location = new System.Drawing.Point(74, 174);
+            this.label_isp.Location = new System.Drawing.Point(74, 173);
             this.label_isp.Name = "label_isp";
             this.label_isp.Size = new System.Drawing.Size(13, 13);
             this.label_isp.TabIndex = 22;
@@ -90,7 +89,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(27, 174);
+            this.label11.Location = new System.Drawing.Point(27, 173);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(20, 13);
             this.label11.TabIndex = 21;
@@ -117,7 +116,7 @@
             // label_region
             // 
             this.label_region.AutoSize = true;
-            this.label_region.Location = new System.Drawing.Point(74, 112);
+            this.label_region.Location = new System.Drawing.Point(74, 113);
             this.label_region.Name = "label_region";
             this.label_region.Size = new System.Drawing.Size(13, 13);
             this.label_region.TabIndex = 18;
@@ -126,7 +125,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 112);
+            this.label7.Location = new System.Drawing.Point(27, 113);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(36, 13);
             this.label7.TabIndex = 17;
@@ -135,7 +134,7 @@
             // label_city
             // 
             this.label_city.AutoSize = true;
-            this.label_city.Location = new System.Drawing.Point(74, 81);
+            this.label_city.Location = new System.Drawing.Point(74, 83);
             this.label_city.Name = "label_city";
             this.label_city.Size = new System.Drawing.Size(13, 13);
             this.label_city.TabIndex = 16;
@@ -144,7 +143,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 81);
+            this.label5.Location = new System.Drawing.Point(27, 83);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 13);
             this.label5.TabIndex = 15;
@@ -182,22 +181,12 @@
             // 
             // panel_loader
             // 
-            this.panel_loader.Controls.Add(this.label4);
             this.panel_loader.Controls.Add(this.label3);
             this.panel_loader.Controls.Add(this.pictureBox_loader);
             this.panel_loader.Location = new System.Drawing.Point(12, 12);
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(680, 457);
             this.panel_loader.TabIndex = 15;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(71, 176);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
             // 
             // label3
             // 
@@ -279,9 +268,9 @@
             this.label_ip.AutoSize = true;
             this.label_ip.Location = new System.Drawing.Point(74, 53);
             this.label_ip.Name = "label_ip";
-            this.label_ip.Size = new System.Drawing.Size(13, 13);
+            this.label_ip.Size = new System.Drawing.Size(15, 13);
             this.label_ip.TabIndex = 24;
-            this.label_ip.Text = "1";
+            this.label_ip.Text = "ip";
             // 
             // Form_Landing
             // 
@@ -302,7 +291,6 @@
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
-            this.Load += new System.EventHandler(this.Form_Landing_Load);
             this.panel_authorization.ResumeLayout(false);
             this.panel_authorization.PerformLayout();
             this.panel_loader.ResumeLayout(false);
@@ -322,7 +310,6 @@
         private System.Windows.Forms.PictureBox pictureBox_loader;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel_retry;
         private System.Windows.Forms.Button button_retry;
         private System.Windows.Forms.Label label1;

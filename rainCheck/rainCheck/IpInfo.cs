@@ -4,29 +4,19 @@ namespace rainCheck
 {
     class IpInfo
     {
-
-        [JsonProperty("ip")]
-        public string Ip { get; set; }
-
-        [JsonProperty("hostname")]
-        public string Hostname { get; set; }
-
-        [JsonProperty("city")]
-        public string City { get; set; }
-
-        [JsonProperty("region")]
-        public string Region { get; set; }
-
-        [JsonProperty("country")]
-        public string Country { get; set; }
-
-        [JsonProperty("loc")]
-        public string Loc { get; set; }
-
-        [JsonProperty("org")]
-        public string Org { get; set; }
-
-        [JsonProperty("postal")]
-        public string Postal { get; set; }
+        public string @as { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string countryCode { get; set; }
+        public string isp { get; set; }
+        public double lat { get; set; }
+        public double lon { get; set; }
+        public string org { get; set; }
+        public string query { get; set; }
+        public string region { get; set; }
+        public string regionName { get; set; }
+        public string status { get; set; }
+        public string timezone { get; set; }
+        public string zip { get; set; }
     }
 }

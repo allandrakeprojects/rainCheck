@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Landing));
             this.panel_authorization = new System.Windows.Forms.Panel();
+            this.label_ip = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label_isp = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label_country = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.button_retry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.label_ip = new System.Windows.Forms.Label();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -76,6 +76,24 @@
             this.panel_authorization.Name = "panel_authorization";
             this.panel_authorization.Size = new System.Drawing.Size(680, 457);
             this.panel_authorization.TabIndex = 14;
+            // 
+            // label_ip
+            // 
+            this.label_ip.AutoSize = true;
+            this.label_ip.Location = new System.Drawing.Point(74, 53);
+            this.label_ip.Name = "label_ip";
+            this.label_ip.Size = new System.Drawing.Size(15, 13);
+            this.label_ip.TabIndex = 24;
+            this.label_ip.Text = "ip";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 53);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(15, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "ip";
             // 
             // label_isp
             // 
@@ -154,7 +172,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(209, 233);
+            this.label2.Location = new System.Drawing.Point(206, 233);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(286, 25);
             this.label2.TabIndex = 14;
@@ -253,24 +271,6 @@
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 53);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(15, 13);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "ip";
-            // 
-            // label_ip
-            // 
-            this.label_ip.AutoSize = true;
-            this.label_ip.Location = new System.Drawing.Point(74, 53);
-            this.label_ip.Name = "label_ip";
-            this.label_ip.Size = new System.Drawing.Size(15, 13);
-            this.label_ip.TabIndex = 24;
-            this.label_ip.Text = "ip";
             // 
             // Form_Landing
             // 

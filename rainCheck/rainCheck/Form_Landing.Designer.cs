@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Landing));
             this.panel_authorization = new System.Windows.Forms.Panel();
+            this.label_macid = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label_ip = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label_isp = new System.Windows.Forms.Label();
@@ -51,6 +53,7 @@
             this.button_retry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.panel_blank = new System.Windows.Forms.Panel();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -59,6 +62,8 @@
             // 
             // panel_authorization
             // 
+            this.panel_authorization.Controls.Add(this.label_macid);
+            this.panel_authorization.Controls.Add(this.label4);
             this.panel_authorization.Controls.Add(this.label_ip);
             this.panel_authorization.Controls.Add(this.label6);
             this.panel_authorization.Controls.Add(this.label_isp);
@@ -77,10 +82,28 @@
             this.panel_authorization.Size = new System.Drawing.Size(680, 457);
             this.panel_authorization.TabIndex = 14;
             // 
+            // label_macid
+            // 
+            this.label_macid.AutoSize = true;
+            this.label_macid.Location = new System.Drawing.Point(74, 28);
+            this.label_macid.Name = "label_macid";
+            this.label_macid.Size = new System.Drawing.Size(15, 13);
+            this.label_macid.TabIndex = 26;
+            this.label_macid.Text = "ip";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(27, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "mac id";
+            // 
             // label_ip
             // 
             this.label_ip.AutoSize = true;
-            this.label_ip.Location = new System.Drawing.Point(74, 53);
+            this.label_ip.Location = new System.Drawing.Point(74, 57);
             this.label_ip.Name = "label_ip";
             this.label_ip.Size = new System.Drawing.Size(15, 13);
             this.label_ip.TabIndex = 24;
@@ -89,7 +112,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 53);
+            this.label6.Location = new System.Drawing.Point(27, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(15, 13);
             this.label6.TabIndex = 23;
@@ -116,7 +139,7 @@
             // label_country
             // 
             this.label_country.AutoSize = true;
-            this.label_country.Location = new System.Drawing.Point(74, 143);
+            this.label_country.Location = new System.Drawing.Point(74, 144);
             this.label_country.Name = "label_country";
             this.label_country.Size = new System.Drawing.Size(13, 13);
             this.label_country.TabIndex = 20;
@@ -125,7 +148,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(27, 143);
+            this.label9.Location = new System.Drawing.Point(27, 144);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 13);
             this.label9.TabIndex = 19;
@@ -134,7 +157,7 @@
             // label_region
             // 
             this.label_region.AutoSize = true;
-            this.label_region.Location = new System.Drawing.Point(74, 113);
+            this.label_region.Location = new System.Drawing.Point(74, 115);
             this.label_region.Name = "label_region";
             this.label_region.Size = new System.Drawing.Size(13, 13);
             this.label_region.TabIndex = 18;
@@ -143,7 +166,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 113);
+            this.label7.Location = new System.Drawing.Point(27, 115);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(36, 13);
             this.label7.TabIndex = 17;
@@ -152,7 +175,7 @@
             // label_city
             // 
             this.label_city.AutoSize = true;
-            this.label_city.Location = new System.Drawing.Point(74, 83);
+            this.label_city.Location = new System.Drawing.Point(74, 86);
             this.label_city.Name = "label_city";
             this.label_city.Size = new System.Drawing.Size(13, 13);
             this.label_city.TabIndex = 16;
@@ -161,7 +184,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 83);
+            this.label5.Location = new System.Drawing.Point(27, 86);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 13);
             this.label5.TabIndex = 15;
@@ -252,8 +275,8 @@
             this.button_retry.TabIndex = 11;
             this.button_retry.Text = "Retry (F5)";
             this.button_retry.UseVisualStyleBackColor = false;
-            this.button_retry.Click += new System.EventHandler(this.button_retry_Click);
-            this.button_retry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_retry_KeyDown);
+            this.button_retry.Click += new System.EventHandler(this.Button_retry_Click);
+            this.button_retry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_retry_KeyDown);
             // 
             // label1
             // 
@@ -270,7 +293,14 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // panel_blank
+            // 
+            this.panel_blank.Location = new System.Drawing.Point(12, 12);
+            this.panel_blank.Name = "panel_blank";
+            this.panel_blank.Size = new System.Drawing.Size(680, 457);
+            this.panel_blank.TabIndex = 17;
             // 
             // Form_Landing
             // 
@@ -278,9 +308,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(704, 481);
+            this.Controls.Add(this.panel_blank);
+            this.Controls.Add(this.panel_retry);
             this.Controls.Add(this.panel_loader);
             this.Controls.Add(this.panel_authorization);
-            this.Controls.Add(this.panel_retry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -324,5 +355,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label_ip;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_macid;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel_blank;
     }
 }

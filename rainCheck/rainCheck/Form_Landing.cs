@@ -11,7 +11,7 @@ namespace rainCheck
 {
     public partial class Form_Landing : Form
     {
-        MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
+        MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
 
         public Form_Landing()
         {
@@ -133,6 +133,7 @@ namespace rainCheck
             }
         }
 
+        // Insert device condition
         private void InsertDeviceCondition(string query)
         {
             using (con)
@@ -185,7 +186,7 @@ namespace rainCheck
                     con.Close();
 
                     panel_blank.BringToFront();
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + e.Message, "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + e.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
                 finally

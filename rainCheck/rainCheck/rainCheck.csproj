@@ -92,7 +92,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Devices.cs" />
     <Compile Include="Form_Loader.cs">
       <SubType>Form</SubType>
     </Compile>

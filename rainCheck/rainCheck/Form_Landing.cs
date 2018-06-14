@@ -181,12 +181,12 @@ namespace rainCheck
                     }
                     con.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     con.Close();
 
                     panel_blank.BringToFront();
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + e.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
                 finally

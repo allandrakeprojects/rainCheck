@@ -59,6 +59,7 @@
             this.label_brands = new System.Windows.Forms.Label();
             this.panel_innerfilterbox = new System.Windows.Forms.Panel();
             this.label_filterbox = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel_top.SuspendLayout();
             this.panel_resultbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_devices)).BeginInit();
@@ -134,7 +135,7 @@
             this.panel_resultbox.Controls.Add(this.label_bordersearch);
             this.panel_resultbox.Location = new System.Drawing.Point(12, 245);
             this.panel_resultbox.Name = "panel_resultbox";
-            this.panel_resultbox.Size = new System.Drawing.Size(30, 472);
+            this.panel_resultbox.Size = new System.Drawing.Size(846, 472);
             this.panel_resultbox.TabIndex = 19;
             // 
             // textBox_search
@@ -142,7 +143,7 @@
             this.textBox_search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_search.Location = new System.Drawing.Point(-165, 59);
+            this.textBox_search.Location = new System.Drawing.Point(651, 59);
             this.textBox_search.Multiline = true;
             this.textBox_search.Name = "textBox_search";
             this.textBox_search.Size = new System.Drawing.Size(150, 20);
@@ -192,7 +193,7 @@
             this.dataGridView_devices.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_devices.RowHeadersVisible = false;
             this.dataGridView_devices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_devices.Size = new System.Drawing.Size(22, 378);
+            this.dataGridView_devices.Size = new System.Drawing.Size(838, 378);
             this.dataGridView_devices.TabIndex = 15;
             // 
             // label_search
@@ -200,7 +201,7 @@
             this.label_search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_search.AutoSize = true;
             this.label_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_search.Location = new System.Drawing.Point(-302, 64);
+            this.label_search.Location = new System.Drawing.Point(514, 64);
             this.label_search.Name = "label_search";
             this.label_search.Size = new System.Drawing.Size(129, 15);
             this.label_search.TabIndex = 25;
@@ -214,7 +215,7 @@
             this.panel_innerresultbox.Controls.Add(this.label_resultbox);
             this.panel_innerresultbox.Location = new System.Drawing.Point(1, 1);
             this.panel_innerresultbox.Name = "panel_innerresultbox";
-            this.panel_innerresultbox.Size = new System.Drawing.Size(24, 45);
+            this.panel_innerresultbox.Size = new System.Drawing.Size(840, 45);
             this.panel_innerresultbox.TabIndex = 0;
             // 
             // label_resultbox
@@ -231,7 +232,7 @@
             // label_bordersearch
             // 
             this.label_bordersearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_bordersearch.Location = new System.Drawing.Point(-171, 54);
+            this.label_bordersearch.Location = new System.Drawing.Point(645, 54);
             this.label_bordersearch.Name = "label_bordersearch";
             this.label_bordersearch.Size = new System.Drawing.Size(162, 26);
             this.label_bordersearch.TabIndex = 27;
@@ -256,7 +257,7 @@
             this.panel_filterbox.Controls.Add(this.panel_innerfilterbox);
             this.panel_filterbox.Location = new System.Drawing.Point(12, 116);
             this.panel_filterbox.Name = "panel_filterbox";
-            this.panel_filterbox.Size = new System.Drawing.Size(30, 116);
+            this.panel_filterbox.Size = new System.Drawing.Size(847, 116);
             this.panel_filterbox.TabIndex = 20;
             // 
             // button_reset
@@ -270,6 +271,7 @@
             this.button_reset.TabIndex = 38;
             this.button_reset.Text = "Reset";
             this.button_reset.UseVisualStyleBackColor = false;
+            this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
             // 
             // comboBox_status
             // 
@@ -284,6 +286,7 @@
             this.comboBox_status.Name = "comboBox_status";
             this.comboBox_status.Size = new System.Drawing.Size(121, 21);
             this.comboBox_status.TabIndex = 37;
+            this.comboBox_status.SelectedIndexChanged += new System.EventHandler(this.ComboBox_status_SelectedIndexChanged);
             // 
             // label_status
             // 
@@ -306,6 +309,7 @@
             this.comboBox_channel.Name = "comboBox_channel";
             this.comboBox_channel.Size = new System.Drawing.Size(121, 21);
             this.comboBox_channel.TabIndex = 35;
+            this.comboBox_channel.SelectedIndexChanged += new System.EventHandler(this.ComboBox_channel_SelectedIndexChanged);
             // 
             // label_channel
             // 
@@ -328,6 +332,7 @@
             this.comboBox_websitetype.Name = "comboBox_websitetype";
             this.comboBox_websitetype.Size = new System.Drawing.Size(121, 21);
             this.comboBox_websitetype.TabIndex = 33;
+            this.comboBox_websitetype.SelectedIndexChanged += new System.EventHandler(this.ComboBox_websitetype_SelectedIndexChanged);
             // 
             // label_websitetype
             // 
@@ -350,6 +355,7 @@
             this.comboBox_member.Name = "comboBox_member";
             this.comboBox_member.Size = new System.Drawing.Size(121, 21);
             this.comboBox_member.TabIndex = 31;
+            this.comboBox_member.SelectedIndexChanged += new System.EventHandler(this.ComboBox_member_SelectedIndexChanged);
             // 
             // label_member
             // 
@@ -372,6 +378,7 @@
             this.comboBox_brands.Name = "comboBox_brands";
             this.comboBox_brands.Size = new System.Drawing.Size(121, 21);
             this.comboBox_brands.TabIndex = 29;
+            this.comboBox_brands.SelectedIndexChanged += new System.EventHandler(this.ComboBox_brands_SelectedIndexChanged);
             // 
             // label_brands
             // 
@@ -391,7 +398,7 @@
             this.panel_innerfilterbox.Controls.Add(this.label_filterbox);
             this.panel_innerfilterbox.Location = new System.Drawing.Point(1, 1);
             this.panel_innerfilterbox.Name = "panel_innerfilterbox";
-            this.panel_innerfilterbox.Size = new System.Drawing.Size(26, 45);
+            this.panel_innerfilterbox.Size = new System.Drawing.Size(843, 45);
             this.panel_innerfilterbox.TabIndex = 0;
             // 
             // label_filterbox
@@ -405,12 +412,22 @@
             this.label_filterbox.TabIndex = 19;
             this.label_filterbox.Text = "Filter Box";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(270, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "label2";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1014, 729);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel_filterbox);
             this.Controls.Add(this.panel_resultbox);
             this.Controls.Add(this.label_separator);
@@ -467,5 +484,6 @@
         private System.Windows.Forms.ComboBox comboBox_channel;
         private System.Windows.Forms.Label label_channel;
         private System.Windows.Forms.Button button_reset;
+        private System.Windows.Forms.Label label2;
     }
 }

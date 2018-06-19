@@ -144,6 +144,7 @@ namespace rainCheck
                     MySqlCommand command_chck = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "'", con);
                     command_chck.CommandType = CommandType.Text;
                     MySqlDataReader reader_chck = command_chck.ExecuteReader();
+
                     if (!reader_chck.HasRows)
                     {
                         con.Close();
@@ -162,6 +163,7 @@ namespace rainCheck
                         MySqlCommand command_approved = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "' AND status = 'A'", con);
                         command_approved.CommandType = CommandType.Text;
                         MySqlDataReader reader_approved = command_approved.ExecuteReader();
+
                         if (reader_approved.HasRows)
                         {
                             con.Close();

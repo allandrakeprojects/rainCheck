@@ -14,7 +14,7 @@ namespace rainCheck
     public partial class Form_Main : Form
     {
         MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
-
+        
         public ChromiumWebBrowser chromeBrowser { get; private set; }
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
@@ -22,24 +22,62 @@ namespace rainCheck
         public Form_Main()
         {
             InitializeComponent();
-            InitializeChromium();
 
             // Design
             this.WindowState = FormWindowState.Maximized;
 
-            DataToGridView("SELECT `domain_name` as 'Domain' FROM `domains`");
+            DataToGridView("SELECT `domain_name` as 'Domain(s) List' FROM `domains`");
         }
 
-        public void InitializeChromium()
+        private void dataGridView_devices_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            CefSettings settings = new CefSettings();
-            // Initialize cef with the provided settings
-            Cef.Initialize(settings);
-            // Create a browser component
-            chromeBrowser = new ChromiumWebBrowser("http://ourcodeworld.com");
-            // Add it to the form and fill it to the form window.
-            this.Controls.Add(chromeBrowser);
-            chromeBrowser.Dock = DockStyle.Fill;
+            if (dataGridView_devices.CurrentCell == null || dataGridView_devices.CurrentCell.Value == null || e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                // Gets a collection that contains all the rows
+                DataGridViewRow row = this.dataGridView_devices.Rows[e.RowIndex];
+                // Populate the textbox from specific value of the coordinates of column and row.
+                string domain = dataGridView_devices.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                InitializeChromium(domain);
+            }
+        }
+
+        public void InitializeChromium(string domain)
+        {
+            try
+            {
+                if (Cef.IsInitialized == true)
+                {
+                    MessageBox.Show("asd");
+                    MessageBox.Show(domain);
+
+
+                }
+                else
+                {
+                    MessageBox.Show("asd1");
+                    MessageBox.Show(domain);
+
+                    CefSettings settings = new CefSettings();
+
+                    // Initialize cef with the provided settings
+                    Cef.Initialize(settings);
+                    
+                    // Create a browser component
+                    chromeBrowser = new ChromiumWebBrowser(domain);
+                    // Add it to the form and fill it to the form window.
+                    panel_browser.Controls.Add(chromeBrowser);
+                    chromeBrowser.Dock = DockStyle.Fill;
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -54,6 +92,8 @@ namespace rainCheck
             //{
             //    e.Cancel = true;
             //}
+
+            Cef.Shutdown();
         }
 
         // Show domains

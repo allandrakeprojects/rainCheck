@@ -19,9 +19,11 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main()
+        public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
+
+            this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
             // Design
             this.WindowState = FormWindowState.Maximized;

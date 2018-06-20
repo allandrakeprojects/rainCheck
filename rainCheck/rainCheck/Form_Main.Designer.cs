@@ -39,18 +39,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel_top = new System.Windows.Forms.Panel();
             this.panel_browser = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_go = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_devices)).BeginInit();
             this.panel_top.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_separator
             // 
-            this.label_separator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.label_separator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label_separator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.label_separator.Location = new System.Drawing.Point(15, 70);
             this.label_separator.Name = "label_separator";
-            this.label_separator.Size = new System.Drawing.Size(981, 1);
+            this.label_separator.Size = new System.Drawing.Size(1207, 1);
             this.label_separator.TabIndex = 17;
             this.label_separator.Text = " ";
             // 
@@ -61,7 +63,7 @@
             this.dataGridView_devices.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
             this.dataGridView_devices.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView_devices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.dataGridView_devices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_devices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_devices.BackgroundColor = System.Drawing.Color.White;
@@ -97,7 +99,7 @@
             this.dataGridView_devices.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_devices.RowHeadersVisible = false;
             this.dataGridView_devices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_devices.Size = new System.Drawing.Size(337, 609);
+            this.dataGridView_devices.Size = new System.Drawing.Size(180, 609);
             this.dataGridView_devices.TabIndex = 18;
             this.dataGridView_devices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_devices_CellClick);
             // 
@@ -130,31 +132,50 @@
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_top.Location = new System.Drawing.Point(0, 0);
             this.panel_top.Name = "panel_top";
-            this.panel_top.Size = new System.Drawing.Size(1008, 44);
+            this.panel_top.Size = new System.Drawing.Size(1234, 44);
             this.panel_top.TabIndex = 0;
             // 
             // panel_browser
             // 
-            this.panel_browser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.panel_browser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_browser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel_browser.Location = new System.Drawing.Point(375, 93);
+            this.panel_browser.Location = new System.Drawing.Point(216, 122);
             this.panel_browser.Name = "panel_browser";
-            this.panel_browser.Size = new System.Drawing.Size(621, 549);
+            this.panel_browser.Size = new System.Drawing.Size(1006, 513);
             this.panel_browser.TabIndex = 19;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Location = new System.Drawing.Point(216, 93);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(359, 20);
+            this.textBox1.TabIndex = 20;
+            // 
+            // button_go
+            // 
+            this.button_go.Location = new System.Drawing.Point(581, 93);
+            this.button_go.Name = "button_go";
+            this.button_go.Size = new System.Drawing.Size(75, 23);
+            this.button_go.TabIndex = 21;
+            this.button_go.Text = "Go";
+            this.button_go.UseVisualStyleBackColor = true;
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.ClientSize = new System.Drawing.Size(1234, 729);
+            this.Controls.Add(this.button_go);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView_devices);
             this.Controls.Add(this.panel_browser);
             this.Controls.Add(this.label_separator);
             this.Controls.Add(this.panel_top);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1024, 768);
+            this.MinimumSize = new System.Drawing.Size(1250, 768);
             this.Name = "Form_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
@@ -164,6 +185,7 @@
             this.panel_top.ResumeLayout(false);
             this.panel_top.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -174,5 +196,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel_top;
         private System.Windows.Forms.Panel panel_browser;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button_go;
     }
 }

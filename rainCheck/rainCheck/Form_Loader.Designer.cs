@@ -34,7 +34,7 @@
             this.label_logo = new System.Windows.Forms.Label();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.rectangleShape_loader_1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.rectangleShape_loader_2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.rectangleShape_loader = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.label_timer = new System.Windows.Forms.Label();
             this.label_loader = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.rectangleShape_loader_1,
-            this.rectangleShape_loader_2});
+            this.rectangleShape_loader});
             this.shapeContainer1.Size = new System.Drawing.Size(507, 239);
             this.shapeContainer1.TabIndex = 3;
             this.shapeContainer1.TabStop = false;
@@ -80,14 +80,14 @@
             this.rectangleShape_loader_1.Name = "rectangleShape_loader_1";
             this.rectangleShape_loader_1.Size = new System.Drawing.Size(10, 23);
             // 
-            // rectangleShape_loader_2
+            // rectangleShape_loader
             // 
-            this.rectangleShape_loader_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
-            this.rectangleShape_loader_2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
-            this.rectangleShape_loader_2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
-            this.rectangleShape_loader_2.Location = new System.Drawing.Point(0, 190);
-            this.rectangleShape_loader_2.Name = "rectangleShape_loader_2";
-            this.rectangleShape_loader_2.Size = new System.Drawing.Size(515, 23);
+            this.rectangleShape_loader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
+            this.rectangleShape_loader.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape_loader.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
+            this.rectangleShape_loader.Location = new System.Drawing.Point(0, 190);
+            this.rectangleShape_loader.Name = "rectangleShape_loader";
+            this.rectangleShape_loader.Size = new System.Drawing.Size(515, 23);
             // 
             // timer
             // 
@@ -142,7 +142,7 @@
         private System.Windows.Forms.Label label_raincheck;
         private System.Windows.Forms.Label label_logo;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
-        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape_loader_2;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape_loader;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape_loader_1;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label_timer;

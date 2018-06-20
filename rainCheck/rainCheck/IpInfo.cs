@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace rainCheck
+﻿namespace rainCheck
 {
     class IpInfo
     {

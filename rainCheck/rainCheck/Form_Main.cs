@@ -20,6 +20,7 @@ namespace rainCheck
         {
             InitializeComponent();
 
+            //string city, string country, string isp
             this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
             // Design
@@ -28,50 +29,55 @@ namespace rainCheck
             DataToGridView("SELECT `domain_name` as 'Domain(s) List' FROM `domains`");
         }
 
-        private void dataGridView_devices_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView_devices.CurrentCell == null || dataGridView_devices.CurrentCell.Value == null || e.RowIndex == -1)
-            {
-                return;
-            }
-            else
-            {
-                // Gets a collection that contains all the rows
-                DataGridViewRow row = this.dataGridView_devices.Rows[e.RowIndex];
-                // Populate the textbox from specific value of the coordinates of column and row.
-                string domain = dataGridView_devices.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                InitializeChromium(domain);
+
+        private void Form_Main_Load(object sender, EventArgs e)
+        {
+            //dataGridView_domains.ClearSelection();
+
+            InitializeChromiumAsync();
+
+            foreach (DataGridViewColumn column in dataGridView_devices.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
 
-        public void InitializeChromium(string domain)
+        public void InitializeChromiumAsync()
         {
             try
             {
-                if (Cef.IsInitialized == true)
-                {
-                    MessageBox.Show("asd");
-                    MessageBox.Show(domain);
+                //using (ChromiumWebBrowser browser = new ChromiumWebBrowser("http://crawlbin.com/"))
+                //{
+                //    Stopwatch sw = new Stopwatch();
+                //    sw.Start();
+                //    await LoadPageAsync(browser);
+                //    sw.Stop();
+                //    string timeToLoad = sw.Elapsed.TotalSeconds.ToString();
+                //}
 
 
-                }
-                else
-                {
-                    MessageBox.Show("asd1");
-                    MessageBox.Show(domain);
+                CefSettings settings = new CefSettings();
+                
+                Cef.Initialize(settings);
 
-                    CefSettings settings = new CefSettings();
+                textBox_domain.Text = "google.com";
 
-                    // Initialize cef with the provided settings
-                    Cef.Initialize(settings);
+                chromeBrowser = new ChromiumWebBrowser(textBox_domain.Text);
 
-                    // Create a browser component
-                    chromeBrowser = new ChromiumWebBrowser(domain);
-                    // Add it to the form and fill it to the form window.
-                    panel_browser.Controls.Add(chromeBrowser);
-                    chromeBrowser.Dock = DockStyle.Fill;
-                }
+                panel_browser.Controls.Add(chromeBrowser);
+                chromeBrowser.Dock = DockStyle.Fill;
+                                               
+                chromeBrowser.AddressChanged += ChromeBrowser_AddressChanged;
+
+                //JavascriptResponse JavaScriptResponsePageLoadTime = await chromeBrowser.EvaluateScriptAsync(@"
+                //(function() {
+                //    var perfData = window.performance.timing;
+                //    var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                //    return pageLoadTime;
+                // })();
+                //");
+                //Int32 JavaScriptResultPageLoadTime = (Int32)(JavaScriptResponsePageLoadTime.Success ? (JavaScriptResponsePageLoadTime.Result ?? "") : JavaScriptResponsePageLoadTime.Message);
             }
             catch (Exception e)
             {
@@ -79,20 +85,26 @@ namespace rainCheck
             }
         }
 
-        private void Form_Main_Load(object sender, EventArgs e)
+        private void ChromeBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            dataGridView_devices.ClearSelection();
+            this.Invoke(new MethodInvoker(() => 
+            {
+                textBox_domain.Text = e.Address;
+            }));
         }
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.No)
-            //{
-            //    e.Cancel = true;
-            //}
+            DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Cef.Shutdown();
+            }
 
-            Cef.Shutdown();
         }
 
         // Show domains
@@ -161,6 +173,42 @@ namespace rainCheck
                     con.Close();
                 }
             }
+        }
+
+        private void Button_go_Click(object sender, EventArgs e)
+        {
+            chromeBrowser.Load(textBox_domain.Text);
+        }
+
+        private void Label_domain_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, label_domain.DisplayRectangle, Color.Gray, ButtonBorderStyle.Solid);
+        }
+
+        private void TextBox_domain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void Button_start_Click(object sender, EventArgs e)
+        {
+            //DialogResult dr = MessageBox.Show("Are you sure you want to start?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (dr == DialogResult.Yes)
+            //{
+            //    MessageBox.Show("FIRE UP!");
+            //}
+        }
+
+        private void Button_pause_Click(object sender, EventArgs e)
+        {
+            //DialogResult dr = MessageBox.Show("Are you sure you want to pause?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (dr == DialogResult.Yes)
+            //{
+            //    MessageBox.Show("PAUSE!");
+            //}
         }
     }
 }

@@ -39,8 +39,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel_top = new System.Windows.Forms.Panel();
             this.panel_browser = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_domain = new System.Windows.Forms.TextBox();
             this.button_go = new System.Windows.Forms.Button();
+            this.label_domain = new System.Windows.Forms.Label();
+            this.button_start = new System.Windows.Forms.Button();
+            this.button_pause = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_devices)).BeginInit();
             this.panel_top.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +89,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_devices.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView_devices.Location = new System.Drawing.Point(14, 93);
+            this.dataGridView_devices.Location = new System.Drawing.Point(14, 90);
             this.dataGridView_devices.Name = "dataGridView_devices";
             this.dataGridView_devices.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -101,7 +104,6 @@
             this.dataGridView_devices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_devices.Size = new System.Drawing.Size(180, 609);
             this.dataGridView_devices.TabIndex = 18;
-            this.dataGridView_devices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_devices_CellClick);
             // 
             // label_globe
             // 
@@ -140,27 +142,87 @@
             this.panel_browser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_browser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel_browser.Location = new System.Drawing.Point(216, 122);
+            this.panel_browser.Location = new System.Drawing.Point(216, 125);
             this.panel_browser.Name = "panel_browser";
             this.panel_browser.Size = new System.Drawing.Size(1006, 513);
             this.panel_browser.TabIndex = 19;
             // 
-            // textBox1
+            // textBox_domain
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(216, 93);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(359, 20);
-            this.textBox1.TabIndex = 20;
+            this.textBox_domain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_domain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_domain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_domain.Location = new System.Drawing.Point(765, 95);
+            this.textBox_domain.Multiline = true;
+            this.textBox_domain.Name = "textBox_domain";
+            this.textBox_domain.Size = new System.Drawing.Size(369, 18);
+            this.textBox_domain.TabIndex = 20;
+            this.textBox_domain.Text = "google.com";
+            this.textBox_domain.WordWrap = false;
+            this.textBox_domain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_domain_KeyDown);
             // 
             // button_go
             // 
-            this.button_go.Location = new System.Drawing.Point(581, 93);
+            this.button_go.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_go.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.button_go.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_go.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_go.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_go.ForeColor = System.Drawing.Color.White;
+            this.button_go.Location = new System.Drawing.Point(1147, 88);
             this.button_go.Name = "button_go";
-            this.button_go.Size = new System.Drawing.Size(75, 23);
+            this.button_go.Size = new System.Drawing.Size(75, 30);
             this.button_go.TabIndex = 21;
             this.button_go.Text = "Go";
-            this.button_go.UseVisualStyleBackColor = true;
+            this.button_go.UseVisualStyleBackColor = false;
+            this.button_go.Click += new System.EventHandler(this.Button_go_Click);
+            // 
+            // label_domain
+            // 
+            this.label_domain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_domain.Location = new System.Drawing.Point(756, 89);
+            this.label_domain.Name = "label_domain";
+            this.label_domain.Size = new System.Drawing.Size(386, 29);
+            this.label_domain.TabIndex = 22;
+            this.label_domain.Paint += new System.Windows.Forms.PaintEventHandler(this.Label_domain_Paint);
+            // 
+            // button_start
+            // 
+            this.button_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.button_start.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_start.ForeColor = System.Drawing.Color.White;
+            this.button_start.Image = ((System.Drawing.Image)(resources.GetObject("button_start.Image")));
+            this.button_start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_start.Location = new System.Drawing.Point(217, 88);
+            this.button_start.Name = "button_start";
+            this.button_start.Padding = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.button_start.Size = new System.Drawing.Size(82, 30);
+            this.button_start.TabIndex = 23;
+            this.button_start.Text = "Start";
+            this.button_start.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_start.UseVisualStyleBackColor = false;
+            this.button_start.Click += new System.EventHandler(this.Button_start_Click);
+            // 
+            // button_pause
+            // 
+            this.button_pause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.button_pause.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_pause.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_pause.ForeColor = System.Drawing.Color.White;
+            this.button_pause.Image = global::rainCheck.Properties.Resources.pause;
+            this.button_pause.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_pause.Location = new System.Drawing.Point(310, 88);
+            this.button_pause.Name = "button_pause";
+            this.button_pause.Padding = new System.Windows.Forms.Padding(3, 0, 2, 0);
+            this.button_pause.Size = new System.Drawing.Size(82, 30);
+            this.button_pause.TabIndex = 24;
+            this.button_pause.Text = "Pause";
+            this.button_pause.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_pause.UseVisualStyleBackColor = false;
+            this.button_pause.Click += new System.EventHandler(this.Button_pause_Click);
             // 
             // Form_Main
             // 
@@ -168,8 +230,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1234, 729);
+            this.Controls.Add(this.button_pause);
+            this.Controls.Add(this.button_start);
+            this.Controls.Add(this.textBox_domain);
+            this.Controls.Add(this.label_domain);
             this.Controls.Add(this.button_go);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView_devices);
             this.Controls.Add(this.panel_browser);
             this.Controls.Add(this.label_separator);
@@ -196,7 +261,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel_top;
         private System.Windows.Forms.Panel panel_browser;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_domain;
         private System.Windows.Forms.Button button_go;
+        private System.Windows.Forms.Label label_domain;
+        private System.Windows.Forms.Button button_start;
+        private System.Windows.Forms.Button button_pause;
     }
 }

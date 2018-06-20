@@ -14,7 +14,7 @@ namespace rainCheck
     public partial class Form_Main : Form
     {
         MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
-        
+
         public ChromiumWebBrowser chromeBrowser { get; private set; }
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
@@ -66,7 +66,7 @@ namespace rainCheck
 
                     // Initialize cef with the provided settings
                     Cef.Initialize(settings);
-                    
+
                     // Create a browser component
                     chromeBrowser = new ChromiumWebBrowser(domain);
                     // Add it to the form and fill it to the form window.
@@ -74,7 +74,7 @@ namespace rainCheck
                     chromeBrowser.Dock = DockStyle.Fill;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -114,7 +114,7 @@ namespace rainCheck
                     {
                         BindingSource source = new BindingSource();
                         source.DataSource = table;
-                        
+
                         table.Rows.Add("No data available in table");
 
                         dataGridView_devices.DataSource = source;

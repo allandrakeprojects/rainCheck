@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rainCheck", "rainCheck\rainCheck.csproj", "{C951C81D-9E8A-4575-9BF6-D1878AD67759}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{74C030A8-581A-441E-8B3C-44E3AF1518F2}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{FA1F31C9-AD75-408D-ADB4-03422587D3C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,20 +15,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.Build.0 = Debug|x64
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|x86.ActiveCfg = Debug|x86
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Debug|x86.Build.0 = Debug|x86
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|x86.ActiveCfg = Release|x86
 		{C951C81D-9E8A-4575-9BF6-D1878AD67759}.Release|x86.Build.0 = Release|x86
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Debug|Any CPU.ActiveCfg = Debug
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Debug|x86.ActiveCfg = Debug
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Debug|x86.Build.0 = Debug
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Release|Any CPU.ActiveCfg = Release
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Release|x86.ActiveCfg = Release
-		{74C030A8-581A-441E-8B3C-44E3AF1518F2}.Release|x86.Build.0 = Release
+		{FA1F31C9-AD75-408D-ADB4-03422587D3C3}.Debug|Any CPU.ActiveCfg = Debug
+		{FA1F31C9-AD75-408D-ADB4-03422587D3C3}.Debug|x86.ActiveCfg = Debug
+		{FA1F31C9-AD75-408D-ADB4-03422587D3C3}.Release|Any CPU.ActiveCfg = Release
+		{FA1F31C9-AD75-408D-ADB4-03422587D3C3}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

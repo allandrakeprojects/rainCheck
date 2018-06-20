@@ -66,6 +66,9 @@ namespace rainCheck
         }
 
         int i = 0;
+        string city;
+        string country;
+        string isp;
         private void Timer_Tick(object sender, EventArgs e)
         {
             panel_loader.BringToFront();
@@ -96,6 +99,10 @@ namespace rainCheck
                                 label_region.Text = locationDetails.regionName;
                                 label_country.Text = locationDetails.country;
                                 label_isp.Text = locationDetails.isp;
+
+                                city = locationDetails.city;
+                                country = locationDetails.country;
+                                isp = locationDetails.isp; 
 
                                 string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -169,6 +176,7 @@ namespace rainCheck
                             con.Close();
 
                             Form_Main form_main = new Form_Main();
+                            //city, country, isp
                             this.Hide();
                             form_main.ShowDialog();
                             this.Close();

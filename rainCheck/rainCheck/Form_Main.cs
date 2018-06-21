@@ -3,7 +3,11 @@ using CefSharp.WinForms;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -16,26 +20,25 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main(string city, string country, string isp)
+        public Form_Main()
         {
             InitializeComponent();
 
             //string city, string country, string isp
-            this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            //this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
             // Design
             this.WindowState = FormWindowState.Maximized;
 
-            DataToGridView("SELECT `domain_name` as 'Domain(s) List' FROM `domains`");
+            //DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List' FROM domains d inner join brands b ON d.brandname=b.brand_name order by FIELD(d.brandname, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
+            DataToGridView("select domain_name as 'Domain(s) List' from domains");
         }
-
-
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
             //dataGridView_domains.ClearSelection();
 
-            InitializeChromiumAsync();
+            InitializeChromium();
 
             foreach (DataGridViewColumn column in dataGridView_devices.Columns)
             {
@@ -43,7 +46,7 @@ namespace rainCheck
             }
         }
 
-        public void InitializeChromiumAsync()
+        private void InitializeChromium()
         {
             try
             {
@@ -56,28 +59,20 @@ namespace rainCheck
                 //    string timeToLoad = sw.Elapsed.TotalSeconds.ToString();
                 //}
 
-
                 CefSettings settings = new CefSettings();
-                
+
                 Cef.Initialize(settings);
 
                 textBox_domain.Text = "google.com";
-
+                
                 chromeBrowser = new ChromiumWebBrowser(textBox_domain.Text);
 
                 panel_browser.Controls.Add(chromeBrowser);
-                chromeBrowser.Dock = DockStyle.Fill;
-                                               
-                chromeBrowser.AddressChanged += ChromeBrowser_AddressChanged;
 
-                //JavascriptResponse JavaScriptResponsePageLoadTime = await chromeBrowser.EvaluateScriptAsync(@"
-                //(function() {
-                //    var perfData = window.performance.timing;
-                //    var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                //    return pageLoadTime;
-                // })();
-                //");
-                //Int32 JavaScriptResultPageLoadTime = (Int32)(JavaScriptResponsePageLoadTime.Success ? (JavaScriptResponsePageLoadTime.Result ?? "") : JavaScriptResponsePageLoadTime.Message);
+                chromeBrowser.Dock = DockStyle.Fill;
+                chromeBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
+                chromeBrowser.AddressChanged += ChromiumWebBrowser_AddressChanged;
+                //chromeBrowser.LoadError += BrowserLoadError;
             }
             catch (Exception e)
             {
@@ -85,7 +80,9 @@ namespace rainCheck
             }
         }
 
-        private void ChromeBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
+
+
+        private void ChromiumWebBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             this.Invoke(new MethodInvoker(() => 
             {
@@ -93,18 +90,122 @@ namespace rainCheck
             }));
         }
 
-        private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
+        //private static void BrowserLoadError(object sender, LoadErrorEventArgs e)
+        //{
+        //    MessageBox.Show("This is not called");
+        //}
+        
+        public int i = 1;
+        private void Timer_timeout_Tick(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.No)
+            if (InvokeRequired) { Invoke(new Action(() => { Timer_timeout_Tick(sender, e); })); return; }
+            label3.Text = i++.ToString();
+
+            //if(i >= 2)
+            //{
+            //    // timeout message
+            //    MessageBox.Show("timeout");
+
+            //    // Stop function
+            //    timer_timeout.Stop();
+            //    chromeBrowser.Stop();
+
+            //    // Date preview
+            //    string end_load = DateTime.Now.ToString("hh:mm:ss");
+            //    MessageBox.Show(end_load);
+
+            //    // Set i to 1
+            //    i = 1;
+
+            //    return;
+            //}
+        }
+
+        string datetime = DateTime.Now.ToString("yyyy-MM-dd");
+        string start_load = "";
+        string end_load = "";
+
+        public void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {   
+            if (e.IsLoading)
             {
-                e.Cancel = true;
+                // Start time
+                timer_timeout.Start();
+
+                // Date preview
+                start_load = DateTime.Now.ToString("HH:mm:ss");
             }
-            else
+            else if (!e.IsLoading)
             {
-                Cef.Shutdown();
+                // Start time
+                timer_timeout.Stop();
+                
+                // Date preview
+                end_load = DateTime.Now.ToString("HH:mm:ss");
+
+                // Set i to 1
+                i = 1;
+
+                DataToTextFile();
             }
 
+            
+
+            //INSERT INTO `domains` (`id`, `domain_name`, `brandname`, `status`, `website_type`, `channel`, `purpose`, `member`, `remark`, `created_date`, `created_by`, `updated_date`, `updated_by`) VALUES
+            //(1, '1052a.com', 'Chang Le', 'A', 'Home page', 'Sales', 'purpose example', 'Acq,VIP1,asd1', 'qweqwe', '2018-06-18 01:02:44', 'ADMIN', '2018-06-14 11:59:19', 'ADMIN'),
+            //(2, '2589b.com', 'Chang Le', 'A', 'Forum', '', '', 'Acq,VIP1,VIP2', 'qweqwe', '2018-06-18 01:36:49', 'ADMIN', '2018-06-18 16:36:37', 'ADMIN');
+        }
+
+        private void DataToTextFile()
+        {
+            MessageBox.Show("Date Today: " + datetime + "\n" +
+                            "Start Time: " + start_load + "\n" +
+                            "End Time: " + end_load);
+
+            try
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Import.txt", true);
+
+                //Write a line of text
+                //sw.WriteLine("null, \t " + textBox_domain.Text + " '\t successful' '\t brand' '\t program start' '\t" + start_load + "' '\t" + end_load + "' '\t text search' '\t url hijacker' '\t hijacker' '\t printscreen' '\t isp' '\t city' '\t  + datetime + "', \t null");
+
+
+                sw.WriteLine("null" + "\t"+textBox_domain.Text + "\tsuccessful" + "\tbrand" + "\tprogram start" + "\t"+start_load + "\t"+end_load + "\ttext search" + "\turl hijacker" + "\thijacker" + "\tprintscreen" + "\tisp" + "\tcity" + "\t"+datetime + "\tnull");
+
+                //Close the file
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+        }
+
+        private async void GetLoadTimeAsync()
+        {
+            JavascriptResponse JavaScriptResponsePageLoadTime = await chromeBrowser.EvaluateScriptAsync(@"
+                (function() {
+                    var perfData = window.performance.timing;
+                    var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                    return pageLoadTime;
+                 })();
+                ");
+            Int32 JavaScriptResultPageLoadTime = (Int32)(JavaScriptResponsePageLoadTime.Success ? (JavaScriptResponsePageLoadTime.Result ?? "") : JavaScriptResponsePageLoadTime.Message);
+            MessageBox.Show(JavaScriptResultPageLoadTime.ToString());
+        }
+
+        private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (dr == DialogResult.No)
+            //{
+            //    e.Cancel = true;
+            //}
+            //else
+            //{
+            //    Cef.Shutdown();
+            //}
         }
 
         // Show domains
@@ -209,6 +310,36 @@ namespace rainCheck
             //{
             //    MessageBox.Show("PAUSE!");
             //}
+        }
+
+        private void Button_upload_Click(object sender, EventArgs e)
+        {
+            using (con)
+            {
+                try
+                {
+                    con.Open();
+                    string sql = "LOAD DATA LOCAL INFILE '" + AppDomain.CurrentDomain.BaseDirectory + "\\Import.txt" + "' INTO TABLE reports FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'";
+
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+
+                    //panel_blank.Visible = true;
+                    //panel_blank.BringToFront();
+                    panel_top.Visible = false;
+                    MessageBox.Show("There is a problem with the server! Please contact IT support. asdsadsad2 " + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 }

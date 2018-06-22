@@ -18,20 +18,26 @@ namespace rainCheck
 
         public ChromiumWebBrowser chromeBrowser { get; private set; }
 
+        string city_get;
+        string isp_get;
+
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main()
+        public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
 
             //string city, string country, string isp
-            //this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            this.Text = "rainCheck: " + city + ", " + country + " - " + isp;
+
+            city_get = city;
+            isp_get = isp;
 
             // Design
             this.WindowState = FormWindowState.Maximized;
 
-            //DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List' FROM domains d inner join brands b ON d.brandname=b.brand_name order by FIELD(d.brandname, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
-            DataToGridView("select domain_name as 'Domain(s) List' from domains");
+            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, d.brand_name FROM domains d inner join brands b ON d.brand_name=b.brand_name order by FIELD(d.brand_name, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
+            //DataToGridView("select domain_name as 'Domain(s) List', brand_name from domains");
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -44,6 +50,19 @@ namespace rainCheck
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+
+            // Hide Column brand_name
+            dataGridView_devices.Columns["domain_name"].Visible = false;
+            dataGridView_devices.Columns["brand_name"].Visible = false;
+
+            // Hide loader
+            pictureBox_loader.Visible = false;
+
+            // Clear Selection of datagridview
+            dataGridView_devices.ClearSelection();
+
+            label_domainhide.Text = "";
+            label_brandhide.Text = "";
         }
 
         private void InitializeChromium()
@@ -63,8 +82,8 @@ namespace rainCheck
 
                 Cef.Initialize(settings);
 
-                textBox_domain.Text = "google.com";
-                
+                //textBox_domain.Text = "google.com";
+
                 chromeBrowser = new ChromiumWebBrowser(textBox_domain.Text);
 
                 panel_browser.Controls.Add(chromeBrowser);
@@ -129,6 +148,12 @@ namespace rainCheck
         {   
             if (e.IsLoading)
             {
+                this.Invoke(new Action(() =>
+                {
+                    pictureBox_loader.Visible = true;
+                }));
+
+
                 // Start time
                 timer_timeout.Start();
 
@@ -137,6 +162,11 @@ namespace rainCheck
             }
             else if (!e.IsLoading)
             {
+                this.Invoke(new Action(() =>
+                {
+                    pictureBox_loader.Visible = false ;
+                }));
+
                 // Start time
                 timer_timeout.Stop();
                 
@@ -156,50 +186,33 @@ namespace rainCheck
 
         private void DataToTextFile()
         {
-            MessageBox.Show("Date Today: " + datetime + "\n" +
-                            "Start Time: " + start_load + "\n" +
-                            "End Time: " + end_load);
+            //MessageBox.Show("Date Today: " + datetime + "\n" +
+            //                "Start Time: " + start_load + "\n" +
+            //                "End Time: " + end_load);
 
             try
             {
                 StreamWriter sw = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
                 sw.Close();
-
-                MessageBox.Show("asd1");
-                string contain_text = textBox_domain.Text;
+                
+                string contain_text = label_domainhide.Text;
                 if (File.ReadLines(Path.GetTempPath() + @"\import.txt").Any(line => line.Contains(contain_text)))
                 {
-                    MessageBox.Show("asd2");
+                    // Leave for blank
                 }
                 else
                 {
-                    MessageBox.Show("asd3");
                     StreamWriter swww = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
 
-                    swww.WriteLine("null" + "," + textBox_domain.Text + ",successful" + ",brand" + ",tprogram start" + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + ",isp" + ",city" + "," + datetime + ",null");
+                    swww.WriteLine("null" + ","+label_domainhide.Text + ",successful" + ","+label_brandhide.Text + ",tprogram start" + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + ","+isp_get + ","+city_get + "," + datetime + ",null");
 
                     swww.Close();
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Exception: " + ex.Message);
             }
-        }
-
-        private async void GetLoadTimeAsync()
-        {
-            JavascriptResponse JavaScriptResponsePageLoadTime = await chromeBrowser.EvaluateScriptAsync(@"
-                (function() {
-                    var perfData = window.performance.timing;
-                    var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                    return pageLoadTime;
-                 })();
-                ");
-            Int32 JavaScriptResultPageLoadTime = (Int32)(JavaScriptResponsePageLoadTime.Success ? (JavaScriptResponsePageLoadTime.Result ?? "") : JavaScriptResponsePageLoadTime.Message);
-            MessageBox.Show(JavaScriptResultPageLoadTime.ToString());
         }
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -212,6 +225,155 @@ namespace rainCheck
             //else
             //{
             //    Cef.Shutdown();
+            //}
+        }
+
+        private void Button_go_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Label_domain_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, label_domain.DisplayRectangle, Color.Gray, ButtonBorderStyle.Solid);
+        }
+
+        private void TextBox_domain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void Button_start_Click(object sender, EventArgs e)
+        {
+            //DialogResult dr = MessageBox.Show("Are you sure you want to start?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (dr == DialogResult.Yes)
+            //{
+            //    MessageBox.Show("FIRE UP!");
+            //}
+
+            // Set selected in datagridview
+            dataGridView_devices.Rows[0].Selected = true;
+        }
+
+        private void Button_pause_Click(object sender, EventArgs e)
+        {
+            //DialogResult dr = MessageBox.Show("Are you sure you want to pause?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (dr == DialogResult.Yes)
+            //{
+            //    MessageBox.Show("PAUSE!");
+            //}
+        }
+
+        private void Button_upload_Click(object sender, EventArgs e)
+        {
+            string line;
+
+            using (con)
+            {
+                try
+                {
+                    con.Open();
+                    StreamReader sr = new StreamReader(Path.GetTempPath() + @"\import.txt", System.Text.Encoding.UTF8);
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] fields = line.Split(',');
+
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `program_start`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `date_created`, `action_by`) VALUES " +
+                            "(@id, @domain_name, @status, @brand, @program_start, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @date_created, @action_by)", con);
+                        cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                        cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                        cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                        cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                        cmd.Parameters.AddWithValue("@program_start", fields[4].ToString());
+                        cmd.Parameters.AddWithValue("@start_load", fields[5].ToString());
+                        cmd.Parameters.AddWithValue("@end_load", fields[6].ToString());
+                        cmd.Parameters.AddWithValue("@text_search", fields[7].ToString());
+                        cmd.Parameters.AddWithValue("@url_hijacker", fields[8].ToString());
+                        cmd.Parameters.AddWithValue("@hijacker", fields[9].ToString());
+                        cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
+                        cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
+                        cmd.Parameters.AddWithValue("@city", fields[12].ToString());
+                        cmd.Parameters.AddWithValue("@date_created", fields[13].ToString());
+                        cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    sr.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+        
+        private void DataGridView_devices_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (dataGridView_devices.CurrentCell == null || dataGridView_devices.CurrentCell.Value == null || e.RowIndex == -1)
+            //{
+            //    return;
+            //}
+            //else
+            //{
+            //    DataGridViewRow row = this.dataGridView_devices.Rows[e.RowIndex];
+            //    string domain = dataGridView_devices.Rows[e.RowIndex].Cells[1].Value.ToString();
+            //    string brand = dataGridView_devices.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            //    // Load Browser
+            //    chromeBrowser.Load(domain);
+
+            //    label_domainhide.Text = domain;
+            //    label_brandhide.Text = brand;
+            //}
+        }
+
+        // SELECTED CHANGED
+        private void DataGridView_devices_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView_devices.CurrentCell == null || dataGridView_devices.CurrentCell.Value == null)
+            {
+                return;
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dataGridView_devices.SelectedRows)
+                {
+                    string domain = row.Cells[1].Value.ToString();
+                    string brand = row.Cells[2].Value.ToString();
+
+                    try
+                    {
+                        // Load Browser
+                        chromeBrowser.Load(domain);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Write(ex);
+                    }
+
+                    label_domainhide.Text = domain;
+                    label_brandhide.Text = brand;
+                }
+            }
+
+            //if (sender is DataGridView dgv && dgv.SelectedRows.Count > 0)
+            //{
+            //    DataGridViewRow row = dgv.SelectedRows[0];
+            //    if (row != null)
+            //    {
+            //        string domain = row.Cells[1].Value.ToString();
+            //        string brand = row.Cells[2].Value.ToString();
+
+            //        label_domainhide.Text = domain;
+            //        label_brandhide.Text = brand;
+
+            //        // Load Browser
+            //        chromeBrowser.Load(domain);
+            //    }
             //}
         }
 
@@ -281,86 +443,6 @@ namespace rainCheck
                     con.Close();
                 }
             }
-        }
-
-        private void Button_go_Click(object sender, EventArgs e)
-        {
-            chromeBrowser.Load(textBox_domain.Text);
-        }
-
-        private void Label_domain_Paint(object sender, PaintEventArgs e)
-        {
-            ControlPaint.DrawBorder(e.Graphics, label_domain.DisplayRectangle, Color.Gray, ButtonBorderStyle.Solid);
-        }
-
-        private void TextBox_domain_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void Button_start_Click(object sender, EventArgs e)
-        {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to start?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.Yes)
-            //{
-            //    MessageBox.Show("FIRE UP!");
-            //}
-        }
-
-        private void Button_pause_Click(object sender, EventArgs e)
-        {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to pause?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.Yes)
-            //{
-            //    MessageBox.Show("PAUSE!");
-            //}
-        }
-
-        private void Button_upload_Click(object sender, EventArgs e)
-        {
-            string line;
-
-            using (con)
-            {
-                try
-                {
-                    con.Open();
-                    StreamReader sr = new StreamReader(Path.GetTempPath() + @"\import.txt", System.Text.Encoding.UTF8);
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        string[] fields = line.Split(',');
-
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `program_start`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `date_created`, `action_by`) VALUES " +
-                            "(@id, @domain_name, @status, @brand, @program_start, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @date_created, @action_by)", con);
-                        cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                        cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                        cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                        cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                        cmd.Parameters.AddWithValue("@program_start", fields[4].ToString());
-                        cmd.Parameters.AddWithValue("@start_load", fields[5].ToString());
-                        cmd.Parameters.AddWithValue("@end_load", fields[6].ToString());
-                        cmd.Parameters.AddWithValue("@text_search", fields[7].ToString());
-                        cmd.Parameters.AddWithValue("@url_hijacker", fields[8].ToString());
-                        cmd.Parameters.AddWithValue("@hijacker", fields[9].ToString());
-                        cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
-                        cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
-                        cmd.Parameters.AddWithValue("@city", fields[12].ToString());
-                        cmd.Parameters.AddWithValue("@date_created", fields[13].ToString());
-                        cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    sr.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
         }
     }
 }

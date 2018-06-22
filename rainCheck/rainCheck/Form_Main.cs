@@ -147,9 +147,7 @@ namespace rainCheck
                 i = 1;
 
                 DataToTextFile();
-            }
-
-            
+            }            
 
             //INSERT INTO `domains` (`id`, `domain_name`, `brandname`, `status`, `website_type`, `channel`, `purpose`, `member`, `remark`, `created_date`, `created_by`, `updated_date`, `updated_by`) VALUES
             //(1, '1052a.com', 'Chang Le', 'A', 'Home page', 'Sales', 'purpose example', 'Acq,VIP1,asd1', 'qweqwe', '2018-06-18 01:02:44', 'ADMIN', '2018-06-14 11:59:19', 'ADMIN'),
@@ -164,17 +162,26 @@ namespace rainCheck
 
             try
             {
-                //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Import.txt", true);
-
-                //Write a line of text
-                //sw.WriteLine("null, \t " + textBox_domain.Text + " '\t successful' '\t brand' '\t program start' '\t" + start_load + "' '\t" + end_load + "' '\t text search' '\t url hijacker' '\t hijacker' '\t printscreen' '\t isp' '\t city' '\t  + datetime + "', \t null");
-
-
-                sw.WriteLine("null" + "\t"+textBox_domain.Text + "\tsuccessful" + "\tbrand" + "\tprogram start" + "\t"+start_load + "\t"+end_load + "\ttext search" + "\turl hijacker" + "\thijacker" + "\tprintscreen" + "\tisp" + "\tcity" + "\t"+datetime + "\tnull");
-
-                //Close the file
+                StreamWriter sw = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
                 sw.Close();
+
+                MessageBox.Show("asd1");
+                string contain_text = textBox_domain.Text;
+                if (File.ReadLines(Path.GetTempPath() + @"\import.txt").Any(line => line.Contains(contain_text)))
+                {
+                    MessageBox.Show("asd2");
+                }
+                else
+                {
+                    MessageBox.Show("asd3");
+                    StreamWriter swww = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
+
+                    swww.WriteLine("null" + "," + textBox_domain.Text + ",successful" + ",brand" + ",tprogram start" + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + ",isp" + ",city" + "," + datetime + ",null");
+
+                    swww.Close();
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -266,7 +273,7 @@ namespace rainCheck
                     //panel_blank.Visible = true;
                     //panel_blank.BringToFront();
                     panel_top.Visible = false;
-                    MessageBox.Show("There is a problem with the server! Please contact IT support. main " + e.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + e.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
                 finally
@@ -314,32 +321,46 @@ namespace rainCheck
 
         private void Button_upload_Click(object sender, EventArgs e)
         {
+            string line;
+
             using (con)
             {
                 try
                 {
                     con.Open();
-                    string sql = "LOAD DATA LOCAL INFILE '" + AppDomain.CurrentDomain.BaseDirectory + "\\Import.txt" + "' INTO TABLE reports FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'";
+                    StreamReader sr = new StreamReader(Path.GetTempPath() + @"\import.txt", System.Text.Encoding.UTF8);
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] fields = line.Split(',');
 
-                    MySqlCommand cmd = new MySqlCommand(sql, con);
-                    cmd.ExecuteNonQuery();
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `program_start`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `date_created`, `action_by`) VALUES " +
+                            "(@id, @domain_name, @status, @brand, @program_start, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @date_created, @action_by)", con);
+                        cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                        cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                        cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                        cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                        cmd.Parameters.AddWithValue("@program_start", fields[4].ToString());
+                        cmd.Parameters.AddWithValue("@start_load", fields[5].ToString());
+                        cmd.Parameters.AddWithValue("@end_load", fields[6].ToString());
+                        cmd.Parameters.AddWithValue("@text_search", fields[7].ToString());
+                        cmd.Parameters.AddWithValue("@url_hijacker", fields[8].ToString());
+                        cmd.Parameters.AddWithValue("@hijacker", fields[9].ToString());
+                        cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
+                        cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
+                        cmd.Parameters.AddWithValue("@city", fields[12].ToString());
+                        cmd.Parameters.AddWithValue("@date_created", fields[13].ToString());
+                        cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
+                        cmd.ExecuteNonQuery();
+                    }
 
+                    sr.Close();
                 }
                 catch (Exception ex)
                 {
-                    con.Close();
-
-                    //panel_blank.Visible = true;
-                    //panel_blank.BringToFront();
-                    panel_top.Visible = false;
-                    MessageBox.Show("There is a problem with the server! Please contact IT support. asdsadsad2 " + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                finally
-                {
-                    con.Close();
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
     }
 }

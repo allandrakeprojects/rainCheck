@@ -175,7 +175,7 @@ namespace rainCheck
                         {
                             con.Close();
                             //city, country, isp
-                            Form_Main form_main = new Form_Main(city, country, isp);
+                            Form_Main form_main = new Form_Main();
                             
                             this.Hide();
                             form_main.ShowDialog();

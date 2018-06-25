@@ -38,12 +38,12 @@ namespace rainCheck
             // Design
             this.WindowState = FormWindowState.Maximized;
 
-            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id FROM domains d inner join brands b ON d.brand_name=b.brand_name order by FIELD(d.brand_name, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
+            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id FROM domains d inner join brands b ON d.brand_name=b.id order by FIELD(d.brand_name, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
             //DataToGridView("select domain_name as 'Domain(s) List', brand_name from domains");
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
-        {   
+        {
             //dataGridView_domains.ClearSelection();
 
             InitializeChromium();
@@ -544,13 +544,15 @@ namespace rainCheck
                 //int currentIndexGet = Convert.ToInt32(label4.Text)+1;
                 //MessageBox.Show(currentIndexGet.ToString());
                 //dataGridView_domain.Rows[currentIndexGet].Selected = true;
-
-
+                
                 int domain_total = dataGridView_domain.RowCount;
                 int index = dataGridView_domain.SelectedRows[0].Index + 1;
+                label6.Text = index.ToString();
 
                 if (index == domain_total)
                 {
+                    dataGridView_domain.ClearSelection();
+                    
                     string line;
 
                     using (con)
@@ -592,6 +594,7 @@ namespace rainCheck
                 }
                 else
                 {
+                    dataGridView_domain.FirstDisplayedScrollingRowIndex = index;
                     dataGridView_domain.Rows[index].Selected = true;
                 }
             }
@@ -606,7 +609,9 @@ namespace rainCheck
             //}
 
             timer_domain.Start();
-            dataGridView_domain.Rows[0].Selected = true;
+            int getCurrentIndex = Convert.ToInt32(label6.Text);
+            dataGridView_domain.ClearSelection();
+            dataGridView_domain.Rows[getCurrentIndex].Selected = true;
 
 
 
@@ -746,50 +751,7 @@ namespace rainCheck
             //}
 
             timer_domain.Stop();
-        }
-
-        private void Button_upload_Click(object sender, EventArgs e)
-        {
-            string line;
-
-            using (con)
-            {
-                try
-                {
-                    con.Open();
-                    StreamReader sr = new StreamReader(Path.GetTempPath() + @"\import.txt", System.Text.Encoding.UTF8);
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        string[] fields = line.Split(',');
-
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `program_start`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                            "(@id, @domain_name, @status, @brand, @program_start, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
-                        cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                        cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                        cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                        cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                        cmd.Parameters.AddWithValue("@program_start", fields[4].ToString());
-                        cmd.Parameters.AddWithValue("@start_load", fields[5].ToString());
-                        cmd.Parameters.AddWithValue("@end_load", fields[6].ToString());
-                        cmd.Parameters.AddWithValue("@text_search", fields[7].ToString());
-                        cmd.Parameters.AddWithValue("@url_hijacker", fields[8].ToString());
-                        cmd.Parameters.AddWithValue("@hijacker", fields[9].ToString());
-                        cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
-                        cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
-                        cmd.Parameters.AddWithValue("@city", fields[12].ToString());
-                        cmd.Parameters.AddWithValue("@datetime_created", fields[13].ToString());
-                        cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    sr.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
+            pictureBox_loader.Visible = false;
         }
         
         private void DataGridView_devices_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -937,9 +899,11 @@ namespace rainCheck
             label5.Text = domain_i++.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Timer_rtc_Tick(object sender, EventArgs e)
         {
-            dataGridView_domain.ClearSelection();
+            string date = DateTime.Now.ToString("MMM dd");
+            string time = DateTime.Now.ToString("hh:mm");
+            label_rtc.Text = date + " " + time;
         }
     }
 }

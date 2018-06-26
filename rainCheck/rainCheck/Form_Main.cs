@@ -39,7 +39,6 @@ namespace rainCheck
             this.WindowState = FormWindowState.Maximized;
 
             DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id FROM domains d inner join brands b ON d.brand_name=b.id order by FIELD(d.brand_name, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
-            //DataToGridView("select domain_name as 'Domain(s) List', brand_name from domains");
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -65,21 +64,22 @@ namespace rainCheck
 
             label_domainhide.Text = "";
             label_brandhide.Text = "";
+
+            panel_loader.Left = (ClientSize.Width - panel_loader.Width) / 2;
+            panel_loader.Top = (ClientSize.Height - panel_loader.Height) / 2;
+
+            panel_uploaded.Left = (ClientSize.Width - panel_uploaded.Width) / 2;
+            panel_uploaded.Top = (ClientSize.Height - panel_uploaded.Height) / 2;
+
+            // Enabling scrolls
+            //dataGridView_domain.Controls[0].Enabled = true; // Index zero is the horizontal scrollbar
+            //dataGridView_domain.Controls[1].Enabled = true; // Index one is the vertical scrollbar
         }
 
         private void InitializeChromium()
         {
             try
             {
-                //using (ChromiumWebBrowser browser = new ChromiumWebBrowser("http://crawlbin.com/"))
-                //{
-                //    Stopwatch sw = new Stopwatch();
-                //    sw.Start();
-                //    await LoadPageAsync(browser);
-                //    sw.Stop();
-                //    string timeToLoad = sw.Elapsed.TotalSeconds.ToString();
-                //}
-
                 CefSettings settings = new CefSettings();
 
                 Cef.Initialize(settings);
@@ -142,7 +142,6 @@ namespace rainCheck
             //}
         }
 
-        string datetime = DateTime.Now.ToString("yyyy-MM-dd");
         string start_load = "";
         string end_load = "";
 
@@ -153,7 +152,7 @@ namespace rainCheck
                 if (e.IsLoading)
                 {
                     // Date preview
-                    start_load = DateTime.Now.ToString("HH:mm:ss");
+                    start_load = DateTime.Now.ToString("HH:mm:ss.fff");
                     
                     Invoke(new Action(() =>
                     {
@@ -166,7 +165,7 @@ namespace rainCheck
                 {
 
                     // Date preview
-                    end_load = DateTime.Now.ToString("HH:mm:ss");
+                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
 
                     // Send data to text file
                     DataToTextFile();
@@ -178,301 +177,36 @@ namespace rainCheck
                     }));
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //if (e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = true;
-            //        label2.Text = "1";
-            //    }));
-
-            //    // Start time
-            //    timer_timeout.Start();
-
-            //    // Date preview
-            //    start_load = DateTime.Now.ToString("HH:mm:ss");
-            //}
-            //else if (!e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = false;
-            //        label2.Text = "0";
-            //    }));
-
-            //    // Start time
-            //    timer_timeout.Stop();
-
-            //    // Date preview
-            //    end_load = DateTime.Now.ToString("HH:mm:ss");
-
-            //    // Set i to 1
-            //    i = 1;
-
-            //    DataToTextFile();
-            //}
-
-            // -----------------------
-            //int index_domain = 0;
-
-            //if (e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = true;
-            //        label2.Text = "1";
-            //    }));
-
-            //    // Date preview
-            //    start_load = DateTime.Now.ToString("HH:mm:ss");
-            //}
-
-            //if (!e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = false;
-            //        label2.Text = "0";
-            //    }));
-
-            //    // Start time
-            //    timer_timeout.Stop();
-
-            //    // Date preview
-            //    end_load = DateTime.Now.ToString("HH:mm:ss");
-
-            //    DataToTextFile();
-
-            //    index_domain++;
-            //    dataGridView_domain.Rows[index_domain].Selected = true;
-            //}
-            // -----------------------
-
-            //int i = 0;
-            //int domain_total = dataGridView_domain.RowCount;
-
-            //do
-            //{
-            //    if (e.IsLoading)
-            //    {
-            //        Invoke(new Action(() =>
-            //        {
-            //            pictureBox_loader.Visible = true;
-            //            label2.Text = "1";
-            //        }));
-
-            //        // Date preview
-            //        start_load = DateTime.Now.ToString("HH:mm:ss");
-            //        MessageBox.Show("if " + i.ToString());
-            //    }
-            //    else if (!e.IsLoading)
-            //    {
-            //        Invoke(new Action(() =>
-            //        {
-            //            pictureBox_loader.Visible = false;
-            //            label2.Text = "0";
-            //        }));
-
-            //        // Start time
-            //        timer_timeout.Stop();
-
-            //        // Date preview
-            //        end_load = DateTime.Now.ToString("HH:mm:ss");
-
-            //        DataToTextFile();
-
-            //        i++;
-            //        dataGridView_domain.Rows[i].Selected = true;
-
-            //        MessageBox.Show("else if " + i.ToString());
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("else");
-            //    }
-
-            //} while (i < domain_total);
-
-            //int total_i = 0;
-            //int total_row = dataGridView_domain.RowCount;
-            //bool bool_domain = true;
-
-            //while (total_i < total_row)
-            //{
-            //    MessageBox.Show(total_i.ToString());
-            //    MessageBox.Show("fire up!");
-
-            //    if (e.IsLoading)
-            //    {
-            //        Invoke(new Action(() =>
-            //        {
-            //            pictureBox_loader.Visible = true;
-            //            label2.Text = "1";
-            //        }));
-
-            //        //MessageBox.Show("is loading... " + total_i.ToString());
-
-            //        break;
-            //    }
-
-            //    if (!e.IsLoading)
-            //    {
-            //        Invoke(new Action(() =>
-            //        {
-            //            pictureBox_loader.Visible = false;
-            //            label2.Text = "0";
-            //        }));
-
-            //        //continue;
-            //        total_i++;
-            //        dataGridView_domain.Rows[total_i].Selected = true;
-
-            //        MessageBox.Show("loaded " + total_i.ToString());
-
-            //        break;
-            //    }
-
-            //    MessageBox.Show("test view");
-            //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //int i = 0;
-
-            //for (;;)
-            //{
-            //    if (i < total_row)
-            //    {
-            //        MessageBox.Show("Value of i: " + i.ToString());
-
-            //        if (e.IsLoading)
-            //        {
-            //            Invoke(new Action(() =>
-            //            {
-            //                label2.Text = "1";
-            //            }));
-            //        }
-
-            //        if (!e.IsLoading)
-            //        {
-            //            Invoke(new Action(() =>
-            //            {
-            //                label2.Text = "0";
-            //            }));
-
-
-            //            i++;
-            //            dataGridView_domain.Rows[i].Selected = true;
-            //        }
-
-            //    }
-            //    else
-            //        break;
-            //}
-
-            //while (bool_domain)
-            //{
-            //    if (e.IsLoading)
-            //    {
-            //        Invoke(new Action(() =>
-            //        {
-            //            label2.Text = "1";
-            //        }));
-
-            //        bool_domain = false;
-            //    }
-            //    MessageBox.Show("asd");
-            //    bool_domain = false;
-
-            //    else if (!e.IsLoading)
-            //    {
-            //        bool_domain = false;
-
-            //        Invoke(new Action(() =>
-            //        {
-            //            label2.Text = "0";
-            //        }));
-
-            //        total_i++;
-            //        MessageBox.Show("dasd" + total_i.ToString());
-            //        dataGridView_domain.Rows[total_i].Selected = true;
-            //    }
-            //}
-
-            //if (e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = true;
-            //        label2.Text = "1";
-            //    }));
-
-            //    // Start time
-            //    timer_timeout.Start();
-
-            //    // Date preview
-            //    start_load = DateTime.Now.ToString("HH:mm:ss");
-            //}
-            //else if (!e.IsLoading)
-            //{
-            //    Invoke(new Action(() =>
-            //    {
-            //        pictureBox_loader.Visible = false;
-            //        label2.Text = "0";
-            //    }));
-
-            //    // Start time
-            //    timer_timeout.Stop();
-
-            //    // Date preview
-            //    end_load = DateTime.Now.ToString("HH:mm:ss");
-
-            //    // Set i to 1
-            //    i = 1;
-
-            //    DataToTextFile();
-            //}            
-
-            //INSERT INTO `domains` (`id`, `domain_name`, `brandname`, `status`, `website_type`, `channel`, `purpose`, `member`, `remark`, `created_date`, `created_by`, `updated_date`, `updated_by`) VALUES
-            //(1, '1052a.com', 'Chang Le', 'A', 'Home page', 'Sales', 'purpose example', 'Acq,VIP1,asd1', 'qweqwe', '2018-06-18 01:02:44', 'ADMIN', '2018-06-14 11:59:19', 'ADMIN'),
-            //(2, '2589b.com', 'Chang Le', 'A', 'Forum', '', '', 'Acq,VIP1,VIP2', 'qweqwe', '2018-06-18 01:36:49', 'ADMIN', '2018-06-18 16:36:37', 'ADMIN');
+            else if (buttonGoWasClicked == true)
+            {
+                if (e.IsLoading)
+                {
+                    // Date preview
+                    start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                    Invoke(new Action(() =>
+                    {
+                        pictureBox_loader.Visible = true;
+                        button_go.Enabled = false;
+                    }));
+                }
+
+                if (!e.IsLoading)
+                {
+
+                    // Date preview
+                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                    // Send data to text file
+                    DataToTextFile();
+
+                    Invoke(new Action(() =>
+                    {
+                        pictureBox_loader.Visible = false;
+                        button_go.Enabled = true;
+                    }));
+                }
+            }
         }
 
         private void DataToTextFile()
@@ -483,21 +217,52 @@ namespace rainCheck
 
             try
             {
-                StreamWriter sw = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
-                sw.Close();
-                
-                string contain_text = label_domainhide.Text;
-                if (File.ReadLines(Path.GetTempPath() + @"\import.txt").Any(line => line.Contains(contain_text)))
+                string datetime = label10.Text;
+                string datetime_folder = label8.Text;
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                if (Directory.Exists(path))
                 {
-                    // Leave for blank
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    sw.Close();
+
+                    string contain_text = label_domainhide.Text;
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+
+                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
+
+                        swww.Close();
+                    }
                 }
                 else
                 {
-                    StreamWriter swww = new StreamWriter(Path.GetTempPath() + "\\import.txt", true, System.Text.Encoding.UTF8);
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    swww.WriteLine(","+label_domainhide.Text + ",S" + ","+label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + ","+isp_get + ","+city_get + "," + datetime + ",");
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    sw.Close();
 
-                    swww.Close();
+                    string contain_text = label_domainhide.Text;
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+
+                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
+
+                        swww.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -521,7 +286,9 @@ namespace rainCheck
 
         private void Button_go_Click(object sender, EventArgs e)
         {
-            
+            buttonGoWasClicked = true;
+            label_domainhide.Text = textBox_domain.Text;
+            chromeBrowser.Load(textBox_domain.Text);
         }
 
         private void Label_domain_Paint(object sender, PaintEventArgs e)
@@ -537,22 +304,20 @@ namespace rainCheck
             }
         }
         
-        private void label2_TextChanged(object sender, EventArgs e)
+        private void Label2_TextChanged(object sender, EventArgs e)
         {
             if (label2.Text == "0")
-            {
-                //int currentIndexGet = Convert.ToInt32(label4.Text)+1;
-                //MessageBox.Show(currentIndexGet.ToString());
-                //dataGridView_domain.Rows[currentIndexGet].Selected = true;
-                
+            {                
                 int domain_total = dataGridView_domain.RowCount;
                 int index = dataGridView_domain.SelectedRows[0].Index + 1;
-                label6.Text = index.ToString();
+                label_currentindex.Text = index.ToString();
 
                 if (index == domain_total)
                 {
+                    label_status.Text = "[Waiting]";
+                    timer_domain.Stop();
                     dataGridView_domain.ClearSelection();
-                    
+
                     string line;
 
                     using (con)
@@ -560,7 +325,11 @@ namespace rainCheck
                         try
                         {
                             con.Open();
-                            StreamReader sr = new StreamReader(Path.GetTempPath() + @"\import.txt", System.Text.Encoding.UTF8);
+                            string datetime_folder = label8.Text;
+                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                            StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
                             while ((line = sr.ReadLine()) != null)
                             {
                                 string[] fields = line.Split(',');
@@ -585,6 +354,12 @@ namespace rainCheck
                             }
 
                             sr.Close();
+
+                            panel_loader.Visible = true;
+                            timer_loader.Start();
+                            
+                            label8.Text = "";
+                            label10.Text = "";
                         }
                         catch (Exception ex)
                         {
@@ -602,181 +377,81 @@ namespace rainCheck
 
         private void Button_start_Click(object sender, EventArgs e)
         {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to start?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.Yes)
-            //{
-            //    MessageBox.Show("FIRE UP!");
-            //}
+            if (label8.Text == "")
+            {
+                label8.Text = label9.Text;
+            }
 
+            if (label10.Text == "")
+            {
+                label10.Text = label11.Text;
+            }
+
+            string datetime = label10.Text;
+            string datetime_folder = label8.Text;
+            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+            
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+
+            timer_blink.Stop();
+            label_status.Visible = true;
+            button_pause.Visible = true;
+            button_resume.Visible = false;
+            label_status.Text = "[Running]";
             timer_domain.Start();
-            int getCurrentIndex = Convert.ToInt32(label6.Text);
-            dataGridView_domain.ClearSelection();
-            dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+            //int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+            //dataGridView_domain.ClearSelection();
+            dataGridView_domain.Rows[0].Selected = true;
 
+            textBox_domain.Enabled = false;
+            button_go.Enabled = false;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //int total_i = 0;
-            //int total_row = dataGridView_domain.RowCount;
-            //bool bool_domain = true;
-            //while (bool_domain)
-            //{
-            //    //MessageBox.Show("Total I: " + total_i + "\n" + "Total row" + total_row);
-            //    if (total_i == total_row)
-            //    {
-            //        MessageBox.Show("Done!");
-            //        dataGridView_domain.ClearSelection();
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show(total_i.ToString());
-            //        dataGridView_domain.Rows[total_i].Selected = true;
-            //    }
-
-            //    total_i++;
-            //}
-
-            // Set selected in datagridview
-
-            //int total_i = 0;
-            //int total_row = dataGridView_domain.RowCount;
-            //bool bool_domain = true;
-
-            //while (bool_domain)
-            //{
-            //    //MessageBox.Show("Total I: " + total_i + "\n" + "Total row" + total_row);
-            //    if(total_i == total_row)
-            //    {
-            //        //MessageBox.Show("Done!");
-            //        dataGridView_domain.ClearSelection();
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        //MessageBox.Show(total_i.ToString());
-            //        dataGridView_domain.Rows[total_i].Selected = true;
-
-            //        //if(pictureBox_loader.Visible == true)
-            //        //{
-            //        //    MessageBox.Show("asd");
-            //        //}
-
-            //        //bool_domain = false;
-
-            //        //MessageBox.Show(label2.Text);
-
-            //        //if (label2.Text == "label2")
-            //        //{
-            //        //    bool_domain = false;
-            //        //    bool_domain = true;
-            //        //}
-
-            //        //if (label2.Text == "0")
-            //        //{
-            //        //    bool_domain = true;
-            //        //    //MessageBox.Show("stop for awhile");
-            //        //}
-
-            //        //if (label2.Text == "1")
-            //        //{
-            //        //    bool_domain = false;
-            //        //    bool_domain = true;
-            //        //    //MessageBox.Show("continue");
-            //        //}
-
-            //        //if (label2.Text == "1")
-            //        //{
-            //        //    MessageBox.Show("loading");
-            //        //}
-            //        //else if (label2.Text == "0")
-            //        //{
-            //        //    MessageBox.Show("loaded");
-            //        //}
-
-            //        //if (label2.Text == "1")
-            //        //{
-
-            //        //    MessageBox.Show(total_i.ToString());
-            //        //    dataGridView_devices.Rows[total_i].Selected = true;
-            //        //}
-            //    }
-
-            //    total_i++;
-            //}
+            button_pause.Enabled = true;
         }
 
         private void Button_pause_Click(object sender, EventArgs e)
         {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to pause?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.Yes)
-            //{
-            //    MessageBox.Show("PAUSE!");
-            //}
-
+            timer_blink.Start();
+            label_status.Text = "[Paused]";
             timer_domain.Stop();
             pictureBox_loader.Visible = false;
+            button_pause.Visible = false;
+            button_resume.Visible = true;
+
+            textBox_domain.Enabled = true;
+            button_go.Enabled = true;
         }
-        
-        private void DataGridView_devices_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void Button_resume_Click(object sender, EventArgs e)
         {
-            //if (dataGridView_devices.CurrentCell == null || dataGridView_devices.CurrentCell.Value == null || e.RowIndex == -1)
-            //{
-            //    return;
-            //}
-            //else
-            //{
-            //    DataGridViewRow row = this.dataGridView_devices.Rows[e.RowIndex];
-            //    string domain = dataGridView_devices.Rows[e.RowIndex].Cells[1].Value.ToString();
-            //    string brand = dataGridView_devices.Rows[e.RowIndex].Cells[2].Value.ToString();
+            timer_blink.Stop();
+            label_status.Visible = true;
+            label_status.Text = "[Running]";
+            timer_domain.Start();
+            int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+            dataGridView_domain.ClearSelection();
+            dataGridView_domain.Rows[getCurrentIndex].Selected = true;
 
-            //    // Load Browser
-            //    chromeBrowser.Load(domain);
+            button_pause.Visible = true;
+            button_resume.Visible = false;
 
-            //    label_domainhide.Text = domain;
-            //    label_brandhide.Text = brand;
-            //}
+            textBox_domain.Enabled = false;
+            button_go.Enabled = false;
         }
 
         // SELECTED CHANGED
         private void DataGridView_devices_SelectionChanged(object sender, EventArgs e)
         {
+            //if (dataGridView_domain.SelectedCells.Count > 0)
+            //{
+            //    dataGridView_domain.ClearSelection();
+            //}
+
             if (dataGridView_domain.CurrentCell == null || dataGridView_domain.CurrentCell.Value == null)
             {
                 return;
@@ -798,7 +473,7 @@ namespace rainCheck
                     {
                         Console.Write(ex);
                     }
-                    
+
                     Invoke(new Action(() =>
                     {
                         label_domainhide.Text = domain;
@@ -807,22 +482,6 @@ namespace rainCheck
                     }));
                 }
             }
-
-            //if (sender is DataGridView dgv && dgv.SelectedRows.Count > 0)
-            //{
-            //    DataGridViewRow row = dgv.SelectedRows[0];
-            //    if (row != null)
-            //    {
-            //        string domain = row.Cells[1].Value.ToString();
-            //        string brand = row.Cells[2].Value.ToString();
-
-            //        label_domainhide.Text = domain;
-            //        label_brandhide.Text = brand;
-
-            //        // Load Browser
-            //        chromeBrowser.Load(domain);
-            //    }
-            //}
         }
 
         // Show domains
@@ -896,7 +555,7 @@ namespace rainCheck
         int domain_i = 0;
         private void Timer_domain_Tick(object sender, EventArgs e)
         {
-            label5.Text = domain_i++.ToString();
+            label_timerstartpause.Text = domain_i++.ToString();
         }
 
         private void Timer_rtc_Tick(object sender, EventArgs e)
@@ -904,6 +563,52 @@ namespace rainCheck
             string date = DateTime.Now.ToString("MMM dd");
             string time = DateTime.Now.ToString("hh:mm");
             label_rtc.Text = date + " " + time;
+
+
+            string datetime_folder = DateTime.Now.ToString("yyyy-MM-dd_HHmm");
+            label9.Text = datetime_folder;
+            
+            string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            label11.Text = datetime;
+        }
+
+        int timer_loader_uploaded = 0;
+        int timer_loader_okay = 10;
+        private bool buttonGoWasClicked;
+
+        private void Timer_loader_Tick(object sender, EventArgs e)
+        {
+            timer_loader_uploaded++;
+            timer_loader_okay -= 1;
+            label6.Text = timer_loader_uploaded.ToString();
+            button_okay.Text = "Okay ("+timer_loader_okay+")";
+
+            if (timer_loader_uploaded == 5)
+            {
+                panel_loader.Visible = false;
+                panel_uploaded.Visible = true;
+            }
+
+            if (timer_loader_uploaded == 10)
+            {
+                timer_loader_okay = 10;
+                timer_loader_uploaded = 0;
+                timer_loader.Stop();
+                panel_uploaded.Visible = false;
+            }
+        }
+
+        private void Button_okay_Click(object sender, EventArgs e)
+        {
+            timer_loader_okay = 10;
+            timer_loader_uploaded = 0;
+            timer_loader.Stop();
+            panel_uploaded.Visible = false;
+        }
+
+        private void Timer_blink_Tick(object sender, EventArgs e)
+        {
+            label_status.Visible = !label_status.Visible;
         }
     }
 }

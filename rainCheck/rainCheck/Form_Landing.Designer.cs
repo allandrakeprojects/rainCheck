@@ -321,10 +321,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(704, 481);
-            this.Controls.Add(this.panel_loader);
             this.Controls.Add(this.panel_authorization);
             this.Controls.Add(this.panel_blank);
             this.Controls.Add(this.panel_retry);
+            this.Controls.Add(this.panel_loader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

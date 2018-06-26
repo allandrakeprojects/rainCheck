@@ -71,6 +71,34 @@ namespace rainCheck
             panel_uploaded.Left = (ClientSize.Width - panel_uploaded.Width) / 2;
             panel_uploaded.Top = (ClientSize.Height - panel_uploaded.Height) / 2;
 
+            // Check if result.txt have not yet uploaded
+            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string path = path_desktop + "\\rainCheck\\";
+
+            if (Directory.Exists(path))
+            {
+                var file = Directory.GetFiles(path, "not_yet_upload_result.txt", SearchOption.AllDirectories)
+                    .FirstOrDefault();
+                if (file != null)
+                {
+                    MessageBox.Show("found");
+
+                    string path2 = @"not_yet_upload_result.txt";
+                    string fullPath;
+
+                    fullPath = Path.GetFullPath(path2);
+                    MessageBox.Show(fullPath);
+
+                }
+                else
+                {
+                    MessageBox.Show("not found");
+                }
+            }
+
+            
+
             // Enabling scrolls
             //dataGridView_domain.Controls[0].Enabled = true; // Index zero is the horizontal scrollbar
             //dataGridView_domain.Controls[1].Enabled = true; // Index one is the vertical scrollbar
@@ -225,17 +253,17 @@ namespace rainCheck
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\not_yet_upload_result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
 
                         swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
 
@@ -247,17 +275,17 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\not_yet_upload_result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
 
                         swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
 
@@ -329,7 +357,7 @@ namespace rainCheck
                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                             string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                            StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
+                            StreamReader sr = new StreamReader(path + @"\not_yet_upload_result.txt", System.Text.Encoding.UTF8);
                             while ((line = sr.ReadLine()) != null)
                             {
                                 string[] fields = line.Split(',');
@@ -357,9 +385,16 @@ namespace rainCheck
 
                             panel_loader.Visible = true;
                             timer_loader.Start();
+
+                            // rename not_yet_upload_result.txt to result.txt
+                            string old_path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\not_yet_upload_result.txt";
+                            string new_path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\result.txt";
+
+                            File.Move(old_path, new_path);
                             
                             label8.Text = "";
                             label10.Text = "";
+
                         }
                         catch (Exception ex)
                         {
@@ -392,7 +427,7 @@ namespace rainCheck
             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-            
+
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);

@@ -212,6 +212,7 @@
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="IpInfo.cs" />
+    <Compile Include="JsDialogHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_Loader.resx">
@@ -307,6 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loader_main.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start-over.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

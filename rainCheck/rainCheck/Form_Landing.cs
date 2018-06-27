@@ -176,10 +176,10 @@ namespace rainCheck
                             con.Close();
                             //city, country, isp
                             Form_Main form_main = new Form_Main();
-                            
-                            this.Hide();
+
+                            Hide();
                             form_main.ShowDialog();
-                            this.Close();
+                            Close();
                         }
                         else
                         {

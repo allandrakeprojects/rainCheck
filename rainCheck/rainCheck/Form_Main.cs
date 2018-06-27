@@ -78,26 +78,52 @@ namespace rainCheck
 
             if (Directory.Exists(path))
             {
-                var file = Directory.GetFiles(path, "not_yet_upload_result.txt", SearchOption.AllDirectories)
+                var file = Directory.GetFiles(path, "pending.txt", SearchOption.AllDirectories)
                     .FirstOrDefault();
                 if (file != null)
                 {
-                    MessageBox.Show("found");
+                    //button_start.Enabled = false;
+                    //MessageBox.Show("found");
 
-                    string path2 = @"not_yet_upload_result.txt";
-                    string fullPath;
-
-                    fullPath = Path.GetFullPath(path2);
-                    MessageBox.Show(fullPath);
-
+                    
                 }
                 else
                 {
-                    MessageBox.Show("not found");
+                    //MessageBox.Show("not found");
                 }
             }
 
-            
+            // Get timeout option to server
+            using (con)
+            {
+                try
+                {
+                    con.Open();
+                    MySqlCommand command = new MySqlCommand("SELECT timeout FROM `timeout`", con);
+                    command.CommandType = CommandType.Text;
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            label13.Text = reader["timeout"].ToString();
+                        }
+                    }
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
 
             // Enabling scrolls
             //dataGridView_domain.Controls[0].Enabled = true; // Index zero is the horizontal scrollbar
@@ -133,7 +159,7 @@ namespace rainCheck
 
         private void ChromiumWebBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            this.Invoke(new MethodInvoker(() => 
+            Invoke(new MethodInvoker(() => 
             {
                 textBox_domain.Text = e.Address;
             }));
@@ -149,6 +175,13 @@ namespace rainCheck
         {
             if (InvokeRequired) { Invoke(new Action(() => { Timer_timeout_Tick(sender, e); })); return; }
             label3.Text = i++.ToString();
+            
+            if (label3.Text == label13.Text)
+            {
+                //MessageBox.Show("timeout");
+                chromeBrowser.Stop();
+                label12.Text = "timeout";
+            }
 
             //if(i >= 2)
             //{
@@ -184,6 +217,7 @@ namespace rainCheck
                     
                     Invoke(new Action(() =>
                     {
+                        timer_timeout.Start();
                         pictureBox_loader.Visible = true;
                         label2.Text = "1";
                     }));
@@ -191,18 +225,28 @@ namespace rainCheck
 
                 if (!e.IsLoading)
                 {
-
                     // Date preview
                     end_load = DateTime.Now.ToString("HH:mm:ss.fff");
 
                     // Send data to text file
-                    DataToTextFile();
+                    if (label12.Text == "timeout")
+                    {
+                        DataToTextFileTimeout();
+                    }
+                    else
+                    {
+                        DataToTextFileSuccess();
+                    }
                     
                     Invoke(new Action(() =>
                     {
+                        timer_timeout.Stop();
+                        i = 1;
                         pictureBox_loader.Visible = false;
                         label2.Text = "0";
+                        label12.Text = "";
                     }));
+
                 }
             }
             else if (buttonGoWasClicked == true)
@@ -221,12 +265,11 @@ namespace rainCheck
 
                 if (!e.IsLoading)
                 {
-
                     // Date preview
                     end_load = DateTime.Now.ToString("HH:mm:ss.fff");
 
                     // Send data to text file
-                    DataToTextFile();
+                    //DataToTextFile();
 
                     Invoke(new Action(() =>
                     {
@@ -237,7 +280,7 @@ namespace rainCheck
             }
         }
 
-        private void DataToTextFile()
+        private void DataToTextFileSuccess()
         {
             //MessageBox.Show("Date Today: " + datetime + "\n" +
             //                "Start Time: " + start_load + "\n" +
@@ -253,17 +296,17 @@ namespace rainCheck
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\not_yet_upload_result.txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\pending.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
 
                         swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
 
@@ -275,17 +318,79 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\not_yet_upload_result.txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\pending.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\not_yet_upload_result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
+
+                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
+
+                        swww.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+        }
+
+        private void DataToTextFileTimeout()
+        {
+            //MessageBox.Show("Date Today: " + datetime + "\n" +
+            //                "Start Time: " + start_load + "\n" +
+            //                "End Time: " + end_load);
+
+            try
+            {
+                string datetime = label10.Text;
+                string datetime_folder = label8.Text;
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                if (Directory.Exists(path))
+                {
+                    StreamWriter sw = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
+                    sw.Close();
+
+                    string contain_text = label_domainhide.Text;
+                    if (File.ReadLines(path + @"\pending.txt").Any(line => line.Contains(contain_text)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
+
+                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + ",");
+
+                        swww.Close();
+                    }
+                }
+                else
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+
+                    StreamWriter sw = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
+                    sw.Close();
+
+                    string contain_text = label_domainhide.Text;
+                    if (File.ReadLines(path + @"\pending.txt").Any(line => line.Contains(contain_text)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\pending.txt", true, System.Text.Encoding.UTF8);
 
                         swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ",text search" + ",url hijacker" + ",hijacker" + ",printscreen" + "," + isp_get + "," + city_get + "," + datetime + ",");
 
@@ -342,7 +447,7 @@ namespace rainCheck
 
                 if (index == domain_total)
                 {
-                    label_status.Text = "[Waiting]";
+                    label_status.Text = "[Uploading]";
                     timer_domain.Stop();
                     dataGridView_domain.ClearSelection();
 
@@ -357,7 +462,7 @@ namespace rainCheck
                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                             string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                            StreamReader sr = new StreamReader(path + @"\not_yet_upload_result.txt", System.Text.Encoding.UTF8);
+                            StreamReader sr = new StreamReader(path + @"\pending.txt", System.Text.Encoding.UTF8);
                             while ((line = sr.ReadLine()) != null)
                             {
                                 string[] fields = line.Split(',');
@@ -386,12 +491,12 @@ namespace rainCheck
                             panel_loader.Visible = true;
                             timer_loader.Start();
 
-                            // rename not_yet_upload_result.txt to result.txt
-                            string old_path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\not_yet_upload_result.txt";
+                            // rename pending.txt to result.txt
+                            string old_path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\pending.txt";
                             string new_path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\result.txt";
 
                             File.Move(old_path, new_path);
-                            
+
                             label8.Text = "";
                             label10.Text = "";
 
@@ -412,6 +517,9 @@ namespace rainCheck
 
         private void Button_start_Click(object sender, EventArgs e)
         {
+            // For timeout
+            i = 1;
+
             if (label8.Text == "")
             {
                 label8.Text = label9.Text;
@@ -454,6 +562,7 @@ namespace rainCheck
             timer_blink.Start();
             label_status.Text = "[Paused]";
             timer_domain.Stop();
+            timer_timeout.Stop();
             pictureBox_loader.Visible = false;
             button_pause.Visible = false;
             button_resume.Visible = true;
@@ -468,6 +577,11 @@ namespace rainCheck
             label_status.Visible = true;
             label_status.Text = "[Running]";
             timer_domain.Start();
+
+            // For timeout
+            i = 1;
+            timer_timeout.Start();
+
             int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
             dataGridView_domain.ClearSelection();
             dataGridView_domain.Rows[getCurrentIndex].Selected = true;
@@ -630,6 +744,7 @@ namespace rainCheck
                 timer_loader_uploaded = 0;
                 timer_loader.Stop();
                 panel_uploaded.Visible = false;
+                label_status.Text = "[Waiting]";
             }
         }
 

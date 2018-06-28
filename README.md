@@ -1,2 +1,2 @@
 # rainCheck
-Windows Application that detects the websites if it is hijacked or not
+Windows Application that detects the websites if success, hijacked, inaccessible, or timeout

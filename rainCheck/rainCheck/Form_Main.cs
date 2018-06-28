@@ -1,10 +1,12 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using Ionic.Zip;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -45,6 +47,7 @@ namespace rainCheck
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            TopMost = true;
             //dataGridView_domains.ClearSelection();
 
             InitializeChromium();
@@ -139,6 +142,12 @@ namespace rainCheck
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
             Console.ReadLine();
+
+            // Disable browser panel
+            //panel_browser.HorizontalScroll.Maximum = 0;
+            //panel_browser.AutoScroll = false;
+            //panel_browser.VerticalScroll.Visible = false;
+            //panel_browser.AutoScroll = true;
         }
 
         private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -562,56 +571,134 @@ namespace rainCheck
                     label_status.Text = "[Loading]";
                     timer_domain.Stop();
 
-                    string line;
 
-                    using (con)
+
+
+
+
+
+
+
+
+
+
+
+                    //////////////////////////
+                    string datetime_folder = label8.Text;
+                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                    panel_loader.Visible = true;
+                    timer_loader.Start();
+
+                    label_currentindex.Text = "0";
+
+                    label8.Text = "";
+                    label10.Text = "";
+
+                    using (ZipFile zip = new ZipFile())
                     {
                         try
                         {
-                            con.Open();
-                            string datetime_folder = label8.Text;
-                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                            string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                            zip.Password = "youdidntknowthispasswordhaha";
+                            zip.AddDirectory(path);
+                            zip.Save(outputpath);
 
-                            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                            StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
-                            while ((line = sr.ReadLine()) != null)
+                            if (Directory.Exists(path))
                             {
-                                string[] fields = line.Split(',');
-
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
-                                cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                                cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                                cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                                cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                                cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
-                                cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
-                                cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
-                                cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
-                                cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                                cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
-                                cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
-                                cmd.Parameters.AddWithValue("@city", fields[11].ToString());
-                                cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
-                                cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
-                                cmd.ExecuteNonQuery();
+                                Directory.Delete(path, true);
                             }
-
-                            sr.Close();
-
-                            panel_loader.Visible = true;
-                            timer_loader.Start();
-                            
-                            label_currentindex.Text = "0";
-
-                            label8.Text = "";
-                            label10.Text = "";
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(ex.Message);
                         }
                     }
+                    //////////////////////////
+
+                    //string line;
+
+                    //using (con)
+                    //{
+                    //    try
+                    //    {
+                    //        con.Open();
+                    //        string datetime_folder = label8.Text;
+                    //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    //        string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    //        StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
+                    //        while ((line = sr.ReadLine()) != null)
+                    //        {
+                    //            string[] fields = line.Split(',');
+
+                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
+                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
+                    //            cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                    //            cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                    //            cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                    //            cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                    //            cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
+                    //            cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
+                    //            cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
+                    //            cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
+                    //            cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
+                    //            cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
+                    //            cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
+                    //            cmd.Parameters.AddWithValue("@city", fields[11].ToString());
+                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
+                    //            cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
+                    //            cmd.ExecuteNonQuery();
+                    //        }
+
+                    //        sr.Close();
+
+                    //        panel_loader.Visible = true;
+                    //        timer_loader.Start();
+                            
+                    //        label_currentindex.Text = "0";
+
+                    //        label8.Text = "";
+                    //        label10.Text = "";
+
+                    //        using (ZipFile zip = new ZipFile())
+                    //        {
+                    //            try
+                    //            {
+                    //                string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                    //                zip.Password = "youdidntknowthispasswordhaha";
+                    //                zip.AddDirectory(path);
+                    //                zip.Save(outputpath);
+
+                    //                if (Directory.Exists(path))
+                    //                {
+                    //                    Directory.Delete(path, true);
+                    //                }
+                    //            }
+                    //            catch (Exception ex)
+                    //            {
+                    //                MessageBox.Show(ex.Message);
+                    //            }
+                    //        }
+
+                    //        //using (ZipFile zip = new ZipFile())
+                    //        //{
+                    //        //    zip.Password("@ccess1234");
+                    //        //    // add this map file into the "images" directory in the zip archive
+                    //        //    zip.AddFile("c:\\images\\personal\\7440-N49th.png", "images");
+                    //        //    // add the report into a different directory in the archive
+                    //        //    zip.AddFile("c:\\Reports\\2008-Regional-Sales-Report.pdf", "files");
+                    //        //    zip.AddFile("ReadMe.txt");
+                    //        //    zip.Save("MyZipFile.zip");
+                    //        //}
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -904,6 +991,101 @@ namespace rainCheck
         private void Timer_blink_Tick(object sender, EventArgs e)
         {
             label_status.Visible = !label_status.Visible;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Bitmap bitmap = new Bitmap(Width, Height);
+            //DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+            //bitmap.Save("C:\\Users\\adulay\\Desktop\\testdomain.png", ImageFormat.Png);
+
+            Rectangle bounds = Bounds;
+            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+                }
+                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                resized.Save("C:\\Users\\adulay\\Desktop\\testdomain.jpeg", ImageFormat.Jpeg);
+            }
+
+            //MessageBox.Show("ok!");
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_timerstartpause_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_ifloadornot_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_domainhide_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        int asd = 0;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            asd++;
+
+            if (asd == 3)
+            {
+                Rectangle bounds = Bounds;
+                using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+                    }
+                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                    resized.Save("C:\\Users\\adulay\\Desktop\\testdomain.jpeg", ImageFormat.Jpeg);
+                }
+            }
         }
     }
 }

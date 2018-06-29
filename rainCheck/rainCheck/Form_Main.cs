@@ -564,122 +564,117 @@ namespace rainCheck
                     timer_domain.Stop();
 
                     //////////////////////////
-                    //string datetime_folder = label8.Text;
-                    //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string datetime_folder = label8.Text;
+                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    //string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                    //string path_other = path_desktop + "\\rainCheck\\result.txt";
+                    string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    string path_other = path_desktop + "\\rainCheck\\result.txt";
 
-                    //panel_loader.Visible = true;
-                    //timer_loader.Start();
+                    panel_loader.Visible = true;
+                    timer_loader.Start();
 
-                    //label_currentindex.Text = "0";
+                    label_currentindex.Text = "0";
 
-                    //label8.Text = "";
-                    //label10.Text = "";
+                    label8.Text = "";
+                    label10.Text = "";
 
-                    //using (ZipFile zip = new ZipFile())
-                    //{
-                    //    try
-                    //    {
-                    //        string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                    //        //zip.Password = "youdidntknowthispasswordhaha";
-                    //        zip.Password = "a";
-                    //        zip.AddDirectory(path);
-                    //        zip.Save(outputpath);
+                    using (ZipFile zip = new ZipFile())
+                    {
+                        try
+                        {
+                            string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                            //zip.Password = "youdidntknowthispasswordhaha";
+                            zip.Password = "a";
+                            zip.AddDirectory(path);
+                            zip.Save(outputpath);
 
-                    //        if (Directory.Exists(path))
-                    //        {
-                    //            Directory.Delete(path, true);
-                    //        }
-
-                    //        if (Directory.Exists(path_other))
-                    //        {
-                    //            Directory.Delete(path_other, true);
-                    //        }
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        MessageBox.Show(ex.Message);
-                    //    }
-                    //}
+                            if (Directory.Exists(path))
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
                     ////////////////////////
 
                     TopMost = false;
                     MinimizeBox = true;
 
-                    string line;
+                    //string line;
 
-                    using (con)
-                    {
-                        try
-                        {
-                            con.Open();
-                            string datetime_folder = label8.Text;
-                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    //using (con)
+                    //{
+                    //    try
+                    //    {
+                    //        con.Open();
+                    //        string datetime_folder = label8.Text;
+                    //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    //        string path = path_desktop + "\\rainCheck\\" + datetime_folder;
 
-                            StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
-                            while ((line = sr.ReadLine()) != null)
-                            {
-                                string[] fields = line.Split(',');
+                    //        StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
+                    //        while ((line = sr.ReadLine()) != null)
+                    //        {
+                    //            string[] fields = line.Split(',');
 
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
-                                cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                                cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                                cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                                cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                                cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
-                                cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
-                                cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
-                                cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
-                                cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                                cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
-                                cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
-                                cmd.Parameters.AddWithValue("@city", fields[11].ToString());
-                                cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
-                                cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
-                                cmd.ExecuteNonQuery();
-                            }
+                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
+                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
+                    //            cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                    //            cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                    //            cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                    //            cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                    //            cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
+                    //            cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
+                    //            cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
+                    //            cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
+                    //            cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
+                    //            cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
+                    //            cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
+                    //            cmd.Parameters.AddWithValue("@city", fields[11].ToString());
+                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
+                    //            cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
+                    //            cmd.ExecuteNonQuery();
+                    //        }
 
-                            sr.Close();
+                    //        sr.Close();
 
-                            panel_loader.Visible = true;
-                            timer_loader.Start();
+                    //        panel_loader.Visible = true;
+                    //        timer_loader.Start();
 
-                            label_currentindex.Text = "0";
+                    //        label_currentindex.Text = "0";
 
-                            label8.Text = "";
-                            label10.Text = "";
+                    //        label8.Text = "";
+                    //        label10.Text = "";
 
-                            using (ZipFile zip = new ZipFile())
-                            {
-                                try
-                                {
-                                    string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                                    //zip.Password = "youdidntknowthispasswordhaha";
-                                    zip.Password = "a";
-                                    zip.AddDirectory(path);
-                                    zip.Save(outputpath);
+                    //        using (ZipFile zip = new ZipFile())
+                    //        {
+                    //            try
+                    //            {
+                    //                string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                    //                //zip.Password = "youdidntknowthispasswordhaha";
+                    //                zip.Password = "a";
+                    //                zip.AddDirectory(path);
+                    //                zip.Save(outputpath);
 
-                                    if (Directory.Exists(path))
-                                    {
-                                        Directory.Delete(path, true);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+                    //                if (Directory.Exists(path))
+                    //                {
+                    //                    Directory.Delete(path, true);
+                    //                }
+                    //            }
+                    //            catch (Exception ex)
+                    //            {
+                    //                MessageBox.Show(ex.Message);
+                    //            }
+                    //        }
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -997,11 +992,11 @@ namespace rainCheck
             //bitmap.Save("C:\\Users\\adulay\\Desktop\\testdomain.png", ImageFormat.Png);
             
             Rectangle bounds = Bounds;
-            using (Bitmap bitmap = new Bitmap(bounds.Width-235, bounds.Height-170))
+            using (Bitmap bitmap = new Bitmap(bounds.Width-263, bounds.Height-198))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
-                    g.CopyFromScreen(new Point(bounds.Left+220, bounds.Top+155), Point.Empty, bounds.Size);
+                    g.CopyFromScreen(new Point(bounds.Left+224, bounds.Top+160), Point.Empty, bounds.Size);
                 }
                 Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

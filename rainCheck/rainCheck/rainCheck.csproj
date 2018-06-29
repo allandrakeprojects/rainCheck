@@ -214,6 +214,12 @@
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Urgent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Urgent.Designer.cs">
+      <DependentUpon>Form_Urgent.cs</DependentUpon>
+    </Compile>
     <Compile Include="IpInfo.cs" />
     <Compile Include="JsDialogHandler.cs" />
     <Compile Include="Program.cs" />
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Urgent.resx">
+      <DependentUpon>Form_Urgent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

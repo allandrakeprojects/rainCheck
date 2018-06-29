@@ -148,28 +148,43 @@ namespace rainCheck
             {
                 Invoke(new Action(() =>
                 {
-                    panel_retry.Visible = false;
-
-                    timer_blink.Stop();
-                    label_status.Visible = true;
-                    label_status.Text = "[Running]";
-                    timer_domain.Start();
-
-                    // For timeout
-                    i = 1;
-                    timer_timeout.Start();
-
-                    pictureBox_loader.Visible = true;
-
                     int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
                     dataGridView_domain.ClearSelection();
-                    dataGridView_domain.Rows[getCurrentIndex].Selected = true;
 
-                    button_pause.Visible = true;
-                    button_start.Visible = false;
+                    if (getCurrentIndex > 0)
+                    {
+                        panel_retry.Visible = false;
 
-                    textBox_domain.Enabled = false;
-                    button_go.Enabled = false;
+                        TopMost = true;
+                        MinimizeBox = false;
+
+                        timer_blink.Stop();
+                        label_status.Visible = true;
+                        label_status.Text = "[Running]";
+                        timer_domain.Start();
+
+                        // For timeout
+                        i = 1;
+                        timer_timeout.Start();
+
+                        pictureBox_loader.Visible = true;
+
+                        dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+
+                        button_pause.Visible = true;
+                        button_start.Visible = false;
+
+                        textBox_domain.Enabled = false;
+                        button_go.Enabled = false;
+                    }
+                    else
+                    {
+                        panel_retry.Visible = false;
+
+                        TopMost = true;
+                        MinimizeBox = false;
+                    }
+
                 }));
             }
             else
@@ -177,17 +192,16 @@ namespace rainCheck
                 Invoke(new Action(() =>
                 {
                     panel_retry.Visible = true;
+                    panel_retry.BringToFront();
 
-                    timer_blink.Start();
-                    label_status.Text = "[Paused]";
+                    TopMost = false;
+                    MinimizeBox = true;
+                    
                     timer_domain.Stop();
                     timer_timeout.Stop();
                     pictureBox_loader.Visible = false;
                     button_pause.Visible = false;
                     button_start.Visible = true;
-
-                    textBox_domain.Enabled = true;
-                    button_go.Enabled = true;
                 }));
             }
         }
@@ -760,6 +774,8 @@ namespace rainCheck
 
             textBox_domain.Text = "";
             ActiveControl = textBox_domain;
+
+            button_urgent.Visible = true;
         }
 
         private void Button_resume_Click(object sender, EventArgs e)
@@ -800,6 +816,8 @@ namespace rainCheck
             button_go.Enabled = false;
 
             button_startover.Enabled = true;
+            
+            button_urgent.Visible = false;
         }
 
         // SELECTED CHANGED
@@ -1004,6 +1022,12 @@ namespace rainCheck
             }
 
             //MessageBox.Show("ok!");
+        }
+
+        private void button_urgent_Click(object sender, EventArgs e)
+        {
+            Form_Urgent form_urgent = new Form_Urgent();
+            form_urgent.ShowDialog();
         }
     }
 }

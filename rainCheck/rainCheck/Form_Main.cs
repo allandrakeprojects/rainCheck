@@ -18,6 +18,10 @@ namespace rainCheck
         MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
 
         public ChromiumWebBrowser chromeBrowser { get; private set; }
+        public ChromiumWebBrowser chromeBrowser_urgent { get; private set; }
+
+        public static string SetValueForTextBrandID = "";
+
         static bool networkIsAvailable = false;
 
         string city_get;
@@ -138,6 +142,23 @@ namespace rainCheck
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
             Console.ReadLine();
+            
+
+            // URGENT PANEL
+            if (dataGridView_urgent.Rows.Count == 0)
+            {
+                button_start_urgent.Enabled = false;
+
+                dataGridView_urgent.Rows.Add("No data available in table");
+                dataGridView_urgent.ClearSelection();
+                dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                dataGridView_urgent.DefaultCellStyle.SelectionBackColor = dataGridView_urgent.DefaultCellStyle.BackColor;
+                dataGridView_urgent.DefaultCellStyle.SelectionForeColor = dataGridView_urgent.DefaultCellStyle.ForeColor;
+            }
+
+            new ToolTip().SetToolTip(label_help, "Click Domain button to Import New Set of Domain(s)");
+
+            dataGridView_urgent.Columns["brand_id"].Visible = false;
         }
 
         private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -154,6 +175,7 @@ namespace rainCheck
                     if (getCurrentIndex > 0)
                     {
                         panel_retry.Visible = false;
+                        panel_retry.BringToFront();
 
                         TopMost = true;
                         MinimizeBox = false;
@@ -205,9 +227,7 @@ namespace rainCheck
                 }));
             }
         }
-
-
-
+        
         private void InitializeChromium()
         {
             try
@@ -241,7 +261,14 @@ namespace rainCheck
         {
             Invoke(new MethodInvoker(() => 
             {
-                textBox_domain.Text = e.Address;
+                if (panel_main.Visible == true)
+                {
+                    textBox_domain.Text = e.Address;
+                }
+                else if (panel_urgent.Visible == true)
+                {
+                    textBox_domain_urgent.Text = e.Address;
+                }
             }));
         }
 
@@ -293,7 +320,7 @@ namespace rainCheck
                 {
                     // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
-                    
+
                     Invoke(new Action(() =>
                     {
                         timer_timeout.Start();
@@ -315,7 +342,7 @@ namespace rainCheck
                     {
                         DataToTextFileSuccess();
                     }
-                    
+
                     Invoke(new Action(() =>
                     {
                         timer_timeout.Stop();
@@ -373,6 +400,47 @@ namespace rainCheck
                     }));
                 }
             }
+
+            //if (panel_urgent.Visible == true)
+            //{
+            //    if (e.IsLoading)
+            //    {
+            //        // Date preview
+            //        start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+            //        MessageBox.Show(start_load);
+            //        Invoke(new Action(() =>
+            //        {
+            //            //timer_timeout.Start();
+            //            pictureBox_loader_urgent.Visible = true;
+            //            //label_ifloadornot.Text = "1";
+            //        }));
+            //    }
+
+            //    if (!e.IsLoading)
+            //    {
+            //        // Date preview
+            //        end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+            //        MessageBox.Show(end_load);
+            //        // Send data to text file
+            //        if (label_timeout.Text == "timeout")
+            //        {
+            //            DataToTextFileTimeout();
+            //        }
+            //        else
+            //        {
+            //            DataToTextFileSuccess();
+            //        }
+
+            //        Invoke(new Action(() =>
+            //        {
+            //            //timer_timeout.Stop();
+            //            //i = 1;
+            //            pictureBox_loader_urgent.Visible = false;
+            //            //label_ifloadornot.Text = "0";
+            //            //label_timeout.Text = "";
+            //        }));
+            //    }
+            //}
         }
 
         public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
@@ -578,117 +646,118 @@ namespace rainCheck
                     timer_domain.Stop();
 
                     //////////////////////////
-                    string datetime_folder = label8.Text;
-                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    //string datetime_folder = label8.Text;
+                    //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                    string path_other = path_desktop + "\\rainCheck\\result.txt";
+                    //string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    //string path_other = path_desktop + "\\rainCheck\\result.txt";
 
-                    panel_loader.Visible = true;
-                    timer_loader.Start();
+                    //panel_loader.Visible = true;
+                    //panel_loader.BringToFront();
+                    //timer_loader.Start();
 
-                    label_currentindex.Text = "0";
+                    //label_currentindex.Text = "0";
 
-                    label8.Text = "";
-                    label10.Text = "";
+                    //label8.Text = "";
+                    //label10.Text = "";
 
-                    using (ZipFile zip = new ZipFile())
-                    {
-                        try
-                        {
-                            string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                            //zip.Password = "youdidntknowthispasswordhaha";
-                            zip.Password = "a";
-                            zip.AddDirectory(path);
-                            zip.Save(outputpath);
+                    //using (ZipFile zip = new ZipFile())
+                    //{
+                    //    try
+                    //    {
+                    //        string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                    //        zip.Password = "youdidntknowthispasswordhaha";
+                    //        zip.Password = "a";
+                    //        zip.AddDirectory(path);
+                    //        zip.Save(outputpath);
 
-                            if (Directory.Exists(path))
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
+                    //        if (Directory.Exists(path))
+                    //        {
+                    //            Directory.Delete(path, true);
+                    //        }
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        MessageBox.Show(ex.Message);
+                    //    }
+                    //}
                     ////////////////////////
 
                     TopMost = false;
                     MinimizeBox = true;
 
-                    //string line;
+                    string line;
 
-                    //using (con)
-                    //{
-                    //    try
-                    //    {
-                    //        con.Open();
-                    //        string datetime_folder = label8.Text;
-                    //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    using (con)
+                    {
+                        try
+                        {
+                            con.Open();
+                            string datetime_folder = label8.Text;
+                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    //        string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
 
-                    //        StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
-                    //        while ((line = sr.ReadLine()) != null)
-                    //        {
-                    //            string[] fields = line.Split(',');
+                            StreamReader sr = new StreamReader(path + @"\result.txt", System.Text.Encoding.UTF8);
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                string[] fields = line.Split(',');
 
-                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
-                    //            cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                    //            cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                    //            cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                    //            cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                    //            cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
-                    //            cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
-                    //            cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
-                    //            cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
-                    //            cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                    //            cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
-                    //            cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
-                    //            cmd.Parameters.AddWithValue("@city", fields[11].ToString());
-                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
-                    //            cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
-                    //            cmd.ExecuteNonQuery();
-                    //        }
+                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
+                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
+                                cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                                cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                                cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                                cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                                cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
+                                cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
+                                cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
+                                cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
+                                cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
+                                cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
+                                cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
+                                cmd.Parameters.AddWithValue("@city", fields[11].ToString());
+                                cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
+                                cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
+                                cmd.ExecuteNonQuery();
+                            }
 
-                    //        sr.Close();
+                            sr.Close();
 
-                    //        panel_loader.Visible = true;
-                    //        timer_loader.Start();
+                            panel_loader.Visible = true;
+                            timer_loader.Start();
 
-                    //        label_currentindex.Text = "0";
+                            label_currentindex.Text = "0";
 
-                    //        label8.Text = "";
-                    //        label10.Text = "";
+                            label8.Text = "";
+                            label10.Text = "";
 
-                    //        using (ZipFile zip = new ZipFile())
-                    //        {
-                    //            try
-                    //            {
-                    //                string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                    //                //zip.Password = "youdidntknowthispasswordhaha";
-                    //                zip.Password = "a";
-                    //                zip.AddDirectory(path);
-                    //                zip.Save(outputpath);
+                            using (ZipFile zip = new ZipFile())
+                            {
+                                try
+                                {
+                                    string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
+                                    //zip.Password = "youdidntknowthispasswordhaha";
+                                    zip.Password = "a";
+                                    zip.AddDirectory(path);
+                                    zip.Save(outputpath);
 
-                    //                if (Directory.Exists(path))
-                    //                {
-                    //                    Directory.Delete(path, true);
-                    //                }
-                    //            }
-                    //            catch (Exception ex)
-                    //            {
-                    //                MessageBox.Show(ex.Message);
-                    //            }
-                    //        }
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    }
-                    //}
+                                    if (Directory.Exists(path))
+                                    {
+                                        Directory.Delete(path, true);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
                 else
                 {
@@ -749,7 +818,6 @@ namespace rainCheck
 
                 button_pause.Enabled = true;
             }
-
         }
 
         private void Button_pause_Click(object sender, EventArgs e)
@@ -780,8 +848,12 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
+            panel_browser.Controls.Add(chromeBrowser);
+
             TopMost = true;
             MinimizeBox = false;
+
+            pictureBox_loader.Visible = true;
 
             // Set browser panel dock style
             chromeBrowser.Dock = DockStyle.Fill;
@@ -979,6 +1051,8 @@ namespace rainCheck
                 label_status.Text = "[Waiting]";
                 panel_loader.Visible = false;
                 panel_uploaded.Visible = true;
+
+                panel_uploaded.BringToFront();
             }
 
             if (timer_loader_uploaded == 10)
@@ -1010,11 +1084,11 @@ namespace rainCheck
             //bitmap.Save("C:\\Users\\adulay\\Desktop\\testdomain.png", ImageFormat.Png);
             
             Rectangle bounds = Bounds;
-            using (Bitmap bitmap = new Bitmap(bounds.Width-263, bounds.Height-198))
+            using (Bitmap bitmap = new Bitmap(bounds.Width-266, bounds.Height-201))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
-                    g.CopyFromScreen(new Point(bounds.Left+224, bounds.Top+160), Point.Empty, bounds.Size);
+                    g.CopyFromScreen(new Point(bounds.Left+225, bounds.Top+158), Point.Empty, bounds.Size);
                 }
                 Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -1024,10 +1098,212 @@ namespace rainCheck
             //MessageBox.Show("ok!");
         }
 
-        private void button_urgent_Click(object sender, EventArgs e)
+        private void Button_urgent_Click(object sender, EventArgs e)
         {
-            Form_Urgent form_urgent = new Form_Urgent();
-            form_urgent.ShowDialog();
+            //Form_Urgent form_urgent = new Form_Urgent();
+            //form_urgent.ShowDialog();
+            
+            panel_urgent.Visible = true;
+
+            button_urgent.Visible = false;
+
+            panel_main.Visible = false;
+
+            label_back.Visible = true;
+            label_domain_urgent.Visible = true;
+
+            textBox_domain_urgent.Text = "";
+        }
+
+        private void Label_back_Click(object sender, EventArgs e)
+        {
+            panel_urgent.Visible = false ;
+
+            button_urgent.Visible = true;
+            panel_main.Visible = true;
+
+            label_back.Visible = false;
+            label_domain_urgent.Visible = false;
+        }
+
+        private void Button_domain_urgent_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.FileName = "";
+            ofd.Title = "title";
+            ofd.Filter = "Text Files (*.txt)|*.txt";
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                DataTable dt = new DataTable();
+                
+                try
+                {
+                    while (dataGridView_urgent.Rows.Count > 0)
+                    {
+                        dataGridView_urgent.Rows.RemoveAt(0);
+                    }
+
+                    StreamReader streamReader = new StreamReader(ofd.FileName);
+                    string text = "";
+                    for (text = streamReader.ReadLine(); text != null; text = streamReader.ReadLine())
+                    {
+                        using (con)
+                        {
+                            try
+                            {
+                                con.Open();
+                                MySqlCommand command = new MySqlCommand("SELECT brand_name FROM `domains` WHERE domain_name = '"+ text +"'", con);
+                                command.CommandType = CommandType.Text;
+                                MySqlDataReader reader = command.ExecuteReader();
+
+                                if (reader.HasRows)
+                                {
+                                    while (reader.Read())
+                                    {
+                                        label_brand_id.Text = reader["brand_name"].ToString();
+
+                                    }
+                                }
+                                else
+                                {
+                                    label_brand_id.Text = "";
+
+                                    Form_Brand form_brand = new Form_Brand(text);
+                                    form_brand.ShowDialog();
+
+                                    label_brand_id.Text = SetValueForTextBrandID;
+                                }
+
+                                con.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                con.Close();
+
+                                MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Application.Exit();
+                            }
+                            finally
+                            {
+                                con.Close();
+                            }
+                        }
+                        
+                        dataGridView_urgent.Rows.Add(text, label_brand_id.Text);
+                    }
+
+                    button_start_urgent.Enabled = true;
+
+                    dataGridView_urgent.ClearSelection();
+
+                    dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                    string hex = "#438eb9";
+                    Color color = ColorTranslator.FromHtml(hex);
+                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color;
+                    dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                    label_brand_id.Text = "";
+
+                    streamReader.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error" + err.Message);
+                }
+
+                if(dataGridView_urgent.Rows.Count > 0)
+                {
+                    label_clear.Visible = true;
+                    label_help.Visible = false;
+                }
+
+                //dataGridView_urgent.DataSource = dt;
+            }
+        }
+
+        private void Label_clear_Click(object sender, EventArgs e)
+        {
+            while (dataGridView_urgent.Rows.Count > 0)
+            {
+                dataGridView_urgent.Rows.RemoveAt(0);
+            }
+
+            button_start_urgent.Enabled = false;
+            label_clear.Visible = false;
+            label_help.Visible = true;
+            
+            dataGridView_urgent.Rows.Add("No data available in table");
+            dataGridView_urgent.ClearSelection();
+            dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridView_urgent.DefaultCellStyle.SelectionBackColor = dataGridView_urgent.DefaultCellStyle.BackColor;
+            dataGridView_urgent.DefaultCellStyle.SelectionForeColor = dataGridView_urgent.DefaultCellStyle.ForeColor;
+        }
+
+        private void Button_start_urgent_Click(object sender, EventArgs e)
+        {
+            //TopMost = true;
+            //MinimizeBox = false;
+
+            //// Set browser panel dock style
+            //chromeBrowser.Dock = DockStyle.Fill;
+
+            //if (label8.Text == "")
+            //{
+            //    label8.Text = label9.Text;
+            //}
+
+            //if (label10.Text == "")
+            //{
+            //    label10.Text = label11.Text;
+            //}
+
+            //timer_blink.Stop();
+            //label_status.Visible = true;
+            //label_status.Text = "[Running]";
+            //timer_domain.Start();
+        }
+
+        private void DataGridView_urgent_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView_urgent.CurrentCell == null || dataGridView_urgent.CurrentCell.Value == null)
+            {
+                return;
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dataGridView_urgent.SelectedRows)
+                {
+                    string domain = row.Cells[0].Value.ToString();
+                    string brand;
+
+                    if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[1].Value as String))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        brand = row.Cells[1].Value.ToString();
+                    }
+
+                    //currentIndex = dataGridView_domain.CurrentRow.Index;
+
+                    try
+                    {
+                        // Load Browser
+                        panel_browser_urgent.Controls.Add(chromeBrowser);
+                        chromeBrowser.Dock = DockStyle.Fill;
+
+                        chromeBrowser.Load(domain);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Write(ex);
+                    }
+
+                    
+                }
+            }
         }
     }
 }

@@ -196,6 +196,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_Brand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Brand.Designer.cs">
+      <DependentUpon>Form_Brand.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Loader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +230,9 @@
     <Compile Include="JsDialogHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form_Brand.resx">
+      <DependentUpon>Form_Brand.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Loader.resx">
       <DependentUpon>Form_Loader.cs</DependentUpon>
     </EmbeddedResource>
@@ -329,6 +338,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\domain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\brand.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

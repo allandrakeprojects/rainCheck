@@ -32,9 +32,10 @@
             this.comboBox_brand = new System.Windows.Forms.ComboBox();
             this.label_help = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label_question = new System.Windows.Forms.Label();
             this.button_start_urgent = new System.Windows.Forms.Button();
             this.label_brand_id = new System.Windows.Forms.Label();
+            this.label_text_search = new System.Windows.Forms.Label();
+            this.linkLabel_question = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // comboBox_brand
@@ -67,18 +68,6 @@
             this.label1.TabIndex = 63;
             this.label1.Text = " ";
             // 
-            // label_question
-            // 
-            this.label_question.AutoSize = true;
-            this.label_question.BackColor = System.Drawing.Color.White;
-            this.label_question.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_question.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            this.label_question.Location = new System.Drawing.Point(87, 37);
-            this.label_question.Name = "label_question";
-            this.label_question.Size = new System.Drawing.Size(288, 16);
-            this.label_question.TabIndex = 64;
-            this.label_question.Text = "Select brand for em.yb1223.com domain:";
-            // 
             // button_start_urgent
             // 
             this.button_start_urgent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
@@ -106,22 +95,47 @@
             this.label_brand_id.Text = "Brand ID";
             this.label_brand_id.Visible = false;
             // 
+            // label_text_search
+            // 
+            this.label_text_search.AutoSize = true;
+            this.label_text_search.Location = new System.Drawing.Point(238, 12);
+            this.label_text_search.Name = "label_text_search";
+            this.label_text_search.Size = new System.Drawing.Size(65, 13);
+            this.label_text_search.TabIndex = 67;
+            this.label_text_search.Text = "Text Search";
+            // 
+            // linkLabel_question
+            // 
+            this.linkLabel_question.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.linkLabel_question.AutoSize = true;
+            this.linkLabel_question.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.linkLabel_question.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.linkLabel_question.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.linkLabel_question.Location = new System.Drawing.Point(87, 37);
+            this.linkLabel_question.Name = "linkLabel_question";
+            this.linkLabel_question.Size = new System.Drawing.Size(288, 16);
+            this.linkLabel_question.TabIndex = 69;
+            this.linkLabel_question.TabStop = true;
+            this.linkLabel_question.Text = "Select brand for em.yb1223.com domain:";
+            // 
             // Form_Brand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(394, 126);
+            this.ClientSize = new System.Drawing.Size(398, 126);
             this.ControlBox = false;
+            this.Controls.Add(this.linkLabel_question);
+            this.Controls.Add(this.label_text_search);
             this.Controls.Add(this.label_brand_id);
             this.Controls.Add(this.button_start_urgent);
-            this.Controls.Add(this.label_question);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label_help);
             this.Controls.Add(this.comboBox_brand);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(414, 165);
             this.Name = "Form_Brand";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
@@ -136,8 +150,9 @@
         private System.Windows.Forms.ComboBox comboBox_brand;
         private System.Windows.Forms.Label label_help;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label_question;
         private System.Windows.Forms.Button button_start_urgent;
         private System.Windows.Forms.Label label_brand_id;
+        private System.Windows.Forms.Label label_text_search;
+        private System.Windows.Forms.LinkLabel linkLabel_question;
     }
 }

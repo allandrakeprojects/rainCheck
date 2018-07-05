@@ -103,6 +103,7 @@
             this.label_text_search.Size = new System.Drawing.Size(65, 13);
             this.label_text_search.TabIndex = 67;
             this.label_text_search.Text = "Text Search";
+            this.label_text_search.Visible = false;
             // 
             // linkLabel_question
             // 
@@ -137,6 +138,8 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(414, 165);
             this.Name = "Form_Brand";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
             this.Load += new System.EventHandler(this.Form_Brand_Load);

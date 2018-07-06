@@ -380,8 +380,10 @@ namespace rainCheck
 
         public void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
+            // ----TIMER MAIN ENABLED----
             if (timer_domain.Enabled)
             {
+                // --Loading--
                 if (e.IsLoading)
                 {
                     //MessageBox.Show("loading");
@@ -407,6 +409,22 @@ namespace rainCheck
                     };
                 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // --Loaded--
                 if (!e.IsLoading)
                 {
                     //MessageBox.Show(label_domaintitle.Text);
@@ -869,10 +887,97 @@ namespace rainCheck
                         };
                     }
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // ----BUTTON GO WAS CLICKED----
             else if (buttonGoWasClicked == true)
             {
+                // --Loading--
                 if (e.IsLoading)
                 {
                     MessageBox.Show("loading");
@@ -889,7 +994,7 @@ namespace rainCheck
                         button_start.Enabled = false;
                     }));
                 }
-
+                // --Loaded--
                 if (!e.IsLoading)
                 {
                     MessageBox.Show("loaded");
@@ -954,9 +1059,10 @@ namespace rainCheck
                 }
             }
 
-            // URGENT TIMER
+            // ----TIMER URGENT ENABLED----
             if (timer_domain_urgent.Enabled)
             {
+                // --Loading--
                 if (e.IsLoading)
                 {
                     // Date preview
@@ -969,7 +1075,7 @@ namespace rainCheck
                         label_ifloadornot_urgent.Text = "1";
                     }));
                 }
-
+                // --Loaded--
                 if (!e.IsLoading)
                 {
                     string strValue = label_text_search_urgent.Text;

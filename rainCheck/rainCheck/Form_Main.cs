@@ -380,10 +380,8 @@ namespace rainCheck
 
         public void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            // ---Timer main enabled---
             if (timer_domain.Enabled)
             {
-                // --LOADING--
                 if (e.IsLoading)
                 {
                     //MessageBox.Show("loading");
@@ -409,30 +407,17 @@ namespace rainCheck
                     };
                 }
 
-                // --LOADED--
                 if (!e.IsLoading)
                 {
-                    chromeBrowser.FrameLoadEnd += (senderr, args) =>
-                    {
-                        if (args.Frame.IsMain)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                label_loaded.Text = "loaded";
-                            }));
-                        }
-                    };
+                    //MessageBox.Show(label_domaintitle.Text);
 
-                   
-                    // If domain title is empty
                     if (label_domaintitle.Text == "")
                     {
-                        MessageBox.Show("empty domain title");
-
                         end_load_inaccessible = DateTime.Now;
                         TimeSpan span = end_load_inaccessible - start_load_inaccessible;
                         int ms = (int)span.TotalMilliseconds;
-                                                
+
+                        // for fast load
                         if (ms < 500)
                         {
                             //MessageBox.Show(ms.ToString());
@@ -743,11 +728,8 @@ namespace rainCheck
                             };
                         } 
                     }
-                    // If domain title is not empty
                     else
                     {
-                        MessageBox.Show("not empty domain title");
-
                         if (!IsChinese(label_domaintitle.Text))
                         {
                             Invoke(new Action(() =>
@@ -756,8 +738,6 @@ namespace rainCheck
                                 label_inaccessible.Text = "inaccessible";
                                 //MessageBox.Show("inaccessible ops");
                             }));
-
-
                         }
                         else
                         {
@@ -796,38 +776,37 @@ namespace rainCheck
                         // Send data to text file
                         if (label_inaccessible.Text == "inaccessible")
                         {
-                            chromeBrowser.FrameLoadEnd += (senderr, args) =>
+                            if (e.IsLoading == false)
                             {
-                                MessageBox.Show("boom");
-                                //Wait for the MainFrame to finish loading
-                                if (args.Frame.IsMain)
+                                //MessageBox.Show("loaded");
+
+                                string datetime = label10.Text;
+                                string datetime_folder = label8.Text;
+                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                Rectangle bounds = Bounds;
+                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
                                 {
-                                    string datetime = label10.Text;
-                                    string datetime_folder = label8.Text;
-                                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                    string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                    string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                    DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                    Rectangle bounds = Bounds;
-                                    using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                    using (Graphics g = Graphics.FromImage(bitmap))
                                     {
-                                        using (Graphics g = Graphics.FromImage(bitmap))
-                                        {
-                                            g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                        }
-                                        Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                        resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                     }
-
-                                    timer_new.Start();
-
-                                    DataToTextFileInaccessible();
+                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                 }
-                            };
+
+                                timer_new.Start();
+
+                                MessageBox.Show("got you");
+
+                                DataToTextFileInaccessible();
+                            }
                         }
                         else if (label_hijacked.Text == "hijacked")
                         {
@@ -891,7 +870,7 @@ namespace rainCheck
                     }
                 }
             }
-            // Button was clicked
+
             else if (buttonGoWasClicked == true)
             {
                 if (e.IsLoading)
@@ -975,7 +954,7 @@ namespace rainCheck
                 }
             }
 
-            // ---Timer urgent enabled---
+            // URGENT TIMER
             if (timer_domain_urgent.Enabled)
             {
                 if (e.IsLoading)

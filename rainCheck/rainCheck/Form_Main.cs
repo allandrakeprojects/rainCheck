@@ -377,7 +377,7 @@ namespace rainCheck
         string end_load = "";
         DateTime start_load_inaccessible;
         DateTime end_load_inaccessible;
-
+        
         public void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             // ----TIMER MAIN ENABLED----
@@ -386,7 +386,7 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    //MessageBox.Show("loading");
+                    timer_detect_loaded.Start();
 
                     // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
@@ -398,10 +398,9 @@ namespace rainCheck
                         pictureBox_loader.Visible = true;
                         label_ifloadornot.Text = "1";
                     }));
-                    
+
                     chromeBrowser.TitleChanged += (senderr, args) =>
                     {
-                        //Wait for the MainFrame to finish loading
                         Invoke(new Action(() =>
                         {
                             label_domaintitle.Text = args.Title;
@@ -409,10 +408,62 @@ namespace rainCheck
                     };
                 }
 
+                if (!e.IsLoading)
+                {
+                    timer_detect_loaded.Stop();
+                    
+                    if (!IsChinese(label_domaintitle.Text))
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            label_inaccessible.Text = "inaccessible";
+                            MessageBox.Show("loaded not chinse");
+                        }));
+
+                    }
+                    else
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            MessageBox.Show("loaded chinse");
+                        }));
+                    }
+                }
+
+                //EventHandler<LoadingStateChangedEventArgs> handler = null;
+                //handler += (sender_loadingstatechanged, args) =>
+                //{
+                //    //Wait for while page to finish loading not just the first frame
+                //    if (args.IsLoading)
+                //    {
+                //        chromeBrowser.LoadingStateChanged -= handler;
+                //        //tcs.TrySetResult(true);
+                //        MessageBox.Show("load!!!!!!");
+                //    }
+                //};
+
+                //chromeBrowser.LoadingStateChanged += handler;
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+                //chromeBrowser.FrameLoadEnd += (sender_frameloadend, args) =>
+                //{
+                //    if (args.Frame.IsMain)
+                //    {
+
+                //    }
+                //};
 
 
 
@@ -425,468 +476,468 @@ namespace rainCheck
 
 
                 // --Loaded--
-                if (!e.IsLoading)
-                {
-                    //MessageBox.Show(label_domaintitle.Text);
-
-                    if (label_domaintitle.Text == "")
-                    {
-                        end_load_inaccessible = DateTime.Now;
-                        TimeSpan span = end_load_inaccessible - start_load_inaccessible;
-                        int ms = (int)span.TotalMilliseconds;
-
-                        // for fast load
-                        if (ms < 500)
-                        {
-                            //MessageBox.Show(ms.ToString());
-                            //MessageBox.Show("ops");
-
-                            Invoke(new Action(() =>
-                            {
-                                panel_new.Visible = true;
-                                panel_new.BringToFront();
-                            }));
-
-                            int webBrowser_i = 1;
-                            while (webBrowser_i <= 10)
-                            {
-                                webBrowser_new.Navigate(label_domainhide.Text);
-                                webBrowser_new.ScriptErrorsSuppressed = true;
-                                webBrowser_i++;
-                                //MessageBox.Show("asd");
-                            }
-
-                            if (!IsChinese(label_domaintitle.Text))
-                            {
-
-                                Invoke(new Action(() =>
-                                {
-                                    //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
-                                    label_inaccessible.Text = "inaccessible";
-                                    //MessageBox.Show("inaccessible ops");
-                                }));
-                            }
-                            else
-                            {
-                                string strValue = label_text_search.Text;
-                                string[] strArray = strValue.Split(',');
-
-                                foreach (string obj in strArray)
-                                {
-                                    bool contains = label_domaintitle.Text.Contains(obj);
-
-                                    if (contains == true)
-                                    {
-                                        Invoke(new Action(() =>
-                                        {
-                                            label_hijacked.Text = "";
-                                        }));
-
-                                        break;
-                                    }
-                                    else if (!contains)
-                                    {
-                                        //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
-
-                                        Invoke(new Action(() =>
-                                        {
-                                            label_hijacked.Text = "hijacked";
-                                        }));
-                                    }
-
-                                }
-                            }
-
-                            // Date preview
-                            end_load = DateTime.Now.ToString("HH:mm:ss.fff");
-
-                            // Send data to text file
-                            if (label_inaccessible.Text == "inaccessible")
-                            {
-                                string datetime = label10.Text;
-                                string datetime_folder = label8.Text;
-                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                Rectangle bounds = Bounds;
-                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                {
-                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                    {
-                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                    }
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                }
-
-                                timer_new.Start();
-
-                                DataToTextFileInaccessible();
-                            }
-                            else if (label_hijacked.Text == "hijacked")
-                            {
-                                //string datetime = label10.Text;
-                                //string datetime_folder = label8.Text;
-                                //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                //Rectangle bounds = Bounds;
-                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                //{
-                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                //    {
-                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                //    }
-                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                //}
-
-                                DataToTextFileHijacked();
-                            }
-                            else if (label_timeout.Text == "timeout")
-                            {
-                                DataToTextFileTimeout();
-                            }
-                            else
-                            {
-                                DataToTextFileSuccess();
-                            }
-
-                            Invoke(new Action(() =>
-                            {
-                                timer_timeout.Stop();
-                                i = 1;
-                                pictureBox_loader.Visible = false;
-
-                                label_timeout.Text = "";
-                                label_hijacked.Text = "";
-                                label_inaccessible.Text = "";
-                                label_inaccessible_error_message.Text = "";
-
-                                if (timer_new.Enabled == false)
-                                {
-                                    label_ifloadornot.Text = "0";
-                                }
-
-                            }));
-
-                            chromeBrowser.TitleChanged += (senderrr, argss) =>
-                            {
-                                //Wait for the MainFrame to finish loading
-                                Invoke(new Action(() =>
-                                {
-                                    label_domaintitle.Text = "";
-                                    panel_new.Visible = false;
-                                }));
-                            };
-                        }
-                        else
-                        {
-                            //if (label_timeout.Text == "timeout")
-                            //{
-                            //    MessageBox.Show("found");
-                            //}
-
-                            chromeBrowser.FrameLoadEnd += (senderr, args) =>
-                            {
-                                //Wait for the MainFrame to finish loading
-                                if (args.Frame.IsMain)
-                                {
-                                    //args.Frame.ExecuteJavaScriptAsync("alert('MainFrame finished loading');");
-
-                                    //Invoke(new Action(() =>
-                                    //{
-                                    //    MessageBox.Show(label_domaintitle.Text);
-                                    //}));
-
-
-                                    if (!IsChinese(label_domaintitle.Text))
-                                    {
-
-                                        Invoke(new Action(() =>
-                                        {
-                                            //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
-                                            label_inaccessible.Text = "inaccessible";
-                                            //MessageBox.Show("inaccessible ops");
-                                        }));
-                                    }
-                                    else
-                                    {
-                                        string strValue = label_text_search.Text;
-                                        string[] strArray = strValue.Split(',');
-
-                                        foreach (string obj in strArray)
-                                        {
-                                            bool contains = label_domaintitle.Text.Contains(obj);
-
-                                            if (contains == true)
-                                            {
-                                                Invoke(new Action(() =>
-                                                {
-                                                    label_hijacked.Text = "";
-                                                }));
-
-                                                break;
-                                            }
-                                            else if (!contains)
-                                            {
-                                                //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
-
-                                                Invoke(new Action(() =>
-                                                {
-                                                    label_hijacked.Text = "hijacked";
-                                                }));
-                                            }
-
-                                        }
-                                    }
-
-                                    // Date preview
-                                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
-
-                                    // Send data to text file
-                                    if (label_inaccessible.Text == "inaccessible")
-                                    {
-                                        string datetime = label10.Text;
-                                        string datetime_folder = label8.Text;
-                                        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                        string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                        string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                        DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                        Rectangle bounds = Bounds;
-                                        using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                        {
-                                            using (Graphics g = Graphics.FromImage(bitmap))
-                                            {
-                                                g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            }
-                                            Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                        }
-
-                                        timer_new.Start();
-
-                                        DataToTextFileInaccessible();
-                                    }
-                                    else if (label_hijacked.Text == "hijacked")
-                                    {
-                                        //string datetime = label10.Text;
-                                        //string datetime_folder = label8.Text;
-                                        //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                        //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                        //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                        //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                        //Rectangle bounds = Bounds;
-                                        //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                        //{
-                                        //    using (Graphics g = Graphics.FromImage(bitmap))
-                                        //    {
-                                        //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                        //    }
-                                        //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                        //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                        //}
-
-                                        DataToTextFileHijacked();
-                                    }
-                                    else if (label_timeout.Text == "timeout")
-                                    {
-                                        DataToTextFileTimeout();
-                                    }
-                                    else
-                                    {
-                                        DataToTextFileSuccess();
-                                    }
-
-                                    Invoke(new Action(() =>
-                                    {
-                                        timer_timeout.Stop();
-                                        i = 1;
-                                        pictureBox_loader.Visible = false;
-
-                                        label_timeout.Text = "";
-                                        label_hijacked.Text = "";
-                                        label_inaccessible.Text = "";
-                                        label_inaccessible_error_message.Text = "";
-
-                                        if (timer_new.Enabled == false)
-                                        {
-                                            label_ifloadornot.Text = "0";
-                                        }
-                                    }));
-
-                                    chromeBrowser.TitleChanged += (senderrr, argss) =>
-                                    {
-                                        //Wait for the MainFrame to finish loading
-                                        Invoke(new Action(() =>
-                                        {
-                                            label_domaintitle.Text = "";
-                                        }));
-                                    };
-
-                                }
-                            };
-                        } 
-                    }
-                    else
-                    {
-                        if (!IsChinese(label_domaintitle.Text))
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
-                                label_inaccessible.Text = "inaccessible";
-                                //MessageBox.Show("inaccessible ops");
-                            }));
-                        }
-                        else
-                        {
-                            string strValue = label_text_search.Text;
-                            string[] strArray = strValue.Split(',');
-
-                            foreach (string obj in strArray)
-                            {
-                                bool contains = label_domaintitle.Text.Contains(obj);
-
-                                if (contains == true)
-                                {
-                                    Invoke(new Action(() =>
-                                    {
-                                        label_hijacked.Text = "";
-                                    }));
-
-                                    break;
-                                }
-                                else if (!contains)
-                                {
-                                    //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
-
-                                    Invoke(new Action(() =>
-                                    {
-                                        label_hijacked.Text = "hijacked";
-                                    }));
-                                }
-
-                            }
-                        }
-
-                        // Date preview
-                        end_load = DateTime.Now.ToString("HH:mm:ss.fff");
-
-                        // Send data to text file
-                        if (label_inaccessible.Text == "inaccessible")
-                        {
-                            if (e.IsLoading == false)
-                            {
-                                //MessageBox.Show("loaded");
-
-                                string datetime = label10.Text;
-                                string datetime_folder = label8.Text;
-                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                Rectangle bounds = Bounds;
-                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                {
-                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                    {
-                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                    }
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                }
-
-                                timer_new.Start();
-
-                                MessageBox.Show("got you");
-
-                                DataToTextFileInaccessible();
-                            }
-                        }
-                        else if (label_hijacked.Text == "hijacked")
-                        {
-                            //string datetime = label10.Text;
-                            //string datetime_folder = label8.Text;
-                            //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                            //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
-
-                            //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                            //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                            //Rectangle bounds = Bounds;
-                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                            //{
-                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                            //    {
-                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                            //    }
-                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                            //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                            //}
-
-                            DataToTextFileHijacked();
-                        }
-                        else if (label_timeout.Text == "timeout")
-                        {
-                            DataToTextFileTimeout();
-                        }
-                        else
-                        {
-                            DataToTextFileSuccess();
-                        }
-
-                        Invoke(new Action(() =>
-                        {
-                            timer_timeout.Stop();
-                            i = 1;
-                            pictureBox_loader.Visible = false;
-
-                            label_timeout.Text = "";
-                            label_hijacked.Text = "";
-                            label_inaccessible.Text = "";
-                            label_inaccessible_error_message.Text = "";
-
-                            if (timer_new.Enabled == false)
-                            {
-                                label_ifloadornot.Text = "0";
-                            }
-                        }));
-
-                        chromeBrowser.TitleChanged += (senderr, args) =>
-                        {
-                            //Wait for the MainFrame to finish loading
-                            Invoke(new Action(() =>
-                            {
-                                label_domaintitle.Text = "";
-                            }));
-                        };
-                    }
-                }
+                //if (!e.IsLoading)
+                //{
+                //    //MessageBox.Show(label_domaintitle.Text);
+
+                //    if (label_domaintitle.Text == "")
+                //    {
+                //        end_load_inaccessible = DateTime.Now;
+                //        TimeSpan span = end_load_inaccessible - start_load_inaccessible;
+                //        int ms = (int)span.TotalMilliseconds;
+
+                //        // for fast load
+                //        if (ms < 500)
+                //        {
+                //            //MessageBox.Show(ms.ToString());
+                //            //MessageBox.Show("ops");
+
+                //            Invoke(new Action(() =>
+                //            {
+                //                panel_new.Visible = true;
+                //                panel_new.BringToFront();
+                //            }));
+
+                //            int webBrowser_i = 1;
+                //            while (webBrowser_i <= 10)
+                //            {
+                //                webBrowser_new.Navigate(label_domainhide.Text);
+                //                webBrowser_new.ScriptErrorsSuppressed = true;
+                //                webBrowser_i++;
+                //                //MessageBox.Show("asd");
+                //            }
+
+                //            if (!IsChinese(label_domaintitle.Text))
+                //            {
+
+                //                Invoke(new Action(() =>
+                //                {
+                //                    //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
+                //                    label_inaccessible.Text = "inaccessible";
+                //                    //MessageBox.Show("inaccessible ops");
+                //                }));
+                //            }
+                //            else
+                //            {
+                //                string strValue = label_text_search.Text;
+                //                string[] strArray = strValue.Split(',');
+
+                //                foreach (string obj in strArray)
+                //                {
+                //                    bool contains = label_domaintitle.Text.Contains(obj);
+
+                //                    if (contains == true)
+                //                    {
+                //                        Invoke(new Action(() =>
+                //                        {
+                //                            label_hijacked.Text = "";
+                //                        }));
+
+                //                        break;
+                //                    }
+                //                    else if (!contains)
+                //                    {
+                //                        //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+
+                //                        Invoke(new Action(() =>
+                //                        {
+                //                            label_hijacked.Text = "hijacked";
+                //                        }));
+                //                    }
+
+                //                }
+                //            }
+
+                //            // Date preview
+                //            end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                //            // Send data to text file
+                //            if (label_inaccessible.Text == "inaccessible")
+                //            {
+                //                string datetime = label10.Text;
+                //                string datetime_folder = label8.Text;
+                //                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //                Rectangle bounds = Bounds;
+                //                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //                {
+                //                    using (Graphics g = Graphics.FromImage(bitmap))
+                //                    {
+                //                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //                    }
+                //                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //                }
+
+                //                timer_new.Start();
+
+                //                DataToTextFileInaccessible();
+                //            }
+                //            else if (label_hijacked.Text == "hijacked")
+                //            {
+                //                //string datetime = label10.Text;
+                //                //string datetime_folder = label8.Text;
+                //                //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //                //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //                //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //                //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //                //Rectangle bounds = Bounds;
+                //                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //                //{
+                //                //    using (Graphics g = Graphics.FromImage(bitmap))
+                //                //    {
+                //                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //                //    }
+                //                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //                //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //                //}
+
+                //                DataToTextFileHijacked();
+                //            }
+                //            else if (label_timeout.Text == "timeout")
+                //            {
+                //                DataToTextFileTimeout();
+                //            }
+                //            else
+                //            {
+                //                DataToTextFileSuccess();
+                //            }
+
+                //            Invoke(new Action(() =>
+                //            {
+                //                timer_timeout.Stop();
+                //                i = 1;
+                //                pictureBox_loader.Visible = false;
+
+                //                label_timeout.Text = "";
+                //                label_hijacked.Text = "";
+                //                label_inaccessible.Text = "";
+                //                label_inaccessible_error_message.Text = "";
+
+                //                if (timer_new.Enabled == false)
+                //                {
+                //                    label_ifloadornot.Text = "0";
+                //                }
+
+                //            }));
+
+                //            chromeBrowser.TitleChanged += (senderrr, argss) =>
+                //            {
+                //                //Wait for the MainFrame to finish loading
+                //                Invoke(new Action(() =>
+                //                {
+                //                    label_domaintitle.Text = "";
+                //                    panel_new.Visible = false;
+                //                }));
+                //            };
+                //        }
+                //        else
+                //        {
+                //            //if (label_timeout.Text == "timeout")
+                //            //{
+                //            //    MessageBox.Show("found");
+                //            //}
+
+                //            chromeBrowser.FrameLoadEnd += (senderr, args) =>
+                //            {
+                //                //Wait for the MainFrame to finish loading
+                //                if (args.Frame.IsMain)
+                //                {
+                //                    //args.Frame.ExecuteJavaScriptAsync("alert('MainFrame finished loading');");
+
+                //                    //Invoke(new Action(() =>
+                //                    //{
+                //                    //    MessageBox.Show(label_domaintitle.Text);
+                //                    //}));
+
+
+                //                    if (!IsChinese(label_domaintitle.Text))
+                //                    {
+
+                //                        Invoke(new Action(() =>
+                //                        {
+                //                            //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
+                //                            label_inaccessible.Text = "inaccessible";
+                //                            //MessageBox.Show("inaccessible ops");
+                //                        }));
+                //                    }
+                //                    else
+                //                    {
+                //                        string strValue = label_text_search.Text;
+                //                        string[] strArray = strValue.Split(',');
+
+                //                        foreach (string obj in strArray)
+                //                        {
+                //                            bool contains = label_domaintitle.Text.Contains(obj);
+
+                //                            if (contains == true)
+                //                            {
+                //                                Invoke(new Action(() =>
+                //                                {
+                //                                    label_hijacked.Text = "";
+                //                                }));
+
+                //                                break;
+                //                            }
+                //                            else if (!contains)
+                //                            {
+                //                                //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+
+                //                                Invoke(new Action(() =>
+                //                                {
+                //                                    label_hijacked.Text = "hijacked";
+                //                                }));
+                //                            }
+
+                //                        }
+                //                    }
+
+                //                    // Date preview
+                //                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                //                    // Send data to text file
+                //                    if (label_inaccessible.Text == "inaccessible")
+                //                    {
+                //                        string datetime = label10.Text;
+                //                        string datetime_folder = label8.Text;
+                //                        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //                        string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //                        string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //                        DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //                        Rectangle bounds = Bounds;
+                //                        using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //                        {
+                //                            using (Graphics g = Graphics.FromImage(bitmap))
+                //                            {
+                //                                g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //                            }
+                //                            Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //                            resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //                        }
+
+                //                        timer_new.Start();
+
+                //                        DataToTextFileInaccessible();
+                //                    }
+                //                    else if (label_hijacked.Text == "hijacked")
+                //                    {
+                //                        //string datetime = label10.Text;
+                //                        //string datetime_folder = label8.Text;
+                //                        //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //                        //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //                        //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //                        //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //                        //Rectangle bounds = Bounds;
+                //                        //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //                        //{
+                //                        //    using (Graphics g = Graphics.FromImage(bitmap))
+                //                        //    {
+                //                        //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //                        //    }
+                //                        //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //                        //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //                        //}
+
+                //                        DataToTextFileHijacked();
+                //                    }
+                //                    else if (label_timeout.Text == "timeout")
+                //                    {
+                //                        DataToTextFileTimeout();
+                //                    }
+                //                    else
+                //                    {
+                //                        DataToTextFileSuccess();
+                //                    }
+
+                //                    Invoke(new Action(() =>
+                //                    {
+                //                        timer_timeout.Stop();
+                //                        i = 1;
+                //                        pictureBox_loader.Visible = false;
+
+                //                        label_timeout.Text = "";
+                //                        label_hijacked.Text = "";
+                //                        label_inaccessible.Text = "";
+                //                        label_inaccessible_error_message.Text = "";
+
+                //                        if (timer_new.Enabled == false)
+                //                        {
+                //                            label_ifloadornot.Text = "0";
+                //                        }
+                //                    }));
+
+                //                    chromeBrowser.TitleChanged += (senderrr, argss) =>
+                //                    {
+                //                        //Wait for the MainFrame to finish loading
+                //                        Invoke(new Action(() =>
+                //                        {
+                //                            label_domaintitle.Text = "";
+                //                        }));
+                //                    };
+
+                //                }
+                //            };
+                //        } 
+                //    }
+                //    else
+                //    {
+                //        if (!IsChinese(label_domaintitle.Text))
+                //        {
+                //            Invoke(new Action(() =>
+                //            {
+                //                //chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
+                //                label_inaccessible.Text = "inaccessible";
+                //                //MessageBox.Show("inaccessible ops");
+                //            }));
+                //        }
+                //        else
+                //        {
+                //            string strValue = label_text_search.Text;
+                //            string[] strArray = strValue.Split(',');
+
+                //            foreach (string obj in strArray)
+                //            {
+                //                bool contains = label_domaintitle.Text.Contains(obj);
+
+                //                if (contains == true)
+                //                {
+                //                    Invoke(new Action(() =>
+                //                    {
+                //                        label_hijacked.Text = "";
+                //                    }));
+
+                //                    break;
+                //                }
+                //                else if (!contains)
+                //                {
+                //                    //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+
+                //                    Invoke(new Action(() =>
+                //                    {
+                //                        label_hijacked.Text = "hijacked";
+                //                    }));
+                //                }
+
+                //            }
+                //        }
+
+                //        // Date preview
+                //        end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                //        // Send data to text file
+                //        if (label_inaccessible.Text == "inaccessible")
+                //        {
+                //            if (e.IsLoading == false)
+                //            {
+                //                //MessageBox.Show("loaded");
+
+                //                string datetime = label10.Text;
+                //                string datetime_folder = label8.Text;
+                //                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //                Rectangle bounds = Bounds;
+                //                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //                {
+                //                    using (Graphics g = Graphics.FromImage(bitmap))
+                //                    {
+                //                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //                    }
+                //                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //                }
+
+                //                timer_new.Start();
+
+                //                MessageBox.Show("got you");
+
+                //                DataToTextFileInaccessible();
+                //            }
+                //        }
+                //        else if (label_hijacked.Text == "hijacked")
+                //        {
+                //            //string datetime = label10.Text;
+                //            //string datetime_folder = label8.Text;
+                //            //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //            //string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                //            //string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                //            //DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                //            //Rectangle bounds = Bounds;
+                //            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                //            //{
+                //            //    using (Graphics g = Graphics.FromImage(bitmap))
+                //            //    {
+                //            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                //            //    }
+                //            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                //            //    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                //            //}
+
+                //            DataToTextFileHijacked();
+                //        }
+                //        else if (label_timeout.Text == "timeout")
+                //        {
+                //            DataToTextFileTimeout();
+                //        }
+                //        else
+                //        {
+                //            DataToTextFileSuccess();
+                //        }
+
+                //        Invoke(new Action(() =>
+                //        {
+                //            timer_timeout.Stop();
+                //            i = 1;
+                //            pictureBox_loader.Visible = false;
+
+                //            label_timeout.Text = "";
+                //            label_hijacked.Text = "";
+                //            label_inaccessible.Text = "";
+                //            label_inaccessible_error_message.Text = "";
+
+                //            if (timer_new.Enabled == false)
+                //            {
+                //                label_ifloadornot.Text = "0";
+                //            }
+                //        }));
+
+                //        chromeBrowser.TitleChanged += (senderr, args) =>
+                //        {
+                //            //Wait for the MainFrame to finish loading
+                //            Invoke(new Action(() =>
+                //            {
+                //                label_domaintitle.Text = "";
+                //            }));
+                //        };
+                //    }
+                //}
 
 
 
@@ -2648,6 +2699,17 @@ namespace rainCheck
                     label_ifloadornot.Text = "0";
                 }));
             }
+        }
+
+        int timer_detect_loaded_1 = 0;
+        private void Timer_detect_loaded_Tick(object sender, EventArgs e)
+        {
+            timer_detect_loaded_1++;
+            
+            Invoke(new Action(() =>
+            {
+                label18.Text = timer_detect_loaded_1.ToString();
+            }));
         }
     }
 }

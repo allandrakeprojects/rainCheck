@@ -9,7 +9,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -379,6 +382,8 @@ namespace rainCheck
         DateTime start_load_inaccessible;
         DateTime end_load_inaccessible;
         int fully_loaded = 0;
+        int start_detect = 0;
+        int ms_detect = 0;
 
         public async void ChromiumWebBrowser_LoadingStateChangedAsync(object sender, LoadingStateChangedEventArgs e)
         {
@@ -388,7 +393,13 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    MessageBox.Show("loading asdasdasdasdsa1");
+                    Invoke(new Action(() =>
+                    {
+                        start_detect++;
+                        label_start_detect.Text = start_detect.ToString();
+                    }));
+
+                    //MessageBox.Show("loading asdasdasdasdsa1 " + label_domainhide.Text);
 
                     // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
@@ -410,13 +421,18 @@ namespace rainCheck
                     };
                 }
 
+                // --Loaded--
                 if (!e.IsLoading)
                 {
+                    // Date preview
+                    end_load_inaccessible = DateTime.Now;
+                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
                     await Task.Run(async () =>
                     {
                         await Task.Delay(2000);
                     });
-                    
+
                     Invoke(new Action(() =>
                     {
                         fully_loaded++;
@@ -425,29 +441,174 @@ namespace rainCheck
 
                     if (label_fully_loaded.Text == "1")
                     {
+                        // Web title not chinese/inaccessible
                         if (!IsChinese(label_domaintitle.Text))
                         {
-                            Invoke(new Action(() =>
+                            Invoke(new Action(async () =>
                             {
                                 label_inaccessible.Text = "inaccessible";
-                                MessageBox.Show("loaded not chinese");
-                            }));
 
+                                TimeSpan span = end_load_inaccessible - start_load_inaccessible;
+                                int ms = (int)span.TotalMilliseconds;
+
+                                //MessageBox.Show(ms.ToString());
+
+                                // for fast load
+                                if (ms < 600)
+                                {
+                                    ms_detect++;
+                                    label18.Text = ms_detect.ToString();
+                                    panel_new.Visible = true;
+                                    panel_new.BringToFront();
+
+                                    if (ms_detect == 1)
+                                    {
+                                        int webBrowser_i = 1;
+                                        while (webBrowser_i <= 2)
+                                        {
+                                            webBrowser_new.Navigate(label_domainhide.Text);
+                                            (new System.Threading.Thread(CloseIt)).Start();
+                                            MessageBox.Show("loading...");
+                                            webBrowser_i++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int webBrowser_i = 0;
+                                        while (webBrowser_i <= 2)
+                                        {
+                                            webBrowser_new.Navigate(label_domainhide.Text);
+                                            webBrowser_i++;
+                                        }
+                                    }
+                                                                        
+                                    await Task.Run(async () =>
+                                    {
+                                        await Task.Delay(500);
+                                    });
+                                    
+                                    string datetime = label10.Text;
+                                    string datetime_folder = label8.Text;
+                                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                    string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                    string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                    DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                    Rectangle bounds = Bounds;
+                                    using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                    {
+                                        using (Graphics g = Graphics.FromImage(bitmap))
+                                        {
+                                            g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                        }
+                                        Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                        resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                    }
+                                    
+                                    DataToTextFileInaccessible();
+                                    
+                                    timer_timeout.Stop();
+                                    i = 1;
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+                                        
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot.Text = "0";
+                                    }
+
+                                    chromeBrowser.TitleChanged += (senderrr, argss) =>
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_domaintitle.Text = "";
+                                            panel_new.Visible = false;
+                                        }));
+                                    };
+                                }
+                                else
+                                {
+                                    if (label_inaccessible_error_message.Text == "ERR_ABORTED")
+                                    {
+                                        MessageBox.Show("error aborted here " + label_domainhide.Text);
+                                    }
+                                }
+                            }));
                         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        // Web title chinese
                         else
                         {
                             Invoke(new Action(() =>
                             {
-                                MessageBox.Show("loaded chinese");
+                                fully_loaded = 0;
+                                start_detect = 0;
+                                label_ifloadornot.Text = "0";
                             }));
                         }
                     }
                     else
                     {
-                        MessageBox.Show("oppppps");
-                    }
-
+                        Invoke(new Action(() =>
+                        {
+                            fully_loaded = 0;
+                            start_detect = 0;
+                            //label_ifloadornot.Text = "0";
+                        }));
+                    }                    
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //EventHandler<LoadingStateChangedEventArgs> handler = null;
                 //handler += (sender_loadingstatechanged, args) =>
@@ -1203,7 +1364,18 @@ namespace rainCheck
             }
         }
 
+        public static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
 
+        private void CloseIt()
+        {
+            System.Threading.Thread.Sleep(120);
+            Microsoft.VisualBasic.Interaction.AppActivate(
+                 System.Diagnostics.Process.GetCurrentProcess().Id);
+            SendKeys.SendWait(" ");
+        }
 
         public bool IsChinese(string text)
         {

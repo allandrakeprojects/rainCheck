@@ -260,12 +260,10 @@ namespace rainCheck
                 panel_browser.Controls.Add(chromeBrowser);
 
                 chromeBrowser.Dock = DockStyle.Fill;
+                
                 chromeBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChangedAsync;
                 chromeBrowser.AddressChanged += ChromiumWebBrowser_AddressChanged;
-
-                // Get domain website title
                 //chromeBrowser.TitleChanged += ChromiumWebBrowser_TitleChanged;
-
                 //chromeBrowser.StatusMessage += OnBrowserStatusMessage;
                 chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
             }
@@ -306,15 +304,16 @@ namespace rainCheck
         {
             Invoke(new Action(() =>
             {
-                if (panel_main.Visible == true)
+                if (args.Title == "")
                 {
-                    this.InvokeOnUiThreadIfRequired(() => label_domaintitle.Text = args.Title);
-                    //label_domaintitle.Text = args.Title;
-                } else if (panel_urgent.Visible == true)
-                {
-                    this.InvokeOnUiThreadIfRequired(() => label_domaintitle_urgent.Text = args.Title);
-                    //label_domaintitle_urgent.Text = args.Title;
+                    label_domaintitle.Text = "";
                 }
+                else
+                {
+                    label_domaintitle.Text = args.Title;
+                }
+                
+                MessageBox.Show(label_domaintitle.Text);
             }));
         }
 
@@ -395,6 +394,7 @@ namespace rainCheck
                 {
                     Invoke(new Action(() =>
                     {
+                        panel_browser.Controls.Add(chromeBrowser);
                         start_detect++;
                         label_start_detect.Text = start_detect.ToString();
                     }));
@@ -417,6 +417,10 @@ namespace rainCheck
                         Invoke(new Action(() =>
                         {
                             label_domaintitle.Text = args.Title;
+                            //label19.Text = label_domaintitle.Text;
+                            //label_domaintitle.Text = "";
+                            //MessageBox.Show(args.Title);
+                            //this.InvokeOnUiThreadIfRequired(() => label_domaintitle.Text = args.Title);
                         }));
                     };
                 }
@@ -432,7 +436,7 @@ namespace rainCheck
                     {
                         await Task.Delay(2000);
                     });
-
+                    
                     Invoke(new Action(() =>
                     {
                         fully_loaded++;
@@ -450,11 +454,9 @@ namespace rainCheck
 
                                 TimeSpan span = end_load_inaccessible - start_load_inaccessible;
                                 int ms = (int)span.TotalMilliseconds;
-
-                                //MessageBox.Show(ms.ToString());
-
+                                
                                 // for fast load
-                                if (ms < 600)
+                                if (ms < 500)
                                 {
                                     ms_detect++;
                                     label18.Text = ms_detect.ToString();
@@ -537,10 +539,76 @@ namespace rainCheck
                                 }
                                 else
                                 {
-                                    if (label_inaccessible_error_message.Text == "ERR_ABORTED")
+                                    //if (label_domaintitle.Text == "")
+                                    //{
+                                    //    panel_browser.Controls.Clear();
+                                    //}
+
+                                    await Task.Run(async () =>
                                     {
-                                        MessageBox.Show("error aborted here " + label_domainhide.Text);
+                                        await Task.Delay(500);
+                                    });
+                                    
+                                    string datetime = label10.Text;
+                                    string datetime_folder = label8.Text;
+                                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                    string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                    string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                    DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                    Rectangle bounds = Bounds;
+                                    using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                    {
+                                        using (Graphics g = Graphics.FromImage(bitmap))
+                                        {
+                                            g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                        }
+                                        Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                        
+                                        resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                        string sFullPath = path + "_" + label_domainhide.Text + ".jpeg";
+                                        var fileLength = new FileInfo(sFullPath).Length;
+
+                                        if (fileLength < 4000)
+                                        {
+                                            var bmp = new Bitmap(Properties.Resources.privacy_error);
+                                            bmp.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                        }
+                                        else
+                                        {
+                                            resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                        }
                                     }
+
+                                    DataToTextFileInaccessible();
+
+                                    timer_timeout.Stop();
+                                    i = 1;
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+                                    
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot.Text = "0";
+                                    }
+
+                                    chromeBrowser.TitleChanged += (senderrr, argss) =>
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_domaintitle.Text = "";
+                                            panel_new.Visible = false;
+                                        }));
+                                    };
                                 }
                             }));
                         }
@@ -584,7 +652,7 @@ namespace rainCheck
                         {
                             fully_loaded = 0;
                             start_detect = 0;
-                            //label_ifloadornot.Text = "0";
+                            label_ifloadornot.Text = "0";
                         }));
                     }                    
                 }
@@ -1224,7 +1292,20 @@ namespace rainCheck
                         button_go.Enabled = false;
                         button_start.Enabled = false;
                     }));
+
+                    chromeBrowser.TitleChanged += (senderr, args) =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            label_domaintitle.Text = args.Title;
+                            label19.Text = label_domaintitle.Text;
+                            label_domaintitle.Text = "";
+                            MessageBox.Show(args.Title);
+                            //this.InvokeOnUiThreadIfRequired(() => label_domaintitle.Text = args.Title);
+                        }));
+                    };
                 }
+
                 // --Loaded--
                 if (!e.IsLoading)
                 {

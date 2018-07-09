@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -256,7 +257,7 @@ namespace rainCheck
                 panel_browser.Controls.Add(chromeBrowser);
 
                 chromeBrowser.Dock = DockStyle.Fill;
-                chromeBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
+                chromeBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChangedAsync;
                 chromeBrowser.AddressChanged += ChromiumWebBrowser_AddressChanged;
 
                 // Get domain website title
@@ -377,8 +378,9 @@ namespace rainCheck
         string end_load = "";
         DateTime start_load_inaccessible;
         DateTime end_load_inaccessible;
-        
-        public void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        int fully_loaded = 0;
+
+        public async void ChromiumWebBrowser_LoadingStateChangedAsync(object sender, LoadingStateChangedEventArgs e)
         {
             // ----TIMER MAIN ENABLED----
             if (timer_domain.Enabled)
@@ -386,7 +388,7 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    timer_detect_loaded.Start();
+                    MessageBox.Show("loading asdasdasdasdsa1");
 
                     // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
@@ -410,24 +412,41 @@ namespace rainCheck
 
                 if (!e.IsLoading)
                 {
-                    timer_detect_loaded.Stop();
-                    
-                    if (!IsChinese(label_domaintitle.Text))
+                    await Task.Run(async () =>
                     {
-                        Invoke(new Action(() =>
-                        {
-                            label_inaccessible.Text = "inaccessible";
-                            MessageBox.Show("loaded not chinse");
-                        }));
+                        await Task.Delay(2000);
+                    });
+                    
+                    Invoke(new Action(() =>
+                    {
+                        fully_loaded++;
+                        label_fully_loaded.Text = fully_loaded.ToString();
+                    }));
 
+                    if (label_fully_loaded.Text == "1")
+                    {
+                        if (!IsChinese(label_domaintitle.Text))
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                label_inaccessible.Text = "inaccessible";
+                                MessageBox.Show("loaded not chinese");
+                            }));
+
+                        }
+                        else
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                MessageBox.Show("loaded chinese");
+                            }));
+                        }
                     }
                     else
                     {
-                        Invoke(new Action(() =>
-                        {
-                            MessageBox.Show("loaded chinse");
-                        }));
+                        MessageBox.Show("oppppps");
                     }
+
                 }
 
                 //EventHandler<LoadingStateChangedEventArgs> handler = null;
@@ -1183,6 +1202,8 @@ namespace rainCheck
                 }
             }
         }
+
+
 
         public bool IsChinese(string text)
         {
@@ -2699,17 +2720,6 @@ namespace rainCheck
                     label_ifloadornot.Text = "0";
                 }));
             }
-        }
-
-        int timer_detect_loaded_1 = 0;
-        private void Timer_detect_loaded_Tick(object sender, EventArgs e)
-        {
-            timer_detect_loaded_1++;
-            
-            Invoke(new Action(() =>
-            {
-                label18.Text = timer_detect_loaded_1.ToString();
-            }));
         }
     }
 }

@@ -48,7 +48,7 @@ namespace rainCheck
             // Design
             //this.WindowState = FormWindowState.Maximized;
 
-            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id, b.text_search FROM domains d inner join brands b ON d.brand_name=b.id WHERE d.status='A' order by FIELD(d.brand_name, 'Tian Fa', 'Chang Le', 'Feng Yin', 'Yong Bao', 'Ju Yi Tang')");
+            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id, b.text_search FROM domains d inner join brands b ON d.brand_name=b.id WHERE d.status='A' order by FIELD(b.id, 4, 1, 2, 5, 3), d.domain_name");
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -300,50 +300,6 @@ namespace rainCheck
             }));
         }
 
-        private void ChromiumWebBrowser_TitleChanged(object sender, TitleChangedEventArgs args)
-        {
-            Invoke(new Action(() =>
-            {
-                if (args.Title == "")
-                {
-                    label_domaintitle.Text = "";
-                }
-                else
-                {
-                    label_domaintitle.Text = args.Title;
-                }
-                
-                MessageBox.Show(label_domaintitle.Text);
-            }));
-        }
-
-        private void OnBrowserStatusMessage(object sender, StatusMessageEventArgs args)
-        {
-            this.InvokeOnUiThreadIfRequired(() => Text = args.Value);
-
-            MessageBox.Show(args.Value);
-        }
-
-        private void Label_domaintitle_TextChanged(object sender, EventArgs e)
-        {
-            //bool contains = label_domaintitle.Text.Contains(label_text_search.Text);
-            
-            //if (contains)
-            //{
-            //    MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nsafe");
-            //}
-            //else
-            //{
-            //    MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe");
-            //}
-        }
-
-        //private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
-        //{
-        //    this.InvokeOnUiThreadIfRequired(() => Text = args.Address);
-        //    MessageBox.Show(args.Address);
-        //}
-
         public int i = 1;
         private void Timer_timeout_Tick(object sender, EventArgs e)
         {
@@ -410,19 +366,30 @@ namespace rainCheck
                         timer_timeout.Start();
                         pictureBox_loader.Visible = true;
                         label_ifloadornot.Text = "1";
+                        ms_detect++;
+                        label_loadeddetect.Text = ms_detect.ToString();
                     }));
-
-                    chromeBrowser.TitleChanged += (senderr, args) =>
+                    
+                    if (ms_detect == 1)
                     {
-                        Invoke(new Action(() =>
+                        int webBrowser_i = 1;
+                        while (webBrowser_i <= 2)
                         {
-                            label_domaintitle.Text = args.Title;
-                            //label19.Text = label_domaintitle.Text;
-                            //label_domaintitle.Text = "";
-                            //MessageBox.Show(args.Title);
-                            //this.InvokeOnUiThreadIfRequired(() => label_domaintitle.Text = args.Title);
-                        }));
-                    };
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            (new System.Threading.Thread(CloseIt)).Start();
+                            MessageBox.Show("Loading...", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            webBrowser_i++;
+                        }
+                    }
+                    else
+                    {
+                        int webBrowser_i = 0;
+                        while (webBrowser_i <= 2)
+                        {
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            webBrowser_i++;
+                        }
+                    }
                 }
 
                 // --Loaded--
@@ -445,45 +412,57 @@ namespace rainCheck
 
                     if (label_fully_loaded.Text == "1")
                     {
-                        // Web title not chinese/inaccessible
-                        if (!IsChinese(label_domaintitle.Text))
+                        // get website title
+                        Invoke(new Action(() =>
                         {
+                            string webtitle = webBrowser_new.DocumentTitle;
+                            label_webtitle.Text = webtitle;
+                        }));
+
+                        // Web title not chinese/inaccessible
+                        if (!IsChinese(label_webtitle.Text))
+                        {
+                            if (label_webtitle.Text == "This site isn’t secure")
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    panel_new.Visible = true;
+                                    panel_new.BringToFront();
+                                }));
+                            }
+
+                            if (ms_detect == 1)
+                            {
+                                if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure")
+                                {
+                                    Invoke(new Action(() =>
+                                    {
+                                        panel_new.Visible = true;
+                                        panel_new.BringToFront();
+                                    }));
+                                }
+                            }
+
                             Invoke(new Action(async () =>
                             {
                                 label_inaccessible.Text = "inaccessible";
 
                                 TimeSpan span = end_load_inaccessible - start_load_inaccessible;
                                 int ms = (int)span.TotalMilliseconds;
-                                
+
                                 // for fast load
                                 if (ms < 500)
                                 {
-                                    ms_detect++;
-                                    label18.Text = ms_detect.ToString();
                                     panel_new.Visible = true;
                                     panel_new.BringToFront();
+                                    
+                                    int webBrowser_i = 0;
+                                    while (webBrowser_i <= 2)
+                                    {
+                                        webBrowser_new.Navigate(label_domainhide.Text);
+                                        webBrowser_i++;
+                                    }
 
-                                    if (ms_detect == 1)
-                                    {
-                                        int webBrowser_i = 1;
-                                        while (webBrowser_i <= 2)
-                                        {
-                                            webBrowser_new.Navigate(label_domainhide.Text);
-                                            (new System.Threading.Thread(CloseIt)).Start();
-                                            MessageBox.Show("loading...");
-                                            webBrowser_i++;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        int webBrowser_i = 0;
-                                        while (webBrowser_i <= 2)
-                                        {
-                                            webBrowser_new.Navigate(label_domainhide.Text);
-                                            webBrowser_i++;
-                                        }
-                                    }
-                                                                        
                                     await Task.Run(async () =>
                                     {
                                         await Task.Delay(500);
@@ -528,22 +507,13 @@ namespace rainCheck
                                         label_ifloadornot.Text = "0";
                                     }
 
-                                    chromeBrowser.TitleChanged += (senderrr, argss) =>
+                                    Invoke(new Action(() =>
                                     {
-                                        Invoke(new Action(() =>
-                                        {
-                                            label_domaintitle.Text = "";
-                                            panel_new.Visible = false;
-                                        }));
-                                    };
+                                        panel_new.Visible = false;
+                                    }));
                                 }
                                 else
                                 {
-                                    //if (label_domaintitle.Text == "")
-                                    //{
-                                    //    panel_browser.Controls.Clear();
-                                    //}
-
                                     await Task.Run(async () =>
                                     {
                                         await Task.Delay(500);
@@ -569,18 +539,6 @@ namespace rainCheck
                                         Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
                                         
                                         resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                        string sFullPath = path + "_" + label_domainhide.Text + ".jpeg";
-                                        var fileLength = new FileInfo(sFullPath).Length;
-
-                                        if (fileLength < 4000)
-                                        {
-                                            var bmp = new Bitmap(Properties.Resources.privacy_error);
-                                            bmp.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                        }
-                                        else
-                                        {
-                                            resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                        }
                                     }
 
                                     DataToTextFileInaccessible();
@@ -601,14 +559,10 @@ namespace rainCheck
                                         label_ifloadornot.Text = "0";
                                     }
 
-                                    chromeBrowser.TitleChanged += (senderrr, argss) =>
+                                    Invoke(new Action(() =>
                                     {
-                                        Invoke(new Action(() =>
-                                        {
-                                            label_domaintitle.Text = "";
-                                            panel_new.Visible = false;
-                                        }));
-                                    };
+                                        panel_new.Visible = false;
+                                    }));
                                 }
                             }));
                         }
@@ -1279,7 +1233,6 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    MessageBox.Show("loading");
                     // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
 
@@ -1293,22 +1246,48 @@ namespace rainCheck
                         button_start.Enabled = false;
                     }));
 
-                    chromeBrowser.TitleChanged += (senderr, args) =>
+                    int webBrowser_i = 0;
+                    while (webBrowser_i <= 2)
                     {
-                        Invoke(new Action(() =>
-                        {
-                            label_domaintitle.Text = args.Title;
-                            label19.Text = label_domaintitle.Text;
-                            label_domaintitle.Text = "";
-                            MessageBox.Show(args.Title);
-                            //this.InvokeOnUiThreadIfRequired(() => label_domaintitle.Text = args.Title);
-                        }));
-                    };
+                        webBrowser_new.Navigate(label_domainhide.Text);
+                        webBrowser_i++;
+                    }
+
+                    //chromeBrowser.TitleChanged += (senderr, argss) =>
+                    //{
+                    //    Invoke(new Action(() =>
+                    //    {
+                    //        if (argss.Title == "")
+                    //        {
+                    //            MessageBox.Show("not remove " + argss.Title);
+                    //        }
+                    //        else
+                    //        {
+                    //            int index = argss.Title.Length;
+                    //            string newtitle = argss.Title.Remove(0, index);
+
+                    //            chromeBrowser.TitleChanged += (senderrr, argsss) =>
+                    //            {
+                    //                Invoke(new Action(() =>
+                    //                {
+                    //                    MessageBox.Show("remove " + argsss.Title);
+                    //                }));
+                    //            };
+                    //        }
+                    //    }));
+                    //};
                 }
 
                 // --Loaded--
                 if (!e.IsLoading)
                 {
+
+                    Invoke(new Action(() =>
+                    {
+                        string asds = webBrowser_new.DocumentTitle;
+                        MessageBox.Show(asds);
+                    }));
+
                     MessageBox.Show("loaded");
                     chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
 
@@ -1452,7 +1431,7 @@ namespace rainCheck
 
         private void CloseIt()
         {
-            System.Threading.Thread.Sleep(120);
+            System.Threading.Thread.Sleep(500);
             Microsoft.VisualBasic.Interaction.AppActivate(
                  System.Diagnostics.Process.GetCurrentProcess().Id);
             SendKeys.SendWait(" ");
@@ -1463,11 +1442,12 @@ namespace rainCheck
             return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
         }
 
-        public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
-        {
-            callback.Continue(true);
-            return true;
-        }
+        //public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
+        //{
+        //    callback.Continue(true);
+        //    return true;
+        //}
+
         //public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IWindowInfo windowInfo, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
         //{
         //    //System.Diagnostics.Process.Start(targetUrl);
@@ -1694,16 +1674,22 @@ namespace rainCheck
 
                         string error_message = "";
 
-                        if (label_inaccessible_error_message.Text == "")
+                        if (label_webtitle.Text != "")
                         {
-                            error_message = label_domaintitle.Text;
+                            error_message = label_webtitle.Text;
+
+                            if (label_webtitle.Text == label_domainhide.Text)
+                            {
+                                //error_message = label_inaccessible_error_message.Text;
+                                error_message = "Domain name expired";
+                            }
                         }
                         else
                         {
                             error_message = label_inaccessible_error_message.Text;
                         }
 
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + "," + "," + "," + "," + ","+error_message + ","+datetime_folder + "_" + label_domainhide.Text + isp_get + "," + city_get + "," + datetime + ",");
+                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + "," + "," + ","+error_message + ","+datetime_folder + "_" + label_domainhide.Text + ","+isp_get + ","+city_get + ","+datetime + "," + ","+"N");
 
                         swww.Close();
                     }
@@ -1725,7 +1711,24 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + "," + "," + "," + "," + "," + label_inaccessible_error_message.Text + datetime_folder + "_" + label_domainhide.Text + isp_get + "," + city_get + "," + datetime + ",");
+                        string error_message = "";
+
+                        if (label_webtitle.Text != "")
+                        {
+                            error_message = label_webtitle.Text;
+
+                            if (label_webtitle.Text == label_domainhide.Text)
+                            {
+                                //error_message = label_inaccessible_error_message.Text;
+                                error_message = "Domain name expired";
+                            }
+                        }
+                        else
+                        {
+                            error_message = label_inaccessible_error_message.Text;
+                        }
+
+                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + "," + "," + error_message + "," + datetime_folder + "_" + label_domainhide.Text + "," + isp_get + "," + city_get + "," + datetime + "," + "," + "N");
 
                         swww.Close();
                     }
@@ -2013,7 +2016,7 @@ namespace rainCheck
             // asdasd
             if (label_ifloadornot.Text == "0")
             {
-                label_domaintitle.Text = "";
+                label_webtitle.Text = "";
                 int domain_total = dataGridView_domain.RowCount;
                 int index = dataGridView_domain.SelectedRows[0].Index + 1;
                 label_currentindex.Text = index.ToString();
@@ -2093,8 +2096,8 @@ namespace rainCheck
                     //        {
                     //            string[] fields = line.Split(',');
 
-                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
+                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `remarks`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`, `type`) VALUES " +
+                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @remarks, @printscreen, @isp, @city, @datetime_created, @action_by, @type)", con);
                     //            cmd.Parameters.AddWithValue("@id", fields[0].ToString());
                     //            cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
                     //            cmd.Parameters.AddWithValue("@status", fields[2].ToString());
@@ -2104,11 +2107,13 @@ namespace rainCheck
                     //            cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
                     //            cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
                     //            cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                    //            cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
-                    //            cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
-                    //            cmd.Parameters.AddWithValue("@city", fields[11].ToString());
-                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
-                    //            cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
+                    //            cmd.Parameters.AddWithValue("@remarks", fields[9].ToString());
+                    //            cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
+                    //            cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
+                    //            cmd.Parameters.AddWithValue("@city", fields[12].ToString());
+                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[13].ToString());
+                    //            cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
+                    //            cmd.Parameters.AddWithValue("@type", fields[15].ToString());
                     //            cmd.ExecuteNonQuery();
                     //        }
 
@@ -2146,12 +2151,12 @@ namespace rainCheck
                     //    }
                     //    catch (Exception ex)
                     //    {
-                    //        MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        MessageBox.Show("There is a problem with the server! Please contact IT support. \n" + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //    }
                     //}
 
-                    // Timer Main
-                    domain_i = 0;
+                    //// Timer Main
+                    //domain_i = 0;
                 }
                 else
                 {
@@ -2234,6 +2239,7 @@ namespace rainCheck
             textBox_domain.Enabled = true;
             button_go.Enabled = true;
 
+            label_inaccessible_error_message.Text = "";
             textBox_domain.Text = "";
             ActiveControl = textBox_domain;
 
@@ -2865,8 +2871,8 @@ namespace rainCheck
                             {
                                 string[] fields = line.Split(',');
 
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`) VALUES " +
-                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @printscreen, @isp, @city, @datetime_created, @action_by)", con);
+                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `remarks`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`, `type`) VALUES " +
+                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @remarks, @printscreen, @isp, @city, @datetime_created, @action_by, @type", con);
                                 cmd.Parameters.AddWithValue("@id", fields[0].ToString());
                                 cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
                                 cmd.Parameters.AddWithValue("@status", fields[2].ToString());
@@ -2876,11 +2882,13 @@ namespace rainCheck
                                 cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
                                 cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
                                 cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                                cmd.Parameters.AddWithValue("@printscreen", fields[9].ToString());
-                                cmd.Parameters.AddWithValue("@isp", fields[10].ToString());
-                                cmd.Parameters.AddWithValue("@city", fields[11].ToString());
-                                cmd.Parameters.AddWithValue("@datetime_created", fields[12].ToString());
-                                cmd.Parameters.AddWithValue("@action_by", fields[13].ToString());
+                                cmd.Parameters.AddWithValue("@remarks", fields[9].ToString());
+                                cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
+                                cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
+                                cmd.Parameters.AddWithValue("@city", fields[12].ToString());
+                                cmd.Parameters.AddWithValue("@datetime_created", fields[13].ToString());
+                                cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
+                                cmd.Parameters.AddWithValue("@type", fields[15].ToString());
                                 cmd.ExecuteNonQuery();
                             }
 
@@ -2973,6 +2981,11 @@ namespace rainCheck
                     label_ifloadornot.Text = "0";
                 }));
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            label_inaccessible_error_message.Text = "";
         }
     }
 }

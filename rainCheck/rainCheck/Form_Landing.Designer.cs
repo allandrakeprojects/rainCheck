@@ -54,6 +54,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_blank = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -266,6 +267,7 @@
             // 
             // panel_retry
             // 
+            this.panel_retry.Controls.Add(this.label8);
             this.panel_retry.Controls.Add(this.button_retry);
             this.panel_retry.Controls.Add(this.label1);
             this.panel_retry.Location = new System.Drawing.Point(12, 12);
@@ -282,12 +284,13 @@
             this.button_retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_retry.ForeColor = System.Drawing.Color.White;
             this.button_retry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_retry.Location = new System.Drawing.Point(287, 232);
+            this.button_retry.Location = new System.Drawing.Point(287, 301);
             this.button_retry.Name = "button_retry";
             this.button_retry.Size = new System.Drawing.Size(104, 29);
             this.button_retry.TabIndex = 11;
             this.button_retry.Text = "Retry (F5)";
             this.button_retry.UseVisualStyleBackColor = false;
+            this.button_retry.Visible = false;
             this.button_retry.Click += new System.EventHandler(this.Button_retry_Click);
             this.button_retry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_retry_KeyDown);
             // 
@@ -296,7 +299,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(216, 192);
+            this.label1.Location = new System.Drawing.Point(216, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 25);
             this.label1.TabIndex = 2;
@@ -315,16 +318,27 @@
             this.panel_blank.Size = new System.Drawing.Size(680, 457);
             this.panel_blank.TabIndex = 17;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(200, 237);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(283, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "(Automatically connects when connected back to Internet)";
+            // 
             // Form_Landing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(704, 481);
-            this.Controls.Add(this.panel_retry);
             this.Controls.Add(this.panel_loader);
             this.Controls.Add(this.panel_authorization);
             this.Controls.Add(this.panel_blank);
+            this.Controls.Add(this.panel_retry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -335,6 +349,7 @@
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
+            this.Load += new System.EventHandler(this.Form_Landing_Load);
             this.panel_authorization.ResumeLayout(false);
             this.panel_authorization.PerformLayout();
             this.panel_loader.ResumeLayout(false);
@@ -371,5 +386,6 @@
         private System.Windows.Forms.Label label_macid;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel_blank;
+        private System.Windows.Forms.Label label8;
     }
 }

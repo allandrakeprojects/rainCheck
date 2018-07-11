@@ -13,11 +13,57 @@ namespace rainCheck
     {
         MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
 
+        static bool networkIsAvailable = false;
+
         public Form_Landing()
         {
             InitializeComponent();
         }
-        
+
+        private void Form_Landing_Load(object sender, EventArgs e)
+        {
+            // Checking internet connection
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            foreach (NetworkInterface nic in nics)
+            {
+                if (
+                    (nic.NetworkInterfaceType != NetworkInterfaceType.Loopback && nic.NetworkInterfaceType != NetworkInterfaceType.Tunnel) &&
+                    nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    networkIsAvailable = true;
+                }
+            }
+
+            NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
+        }
+
+        private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+        {
+            networkIsAvailable = e.IsAvailable;
+
+            if (networkIsAvailable)
+            {
+                Invoke(new Action(() =>
+                {
+                    panel_authorization.Visible = true;
+                    panel_authorization.BringToFront();
+
+                    panel_retry.Visible = false;
+                }));
+            }
+            else
+            {
+                Invoke(new Action(() =>
+                {
+                    panel_authorization.Visible = false;
+
+                    panel_retry.Visible = true;
+                    panel_retry.BringToFront();
+                }));
+            }
+        }
+
         // Get external IP
         private string GetExternalIp()
         {
@@ -77,7 +123,7 @@ namespace rainCheck
             if (i >= 20)
             {
                 timer.Stop();
-                if (CheckForInternetConnection())
+                if (networkIsAvailable == true)
                 {
                     var API_PATH_IP_API = "http://ip-api.com/json/" + GetExternalIp();
 

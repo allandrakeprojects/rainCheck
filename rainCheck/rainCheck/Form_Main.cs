@@ -4,6 +4,7 @@ using CefSharp.WinForms.Internals;
 using Ionic.Zip;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -29,7 +30,9 @@ namespace rainCheck
         public static string SetValueForTextSearch = "";
         
         static bool networkIsAvailable = false;
-        
+
+        static List<string> inaccessble_lists = new List<string>();
+
         string city_get;
         string isp_get;
         int currentIndex;
@@ -92,6 +95,38 @@ namespace rainCheck
             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             string path = path_desktop + "\\rainCheck\\";
+
+            // Get inaccessible list
+            using (con)
+            {
+                try
+                {
+                    con.Open();
+                    MySqlCommand command = new MySqlCommand("SELECT GROUP_CONCAT(category_name) as category_name FROM `category` WHERE category_type = 'inaccessible'", con);
+                    command.CommandType = CommandType.Text;
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            inaccessble_lists.Add(reader["category_name"].ToString());
+                        }
+                    }
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+
+                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
 
             // Get timeout option to server
             using (con)
@@ -429,20 +464,23 @@ namespace rainCheck
                         {
                             string webtitle = webBrowser_new.DocumentTitle;
                             label_webtitle.Text = webtitle;
+                            textBox_webtitle.Text = webtitle;
                         }));
 
                         //MessageBox.Show(label_webtitle.Text);
 
 
-                        // Web title not chinese/inaccessible/hijacked
-                        if (!IsChinese(label_webtitle.Text))
+                        // Inaccessible Status
+                        var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(label_webtitle.Text));
+
+                        if (match != null)
                         {
                             // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                             {
                                 if (ms_detect == 1)
                                 {
-                                    if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure")
+                                    if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
                                     {
                                         Invoke(new Action(() =>
                                         {
@@ -478,7 +516,7 @@ namespace rainCheck
                             // inaccessible
                             else
                             {
-                                if (label_webtitle.Text == "This site isn’t secure")
+                                if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
                                 {
                                     Invoke(new Action(() =>
                                     {
@@ -489,7 +527,7 @@ namespace rainCheck
 
                                 if (ms_detect == 1)
                                 {
-                                    if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure")
+                                    if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
                                     {
                                         Invoke(new Action(() =>
                                         {
@@ -622,72 +660,135 @@ namespace rainCheck
                                     }
                                 }));
                             }
+
                         }
-                        // Web title chinese/successful/hijacked/timeout
+                        // Hijacked Status
                         else
                         {
-                            string strValue = label_text_search.Text;
-                            string[] strArray = strValue.Split(',');
-
-                            foreach (string obj in strArray)
+                            // inaccessible
+                            if (label_webtitle.Text == label_domainhide.Text)
                             {
-                                bool contains = label_webtitle.Text.Contains(obj);
-
-                                if (contains == true)
+                                await Task.Run(async () =>
                                 {
-                                    Invoke(new Action(() =>
-                                    {
-                                        label_hijacked.Text = "";
-                                    }));
+                                    await Task.Delay(500);
+                                });
 
-                                    break;
-                                }
-                                else if (!contains)
+                                string datetime = label10.Text;
+                                string datetime_folder = label8.Text;
+                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                Rectangle bounds = Bounds;
+                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
                                 {
-                                    //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
-
-                                    Invoke(new Action(() =>
+                                    using (Graphics g = Graphics.FromImage(bitmap))
                                     {
-                                        label_hijacked.Text = "hijacked";
-                                    }));
-                                }
-                            }
+                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                    }
+                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
 
-                            // Send data to text file
-                            if (label_hijacked.Text == "hijacked")
-                            {
-                                DataToTextFileHijacked();
+                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                }
+
+                                DataToTextFileInaccessible();
+                                
+                                Invoke(new Action(() =>
+                                {
+                                    timer_timeout.Stop();
+                                    i = 1;
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
                             }
-                            else if (label_timeout.Text == "timeout")
-                            {
-                                DataToTextFileTimeout();
-                            }
+                            // hijacked
                             else
                             {
-                                DataToTextFileSuccess();
-                            }
+                                string strValue = label_text_search.Text;
+                                string[] strArray = strValue.Split(',');
 
-                            Invoke(new Action(() =>
-                            {
-                                timer_timeout.Stop();
-                                i = 1;
-                                pictureBox_loader.Visible = false;
-
-                                label_timeout.Text = "";
-                                label_hijacked.Text = "";
-                                label_inaccessible.Text = "";
-                                label_inaccessible_error_message.Text = "";
-                                
-                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                foreach (string obj in strArray)
                                 {
-                                    fully_loaded = 0;
-                                    start_detect = 0;
-                                    label_ifloadornot.Text = "0";
+                                    bool contains = label_webtitle.Text.Contains(obj);
+
+                                    if (contains == true)
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_hijacked.Text = "";
+                                        }));
+
+                                        break;
+                                    }
+                                    else if (!contains)
+                                    {
+                                        //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_hijacked.Text = "hijacked";
+                                        }));
+                                    }
                                 }
 
-                                panel_new.Visible = false;
-                            }));
+                                // Send data to text file
+                                if (label_hijacked.Text == "hijacked")
+                                {
+                                    DataToTextFileHijacked();
+                                }
+                                else if (label_timeout.Text == "timeout")
+                                {
+                                    DataToTextFileTimeout();
+                                }
+                                else
+                                {
+                                    DataToTextFileSuccess();
+                                }
+
+                                Invoke(new Action(() =>
+                                {
+                                    timer_timeout.Stop();
+                                    i = 1;
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
+                            }
                         }
+
+                        // Timeout Status
+                        // Successful Status
+
+
                     }
                     else
                     {
@@ -1700,14 +1801,23 @@ namespace rainCheck
 
                         if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                         {
-
                             Invoke(new Action(() =>
                             {
                                 label_webtitle.Text = textBox_domain.Text;
                             }));
                         }
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ","+label_webtitle.Text + ","+textBox_domain.Text + ",-" + ",-" + ",-" + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
+                        if (string.IsNullOrEmpty(isp_get))
+                        {
+                            isp_get = "-";
+                        }
+
+                        if (string.IsNullOrEmpty(city_get))
+                        {
+                            city_get = "-";
+                        }
+
+                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -1731,7 +1841,20 @@ namespace rainCheck
 
                         if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                         {
-                            label_webtitle.Text = textBox_domain.Text;
+                            Invoke(new Action(() =>
+                            {
+                                label_webtitle.Text = textBox_domain.Text;
+                            }));
+                        }
+
+                        if (string.IsNullOrEmpty(isp_get))
+                        {
+                            isp_get = "-";
+                        }
+
+                        if (string.IsNullOrEmpty(city_get))
+                        {
+                            city_get = "-";
                         }
 
                         swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
@@ -1791,6 +1914,21 @@ namespace rainCheck
                             error_message = label_inaccessible_error_message.Text;
                         }
 
+                        if (label_webtitle.Text == "")
+                        {
+                            label_webtitle.Text = label_domainhide.Text;
+                        }
+
+                        if (string.IsNullOrEmpty(isp_get))
+                        {
+                            isp_get = "-";
+                        }
+
+                        if (string.IsNullOrEmpty(city_get))
+                        {
+                            city_get = "-";
+                        }
+
                         swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_domainhide.Text + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
 
                         swww.Close();
@@ -1828,6 +1966,21 @@ namespace rainCheck
                         else
                         {
                             error_message = label_inaccessible_error_message.Text;
+                        }
+
+                        if (label_webtitle.Text == "")
+                        {
+                            label_webtitle.Text = label_domainhide.Text;
+                        }
+
+                        if (string.IsNullOrEmpty(isp_get))
+                        {
+                            isp_get = "-";
+                        }
+
+                        if (string.IsNullOrEmpty(city_get))
+                        {
+                            city_get = "-";
                         }
 
                         swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_domainhide.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
@@ -3089,7 +3242,68 @@ namespace rainCheck
 
         private void button4_Click(object sender, EventArgs e)
         {
-            label_inaccessible_error_message.Text = "";
+            var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("http://fs4982.com/?reqp=1&reqr="));
+
+            if (match != null)
+            {
+                MessageBox.Show("inaccessible");
+            }
+            else
+            {
+                MessageBox.Show("not found");
+            }
+
+            //var match = inaccessble_lists.Find(item => item == "404 - Page Not Found");
+            //var match = inaccessble_lists.Where(stringToCheck => stringToCheck.Contains("dsfsdfds"));
+            //var match = inaccessble_lists.FindAll(s => s.Equals("404 asdsadasdsadasdasfdasfgvsdfbdndn Page Not Found"));
+
+            //inaccessble_lists.ForEach(delegate (String name)
+            //{
+            //    MessageBox.Show(name);
+            //});
+
+            //foreach (string item in inaccessble_lists)
+            //{
+            //    if (item.Contains("asdsadsadsa")) {
+            //        MessageBox.Show("find");
+            //    }
+            //}
+
+            //if (match != null)
+            //{
+            //    MessageBox.Show("inaccessible");
+
+            //}
+            //// Hijacked Status
+            //else
+            //{
+            //    MessageBox.Show("not found");
+            //}
+
+            //foreach (string inaccessble_list in inaccessble_lists)
+            //{
+            //    MessageBox.Show(inaccessble_list);
+            //}
+
+            //var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("404 - Page Not Found"));
+
+            //if (match != null)
+            //{
+            //    MessageBox.Show("found");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("not found");
+            //}
+
+            //if (inaccessble_lists.Contains("This site isn’t secure"))
+            //{
+            //    MessageBox.Show("found");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("not found");
+            //}
         }
 
         int elseloaded_i = 0;

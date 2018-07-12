@@ -128,6 +128,8 @@
             this.Controls.Add(this.label_logo);
             this.Controls.Add(this.shapeContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximumSize = new System.Drawing.Size(507, 239);
+            this.MinimumSize = new System.Drawing.Size(507, 239);
             this.Name = "Form_Loader";
             this.Opacity = 0.86D;
             this.ShowInTaskbar = false;

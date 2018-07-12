@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -18,6 +19,10 @@ namespace rainCheck
         public Form_Landing()
         {
             InitializeComponent();
+
+            var culture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
 
         private void Form_Landing_Load(object sender, EventArgs e)

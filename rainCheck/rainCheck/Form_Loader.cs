@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -8,6 +9,10 @@ namespace rainCheck
         public Form_Loader()
         {
             InitializeComponent();
+
+            var culture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
 
         int i = 0;

@@ -7,6 +7,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -38,6 +39,11 @@ namespace rainCheck
         public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
+
+            var culture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
 
             //string city, string country, string isp
             Text = "rainCheck: " + city + ", " + country + " - " + isp;
@@ -379,7 +385,8 @@ namespace rainCheck
                         int webBrowser_i = 1;
                         while (webBrowser_i <= 2)
                         {
-                            webBrowser_new.Navigate(label_domainhide.Text);
+                            string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text, null, null, header);
                             (new System.Threading.Thread(CloseIt)).Start();
                             MessageBox.Show("Loading...", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.None);
                             webBrowser_i++;
@@ -390,7 +397,8 @@ namespace rainCheck
                         int webBrowser_i = 0;
                         while (webBrowser_i <= 2)
                         {
-                            webBrowser_new.Navigate(label_domainhide.Text);
+                            string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text, null, null, header);
                             webBrowser_i++;
                         }
                     }
@@ -1690,6 +1698,15 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
+                        if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
+                        {
+
+                            Invoke(new Action(() =>
+                            {
+                                label_webtitle.Text = textBox_domain.Text;
+                            }));
+                        }
+
                         swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + ","+label_webtitle.Text + ","+textBox_domain.Text + ",-" + ",-" + ",-" + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
 
                         swww.Close();
@@ -1711,6 +1728,11 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+
+                        if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
+                        {
+                            label_webtitle.Text = textBox_domain.Text;
+                        }
 
                         swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
@@ -2105,7 +2127,7 @@ namespace rainCheck
                 if (index == domain_total)
                 {
                     // Set browser panel dock style
-                    //chromeBrowser.Dock = DockStyle.None;
+                    chromeBrowser.Dock = DockStyle.None;
                     textBox_domain.Text = "";
 
                     dataGridView_domain.ClearSelection();

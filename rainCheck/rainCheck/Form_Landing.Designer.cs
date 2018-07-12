@@ -50,11 +50,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
             this.panel_retry = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.button_retry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_blank = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -275,6 +275,17 @@
             this.panel_retry.Size = new System.Drawing.Size(680, 457);
             this.panel_retry.TabIndex = 16;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(200, 237);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(283, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "(Automatically connects when connected back to Internet)";
+            // 
             // button_retry
             // 
             this.button_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
@@ -317,17 +328,6 @@
             this.panel_blank.Name = "panel_blank";
             this.panel_blank.Size = new System.Drawing.Size(680, 457);
             this.panel_blank.TabIndex = 17;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(200, 237);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(283, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "(Automatically connects when connected back to Internet)";
             // 
             // Form_Landing
             // 

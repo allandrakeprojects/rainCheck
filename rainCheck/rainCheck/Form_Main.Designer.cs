@@ -109,6 +109,8 @@
             this.panel_uploaded = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel_main = new System.Windows.Forms.Panel();
+            this.textBox_webtitle = new System.Windows.Forms.TextBox();
+            this.label_inaccessiblelist = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label_elseloaded = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -152,8 +154,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.timer_new = new System.Windows.Forms.Timer(this.components);
             this.timer_elseloaded = new System.Windows.Forms.Timer(this.components);
-            this.label_inaccessiblelist = new System.Windows.Forms.Label();
-            this.textBox_webtitle = new System.Windows.Forms.TextBox();
+            this.label_testonemoretime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -981,6 +982,7 @@
             // 
             // panel_main
             // 
+            this.panel_main.Controls.Add(this.label_testonemoretime);
             this.panel_main.Controls.Add(this.textBox_webtitle);
             this.panel_main.Controls.Add(this.label_inaccessiblelist);
             this.panel_main.Controls.Add(this.label18);
@@ -1012,6 +1014,22 @@
             this.panel_main.Name = "panel_main";
             this.panel_main.Size = new System.Drawing.Size(1254, 642);
             this.panel_main.TabIndex = 49;
+            // 
+            // textBox_webtitle
+            // 
+            this.textBox_webtitle.Location = new System.Drawing.Point(68, 413);
+            this.textBox_webtitle.Name = "textBox_webtitle";
+            this.textBox_webtitle.Size = new System.Drawing.Size(100, 20);
+            this.textBox_webtitle.TabIndex = 68;
+            // 
+            // label_inaccessiblelist
+            // 
+            this.label_inaccessiblelist.AutoSize = true;
+            this.label_inaccessiblelist.Location = new System.Drawing.Point(31, 503);
+            this.label_inaccessiblelist.Name = "label_inaccessiblelist";
+            this.label_inaccessiblelist.Size = new System.Drawing.Size(80, 13);
+            this.label_inaccessiblelist.TabIndex = 67;
+            this.label_inaccessiblelist.Text = "inaccessible list";
             // 
             // label18
             // 
@@ -1518,21 +1536,14 @@
             this.timer_elseloaded.Interval = 1000;
             this.timer_elseloaded.Tick += new System.EventHandler(this.timer_elseloaded_Tick);
             // 
-            // label_inaccessiblelist
+            // label_testonemoretime
             // 
-            this.label_inaccessiblelist.AutoSize = true;
-            this.label_inaccessiblelist.Location = new System.Drawing.Point(31, 503);
-            this.label_inaccessiblelist.Name = "label_inaccessiblelist";
-            this.label_inaccessiblelist.Size = new System.Drawing.Size(80, 13);
-            this.label_inaccessiblelist.TabIndex = 67;
-            this.label_inaccessiblelist.Text = "inaccessible list";
-            // 
-            // textBox_webtitle
-            // 
-            this.textBox_webtitle.Location = new System.Drawing.Point(68, 413);
-            this.textBox_webtitle.Name = "textBox_webtitle";
-            this.textBox_webtitle.Size = new System.Drawing.Size(100, 20);
-            this.textBox_webtitle.TabIndex = 68;
+            this.label_testonemoretime.AutoSize = true;
+            this.label_testonemoretime.Location = new System.Drawing.Point(120, 541);
+            this.label_testonemoretime.Name = "label_testonemoretime";
+            this.label_testonemoretime.Size = new System.Drawing.Size(84, 13);
+            this.label_testonemoretime.TabIndex = 69;
+            this.label_testonemoretime.Text = "testonemoretime";
             // 
             // Form_Main
             // 
@@ -1711,5 +1722,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label_inaccessiblelist;
         private System.Windows.Forms.TextBox textBox_webtitle;
+        private System.Windows.Forms.Label label_testonemoretime;
     }
 }

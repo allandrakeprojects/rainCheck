@@ -122,67 +122,42 @@ namespace rainCheck
             string path = path_desktop + "\\rainCheck\\";
 
             // Get inaccessible list
-            using (con)
+            using (var client = new WebClient())
             {
-                try
-                {
-                    con.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT GROUP_CONCAT(category_name) as category_name FROM `category` WHERE category_type = 'inaccessible'", con);
-                    command.CommandType = CommandType.Text;
-                    MySqlDataReader reader = command.ExecuteReader();
+                string auth = "r@inCh3ckd234b70";
+                string type = "category";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
 
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            inaccessble_lists.Add(reader["category_name"].ToString());
-                        }
-                    }
-                    con.Close();
-                }
-                catch (Exception ex)
+                NameValueCollection postData = new NameValueCollection()
                 {
-                    con.Close();
+                    { "auth", auth },
+                    { "type", type }
+                };
 
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                finally
-                {
-                    con.Close();
-                }
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                //string jsonRes = JsonConvert.SerializeObject(pagesource);
+                inaccessble_lists.Add(pagesource);
             }
 
             // Get timeout option to server
-            using (con)
+            using (var client = new WebClient())
             {
-                try
-                {
-                    con.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT timeout FROM `timeout`", con);
-                    command.CommandType = CommandType.Text;
-                    MySqlDataReader reader = command.ExecuteReader();
+                string auth = "r@inCh3ckd234b70";
+                string type = "timeout";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
 
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            label13.Text = reader["timeout"].ToString();
-                        }
-                    }
-                    con.Close();
-                }
-                catch (Exception ex)
+                NameValueCollection postData = new NameValueCollection()
                 {
-                    con.Close();
+                    { "auth", auth },
+                    { "type", type }
+                };
 
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                finally
-                {
-                    con.Close();
-                }
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                string result = pagesource.Replace("\"", "");
+                label3.Text = result;
             }
 
             // Enabling scrolls
@@ -1692,48 +1667,46 @@ namespace rainCheck
 
             label_domainhide.Text = textBox_domain.Text;
             string domain_urgent = label_domainhide.Text;
-
-            using (con)
+            
+            // API Brand
+            using (var client = new WebClient())
             {
-                try
+                string auth = "r@inCh3ckd234b70";
+                string type = "brand";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string domain = domain_urgent;
+
+                NameValueCollection postData = new NameValueCollection()
                 {
-                    con.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT d.brand_name as 'brand_name', b.text_search as 'text_search' from domains_test d RIGHT JOIN brands b ON d.brand_name = b.id WHERE d.domain_name = '" + domain_urgent + "'", con);
-                    command.CommandType = CommandType.Text;
-                    MySqlDataReader reader = command.ExecuteReader();
+                    { "auth", auth },
+                    { "type", type },
+                    { "domain", domain }
+                };
 
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            label_brandhide.Text = reader["brand_name"].ToString();
-                            label_text_search.Text = reader["text_search"].ToString();
-                        }
-                    }
-                    else
-                    {
-                        label_brand_id.Text = "";
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                        Form_Brand form_brand = new Form_Brand(domain_urgent);
-                        form_brand.ShowDialog();
-
-                        label_brandhide.Text = SetValueForTextBrandID;
-                        label_text_search.Text = SetValueForTextSearch;
-                    }
-
-                    con.Close();
-                }
-                catch (Exception ex)
+                if (pagesource != "")
                 {
-                    con.Close();
+                    JArray jsonObject = JArray.Parse(pagesource);
+                    string brand_name = jsonObject[0]["brand_name"].Value<string>();
+                    string text_search = jsonObject[0]["text_search"].Value<string>();
 
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    label_brandhide.Text = brand_name;
+                    label_text_search.Text = text_search;
+
+                    MessageBox.Show(brand_name + " " + text_search);
                 }
-                finally
+                else
                 {
-                    con.Close();
+                    label_brand_id.Text = "";
+
+                    Form_Brand form_brand = new Form_Brand(domain_urgent);
+                    form_brand.ShowDialog();
+
+                    label_brandhide.Text = SetValueForTextBrandID;
+                    label_text_search.Text = SetValueForTextSearch;
                 }
+
             }
 
             buttonGoWasClicked = true;
@@ -2670,7 +2643,6 @@ namespace rainCheck
         }
 
         int i_urgent = 0;
-
         private void Timer_timeout_urgent_Tick(object sender, EventArgs e)
         {
             if (InvokeRequired) { Invoke(new Action(() => { Timer_timeout_urgent_Tick(sender, e); })); return; }
@@ -2729,16 +2701,19 @@ namespace rainCheck
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("http://fs4982.com/?reqp=1&reqr="));
+            //var message = string.Join(Environment.NewLine, inaccessble_lists);
+            //MessageBox.Show(message);
 
-            if (match != null)
-            {
-                MessageBox.Show("inaccessible");
-            }
-            else
-            {
-                MessageBox.Show("not found");
-            }
+            //var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("http://fs4982.com/?reqp=1&reqr="));
+
+            //if (match != null)
+            //{
+            //    MessageBox.Show("inaccessible");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("not found");
+            //}
 
             //var match = inaccessble_lists.Find(item => item == "404 - Page Not Found");
             //var match = inaccessble_lists.Where(stringToCheck => stringToCheck.Contains("dsfsdfds"));

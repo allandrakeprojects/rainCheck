@@ -2,13 +2,17 @@
 using Renci.SshNet;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace rainCheck
 {
@@ -164,7 +168,10 @@ namespace rainCheck
                                 string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                                 // INSERT device
-                                InsertDeviceCondition("INSERT INTO `devices`(`id`, `device_id`, `status`, `city`, `province`, `country`, `isp`, `date_received`, `updated_by`, `updated_date`) VALUES (null,'" + GetMACAddress() + "','X','" + locationDetails.city + "','" + locationDetails.regionName + "','" + locationDetails.country + "','" + locationDetails.isp + "','" + datetime + "',null,null)"); 
+                                //InsertDeviceCondition("INSERT INTO `devices`(`id`, `device_id`, `status`, `city`, `province`, `country`, `isp`, `date_received`, `updated_by`, `updated_date`) VALUES (null,'" + GetMACAddress() + "','X','" + locationDetails.city + "','" + locationDetails.regionName + "','" + locationDetails.country + "','" + locationDetails.isp + "','" + datetime + "',null,null)"); 
+
+                                // Test get
+                                //TestGet();
                             }
                         }
                     }
@@ -406,6 +413,39 @@ namespace rainCheck
             //        con.Close();
             //    }
             //}
+        }
+
+        // Test get
+        private void TestGet()
+        {
+            try
+            {
+                //String URLString = " http://localhost/books.xml";
+                //XmlTextReader reader = new XmlTextReader(URLString);
+
+                //while (reader.Read())
+                //{
+                //    // Do some work here on the data.
+                //    Console.WriteLine(reader.Name);
+                //}
+                //Console.ReadLine();
+
+
+                using (WebClient wc = new WebClient())
+                {
+                    var json = wc.DownloadString(@"http://raincheck.ssitex.com/api.txt");
+                    MessageBox.Show(json);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TestGet();
         }
     }
 }

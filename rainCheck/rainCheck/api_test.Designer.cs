@@ -29,22 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button_getmaindomains = new System.Windows.Forms.Button();
             this.dataGridView_api_test = new System.Windows.Forms.DataGridView();
             this.label_api_test = new System.Windows.Forms.Label();
             this.timer_api_test = new System.Windows.Forms.Timer(this.components);
+            this.button_post = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_api_test)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button_getmaindomains
-            // 
-            this.button_getmaindomains.Location = new System.Drawing.Point(12, 258);
-            this.button_getmaindomains.Name = "button_getmaindomains";
-            this.button_getmaindomains.Size = new System.Drawing.Size(93, 23);
-            this.button_getmaindomains.TabIndex = 71;
-            this.button_getmaindomains.Text = "getmaindomains";
-            this.button_getmaindomains.UseVisualStyleBackColor = true;
-            this.button_getmaindomains.Click += new System.EventHandler(this.button_getmaindomains_Click);
             // 
             // dataGridView_api_test
             // 
@@ -66,19 +56,30 @@
             // 
             // timer_api_test
             // 
-            this.timer_api_test.Enabled = true;
+            this.timer_api_test.Interval = 5000;
             this.timer_api_test.Tick += new System.EventHandler(this.timer_api_test_Tick);
+            // 
+            // button_post
+            // 
+            this.button_post.Location = new System.Drawing.Point(15, 364);
+            this.button_post.Name = "button_post";
+            this.button_post.Size = new System.Drawing.Size(75, 23);
+            this.button_post.TabIndex = 74;
+            this.button_post.Text = "post";
+            this.button_post.UseVisualStyleBackColor = true;
+            this.button_post.Click += new System.EventHandler(this.button_post_Click_1);
             // 
             // api_test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 580);
+            this.Controls.Add(this.button_post);
             this.Controls.Add(this.label_api_test);
             this.Controls.Add(this.dataGridView_api_test);
-            this.Controls.Add(this.button_getmaindomains);
             this.Name = "api_test";
             this.Text = "api_test";
+            this.Load += new System.EventHandler(this.api_test_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_api_test)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -86,10 +87,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button_getmaindomains;
         private System.Windows.Forms.DataGridView dataGridView_api_test;
         private System.Windows.Forms.Label label_api_test;
         private System.Windows.Forms.Timer timer_api_test;
+        private System.Windows.Forms.Button button_post;
     }
 }

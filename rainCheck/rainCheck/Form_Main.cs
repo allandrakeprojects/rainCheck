@@ -190,7 +190,7 @@ namespace rainCheck
             //    panel_retry.Visible = true;
             //}
 
-            //NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
+            NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
             Console.ReadLine();
             

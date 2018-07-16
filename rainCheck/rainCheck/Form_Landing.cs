@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Renci.SshNet;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -89,23 +92,6 @@ namespace rainCheck
             catch { return null; }
         }
 
-        // Checking if connected to internet
-        public static bool CheckForInternetConnection()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                using (client.OpenRead("http://clients3.google.com/generate_204"))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         // Get MAC Address
         public static string GetMACAddress()
         {
@@ -124,11 +110,9 @@ namespace rainCheck
 
         int i = 0;
         string city;
+        string region;
         string country;
         string isp;
-        private SshClient client;
-        private MySqlConnection connection;
-        private string username;
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -164,6 +148,7 @@ namespace rainCheck
                                 city = locationDetails.city;
                                 country = locationDetails.country;
                                 isp = locationDetails.isp; 
+                                region = locationDetails.regionName;
 
                                 string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -172,6 +157,8 @@ namespace rainCheck
 
                                 // Test get
                                 //TestGet();
+
+                                InsertDeviceCondition();
                             }
                         }
                     }
@@ -205,247 +192,255 @@ namespace rainCheck
         }
 
         // Insert device condition
-        private void InsertDeviceCondition(string query)
+        private void InsertDeviceCondition()
         {
-            //PasswordConnectionInfo connectionInfo = new PasswordConnectionInfo("premium12.web-hosting.com", 21098, "ssimecgp", "Wahlau@888");
-            //connectionInfo.Timeout = TimeSpan.FromSeconds(30);
-
-            //ConnectionInfo conn = new ConnectionInfo("premium12.web-hosting.com", 21098, "ssimecgp", new AuthenticationMethod[]
-            //{
-            //    new PrivateKeyAuthenticationMethod(username, new PrivateKeyFile[]
-            //           { new PrivateKeyFile(privateKeyLocation, "") }),
-            //});
-
-            //using (var sshClient = new SshClient(conn))
-            //{
-            //    sshClient.Connect();
-            //}
-
-            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var pk = new PrivateKeyFile(path_desktop + "\\opensshssi", "Wahlau@888");
-            var keyFiles = new[] { pk };
-            var username = "ssimecgp";
-
-            var methods = new List<AuthenticationMethod>();
-            methods.Add(new PasswordAuthenticationMethod(username, "Wahlau@888"));
-            methods.Add(new PrivateKeyAuthenticationMethod(username, keyFiles));
-
-            var con_ssh = new ConnectionInfo("premium12.web-hosting.com", 21098, "ssimecgp", methods.ToArray());
-
-            using (var sshClient = new SshClient(con_ssh))
+            using (var client = new WebClient())
             {
-                try
+                string auth = "r@inCh3ckd234b70";
+                string type = "landing";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
+
+                NameValueCollection postData = new NameValueCollection()
                 {
-                    sshClient.Connect();
+                    { "auth", auth },
+                    { "type", type },
+                    { "mac_id", mac_id },
+                    { "city", city },
+                    { "region", region },
+                    { "country", country },
+                    { "isp", isp }
+                };
+                
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));      
+                
+                if (pagesource != "")
+                {
+                    JArray jsonObject = JArray.Parse(pagesource);
+                    string status = jsonObject[0]["status"].Value<string>();
 
-                    if (sshClient.IsConnected)
+                    if (status == "A")
                     {
-                        ForwardedPortLocal portFwld = new ForwardedPortLocal("127.0.0.1", 3306, "127.0.0.1", 3306);
-                        sshClient.AddForwardedPort(portFwld);
-                        portFwld.Start();
+                        timer_authorisation.Stop();
+                        timer_apichanges.Stop();
 
-                        con = new MySqlConnection("server=127.0.0.1;port=3306;user id=ssimecgp_ssiit;password=p0w3r@SSI;database=ssimsecgp_raincheck;persistsecurityinfo=True;SslMode=none");
-                        
-                        using (con)
-                        {
-                            try
-                            {
-                                con.Open();
-                                MySqlCommand command_chck = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "'", con);
-                                command_chck.CommandType = CommandType.Text;
-                                MySqlDataReader reader_chck = command_chck.ExecuteReader();
+                        panel_verified.BringToFront();
 
-                                if (!reader_chck.HasRows)
-                                {
-                                    con.Close();
-                                    con.Open();
-                                    MySqlCommand command = new MySqlCommand(query, con);
-                                    MySqlDataReader reader = command.ExecuteReader();
-                                    con.Close();
+                        timer_gotomain.Start();
+                    }
+                    else if (status == "P")
+                    {
+                        timer_authorisation.Start();
+                        panel_authorization.BringToFront();
+                    }
+                    else if (status == "R")
+                    {
+                        timer_authorisation.Stop();
+                        timer_apichanges.Stop();
 
-                                    panel_authorization.BringToFront();
-                                    button_retry.Enabled = false;
-                                }
-                                else
-                                {
-                                    con.Close();
-                                    con.Open();
-                                    MySqlCommand command_approved = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "' AND status = 'A'", con);
-                                    command_approved.CommandType = CommandType.Text;
-                                    MySqlDataReader reader_approved = command_approved.ExecuteReader();
+                        panel_blank.BringToFront();
+                        MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
+                    }
+                    else if (status == "X")
+                    {
+                        timer_authorisation.Stop();
+                        timer_apichanges.Stop();
 
-                                    if (reader_approved.HasRows)
-                                    {
-                                        con.Close();
-                                        //city, country, isp
-                                        Form_Main form_main = new Form_Main();
-
-                                        Hide();
-                                        form_main.ShowDialog();
-                                        Close();
-                                    }
-                                    else
-                                    {
-                                        con.Close();
-
-                                        panel_authorization.BringToFront();
-                                        button_retry.Enabled = false;
-                                    }
-                                }
-                                con.Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                con.Close();
-
-                                panel_blank.BringToFront();
-                                MessageBox.Show("There is a problem with the server! Please contact IT support. " + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                Application.Exit();
-                            }
-                            finally
-                            {
-                                con.Close();
-                            }
-                        }
+                        panel_blank.BringToFront();
+                        MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
                     }
                     else
                     {
-                        MessageBox.Show("not connected");
+                        timer_authorisation.Stop();
+                        timer_apichanges.Stop();
+
+                        MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Close();
+                    }
+
+                    label_apichanges.Text = pagesource;
+                    timer_apichanges.Start();
+                }
+                else
+                {
+                    // Insert
+                    type = "device_insert";
+
+                    NameValueCollection postData_new = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "city", city },
+                        { "region", region },
+                        { "country", country },
+                        { "isp", isp }
+                    };
+
+                    string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
+
+                    timer_authorisation.Start();
+                    panel_authorization.BringToFront();
+
+                    label_apichanges.Text = pagesource;
+                    timer_apichanges.Start();
+                }
+            }
+        }
+
+        private void Timer_apichanges_Tick(object sender, EventArgs e)
+        {
+            using (var client = new WebClient())
+            {
+                string auth = "r@inCh3ckd234b70";
+                string type = "landing";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
+
+                NameValueCollection postData = new NameValueCollection()
+                {
+                    { "auth", auth },
+                    { "type", type },
+                    { "mac_id", mac_id }
+                };
+
+                // client.UploadValues returns page's source as byte array (byte[])
+                // so it must be transformed into a string
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                //MessageBox.Show(pagesource);
+
+                if (pagesource != "")
+                {
+                    if (pagesource != label_apichanges.Text)
+                    {
+                        JArray jsonObject = JArray.Parse(pagesource);
+                        string status = jsonObject[0]["status"].Value<string>();
+
+                        if (status == "A")
+                        {
+                            timer_authorisation.Stop();
+                            timer_apichanges.Stop();
+
+                            panel_verified.BringToFront();
+
+                            timer_gotomain.Start();
+                        }
+                        else if (status == "P")
+                        {
+                            timer_authorisation.Start();
+                            panel_authorization.BringToFront();
+                        }
+                        else if (status == "R")
+                        {
+                            timer_authorisation.Stop();
+                            timer_apichanges.Stop();
+
+                            panel_blank.BringToFront();
+                            MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Close();
+                        }
+                        else if (status == "X")
+                        {
+                            timer_authorisation.Stop();
+                            timer_apichanges.Stop();
+
+                            panel_blank.BringToFront();
+                            MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Close();
+                        }
+                        else
+                        {
+                            timer_authorisation.Stop();
+                            timer_apichanges.Stop();
+
+                            MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Close();
+                        }
+
+                        label_apichanges.Text = pagesource;
                     }
                 }
-                catch (Exception e)
+                else
                 {
-                    MessageBox.Show(e.Message);
+                    // Insert
+                    type = "device_insert";
+
+                    NameValueCollection postData_new = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "city", city },
+                        { "region", region },
+                        { "country", country },
+                        { "isp", isp }
+                    };
+
+                    string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
+
+                    timer_authorisation.Start();
+                    panel_authorization.BringToFront();
+
+                    label_apichanges.Text = pagesource;
+                    timer_apichanges.Start();
                 }
             }
-
-            //using (var client = new SshClient("premium12.web-hosting.com", 21098, "ssimesscgp", "Wahlau@888"))
-            //{
-            //    try
-            //    {
-            //        client.Connect();
-
-            //        if (client.IsConnected)
-            //        {
-            //            MessageBox.Show("connected");
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("not connected");
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        MessageBox.Show(e.Message);
-            //    }
-            //}
-
-            //    client = new SshClient(connectionInfo);
-            //client.Connect();
-
-            //ForwardedPortLocal portFwld = new ForwardedPortLocal("127.0.0.1", Convert.ToUInt32("21098"), "ssimecgp_raincheck", Convert.ToUInt32("127.0.0.1"));
-            //client.AddForwardedPort(portFwld);
-
-            //portFwld.Start();
-
-            ////connectionstring += ";Connection Timeout=15;Port = " + poort.ToString() + ";";
-            ////connection = new MySqlConnection(connectionstring);
-            //connection = new MySqlConnection("server = " + "127.0.0.1" + "; Database = ssimecgp_raincheck; password = p0w3r@SSI; UID = ssimecgp_ssiit; Port = 3306");
-
-            //using (con)
-            //{
-            //    try
-            //    {
-            //        con.Open();
-            //        MySqlCommand command_chck = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "'", con);
-            //        command_chck.CommandType = CommandType.Text;
-            //        MySqlDataReader reader_chck = command_chck.ExecuteReader();
-
-            //        if (!reader_chck.HasRows)
-            //        {
-            //            con.Close();
-            //            con.Open();
-            //            MySqlCommand command = new MySqlCommand(query, con);
-            //            MySqlDataReader reader = command.ExecuteReader();
-            //            con.Close();
-
-            //            panel_authorization.BringToFront();
-            //            button_retry.Enabled = false;
-            //        }
-            //        else
-            //        {
-            //            con.Close();
-            //            con.Open();
-            //            MySqlCommand command_approved = new MySqlCommand("SELECT * FROM `devices` WHERE device_id = '" + GetMACAddress() + "' AND status = 'A'", con);
-            //            command_approved.CommandType = CommandType.Text;
-            //            MySqlDataReader reader_approved = command_approved.ExecuteReader();
-
-            //            if (reader_approved.HasRows)
-            //            {
-            //                con.Close();
-            //                //city, country, isp
-            //                Form_Main form_main = new Form_Main(city, country, isp);
-
-            //                Hide();
-            //                form_main.ShowDialog();
-            //                Close();
-            //            }
-            //            else
-            //            {
-            //                con.Close();
-
-            //                panel_authorization.BringToFront();
-            //                button_retry.Enabled = false;
-            //            }
-            //        }
-            //        con.Close();
-            //    }
-            //    catch (Exception)
-            //    {
-            //        con.Close();
-
-            //        panel_blank.BringToFront();
-            //        MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        Application.Exit();
-            //    }
-            //    finally
-            //    {
-            //        con.Close();
-            //    }
-            //}
         }
-
-        // Test get
-        private void TestGet()
-        {
-            try
-            {
-                //String URLString = " http://localhost/books.xml";
-                //XmlTextReader reader = new XmlTextReader(URLString);
-
-                //while (reader.Read())
-                //{
-                //    // Do some work here on the data.
-                //    Console.WriteLine(reader.Name);
-                //}
-                //Console.ReadLine();
-
-
-                using (WebClient wc = new WebClient())
-                {
-                    var json = wc.DownloadString(@"http://raincheck.ssitex.com/api.txt");
-                    MessageBox.Show(json);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            TestGet();
+            InsertDeviceCondition();
+        }
+
+        int gotomain = 0;
+        private void Timer_gotomain_Tick(object sender, EventArgs e)
+        {
+            gotomain++;
+            if (gotomain == 2)
+            {
+                timer_gotomain.Stop();
+                //city, country, isp
+                Form_Main form_main = new Form_Main();
+
+                Hide();
+                form_main.ShowDialog();
+                Close();
+            }
+        }
+
+        int authorisation = 0;
+        private void Timer_authorisation_Tick(object sender, EventArgs e)
+        {
+            authorisation++;
+            label_timer.Text = authorisation.ToString();
+
+            if (authorisation > 60)
+            {
+                Close();
+            }
+        }
+
+        private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            using (var client = new WebClient())
+            {
+                string auth = "r@inCh3ckd234b70";
+                string type = "closing";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
+
+                NameValueCollection postData = new NameValueCollection()
+                {
+                    { "auth", auth },
+                    { "type", type },
+                    { "mac_id", mac_id }
+                };
+
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            }
         }
     }
 }

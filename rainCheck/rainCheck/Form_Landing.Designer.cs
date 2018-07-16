@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Landing));
             this.panel_authorization = new System.Windows.Forms.Panel();
+            this.label_authorisation = new System.Windows.Forms.Label();
+            this.label_timer = new System.Windows.Forms.Label();
+            this.label_apichanges = new System.Windows.Forms.Label();
             this.label_macid = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label_ip = new System.Windows.Forms.Label();
@@ -47,6 +50,7 @@
             this.label_login = new System.Windows.Forms.Label();
             this.label_logo_login = new System.Windows.Forms.Label();
             this.panel_loader = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
             this.panel_retry = new System.Windows.Forms.Panel();
@@ -55,15 +59,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_blank = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.timer_apichanges = new System.Windows.Forms.Timer(this.components);
+            this.panel_verified = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.timer_gotomain = new System.Windows.Forms.Timer(this.components);
+            this.timer_authorisation = new System.Windows.Forms.Timer(this.components);
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
+            this.panel_verified.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_authorization
             // 
+            this.panel_authorization.Controls.Add(this.label_authorisation);
+            this.panel_authorization.Controls.Add(this.label_timer);
+            this.panel_authorization.Controls.Add(this.label_apichanges);
             this.panel_authorization.Controls.Add(this.label_macid);
             this.panel_authorization.Controls.Add(this.label4);
             this.panel_authorization.Controls.Add(this.label_ip);
@@ -83,6 +96,37 @@
             this.panel_authorization.Name = "panel_authorization";
             this.panel_authorization.Size = new System.Drawing.Size(680, 457);
             this.panel_authorization.TabIndex = 14;
+            // 
+            // label_authorisation
+            // 
+            this.label_authorisation.AutoSize = true;
+            this.label_authorisation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_authorisation.ForeColor = System.Drawing.Color.White;
+            this.label_authorisation.Location = new System.Drawing.Point(205, 444);
+            this.label_authorisation.Name = "label_authorisation";
+            this.label_authorisation.Size = new System.Drawing.Size(279, 13);
+            this.label_authorisation.TabIndex = 29;
+            this.label_authorisation.Text = "If no handshake within 60 seconds, program will auto exit.";
+            // 
+            // label_timer
+            // 
+            this.label_timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_timer.ForeColor = System.Drawing.Color.White;
+            this.label_timer.Location = new System.Drawing.Point(317, 414);
+            this.label_timer.Name = "label_timer";
+            this.label_timer.Size = new System.Drawing.Size(45, 28);
+            this.label_timer.TabIndex = 28;
+            this.label_timer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_apichanges
+            // 
+            this.label_apichanges.AutoSize = true;
+            this.label_apichanges.Location = new System.Drawing.Point(401, 68);
+            this.label_apichanges.Name = "label_apichanges";
+            this.label_apichanges.Size = new System.Drawing.Size(65, 13);
+            this.label_apichanges.TabIndex = 27;
+            this.label_apichanges.Text = "api changes";
+            this.label_apichanges.Visible = false;
             // 
             // label_macid
             // 
@@ -209,7 +253,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(206, 233);
+            this.label2.Location = new System.Drawing.Point(205, 233);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(286, 25);
             this.label2.TabIndex = 14;
@@ -220,7 +264,7 @@
             this.label_login.AutoSize = true;
             this.label_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_login.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(143)))), ((int)(((byte)(202)))));
-            this.label_login.Location = new System.Drawing.Point(280, 180);
+            this.label_login.Location = new System.Drawing.Point(279, 180);
             this.label_login.Name = "label_login";
             this.label_login.Size = new System.Drawing.Size(165, 38);
             this.label_login.TabIndex = 11;
@@ -229,7 +273,7 @@
             // label_logo_login
             // 
             this.label_logo_login.Image = global::rainCheck.Properties.Resources.icon_32x32;
-            this.label_logo_login.Location = new System.Drawing.Point(232, 181);
+            this.label_logo_login.Location = new System.Drawing.Point(231, 181);
             this.label_logo_login.Name = "label_logo_login";
             this.label_logo_login.Size = new System.Drawing.Size(56, 39);
             this.label_logo_login.TabIndex = 12;
@@ -243,6 +287,17 @@
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(680, 457);
             this.panel_loader.TabIndex = 15;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(538, 144);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
@@ -331,15 +386,48 @@
             this.panel_blank.Size = new System.Drawing.Size(680, 457);
             this.panel_blank.TabIndex = 17;
             // 
-            // button1
+            // timer_apichanges
             // 
-            this.button1.Location = new System.Drawing.Point(538, 144);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.timer_apichanges.Interval = 5000;
+            this.timer_apichanges.Tick += new System.EventHandler(this.Timer_apichanges_Tick);
+            // 
+            // panel_verified
+            // 
+            this.panel_verified.Controls.Add(this.label24);
+            this.panel_verified.Controls.Add(this.label26);
+            this.panel_verified.Location = new System.Drawing.Point(12, 12);
+            this.panel_verified.Name = "panel_verified";
+            this.panel_verified.Size = new System.Drawing.Size(680, 457);
+            this.panel_verified.TabIndex = 28;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(214, 243);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(249, 25);
+            this.label24.TabIndex = 14;
+            this.label24.Text = "authorised successful!";
+            // 
+            // label26
+            // 
+            this.label26.Image = global::rainCheck.Properties.Resources.verified;
+            this.label26.Location = new System.Drawing.Point(281, 161);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(114, 78);
+            this.label26.TabIndex = 12;
+            // 
+            // timer_gotomain
+            // 
+            this.timer_gotomain.Interval = 1000;
+            this.timer_gotomain.Tick += new System.EventHandler(this.Timer_gotomain_Tick);
+            // 
+            // timer_authorisation
+            // 
+            this.timer_authorisation.Interval = 1000;
+            this.timer_authorisation.Tick += new System.EventHandler(this.Timer_authorisation_Tick);
             // 
             // Form_Landing
             // 
@@ -347,10 +435,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(704, 481);
-            this.Controls.Add(this.panel_loader);
-            this.Controls.Add(this.panel_authorization);
+            this.Controls.Add(this.panel_verified);
             this.Controls.Add(this.panel_blank);
             this.Controls.Add(this.panel_retry);
+            this.Controls.Add(this.panel_loader);
+            this.Controls.Add(this.panel_authorization);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -361,6 +450,7 @@
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Landing_FormClosing);
             this.Load += new System.EventHandler(this.Form_Landing_Load);
             this.panel_authorization.ResumeLayout(false);
             this.panel_authorization.PerformLayout();
@@ -369,6 +459,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).EndInit();
             this.panel_retry.ResumeLayout(false);
             this.panel_retry.PerformLayout();
+            this.panel_verified.ResumeLayout(false);
+            this.panel_verified.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -400,5 +492,14 @@
         private System.Windows.Forms.Panel panel_blank;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timer_apichanges;
+        private System.Windows.Forms.Label label_apichanges;
+        private System.Windows.Forms.Panel panel_verified;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Timer timer_gotomain;
+        private System.Windows.Forms.Label label_timer;
+        private System.Windows.Forms.Timer timer_authorisation;
+        private System.Windows.Forms.Label label_authorisation;
     }
 }

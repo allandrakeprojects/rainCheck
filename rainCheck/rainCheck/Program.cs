@@ -18,7 +18,7 @@ namespace rainCheck
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new api_test());
+            Application.Run(new Form_Main());
         }
     }
 }

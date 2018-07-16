@@ -4,8 +4,10 @@ using CefSharp.WinForms.Internals;
 using Ionic.Zip;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -16,6 +18,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using System.Windows.Forms;
@@ -61,11 +64,29 @@ namespace rainCheck
             // Design
             //this.WindowState = FormWindowState.Maximized;
 
-            DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id, b.text_search from domains_test d inner join brands b ON d.brand_name=b.id WHERE d.status='A' order by FIELD(b.id, 4, 1, 2, 5, 3), d.domain_name");
+            //DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id, b.text_search from domains_test d inner join brands b ON d.brand_name=b.id WHERE d.status='A' order by FIELD(b.id, 4, 1, 2, 5, 3), d.domain_name");
+            APIGetDomains();
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            using (var client = new WebClient())
+            {
+                string auth = "r@inCh3ckd234b70";
+                string type = "running";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+                string mac_id = GetMACAddress();
+
+                NameValueCollection postData = new NameValueCollection()
+                {
+                    { "auth", auth },
+                    { "type", type },
+                    { "mac_id", mac_id }
+                };
+
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            }
+
             //dataGridView_domains.ClearSelection();
 
             InitializeChromium();
@@ -211,6 +232,22 @@ namespace rainCheck
 
             dataGridView_urgent.Columns["brand_id"].Visible = false;
             dataGridView_urgent.Columns["text_search"].Visible = false;
+        }
+        
+        // Get MAC Address
+        public static string GetMACAddress()
+        {
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            String sMacAddress = string.Empty;
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (sMacAddress == String.Empty)
+                {
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    sMacAddress = adapter.GetPhysicalAddress().ToString();
+                }
+            }
+            return sMacAddress;
         }
 
         private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -2798,19 +2835,57 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            try
+            using (var client = new WebClient())
             {
-                using (WebClient wc = new WebClient())
+                string auth = "r@inCh3ckd234b70";
+                string type = "domain_main";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+
+                NameValueCollection postData = new NameValueCollection()
                 {
-                    //var result = wc.DownloadString(@"http://raincheck.ssitex.com/api.txt");
-                    string api = "http://raincheck.ssitex.com/api.txt";
-                    var result = JsonConvert.DeserializeObject<List<MainDomainsResult>>(api);
-                    MessageBox.Show(result.ToString());
-                }
+                    { "auth", auth },
+                    { "type", type }
+                };
+
+                // client.UploadValues returns page's source as byte array (byte[])
+                // so it must be transformed into a string
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                //dataGridView_api_test.DataSource = arr;
+
+                MessageBox.Show(pagesource);
+
+                //if (pagesource == "domain_main")
+                //{
+                //    WebClient wc = new WebClient();
+                //    var result = wc.DownloadString(request);
+                //    MessageBox.Show(result);
+                //}
+
             }
-            catch (Exception ex)
+        }
+
+        private void APIGetDomains()
+        {
+            using (var client = new WebClient())
             {
-                MessageBox.Show(ex.Message);
+                string auth = "r@inCh3ckd234b70";
+                string type = "domain_main";
+                string request = "http://raincheck.ssitex.com/api/api.php";
+
+                NameValueCollection postData = new NameValueCollection()
+                {
+                    { "auth", auth },
+                    { "type", type }
+                };
+
+                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                dataGridView_domain.DataSource = arr;
             }
         }
     }

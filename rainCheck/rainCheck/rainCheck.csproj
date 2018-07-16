@@ -203,6 +203,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api_test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="api_test.Designer.cs">
+      <DependentUpon>api_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Brand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,7 @@
     </Compile>
     <Compile Include="IpInfo.cs" />
     <Compile Include="JsDialogHandler.cs" />
+    <Compile Include="MainDomainsResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs">
@@ -243,6 +250,9 @@
     <Compile Include="Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="api_test.resx">
+      <DependentUpon>api_test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Brand.resx">
       <DependentUpon>Form_Brand.cs</DependentUpon>
     </EmbeddedResource>

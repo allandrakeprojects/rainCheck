@@ -3,6 +3,7 @@ using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
 using Ionic.Zip;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,7 @@ using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -41,7 +43,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main(string city, string country, string isp)
+        public Form_Main()
         {
             InitializeComponent();
 
@@ -51,10 +53,10 @@ namespace rainCheck
 
 
             //string city, string country, string isp
-            Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            city_get = city;
-            isp_get = isp;
+            //city_get = city;
+            //isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -188,7 +190,7 @@ namespace rainCheck
             //    panel_retry.Visible = true;
             //}
 
-            NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
+            //NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
             Console.ReadLine();
             
@@ -2792,6 +2794,24 @@ namespace rainCheck
             //    //    label_ifloadornot.Text = "0";
             //    //}
             //}));
+        }
+
+        private void button_getmaindomains_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    //var result = wc.DownloadString(@"http://raincheck.ssitex.com/api.txt");
+                    string api = "http://raincheck.ssitex.com/api.txt";
+                    var result = JsonConvert.DeserializeObject<List<MainDomainsResult>>(api);
+                    MessageBox.Show(result.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

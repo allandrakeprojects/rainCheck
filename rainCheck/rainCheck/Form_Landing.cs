@@ -1,21 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Renci.SshNet;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Data;
+using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace rainCheck
 {
@@ -89,7 +83,16 @@ namespace rainCheck
                              .Matches(externalIP)[0].ToString();
                 return externalIP;
             }
-            catch { return null; }
+            catch(Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: 1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+
+                return null;
+            }
         }
 
         // Get MAC Address
@@ -293,7 +296,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: 1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
 
@@ -309,11 +316,11 @@ namespace rainCheck
                     string mac_id = GetMACAddress();
 
                     NameValueCollection postData = new NameValueCollection()
-                {
-                    { "auth", auth },
-                    { "type", type },
-                    { "mac_id", mac_id }
-                };
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id }
+                    };
 
                     // client.UploadValues returns page's source as byte array (byte[])
                     // so it must be transformed into a string
@@ -348,7 +355,7 @@ namespace rainCheck
                                 timer_apichanges.Stop();
 
                                 panel_blank.BringToFront();
-                                MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Close();
                             }
                             else if (status == "X")
@@ -357,7 +364,7 @@ namespace rainCheck
                                 timer_apichanges.Stop();
 
                                 panel_blank.BringToFront();
-                                MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Close();
                             }
                             else
@@ -400,7 +407,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: 1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
         
@@ -460,7 +471,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: 1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
     }

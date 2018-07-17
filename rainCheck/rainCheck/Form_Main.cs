@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -90,7 +91,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1023", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
 
             //dataGridView_domains.ClearSelection();
@@ -111,7 +117,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nForm: Main\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 Close();
             }
 
@@ -158,7 +168,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
 
             // Get timeout option to server
@@ -185,7 +200,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
 
             // Enabling scrolls
@@ -241,7 +261,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1004", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 Close();
             }
         }
@@ -361,9 +385,14 @@ namespace rainCheck
                 //chromeBrowser.StatusMessage += OnBrowserStatusMessage;
                 chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1005", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
         
@@ -1262,7 +1291,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1006", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1324,7 +1358,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1007", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1422,7 +1461,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1008", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1548,7 +1592,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1009", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1612,7 +1661,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1010", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1674,7 +1728,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1011", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
         
@@ -1736,7 +1795,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1012", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -1808,7 +1872,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1013", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
 
             buttonGoWasClicked = true;
@@ -1963,13 +2032,22 @@ namespace rainCheck
                                 }
                                 catch (Exception ex)
                                 {
-                                    MessageBox.Show(ex.Message);
+                                    var st = new StackTrace(ex, true);
+                                    var frame = st.GetFrame(0);
+                                    var line_new = frame.GetFileLineNumber();
+                                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line_new + "\nError Message: " + ex.Message + "\nError Code: rc1014", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    Close();
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n" + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            var st = new StackTrace(ex, true);
+                            var frame = st.GetFrame(0);
+                            var line_new = frame.GetFileLineNumber();
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line_new + "\nError Message: " + ex.Message + "\nError Code: rc1015", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            Close();
                         }
                     }
 
@@ -2141,7 +2219,12 @@ namespace rainCheck
                     }
                     catch (Exception ex)
                     {
-                        Console.Write(ex);
+                        var st = new StackTrace(ex, true);
+                        var frame = st.GetFrame(0);
+                        var line = frame.GetFileLineNumber();
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        Close();
                     }
 
                     Invoke(new Action(() =>
@@ -2360,8 +2443,12 @@ namespace rainCheck
                                 {
                                     con.Close();
 
-                                    MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    Application.Exit();
+                                    var st = new StackTrace(ex, true);
+                                    var frame = st.GetFrame(0);
+                                    var line = frame.GetFileLineNumber();
+                                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1017", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    Close();
                                 }
                                 finally
                                 {
@@ -2387,9 +2474,14 @@ namespace rainCheck
 
                         streamReader.Close();
                     }
-                    catch (Exception err)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Error" + err.Message);
+                        var st = new StackTrace(ex, true);
+                        var frame = st.GetFrame(0);
+                        var line = frame.GetFileLineNumber();
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1018", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        Close();
                     }
 
                     if (dataGridView_urgent.Rows.Count > 0)
@@ -2538,7 +2630,12 @@ namespace rainCheck
                     }
                     catch (Exception ex)
                     {
-                        Console.Write(ex);
+                        var st = new StackTrace(ex, true);
+                        var frame = st.GetFrame(0);
+                        var line = frame.GetFileLineNumber();
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1019", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        Close();
                     }
 
                     Invoke(new Action(() =>
@@ -2653,7 +2750,12 @@ namespace rainCheck
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support." + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            var st = new StackTrace(ex, true);
+                            var frame = st.GetFrame(0);
+                            var line_new = frame.GetFileLineNumber();
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line_new + "\nError Message: " + ex.Message + "\nError Code: rc1020", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            Close();
                         }
                     }
 
@@ -2796,7 +2898,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1021", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 Close();
             }
         }
@@ -2826,7 +2932,12 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
             }
         }
 
@@ -2838,11 +2949,28 @@ namespace rainCheck
                 detectnotloading++;
                 label_detectnotloading.Text = detectnotloading.ToString();
 
-                if (detectnotloading > 10)
+                if (detectnotloading > 20)
                 {
                     MessageBox.Show("loading now");
+
+                    int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+                    dataGridView_domain.ClearSelection();
+
+                    // For timeout
+                    i = 1;
+                    timer_timeout.Start();
+
+                    dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+
+                    detectnotloading = 0;
+                    timer_detectnotloading.Stop();
                 }
             }));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: blah blah blah \n\nError Code: rc1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

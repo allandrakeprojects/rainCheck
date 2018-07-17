@@ -93,7 +93,6 @@
             this.label_brand_id.Size = new System.Drawing.Size(49, 13);
             this.label_brand_id.TabIndex = 66;
             this.label_brand_id.Text = "Brand ID";
-            this.label_brand_id.Visible = false;
             // 
             // label_text_search
             // 
@@ -103,7 +102,6 @@
             this.label_text_search.Size = new System.Drawing.Size(65, 13);
             this.label_text_search.TabIndex = 67;
             this.label_text_search.Text = "Text Search";
-            this.label_text_search.Visible = false;
             // 
             // linkLabel_question
             // 
@@ -124,7 +122,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(398, 126);
+            this.ClientSize = new System.Drawing.Size(398, 149);
             this.ControlBox = false;
             this.Controls.Add(this.linkLabel_question);
             this.Controls.Add(this.label_text_search);

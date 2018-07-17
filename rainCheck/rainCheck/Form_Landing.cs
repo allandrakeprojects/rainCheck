@@ -194,14 +194,16 @@ namespace rainCheck
         // Insert device condition
         private void InsertDeviceCondition()
         {
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "landing";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "landing";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
 
-                NameValueCollection postData = new NameValueCollection()
+                    NameValueCollection postData = new NameValueCollection()
                 {
                     { "auth", auth },
                     { "type", type },
@@ -211,110 +213,10 @@ namespace rainCheck
                     { "country", country },
                     { "isp", isp }
                 };
-                
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));      
-                
-                if (pagesource != "")
-                {
-                    JArray jsonObject = JArray.Parse(pagesource);
-                    string status = jsonObject[0]["status"].Value<string>();
 
-                    if (status == "A")
-                    {
-                        timer_authorisation.Stop();
-                        timer_apichanges.Stop();
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                        panel_verified.BringToFront();
-
-                        timer_gotomain.Start();
-                    }
-                    else if (status == "P")
-                    {
-                        timer_authorisation.Start();
-                        panel_authorization.BringToFront();
-                    }
-                    else if (status == "R")
-                    {
-                        timer_authorisation.Stop();
-                        timer_apichanges.Stop();
-
-                        panel_blank.BringToFront();
-                        MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Close();
-                    }
-                    else if (status == "X")
-                    {
-                        timer_authorisation.Stop();
-                        timer_apichanges.Stop();
-
-                        panel_blank.BringToFront();
-                        MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Close();
-                    }
-                    else
-                    {
-                        timer_authorisation.Stop();
-                        timer_apichanges.Stop();
-
-                        MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Close();
-                    }
-
-                    label_apichanges.Text = pagesource;
-                    timer_apichanges.Start();
-                }
-                else
-                {
-                    // Insert
-                    type = "device_insert";
-
-                    NameValueCollection postData_new = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type },
-                        { "mac_id", mac_id },
-                        { "city", city },
-                        { "region", region },
-                        { "country", country },
-                        { "isp", isp }
-                    };
-
-                    string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
-
-                    timer_authorisation.Start();
-                    panel_authorization.BringToFront();
-
-                    label_apichanges.Text = pagesource;
-                    timer_apichanges.Start();
-                }
-            }
-        }
-
-        private void Timer_apichanges_Tick(object sender, EventArgs e)
-        {
-            using (var client = new WebClient())
-            {
-                string auth = "r@inCh3ckd234b70";
-                string type = "landing";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
-
-                NameValueCollection postData = new NameValueCollection()
-                {
-                    { "auth", auth },
-                    { "type", type },
-                    { "mac_id", mac_id }
-                };
-
-                // client.UploadValues returns page's source as byte array (byte[])
-                // so it must be transformed into a string
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                //MessageBox.Show(pagesource);
-
-                if (pagesource != "")
-                {
-                    if (pagesource != label_apichanges.Text)
+                    if (pagesource != "")
                     {
                         JArray jsonObject = JArray.Parse(pagesource);
                         string status = jsonObject[0]["status"].Value<string>();
@@ -361,14 +263,14 @@ namespace rainCheck
                         }
 
                         label_apichanges.Text = pagesource;
+                        timer_apichanges.Start();
                     }
-                }
-                else
-                {
-                    // Insert
-                    type = "device_insert";
+                    else
+                    {
+                        // Insert
+                        type = "device_insert";
 
-                    NameValueCollection postData_new = new NameValueCollection()
+                        NameValueCollection postData_new = new NameValueCollection()
                     {
                         { "auth", auth },
                         { "type", type },
@@ -379,14 +281,126 @@ namespace rainCheck
                         { "isp", isp }
                     };
 
-                    string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
+                        string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
 
-                    timer_authorisation.Start();
-                    panel_authorization.BringToFront();
+                        timer_authorisation.Start();
+                        panel_authorization.BringToFront();
 
-                    label_apichanges.Text = pagesource;
-                    timer_apichanges.Start();
+                        label_apichanges.Text = pagesource;
+                        timer_apichanges.Start();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Timer_apichanges_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "landing";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
+
+                    NameValueCollection postData = new NameValueCollection()
+                {
+                    { "auth", auth },
+                    { "type", type },
+                    { "mac_id", mac_id }
+                };
+
+                    // client.UploadValues returns page's source as byte array (byte[])
+                    // so it must be transformed into a string
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                    //MessageBox.Show(pagesource);
+
+                    if (pagesource != "")
+                    {
+                        if (pagesource != label_apichanges.Text)
+                        {
+                            JArray jsonObject = JArray.Parse(pagesource);
+                            string status = jsonObject[0]["status"].Value<string>();
+
+                            if (status == "A")
+                            {
+                                timer_authorisation.Stop();
+                                timer_apichanges.Stop();
+
+                                panel_verified.BringToFront();
+
+                                timer_gotomain.Start();
+                            }
+                            else if (status == "P")
+                            {
+                                timer_authorisation.Start();
+                                panel_authorization.BringToFront();
+                            }
+                            else if (status == "R")
+                            {
+                                timer_authorisation.Stop();
+                                timer_apichanges.Stop();
+
+                                panel_blank.BringToFront();
+                                MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Close();
+                            }
+                            else if (status == "X")
+                            {
+                                timer_authorisation.Stop();
+                                timer_apichanges.Stop();
+
+                                panel_blank.BringToFront();
+                                MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Close();
+                            }
+                            else
+                            {
+                                timer_authorisation.Stop();
+                                timer_apichanges.Stop();
+
+                                MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Close();
+                            }
+
+                            label_apichanges.Text = pagesource;
+                        }
+                    }
+                    else
+                    {
+                        // Insert
+                        type = "device_insert";
+
+                        NameValueCollection postData_new = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "city", city },
+                        { "region", region },
+                        { "country", country },
+                        { "isp", isp }
+                    };
+
+                        string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
+
+                        timer_authorisation.Start();
+                        panel_authorization.BringToFront();
+
+                        label_apichanges.Text = pagesource;
+                        timer_apichanges.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         
@@ -425,21 +439,28 @@ namespace rainCheck
 
         private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
         {
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "closing";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "closing";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
 
-                NameValueCollection postData = new NameValueCollection()
+                    NameValueCollection postData = new NameValueCollection()
                 {
                     { "auth", auth },
                     { "type", type },
                     { "mac_id", mac_id }
                 };
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

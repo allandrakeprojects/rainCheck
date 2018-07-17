@@ -60,150 +60,36 @@ namespace rainCheck
 
         private void Form_Brand_Load(object sender, System.EventArgs e)
         {
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "brand_get";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "brand_get";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
 
-                var x = JsonConvert.DeserializeObject<List<RootObject>>(pagesource);
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                foreach (var brand in x)
-                {
-                    comboBox_brand.Items.Add(brand.brand_name);
-                    //comboBox_brand.DisplayMember = brand.brand_name;
+                    var x = JsonConvert.DeserializeObject<List<RootObject>>(pagesource);
+
+                    foreach (var brand in x)
+                    {
+                        comboBox_brand.Items.Add(brand.brand_name);
+                    }
+
+                    comboBox_brand.SelectedIndex = 0;
                 }
-
-                //MessageBox.Show(x.ToString());
-                //foreach (var player in x.brand_name)
-                //{
-                //    //ComboboxItem item = new ComboboxItem();
-                //    //item.Text = player.f + " " + player.l;
-                //    //item.Value = player.id;
-
-                //    //comboBox1.Items.Add(item);
-                //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //var s = new JavaScriptSerializer();
-
-
-                //var blah = s.Deserialize<List<Workout>>(pagesource);
-                //var response = ServicePOST<Workout>("AddUserWorkout", workout);
-                //MessageBox.Show(blah.ToString());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //MessageBox.Show(pagesource);
-
-                //Friends facebookFriends = new JavaScriptSerializer().Deserialize<List<Friends>>(pagesource);
-
-                //foreach (var item in facebookFriends.data)
-                //{
-                //    MessageBox.Show(item.brand_name);
-                //}
-
-                //using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(pagesource)))
-                //{
-                //    DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(RootObject));
-                //    RootObject obj = (RootObject)deserializer.ReadObject(ms);
-
-                //    MessageBox.Show(obj.brand_name);
-
-                //    // Assign data to combo box
-                //    foreach (var name in obj.brand_name)
-                //    {
-                //        ComboBox item = new ComboBox();
-                //        item.Text = obj.brand_name;
-                //        comboBox_brand.Items.Add(item);
-                //    }
-                //}
-
-
-                //var arr = JsonConvert.DeserializeObject<RootObject>(pagesource);
-                //foreach (var player in arr.Players)
-                //{
-                //    ComboBox item = new ComboBox();
-                //    item.Text = player.brand_name;
-
-                //    comboBox_brand.Items.Add(item);
-                //}
-                ////comboBox_brand.DataSource = arr;
-
-                //MessageBox.Show(pagesource);
             }
-
-            //using (con)
-            //{
-            //    try
-            //    {
-            //        con.Open();
-
-            //        MySqlDataAdapter da = new MySqlDataAdapter();
-
-            //        DataSet ds = new DataSet();
-
-            //        string sql = "SELECT brand_name FROM `brands`";
-
-            //        da.SelectCommand = new MySqlCommand(sql, con);
-
-            //        da.Fill(ds);
-
-            //        //ComboBox comboBox1 = new ComboBox();
-
-            //        comboBox_brand.DataSource = ds.Tables[0];
-            //        comboBox_brand.DisplayMember = "brand_name";
-
-            //        con.Close();
-            //    }
-            //    catch (Exception)
-            //    {
-            //        con.Close();
-
-            //        MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        Application.Exit();
-            //    }
-            //    finally
-            //    {
-            //        con.Close();
-            //    }
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
@@ -218,58 +104,37 @@ namespace rainCheck
             string selected = comboBox_brand.Text;
 
             // API Brand
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "brand_selected";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string brand_selected = selected;
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type },
-                    { "brand_selected", brand_selected }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "brand_selected";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string brand_selected = selected;
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                MessageBox.Show(pagesource);
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "brand_selected", brand_selected }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                    JArray jsonObject = JArray.Parse(pagesource);
+
+                    string brand_id = jsonObject[0]["id"].Value<string>();
+                    string text_search = jsonObject[0]["text_search"].Value<string>();
+
+                    label_brand_id.Text = brand_id;
+                    label_text_search.Text = text_search;
+                }
             }
-            
-            //using (con)
-            //{
-            //    try
-            //    {
-            //        con.Close();
-            //        con.Open();
-
-            //        MySqlCommand command = new MySqlCommand("SELECT id, text_search FROM `brands` WHERE brand_name = '" + selected + "'", con);
-            //        command.CommandType = CommandType.Text;
-            //        MySqlDataReader reader = command.ExecuteReader();
-
-            //        if (reader.HasRows)
-            //        {
-            //            while (reader.Read())
-            //            {
-            //                label_brand_id.Text = reader["id"].ToString();
-            //                label_text_search.Text = reader["text_search"].ToString();
-            //            }
-            //        }
-
-            //        con.Close();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        con.Close();
-
-            //        MessageBox.Show("There is a problem with the server! Please contact IT support. asd123" + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        Application.Exit();
-            //    }
-            //    finally
-            //    {
-            //        con.Close();
-            //    }
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

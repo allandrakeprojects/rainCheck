@@ -1,6 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
-using CefSharp.WinForms.Internals;
+using ChoETL;
 using Ionic.Zip;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
@@ -20,7 +20,6 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -70,21 +69,28 @@ namespace rainCheck
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "running";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type },
-                    { "mac_id", mac_id }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "running";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //dataGridView_domains.ClearSelection();
@@ -97,9 +103,17 @@ namespace rainCheck
             }
 
             // Hide column
-            dataGridView_domain.Columns["domain_name"].Visible = false;
-            dataGridView_domain.Columns["id"].Visible = false;
-            dataGridView_domain.Columns["text_search"].Visible = false;
+            try
+            {
+                dataGridView_domain.Columns["domain_name"].Visible = false;
+                dataGridView_domain.Columns["id"].Visible = false;
+                dataGridView_domain.Columns["text_search"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
 
             // Hide loader
             pictureBox_loader.Visible = false;
@@ -122,42 +136,56 @@ namespace rainCheck
             string path = path_desktop + "\\rainCheck\\";
 
             // Get inaccessible list
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "category";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "category";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                //string jsonRes = JsonConvert.SerializeObject(pagesource);
-                inaccessble_lists.Add(pagesource);
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    //string jsonRes = JsonConvert.SerializeObject(pagesource);
+                    inaccessble_lists.Add(pagesource);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // Get timeout option to server
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "timeout";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string mac_id = GetMACAddress();
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "timeout";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string mac_id = GetMACAddress();
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
 
-                string result = pagesource.Replace("\"", "");
-                label3.Text = result;
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                    string result = pagesource.Replace("\"", "");
+                    label13.Text = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // Enabling scrolls
@@ -189,24 +217,33 @@ namespace rainCheck
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
             Console.ReadLine();
-            
+
 
             // URGENT PANEL
-            if (dataGridView_urgent.Rows.Count == 0)
+            try
             {
-                button_start_urgent.Enabled = false;
+                if (dataGridView_urgent.Rows.Count == 0)
+                {
+                    button_start_urgent.Enabled = false;
 
-                dataGridView_urgent.Rows.Add("No data available in table");
-                dataGridView_urgent.ClearSelection();
-                dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.None;
-                dataGridView_urgent.DefaultCellStyle.SelectionBackColor = dataGridView_urgent.DefaultCellStyle.BackColor;
-                dataGridView_urgent.DefaultCellStyle.SelectionForeColor = dataGridView_urgent.DefaultCellStyle.ForeColor;
+                    dataGridView_urgent.Rows.Add("No data available in table");
+                    dataGridView_urgent.ClearSelection();
+                    dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = dataGridView_urgent.DefaultCellStyle.BackColor;
+                    dataGridView_urgent.DefaultCellStyle.SelectionForeColor = dataGridView_urgent.DefaultCellStyle.ForeColor;
+
+                    new ToolTip().SetToolTip(label_help, "Click Domain button to Import New Set of Domain(s)");
+
+                    dataGridView_urgent.Columns["brand_id"].Visible = false;
+                    dataGridView_urgent.Columns["text_search"].Visible = false;
+
+                }
             }
-
-            new ToolTip().SetToolTip(label_help, "Click Domain button to Import New Set of Domain(s)");
-
-            dataGridView_urgent.Columns["brand_id"].Visible = false;
-            dataGridView_urgent.Columns["text_search"].Visible = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
         
         // Get MAC Address
@@ -406,6 +443,10 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Stop();
+
                     Invoke(new Action(() =>
                     {
                         panel_browser.Controls.Add(chromeBrowser);
@@ -459,6 +500,10 @@ namespace rainCheck
                 // --Loaded--
                 if (!e.IsLoading)
                 {
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Start();
+
                     // Date preview
                     end_load_inaccessible = DateTime.Now;
                     end_load = DateTime.Now.ToString("HH:mm:ss.fff");
@@ -763,6 +808,32 @@ namespace rainCheck
                                     panel_new.Visible = false;
                                 }));
                             }
+                            // success
+                            else if (label_webtitle.Text.Contains("Bing"))
+                            {
+                                DataToTextFileSuccess();
+
+                                Invoke(new Action(() =>
+                                {
+                                    timer_timeout.Stop();
+                                    i = 1;
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
+                            }
                             // hijacked
                             else
                             {
@@ -798,10 +869,12 @@ namespace rainCheck
                                 {
                                     DataToTextFileHijacked();
                                 }
+                                // Timeout Status
                                 else if (label_timeout.Text == "timeout")
                                 {
                                     DataToTextFileTimeout();
                                 }
+                                // Successful Status
                                 else
                                 {
                                     DataToTextFileSuccess();
@@ -829,9 +902,6 @@ namespace rainCheck
                                 }));
                             }
                         }
-
-                        // Timeout Status
-                        // Successful Status
                     }
                     else
                     {
@@ -946,25 +1016,25 @@ namespace rainCheck
 
                     foreach (string obj in strArray)
                     {
-                        bool contains = label_domaintitle.Text.Contains(obj);
+                        //bool contains = label_domaintitle.Text.Contains(obj);
 
-                        if (contains == true)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                label_hijacked.Text = "";
-                            }));
+                        //if (contains == true)
+                        //{
+                        //    Invoke(new Action(() =>
+                        //    {
+                        //        label_hijacked.Text = "";
+                        //    }));
 
-                            break;
-                        } else if (!contains)
-                        {
-                            //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+                        //    break;
+                        //} else if (!contains)
+                        //{
+                        //    //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
 
-                            Invoke(new Action(() =>
-                            {
-                                label_hijacked.Text = "hijacked";
-                            }));
-                        }
+                        //    Invoke(new Action(() =>
+                        //    {
+                        //        label_hijacked.Text = "hijacked";
+                        //    }));
+                        //}
                     }
 
                     // Date preview
@@ -1087,11 +1157,6 @@ namespace rainCheck
             SendKeys.SendWait(" ");
         }
 
-        public bool IsChinese(string text)
-        {
-            return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
-        }
-
         //public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
         //{
         //    callback.Continue(true);
@@ -1128,6 +1193,21 @@ namespace rainCheck
                     StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
+                    // Header
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+
+                        swww.Close();
+                    }
+
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
@@ -1149,6 +1229,21 @@ namespace rainCheck
 
                     StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
+
+                    // Header
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+
+                        swww.Close();
+                    }
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1667,46 +1762,53 @@ namespace rainCheck
 
             label_domainhide.Text = textBox_domain.Text;
             string domain_urgent = label_domainhide.Text;
-            
+
             // API Brand
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "brand";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-                string domain = domain_urgent;
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type },
-                    { "domain", domain }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "brand";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string domain = domain_urgent;
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "domain", domain }
+                    };
 
-                if (pagesource != "")
-                {
-                    JArray jsonObject = JArray.Parse(pagesource);
-                    string brand_name = jsonObject[0]["brand_name"].Value<string>();
-                    string text_search = jsonObject[0]["text_search"].Value<string>();
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                    label_brandhide.Text = brand_name;
-                    label_text_search.Text = text_search;
+                    if (pagesource != "")
+                    {
+                        JArray jsonObject = JArray.Parse(pagesource);
+                        string brand_name = jsonObject[0]["brand_name"].Value<string>();
+                        string text_search = jsonObject[0]["text_search"].Value<string>();
 
-                    MessageBox.Show(brand_name + " " + text_search);
+                        label_brandhide.Text = brand_name;
+                        label_text_search.Text = text_search;
+
+                        MessageBox.Show(brand_name + " " + text_search);
+                    }
+                    else
+                    {
+                        label_brand_id.Text = "";
+
+                        Form_Brand form_brand = new Form_Brand(domain_urgent);
+                        form_brand.ShowDialog();
+
+                        label_brandhide.Text = SetValueForTextBrandID;
+                        label_text_search.Text = SetValueForTextSearch;
+                    }
+
                 }
-                else
-                {
-                    label_brand_id.Text = "";
-
-                    Form_Brand form_brand = new Form_Brand(domain_urgent);
-                    form_brand.ShowDialog();
-
-                    label_brandhide.Text = SetValueForTextBrandID;
-                    label_text_search.Text = SetValueForTextSearch;
-                }
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             buttonGoWasClicked = true;
@@ -2049,76 +2151,6 @@ namespace rainCheck
                         label_text_search.Text = text_search;
                         //label4.Text = currentIndex.ToString();
                     }));
-                }
-            }
-        }
-
-        // Show domains
-        private void DataToGridView(string query)
-        {
-            using (con)
-            {
-                try
-                {
-                    con.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(query, con);
-
-                    DataTable table = new DataTable();
-                    adapter.Fill(table);
-
-                    if (table.Rows.Count == 0)
-                    {
-                        button_start.Enabled = false;
-
-                        BindingSource source = new BindingSource();
-                        source.DataSource = table;
-
-                        table.Rows.Add("No data available in table");
-
-                        dataGridView_domain.DataSource = source;
-
-                        con.Close();
-
-                        dataGridView_domain.ClearSelection();
-
-                        dataGridView_domain.CellBorderStyle = DataGridViewCellBorderStyle.None;
-                        dataGridView_domain.DefaultCellStyle.SelectionBackColor = dataGridView_domain.DefaultCellStyle.BackColor;
-                        dataGridView_domain.DefaultCellStyle.SelectionForeColor = dataGridView_domain.DefaultCellStyle.ForeColor;
-                    }
-                    else
-                    {
-                        BindingSource source = new BindingSource();
-                        source.DataSource = table;
-
-                        dataGridView_domain.DataSource = source;
-
-                        con.Close();
-
-                        dataGridView_domain.ClearSelection();
-
-                        dataGridView_domain.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-
-                        string hex = "#438eb9";
-                        Color color = ColorTranslator.FromHtml(hex);
-                        dataGridView_domain.DefaultCellStyle.SelectionBackColor = color;
-                        dataGridView_domain.DefaultCellStyle.SelectionForeColor = Color.White;
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    con.Close();
-
-                    //panel_blank.Visible = true;
-                    //panel_blank.BringToFront();
-                    panel_top.Visible = false;
-                    MessageBox.Show("There is a problem with the server! Please contact IT support." + e.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                finally
-                {
-                    con.Close();
                 }
             }
         }
@@ -2655,28 +2687,6 @@ namespace rainCheck
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    HttpWebRequest webRequest = (HttpWebRequest)WebRequest
-            //                               .Create("https://az8188.com/");
-            //    webRequest.AllowAutoRedirect = false;
-            //    HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-            //    //Returns "MovedPermanently", not 301 which is what I want.
-            //    Console.Write(response.StatusCode.ToString());
-
-            //    HttpWebResponse wResp = (HttpWebResponse)webRequest.GetResponse();
-            //    HttpStatusCode wRespStatusCode = wResp.StatusCode;
-
-            //    MessageBox.Show(wRespStatusCode.ToString());
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}  
-        }
-
         private void Timer_new_Tick(object sender, EventArgs e)
         {
             //MessageBox.Show("voila!");
@@ -2697,75 +2707,6 @@ namespace rainCheck
                     label_ifloadornot.Text = "0";
                 }));
             }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //var message = string.Join(Environment.NewLine, inaccessble_lists);
-            //MessageBox.Show(message);
-
-            //var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("http://fs4982.com/?reqp=1&reqr="));
-
-            //if (match != null)
-            //{
-            //    MessageBox.Show("inaccessible");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("not found");
-            //}
-
-            //var match = inaccessble_lists.Find(item => item == "404 - Page Not Found");
-            //var match = inaccessble_lists.Where(stringToCheck => stringToCheck.Contains("dsfsdfds"));
-            //var match = inaccessble_lists.FindAll(s => s.Equals("404 asdsadasdsadasdasfdasfgvsdfbdndn Page Not Found"));
-
-            //inaccessble_lists.ForEach(delegate (String name)
-            //{
-            //    MessageBox.Show(name);
-            //});
-
-            //foreach (string item in inaccessble_lists)
-            //{
-            //    if (item.Contains("asdsadsadsa")) {
-            //        MessageBox.Show("find");
-            //    }
-            //}
-
-            //if (match != null)
-            //{
-            //    MessageBox.Show("inaccessible");
-
-            //}
-            //// Hijacked Status
-            //else
-            //{
-            //    MessageBox.Show("not found");
-            //}
-
-            //foreach (string inaccessble_list in inaccessble_lists)
-            //{
-            //    MessageBox.Show(inaccessble_list);
-            //}
-
-            //var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains("404 - Page Not Found"));
-
-            //if (match != null)
-            //{
-            //    MessageBox.Show("found");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("not found");
-            //}
-
-            //if (inaccessble_lists.Contains("This site isn’t secure"))
-            //{
-            //    MessageBox.Show("found");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("not found");
-            //}
         }
 
         int elseloaded_i = 0;
@@ -2810,58 +2751,98 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            using (var client = new WebClient())
+            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string path = path_desktop + "\\rainCheck\\2018-07-17_1027\\result.txt";
+
+            string read = File.ReadAllText(path);
+            
+            //            string csv = @"id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type
+            //,a0263.com,S,4,10:28:00.122,10:28:00.136,TIANFA | 天發娛樂城,-,-,-,-,,,2018-07-17 10:27:54,,N
+            //,a1563.com,S,4,10:28:06.902,10:28:10.059,TIANFA | 天發娛樂城,-,-,-,-,,,2018-07-17 10:27:54,,N";
+
+            //MessageBox.Show(path);
+
+            StringBuilder sb = new StringBuilder();
+            using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "domain_main";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var w = new ChoJSONWriter(sb))
                 {
-                    { "auth", auth },
-                    { "type", type }
-                };
+                    w.Write(p);
+                }
+            }
 
-                // client.UploadValues returns page's source as byte array (byte[])
-                // so it must be transformed into a string
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            MessageBox.Show(sb.ToString());
 
-                var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "reports_normal";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string reports = sb.ToString();
 
-                //dataGridView_api_test.DataSource = arr;
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "reports", reports },
+                    };
 
-                MessageBox.Show(pagesource);
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                //if (pagesource == "domain_main")
-                //{
-                //    WebClient wc = new WebClient();
-                //    var result = wc.DownloadString(request);
-                //    MessageBox.Show(result);
-                //}
-
+                    MessageBox.Show(pagesource);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
 
         private void APIGetDomains()
         {
-            using (var client = new WebClient())
+            try
             {
-                string auth = "r@inCh3ckd234b70";
-                string type = "domain_main";
-                string request = "http://raincheck.ssitex.com/api/api.php";
-
-                NameValueCollection postData = new NameValueCollection()
+                using (var client = new WebClient())
                 {
-                    { "auth", auth },
-                    { "type", type }
-                };
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "domain_main";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
 
-                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
 
-                var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                dataGridView_domain.DataSource = arr;
+                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                    dataGridView_domain.DataSource = arr;
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        int detectnotloading = 0;
+        private void Timer_detectnotloading_Tick(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                detectnotloading++;
+                label_detectnotloading.Text = detectnotloading.ToString();
+
+                if (detectnotloading > 10)
+                {
+                    MessageBox.Show("loading now");
+                }
+            }));
         }
     }
 }

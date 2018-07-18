@@ -20,6 +20,8 @@ using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -46,7 +48,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main(string city, string country, string isp)
+        public Form_Main()
         {
             InitializeComponent();
 
@@ -56,10 +58,10 @@ namespace rainCheck
 
 
             //string city, string country, string isp
-            Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            city_get = city;
-            isp_get = isp;
+            //city_get = city;
+            //isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -556,13 +558,36 @@ namespace rainCheck
                     
                     if (label_fully_loaded.Text == "1")
                     {
-                        //MessageBox.Show(label_webtitle.Text);
-
-
                         // Inaccessible Status
-                        var match = inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(label_webtitle.Text));
+                        string result = "";
+                        string search_replace = label_webtitle.Text;
 
-                        if (match != null)
+                        string upper_search = search_replace.ToUpper().ToString();
+
+                        StringBuilder sb = new StringBuilder(upper_search);
+                        sb.Replace("-", "");
+                        sb.Replace(".", "");
+                        string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+
+                        var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+
+                        string[] words = final_search.Split(' ');
+                        foreach (string word in words)
+                        {
+                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                            if (match != null)
+                            {
+                                result = "match";
+                                break;
+                            }
+                            else
+                            {
+                                result = "no match";
+                            }
+                        }
+
+                        if (result == "match")
                         {
                             // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
@@ -611,8 +636,10 @@ namespace rainCheck
 
                                     Invoke(new Action(() =>
                                     {
-                                        timer_timeout.Stop();
+                                        // For timeout
                                         i = 1;
+                                        timer_timeout.Stop();
+
                                         pictureBox_loader.Visible = false;
 
                                         label_timeout.Text = "";
@@ -638,8 +665,6 @@ namespace rainCheck
                                 // error aborted test one more time
                                 if (label_inaccessible_error_message.Text == "ERR_ABORTED")
                                 {
-                                    MessageBox.Show("got ya error aborted!");
-
                                     // test one more time
                                     Invoke(new Action(() =>
                                     {
@@ -649,8 +674,6 @@ namespace rainCheck
 
                                     if (erroraborted_testonemoretime == 1)
                                     {
-                                        MessageBox.Show("got ya test one more time!");
-
                                         Invoke(new Action(() =>
                                         {
                                             int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
@@ -672,7 +695,6 @@ namespace rainCheck
                                     }
                                     else
                                     {
-                                        MessageBox.Show("got ya else!");
                                         if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
                                         {
                                             Invoke(new Action(() =>
@@ -742,8 +764,10 @@ namespace rainCheck
 
                                                 DataToTextFileInaccessible();
 
-                                                timer_timeout.Stop();
+                                                // For timeout
                                                 i = 1;
+                                                timer_timeout.Stop();
+
                                                 pictureBox_loader.Visible = false;
 
                                                 label_timeout.Text = "";
@@ -795,8 +819,10 @@ namespace rainCheck
 
                                                 DataToTextFileInaccessible();
 
-                                                timer_timeout.Stop();
+                                                // For timeout
                                                 i = 1;
+                                                timer_timeout.Stop();
+
                                                 pictureBox_loader.Visible = false;
 
                                                 label_timeout.Text = "";
@@ -822,8 +848,6 @@ namespace rainCheck
                                 }
                                 else
                                 {
-                                    MessageBox.Show("got ya proceed to else one!");
-
                                     if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
                                     {
                                         Invoke(new Action(() =>
@@ -946,8 +970,10 @@ namespace rainCheck
 
                                             DataToTextFileInaccessible();
 
-                                            timer_timeout.Stop();
+                                            // For timeout
                                             i = 1;
+                                            timer_timeout.Stop();
+
                                             pictureBox_loader.Visible = false;
 
                                             label_timeout.Text = "";
@@ -1010,8 +1036,10 @@ namespace rainCheck
                                 
                                 Invoke(new Action(() =>
                                 {
-                                    timer_timeout.Stop();
+                                    // For timeout
                                     i = 1;
+                                    timer_timeout.Stop();
+
                                     pictureBox_loader.Visible = false;
 
                                     label_timeout.Text = "";
@@ -1041,8 +1069,10 @@ namespace rainCheck
 
                                 Invoke(new Action(() =>
                                 {
-                                    timer_timeout.Stop();
+                                    // For timeout
                                     i = 1;
+                                    timer_timeout.Stop();
+
                                     pictureBox_loader.Visible = false;
 
                                     label_timeout.Text = "";
@@ -1113,8 +1143,10 @@ namespace rainCheck
 
                                 Invoke(new Action(() =>
                                 {
-                                    timer_timeout.Stop();
+                                    // For timeout
                                     i = 1;
+                                    timer_timeout.Stop();
+
                                     pictureBox_loader.Visible = false;
 
                                     label_timeout.Text = "";
@@ -2206,53 +2238,22 @@ namespace rainCheck
                     // Enable visible buttons
                     button_start.Visible = true;
                     button_pause.Visible = false;
-                    //button_start.Enabled = false;
+                    button_start.Enabled = false;
                     button_startover.Enabled = false;
                     
                     label_status.Text = "[Loading]";
                     timer_domain.Stop();
 
-                    //////////////////////////
-                    //string datetime_folder = label8.Text;
-                    //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                    //string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                    //string path_other = path_desktop + "\\rainCheck\\result.txt";
-
-                    //panel_loader.Visible = true;
-                    //panel_loader.BringToFront();
-                    //timer_loader.Start();
-
-                    //label_currentindex.Text = "0";
-
-                    //label8.Text = "";
-                    //label10.Text = "";
-
-                    //using (ZipFile zip = new ZipFile())
-                    //{
-                    //    try
-                    //    {
-                    //        string outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                    //        //zip.Password = "youdidntknowthispasswordhaha";
-                    //        zip.Password = "a";
-                    //        zip.AddDirectory(path);
-                    //        zip.Save(outputpath);
-
-                    //        if (Directory.Exists(path))
-                    //        {
-                    //            Directory.Delete(path, true);
-                    //        }
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        MessageBox.Show(ex.Message);
-                    //    }
-                    //}
-                    ////////////////////////
-
                     TopMost = false;
                     MinimizeBox = true;
-                                        
+
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Stop();
+
+                    ms_detect = 0;
+                    fully_loaded = 0;
+                    start_detect = 0;
 
                     string datetime_folder = label8.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -2341,6 +2342,19 @@ namespace rainCheck
 
                     // Timer Main
                     domain_i = 0;
+
+                    string date = DateTime.Now.ToString("MMM dd");
+                    // Balloon Notification
+                    var notification = new NotifyIcon()
+                    {
+                        Visible = true,
+                        Icon = SystemIcons.Information,
+                        BalloonTipIcon = ToolTipIcon.Info,
+                        BalloonTipTitle = "Information",
+                        BalloonTipText = date + " " + label_timefor.Text + " is already done.",
+                    };
+
+                    notification.ShowBalloonTip(1000);
                 }
                 else
                 {
@@ -2375,6 +2389,12 @@ namespace rainCheck
                     label10.Text = label11.Text;
                 }
 
+                ms_detect = 0;
+                fully_loaded = 0;
+                start_detect = 0;
+                domain_i = 0;
+                label_currentindex.Text = "0";
+
                 string datetime = label10.Text;
                 string datetime_folder = label8.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -2392,8 +2412,8 @@ namespace rainCheck
                 button_start.Visible = false;
                 label_status.Text = "[Running]";
                 timer_domain.Start();
-                //int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
-                //dataGridView_domain.ClearSelection();
+
+                dataGridView_domain.ClearSelection();
                 dataGridView_domain.Rows[0].Selected = true;
 
                 textBox_domain.Enabled = false;
@@ -2535,15 +2555,16 @@ namespace rainCheck
         private void Timer_rtc_Tick(object sender, EventArgs e)
         {
             string date = DateTime.Now.ToString("MMM dd");
-            string time = DateTime.Now.ToString("hh:mm");
+            string time = DateTime.Now.ToString("HH:mm");
             label_rtc.Text = date + " " + time;
 
 
-            string datetime_folder = DateTime.Now.ToString("yyyy-MM-dd_HHmm");
-            label9.Text = datetime_folder;
+            string datetime_folder = DateTime.Now.ToString("yyyy-MM-dd_");
+            string replace = label_timefor.Text.Replace(":", "");
+            label9.Text = datetime_folder + replace;
             
-            string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            label11.Text = datetime;
+            string datetime = DateTime.Now.ToString("yyyy-MM-dd ");
+            label11.Text = datetime + label_timefor.Text + ":00";
         }
 
         int timer_loader_uploaded = 0;
@@ -2600,6 +2621,8 @@ namespace rainCheck
                 timer_loader.Stop();
                 
                 panel_uploaded.Visible = false;
+
+                button_start.Enabled = true;
             }
         }
 
@@ -2608,7 +2631,10 @@ namespace rainCheck
             timer_loader_okay = 10;
             timer_loader_uploaded = 0;
             timer_loader.Stop();
+
             panel_uploaded.Visible = false;
+
+            button_start.Enabled = true;
         }
 
         private void Timer_blink_Tick(object sender, EventArgs e)
@@ -3141,58 +3167,110 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string path = path_desktop + "\\rainCheck\\2018-07-17_1027\\result.txt";
+            string time = textBox1.Text;
+            label_timer_timefor.Text = time;
 
-            string read = File.ReadAllText(path);
-            
-            //            string csv = @"id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type
-            //,a0263.com,S,4,10:28:00.122,10:28:00.136,TIANFA | 天發娛樂城,-,-,-,-,,,2018-07-17 10:27:54,,N
-            //,a1563.com,S,4,10:28:06.902,10:28:10.059,TIANFA | 天發娛樂城,-,-,-,-,,,2018-07-17 10:27:54,,N";
+            string result = time.Replace(":", ".");
 
-            //MessageBox.Show(path);
-
-            StringBuilder sb = new StringBuilder();
-            using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())
+            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
             {
-                using (var w = new ChoJSONWriter(sb))
-                {
-                    w.Write(p);
-                }
+                MessageBox.Show("00:00");
+            }
+            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            {
+                MessageBox.Show("02:00");
+            }
+            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            {
+                MessageBox.Show("04:00");
+            }
+            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            {
+                MessageBox.Show("06:00");
+            }
+            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            {
+                MessageBox.Show("08:00");
+            }
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            {
+                MessageBox.Show("10:00");
+            }
+            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            {
+                MessageBox.Show("12:00");
+            }
+            else if(Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            {
+                MessageBox.Show("14:00");
+            }
+            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            {
+                MessageBox.Show("16:00");
+            }
+            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            {
+                MessageBox.Show("18:00");
+            }
+            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            {
+                MessageBox.Show("20:00");
+            }
+            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            {
+                MessageBox.Show("22:00");
             }
 
-            MessageBox.Show(sb.ToString());
 
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "reports_normal";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-                    string reports = sb.ToString();
 
-                    NameValueCollection postData = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type },
-                        { "reports", reports },
-                    };
+            // Balloon Notification
+            //var notification = new NotifyIcon()
+            //{
+            //    Visible = true,
+            //    Icon = SystemIcons.Information,
+            //    BalloonTipIcon = ToolTipIcon.Info,
+            //    BalloonTipTitle = "Information",
+            //    BalloonTipText = "Jul 18 12:00 is already done.",
+            //};
 
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            //notification.ShowBalloonTip(1000);
 
-                    MessageBox.Show(pagesource);
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1021", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //string result = "";
+            //string search_replace = "天發娱乐城";
 
-                Close();
-            }
+            //string upper_search = search_replace.ToUpper().ToString();
+
+            //StringBuilder sb = new StringBuilder(upper_search);
+            //sb.Replace("-", "");
+            //sb.Replace(".", "");
+            //string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+
+            //var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());            
+
+            //string[] words = final_search.Split(' ');
+            //foreach (string word in words)
+            //{
+            //    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+            //    if (match != null)
+            //    {
+            //        result = "match";
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        result = "no match";
+            //    }
+            //}
+
+            //if (result == "match")
+            //{
+            //    MessageBox.Show("booom match");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("booom no match");
+            //}
         }
 
         private void APIGetDomains()
@@ -3254,6 +3332,63 @@ namespace rainCheck
                     timer_detectnotloading.Stop();
                 }
             }));
+        }
+        
+        private void timer_timefor_Tick(object sender, EventArgs e)
+        {
+            string time = DateTime.Now.ToString("HH:mm");
+            label_timer_timefor.Text = time;
+
+            string result = time.Replace(":", ".");
+
+            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            {
+                label_timefor.Text = "00:00";
+            }
+            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            {
+                label_timefor.Text = "02:00";
+            }
+            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            {
+                label_timefor.Text = "04:00";
+            }
+            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            {
+                label_timefor.Text = "06:00";
+            }
+            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            {
+                label_timefor.Text = "08:00";
+            }
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            {
+                label_timefor.Text = "10:00";
+            }
+            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            {
+                label_timefor.Text = "12:00";
+            }
+            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            {
+                label_timefor.Text = "14:00";
+            }
+            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            {
+                label_timefor.Text = "16:00";
+            }
+            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            {
+                label_timefor.Text = "18:00";
+            }
+            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            {
+                label_timefor.Text = "20:00";
+            }
+            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            {
+                label_timefor.Text = "22:00";
+            }
         }
     }
 }

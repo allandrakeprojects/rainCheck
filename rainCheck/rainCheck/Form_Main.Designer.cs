@@ -79,7 +79,7 @@
             this.label_currentindex_urgent = new System.Windows.Forms.Label();
             this.label_separator = new System.Windows.Forms.Label();
             this.button_startover = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
+            this.label_cycle_in_1 = new System.Windows.Forms.Label();
             this.timer_timeout = new System.Windows.Forms.Timer(this.components);
             this.dataGridView_domain = new System.Windows.Forms.DataGridView();
             this.label_status = new System.Windows.Forms.Label();
@@ -89,7 +89,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label_status_1 = new System.Windows.Forms.Label();
             this.label_timefor_1 = new System.Windows.Forms.Label();
-            this.label_cyclein = new System.Windows.Forms.Label();
+            this.label_timefor = new System.Windows.Forms.Label();
             this.timer_loader = new System.Windows.Forms.Timer(this.components);
             this.timer_rtc = new System.Windows.Forms.Timer(this.components);
             this.label_timerstartpause = new System.Windows.Forms.Label();
@@ -106,10 +106,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button_okay = new System.Windows.Forms.Button();
             this.panel_uploaded = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label_cycle_in = new System.Windows.Forms.Label();
             this.panel_main = new System.Windows.Forms.Panel();
-            this.panel_new = new System.Windows.Forms.Panel();
-            this.webBrowser_new = new System.Windows.Forms.WebBrowser();
+            this.label_erroraborted = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
@@ -118,14 +118,16 @@
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.button_getmaindomains = new System.Windows.Forms.Button();
+            this.panel_new = new System.Windows.Forms.Panel();
+            this.webBrowser_new = new System.Windows.Forms.WebBrowser();
             this.label_testonemoretime = new System.Windows.Forms.Label();
             this.textBox_webtitle = new System.Windows.Forms.TextBox();
             this.label_inaccessiblelist = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label_elseloaded = new System.Windows.Forms.Label();
-            this.label_loadeddetect = new System.Windows.Forms.Label();
-            this.label_start_detect = new System.Windows.Forms.Label();
             this.label_fully_loaded = new System.Windows.Forms.Label();
+            this.label_start_detect = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label_loadeddetect = new System.Windows.Forms.Label();
+            this.label_elseloaded = new System.Windows.Forms.Label();
             this.label_webtitle = new System.Windows.Forms.Label();
             this.panel_urgent = new System.Windows.Forms.Panel();
             this.textBox_domain_urgent = new System.Windows.Forms.TextBox();
@@ -192,8 +194,10 @@
             this.label53 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label_erroraborted = new System.Windows.Forms.Label();
+            this.timer_timefor = new System.Windows.Forms.Timer(this.components);
+            this.label_timer_timefor = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -641,17 +645,17 @@
             this.button_startover.UseVisualStyleBackColor = false;
             this.button_startover.Click += new System.EventHandler(this.Button_start_Click);
             // 
-            // label16
+            // label_cycle_in_1
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.White;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            this.label16.Location = new System.Drawing.Point(604, 14);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(58, 16);
-            this.label16.TabIndex = 46;
-            this.label16.Text = "Cycle In:";
+            this.label_cycle_in_1.AutoSize = true;
+            this.label_cycle_in_1.BackColor = System.Drawing.Color.White;
+            this.label_cycle_in_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_cycle_in_1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.label_cycle_in_1.Location = new System.Drawing.Point(604, 14);
+            this.label_cycle_in_1.Name = "label_cycle_in_1";
+            this.label_cycle_in_1.Size = new System.Drawing.Size(58, 16);
+            this.label_cycle_in_1.TabIndex = 46;
+            this.label_cycle_in_1.Text = "Cycle In:";
             // 
             // timer_timeout
             // 
@@ -812,17 +816,17 @@
             this.label_timefor_1.TabIndex = 41;
             this.label_timefor_1.Text = "Time For:";
             // 
-            // label_cyclein
+            // label_timefor
             // 
-            this.label_cyclein.AutoSize = true;
-            this.label_cyclein.BackColor = System.Drawing.Color.White;
-            this.label_cyclein.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_cyclein.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            this.label_cyclein.Location = new System.Drawing.Point(533, 11);
-            this.label_cyclein.Name = "label_cyclein";
-            this.label_cyclein.Size = new System.Drawing.Size(55, 20);
-            this.label_cyclein.TabIndex = 42;
-            this.label_cyclein.Text = "12:00";
+            this.label_timefor.AutoSize = true;
+            this.label_timefor.BackColor = System.Drawing.Color.White;
+            this.label_timefor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_timefor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.label_timefor.Location = new System.Drawing.Point(533, 11);
+            this.label_timefor.Name = "label_timefor";
+            this.label_timefor.Size = new System.Drawing.Size(55, 20);
+            this.label_timefor.TabIndex = 42;
+            this.label_timefor.Text = "12:00";
             // 
             // timer_loader
             // 
@@ -980,29 +984,30 @@
             this.panel_uploaded.TabIndex = 17;
             this.panel_uploaded.Visible = false;
             // 
-            // label15
+            // label_cycle_in
             // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.White;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            this.label15.Location = new System.Drawing.Point(657, 11);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 20);
-            this.label15.TabIndex = 47;
-            this.label15.Text = "69 min(s)";
+            this.label_cycle_in.AutoSize = true;
+            this.label_cycle_in.BackColor = System.Drawing.Color.White;
+            this.label_cycle_in.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_cycle_in.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.label_cycle_in.Location = new System.Drawing.Point(657, 11);
+            this.label_cycle_in.Name = "label_cycle_in";
+            this.label_cycle_in.Size = new System.Drawing.Size(89, 20);
+            this.label_cycle_in.TabIndex = 47;
+            this.label_cycle_in.Text = "69 min(s)";
             // 
             // panel_main
             // 
+            this.panel_main.Controls.Add(this.textBox1);
             this.panel_main.Controls.Add(this.label_erroraborted);
             this.panel_main.Controls.Add(this.label48);
             this.panel_main.Controls.Add(this.label43);
             this.panel_main.Controls.Add(this.dataGridView_domain);
             this.panel_main.Controls.Add(this.label42);
-            this.panel_main.Controls.Add(this.label15);
+            this.panel_main.Controls.Add(this.label_cycle_in);
             this.panel_main.Controls.Add(this.panel_retry);
             this.panel_main.Controls.Add(this.label41);
-            this.panel_main.Controls.Add(this.label16);
+            this.panel_main.Controls.Add(this.label_cycle_in_1);
             this.panel_main.Controls.Add(this.button_startover);
             this.panel_main.Controls.Add(this.label40);
             this.panel_main.Controls.Add(this.textBox_domain);
@@ -1015,13 +1020,12 @@
             this.panel_main.Controls.Add(this.label_timefor_1);
             this.panel_main.Controls.Add(this.label37);
             this.panel_main.Controls.Add(this.button_getmaindomains);
-            this.panel_main.Controls.Add(this.label_cyclein);
+            this.panel_main.Controls.Add(this.label_timefor);
             this.panel_main.Controls.Add(this.panel_new);
             this.panel_main.Controls.Add(this.label_testonemoretime);
             this.panel_main.Controls.Add(this.panel_browser);
             this.panel_main.Controls.Add(this.pictureBox_loader);
             this.panel_main.Controls.Add(this.textBox_webtitle);
-            this.panel_main.Controls.Add(this.button_pause);
             this.panel_main.Controls.Add(this.button_start);
             this.panel_main.Controls.Add(this.label_inaccessiblelist);
             this.panel_main.Controls.Add(this.label_fully_loaded);
@@ -1030,28 +1034,29 @@
             this.panel_main.Controls.Add(this.label_loadeddetect);
             this.panel_main.Controls.Add(this.label_elseloaded);
             this.panel_main.Controls.Add(this.dataGridView_history);
+            this.panel_main.Controls.Add(this.button_pause);
             this.panel_main.Location = new System.Drawing.Point(0, 80);
             this.panel_main.Name = "panel_main";
             this.panel_main.Size = new System.Drawing.Size(1254, 642);
             this.panel_main.TabIndex = 49;
             // 
-            // panel_new
+            // label_erroraborted
             // 
-            this.panel_new.Controls.Add(this.webBrowser_new);
-            this.panel_new.Location = new System.Drawing.Point(216, 46);
-            this.panel_new.Name = "panel_new";
-            this.panel_new.Size = new System.Drawing.Size(1024, 583);
-            this.panel_new.TabIndex = 59;
-            this.panel_new.Visible = false;
+            this.label_erroraborted.AutoSize = true;
+            this.label_erroraborted.Location = new System.Drawing.Point(95, 435);
+            this.label_erroraborted.Name = "label_erroraborted";
+            this.label_erroraborted.Size = new System.Drawing.Size(67, 13);
+            this.label_erroraborted.TabIndex = 79;
+            this.label_erroraborted.Text = "error aborted";
             // 
-            // webBrowser_new
+            // label48
             // 
-            this.webBrowser_new.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser_new.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser_new.Name = "webBrowser_new";
-            this.webBrowser_new.ScriptErrorsSuppressed = true;
-            this.webBrowser_new.Size = new System.Drawing.Size(1024, 583);
-            this.webBrowser_new.TabIndex = 0;
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(26, 435);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(70, 13);
+            this.label48.TabIndex = 78;
+            this.label48.Text = "error aborted:";
             // 
             // label43
             // 
@@ -1122,9 +1127,27 @@
             this.button_getmaindomains.Name = "button_getmaindomains";
             this.button_getmaindomains.Size = new System.Drawing.Size(93, 23);
             this.button_getmaindomains.TabIndex = 70;
-            this.button_getmaindomains.Text = "getmaindomains";
+            this.button_getmaindomains.Text = "test here";
             this.button_getmaindomains.UseVisualStyleBackColor = true;
             this.button_getmaindomains.Click += new System.EventHandler(this.button_getmaindomains_Click);
+            // 
+            // panel_new
+            // 
+            this.panel_new.Controls.Add(this.webBrowser_new);
+            this.panel_new.Location = new System.Drawing.Point(216, 46);
+            this.panel_new.Name = "panel_new";
+            this.panel_new.Size = new System.Drawing.Size(1024, 583);
+            this.panel_new.TabIndex = 59;
+            this.panel_new.Visible = false;
+            // 
+            // webBrowser_new
+            // 
+            this.webBrowser_new.Location = new System.Drawing.Point(0, 0);
+            this.webBrowser_new.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser_new.Name = "webBrowser_new";
+            this.webBrowser_new.ScriptErrorsSuppressed = true;
+            this.webBrowser_new.Size = new System.Drawing.Size(1024, 583);
+            this.webBrowser_new.TabIndex = 0;
             // 
             // label_testonemoretime
             // 
@@ -1151,31 +1174,14 @@
             this.label_inaccessiblelist.TabIndex = 67;
             this.label_inaccessiblelist.Text = "inaccessible list";
             // 
-            // label18
+            // label_fully_loaded
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(120, 422);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(41, 13);
-            this.label18.TabIndex = 66;
-            this.label18.Text = "label18";
-            // 
-            // label_elseloaded
-            // 
-            this.label_elseloaded.AutoSize = true;
-            this.label_elseloaded.Location = new System.Drawing.Point(95, 411);
-            this.label_elseloaded.Name = "label_elseloaded";
-            this.label_elseloaded.Size = new System.Drawing.Size(0, 13);
-            this.label_elseloaded.TabIndex = 65;
-            // 
-            // label_loadeddetect
-            // 
-            this.label_loadeddetect.AutoSize = true;
-            this.label_loadeddetect.Location = new System.Drawing.Point(101, 370);
-            this.label_loadeddetect.Name = "label_loadeddetect";
-            this.label_loadeddetect.Size = new System.Drawing.Size(72, 13);
-            this.label_loadeddetect.TabIndex = 62;
-            this.label_loadeddetect.Text = "loaded detect";
+            this.label_fully_loaded.AutoSize = true;
+            this.label_fully_loaded.Location = new System.Drawing.Point(87, 343);
+            this.label_fully_loaded.Name = "label_fully_loaded";
+            this.label_fully_loaded.Size = new System.Drawing.Size(60, 13);
+            this.label_fully_loaded.TabIndex = 60;
+            this.label_fully_loaded.Text = "fully loaded";
             // 
             // label_start_detect
             // 
@@ -1186,14 +1192,31 @@
             this.label_start_detect.TabIndex = 61;
             this.label_start_detect.Text = "start detect";
             // 
-            // label_fully_loaded
+            // label18
             // 
-            this.label_fully_loaded.AutoSize = true;
-            this.label_fully_loaded.Location = new System.Drawing.Point(87, 343);
-            this.label_fully_loaded.Name = "label_fully_loaded";
-            this.label_fully_loaded.Size = new System.Drawing.Size(60, 13);
-            this.label_fully_loaded.TabIndex = 60;
-            this.label_fully_loaded.Text = "fully loaded";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(120, 422);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(41, 13);
+            this.label18.TabIndex = 66;
+            this.label18.Text = "label18";
+            // 
+            // label_loadeddetect
+            // 
+            this.label_loadeddetect.AutoSize = true;
+            this.label_loadeddetect.Location = new System.Drawing.Point(101, 370);
+            this.label_loadeddetect.Name = "label_loadeddetect";
+            this.label_loadeddetect.Size = new System.Drawing.Size(72, 13);
+            this.label_loadeddetect.TabIndex = 62;
+            this.label_loadeddetect.Text = "loaded detect";
+            // 
+            // label_elseloaded
+            // 
+            this.label_elseloaded.AutoSize = true;
+            this.label_elseloaded.Location = new System.Drawing.Point(95, 411);
+            this.label_elseloaded.Name = "label_elseloaded";
+            this.label_elseloaded.Size = new System.Drawing.Size(0, 13);
+            this.label_elseloaded.TabIndex = 65;
             // 
             // label_webtitle
             // 
@@ -1902,23 +1925,35 @@
             this.label55.TabIndex = 99;
             this.label55.Text = "inaccessible message:";
             // 
-            // label48
+            // timer_timefor
             // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(26, 435);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(70, 13);
-            this.label48.TabIndex = 78;
-            this.label48.Text = "error aborted:";
+            this.timer_timefor.Enabled = true;
+            this.timer_timefor.Tick += new System.EventHandler(this.timer_timefor_Tick);
             // 
-            // label_erroraborted
+            // label_timer_timefor
             // 
-            this.label_erroraborted.AutoSize = true;
-            this.label_erroraborted.Location = new System.Drawing.Point(95, 435);
-            this.label_erroraborted.Name = "label_erroraborted";
-            this.label_erroraborted.Size = new System.Drawing.Size(67, 13);
-            this.label_erroraborted.TabIndex = 79;
-            this.label_erroraborted.Text = "error aborted";
+            this.label_timer_timefor.AutoSize = true;
+            this.label_timer_timefor.Location = new System.Drawing.Point(1342, 411);
+            this.label_timer_timefor.Name = "label_timer_timefor";
+            this.label_timer_timefor.Size = new System.Drawing.Size(41, 13);
+            this.label_timer_timefor.TabIndex = 100;
+            this.label_timer_timefor.Text = "label56";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(1272, 411);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(69, 13);
+            this.label57.TabIndex = 101;
+            this.label57.Text = "time for timer:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(29, 529);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 80;
             // 
             // Form_Main
             // 
@@ -1926,6 +1961,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1502, 725);
+            this.Controls.Add(this.label57);
+            this.Controls.Add(this.label_timer_timefor);
             this.Controls.Add(this.label55);
             this.Controls.Add(this.label54);
             this.Controls.Add(this.label53);
@@ -2057,7 +2094,7 @@
         private System.Windows.Forms.Panel panel_top;
         private System.Windows.Forms.Label label_separator;
         private System.Windows.Forms.Button button_startover;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label_cycle_in_1;
         private System.Windows.Forms.Timer timer_timeout;
         private System.Windows.Forms.DataGridView dataGridView_domain;
         private System.Windows.Forms.Label label_status;
@@ -2067,7 +2104,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label_status_1;
         private System.Windows.Forms.Label label_timefor_1;
-        private System.Windows.Forms.Label label_cyclein;
+        private System.Windows.Forms.Label label_timefor;
         private System.Windows.Forms.Timer timer_loader;
         private System.Windows.Forms.Timer timer_rtc;
         private System.Windows.Forms.Label label_timerstartpause;
@@ -2084,7 +2121,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button_okay;
         private System.Windows.Forms.Panel panel_uploaded;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label_cycle_in;
         private System.Windows.Forms.Panel panel_main;
         private System.Windows.Forms.Label label_back;
         private System.Windows.Forms.Panel panel_urgent;
@@ -2184,5 +2221,9 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label_erroraborted;
         private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Timer timer_timefor;
+        private System.Windows.Forms.Label label_timer_timefor;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

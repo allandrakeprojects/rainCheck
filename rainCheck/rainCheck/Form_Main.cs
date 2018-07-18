@@ -46,6 +46,9 @@ namespace rainCheck
         string isp_get;
         int currentIndex;
 
+        TimeSpan TimeLeft = new TimeSpan();
+        DateTime VoteTime = Properties.Settings.Default.voteTime;
+
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
         public Form_Main()
@@ -1572,7 +1575,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + ",-" + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -1609,7 +1612,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + ",-" + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -2351,7 +2354,7 @@ namespace rainCheck
                         Icon = SystemIcons.Information,
                         BalloonTipIcon = ToolTipIcon.Info,
                         BalloonTipTitle = "Information",
-                        BalloonTipText = date + " " + label_timefor.Text + " is already done.",
+                        BalloonTipText = date + " " + label_timefor.Text + " done.",
                     };
 
                     notification.ShowBalloonTip(1000);
@@ -3344,51 +3347,89 @@ namespace rainCheck
             if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
             {
                 label_timefor.Text = "00:00";
+                label_cyclein_get.Text = "02:00:00";
             }
             else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
             {
                 label_timefor.Text = "02:00";
+                label_cyclein_get.Text = "04:00:00";
             }
             else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
             {
                 label_timefor.Text = "04:00";
+                label_cyclein_get.Text = "06:00:00";
             }
             else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
             {
                 label_timefor.Text = "06:00";
+                label_cyclein_get.Text = "08:00:00";
             }
             else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
             {
                 label_timefor.Text = "08:00";
+                label_cyclein_get.Text = "10:00:00";
             }
             else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
             {
                 label_timefor.Text = "10:00";
+                label_cyclein_get.Text = "12:00:00";
             }
             else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
             {
                 label_timefor.Text = "12:00";
+                label_cyclein_get.Text = "14:00:00";
             }
             else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
             {
                 label_timefor.Text = "14:00";
+                label_cyclein_get.Text = "16:00:00";
             }
             else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
             {
                 label_timefor.Text = "16:00";
+                label_cyclein_get.Text = "18:00:00";
             }
             else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
             {
                 label_timefor.Text = "18:00";
+                label_cyclein_get.Text = "20:00:00";
             }
             else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
             {
                 label_timefor.Text = "20:00";
+                label_cyclein_get.Text = "22:00:00";
             }
             else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
             {
                 label_timefor.Text = "22:00";
+                label_cyclein_get.Text = "24:00:00";
             }
+        }
+
+
+
+        DateTime start = DateTime.Now;
+        string start_get = DateTime.Now.ToString("HH:mm:ss");
+
+        private void Timer_cyclein_Tick(object sender, EventArgs e)
+        {
+
+            TimeSpan difference = Convert.ToDateTime(label_cyclein_get.Text) - Convert.ToDateTime(start_get);
+            int hrs = difference.Hours;
+            int mins = difference.Minutes;
+            int secs = difference.Seconds;
+
+            TimeSpan spinTime = new TimeSpan(hrs, mins, secs); //Time to spin
+
+
+
+            TimeSpan delta = DateTime.Now - start; //Time elapsed since start
+            TimeSpan timeRemaining = spinTime - delta; //Time remaining
+
+            label_cycle_in.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + " min(s) " + timeRemaining.Seconds + " sec(s)";
+
+
+            
         }
     }
 }

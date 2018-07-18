@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace rainCheck.Properties
 {
 
@@ -18,6 +20,7 @@ namespace rainCheck.Properties
     {
 
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        internal DateTime voteTime;
 
         public static Settings Default
         {

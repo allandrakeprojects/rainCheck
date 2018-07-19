@@ -1008,6 +1008,7 @@ namespace rainCheck
                             // inaccessible
                             if (label_webtitle.Text == label_domainhide.Text)
                             {
+                                MessageBox.Show("dasdsa");
                                 await Task.Run(async () =>
                                 {
                                     await Task.Delay(500);
@@ -2499,6 +2500,9 @@ namespace rainCheck
             button_startover.Enabled = true;
             
             button_urgent.Visible = false;
+
+            // textchanged timefor
+            textchanged_timefor = true;
         }
 
         // SELECTED CHANGED
@@ -3405,31 +3409,74 @@ namespace rainCheck
                 label_cyclein_get.Text = "24:00:00";
             }
         }
-
-
-
+        
         DateTime start = DateTime.Now;
         string start_get = DateTime.Now.ToString("HH:mm:ss");
 
         private void Timer_cyclein_Tick(object sender, EventArgs e)
         {
-
             TimeSpan difference = Convert.ToDateTime(label_cyclein_get.Text) - Convert.ToDateTime(start_get);
             int hrs = difference.Hours;
             int mins = difference.Minutes;
             int secs = difference.Seconds;
 
             TimeSpan spinTime = new TimeSpan(hrs, mins, secs); //Time to spin
-
-
-
+                        
             TimeSpan delta = DateTime.Now - start; //Time elapsed since start
             TimeSpan timeRemaining = spinTime - delta; //Time remaining
 
-            label_cycle_in.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + " min(s) " + timeRemaining.Seconds + " sec(s)";
 
+            string mins_view;
+            if (timeRemaining.Minutes == 0 || timeRemaining.Minutes == 1)
+            {
+                mins_view = " min ";
+            }
+            else
+            {
+                mins_view = " mins ";
+            }
 
-            
+            string secs_view;
+            if (timeRemaining.Seconds == 0 || timeRemaining.Seconds == 1)
+            {
+                secs_view = " sec";
+            }
+            else
+            {
+                secs_view = " secs";
+            }
+
+            if (timeRemaining.Hours != 0 && timeRemaining.Minutes != 0)
+            {
+                label_cycle_in.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + mins_view;
+            }
+            else if (timeRemaining.Hours == 0 && timeRemaining.Minutes == 0)
+            {
+                label_cycle_in.Text = timeRemaining.Seconds + secs_view;
+            }
+            else if (timeRemaining.Hours == 0)
+            {
+                label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
+            }
+
+        }
+
+        int timefor = 0;
+        private bool textchanged_timefor = false;
+
+        private void label_timefor_TextChanged(object sender, EventArgs e)
+        {
+            if (textchanged_timefor == true)
+            {
+                timefor++;
+            }
+
+            label_textchangedtimefor.Text = timefor.ToString();
+
+            if (timefor > 0)
+            {
+                MessageBox.Show("boom started the next");
+            }
         }
     }
 }

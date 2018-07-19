@@ -1116,6 +1116,11 @@ namespace rainCheck
                             // hijacked
                             else
                             {
+                                if (label_webtype.Text == "Landing Page")
+                                {
+                                    MessageBox.Show("gotya");
+                                }
+
                                 await Task.Run(async () =>
                                 {
                                     await Task.Delay(500);
@@ -2378,8 +2383,6 @@ namespace rainCheck
                     };
 
                     notification.ShowBalloonTip(1000);
-
-                    Process.Start(Application.ExecutablePath);
                 }
                 else
                 {

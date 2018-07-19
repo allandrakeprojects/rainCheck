@@ -46,8 +46,8 @@ namespace rainCheck
         string isp_get;
         int currentIndex;
 
-        TimeSpan TimeLeft = new TimeSpan();
-        DateTime VoteTime = Properties.Settings.Default.voteTime;
+        //TimeSpan TimeLeft = new TimeSpan();
+        //DateTime VoteTime = Properties.Settings.Default.voteTime;
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
@@ -119,6 +119,7 @@ namespace rainCheck
                 dataGridView_domain.Columns["domain_name"].Visible = false;
                 dataGridView_domain.Columns["id"].Visible = false;
                 dataGridView_domain.Columns["text_search"].Visible = false;
+                dataGridView_domain.Columns["website_type"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -513,8 +514,9 @@ namespace rainCheck
                         int webBrowser_i = 1;
                         while (webBrowser_i <= 2)
                         {
-                            string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
-                            webBrowser_new.Navigate(label_domainhide.Text, null, null, header);
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
                             (new System.Threading.Thread(CloseIt)).Start();
                             MessageBox.Show("Loading...", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.None);
                             webBrowser_i++;
@@ -525,8 +527,9 @@ namespace rainCheck
                         int webBrowser_i = 0;
                         while (webBrowser_i <= 2)
                         {
-                            string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
-                            webBrowser_new.Navigate(label_domainhide.Text, null, null, header);
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
                             webBrowser_i++;
                         }
                     }
@@ -552,8 +555,24 @@ namespace rainCheck
                     {
                         fully_loaded++;
                         label_fully_loaded.Text = fully_loaded.ToString();
-                        
+
                         // get website title
+                        //HtmlDocument doc = webBrowser_new.Document;
+                        //HtmlElementCollection elems = doc.GetElementsByTagName("TITLE");
+                        //String title = String.Empty;
+                        //if (elems.Count > 0)
+                        //{
+                        //    HtmlElement elem = elems[0];
+                        //    title = elem.InnerText;
+                        //    MessageBox.Show(title);
+                        //}
+
+                        //WebClient x = new WebClient();
+                        //string source = x.DownloadString("dsadsadsadsasa.com");
+
+                        //string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                        //MessageBox.Show(title);
+
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle.Text = webtitle;
                         textBox_webtitle.Text = webtitle;
@@ -2129,15 +2148,15 @@ namespace rainCheck
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (dr == DialogResult.No)
-            //{
-            //    e.Cancel = true;
-            //}
-            //else
-            //{
-            //    Cef.Shutdown();
-            //}
+            DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Cef.Shutdown();
+            }
         }
 
         private void Button_go_Click(object sender, EventArgs e)
@@ -2359,6 +2378,8 @@ namespace rainCheck
                     };
 
                     notification.ShowBalloonTip(1000);
+
+                    Process.Start(Application.ExecutablePath);
                 }
                 else
                 {
@@ -2524,6 +2545,7 @@ namespace rainCheck
                     string domain = row.Cells[1].Value.ToString();
                     string brand = row.Cells[2].Value.ToString();
                     string text_search = row.Cells[3].Value.ToString();
+                    string webtype = row.Cells[4].Value.ToString();
                     //currentIndex = dataGridView_domain.CurrentRow.Index;
 
                     try
@@ -2547,6 +2569,7 @@ namespace rainCheck
                         label_domainhide.Text = domain;
                         label_brandhide.Text = brand;
                         label_text_search.Text = text_search;
+                        label_webtype.Text = webtype;
                         //label4.Text = currentIndex.ToString();
                     }));
                 }
@@ -3420,10 +3443,10 @@ namespace rainCheck
             int mins = difference.Minutes;
             int secs = difference.Seconds;
 
-            TimeSpan spinTime = new TimeSpan(hrs, mins, secs); //Time to spin
+            TimeSpan spinTime = new TimeSpan(hrs, mins, secs);
                         
-            TimeSpan delta = DateTime.Now - start; //Time elapsed since start
-            TimeSpan timeRemaining = spinTime - delta; //Time remaining
+            TimeSpan delta = DateTime.Now - start;
+            TimeSpan timeRemaining = spinTime - delta;
 
 
             string mins_view;

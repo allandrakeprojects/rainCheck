@@ -2019,9 +2019,9 @@
             this.label_webtype.AutoSize = true;
             this.label_webtype.Location = new System.Drawing.Point(1320, 457);
             this.label_webtype.Name = "label_webtype";
-            this.label_webtype.Size = new System.Drawing.Size(50, 13);
+            this.label_webtype.Size = new System.Drawing.Size(47, 13);
             this.label_webtype.TabIndex = 107;
-            this.label_webtype.Text = "webtype:";
+            this.label_webtype.Text = "webtype";
             // 
             // Form_Main
             // 

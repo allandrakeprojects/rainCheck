@@ -337,7 +337,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(200, 237);
+            this.label8.Location = new System.Drawing.Point(200, 236);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(283, 13);
             this.label8.TabIndex = 12;
@@ -435,11 +435,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(704, 481);
+            this.Controls.Add(this.panel_retry);
             this.Controls.Add(this.panel_loader);
             this.Controls.Add(this.panel_authorization);
             this.Controls.Add(this.panel_verified);
             this.Controls.Add(this.panel_blank);
-            this.Controls.Add(this.panel_retry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

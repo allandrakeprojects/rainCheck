@@ -49,7 +49,7 @@
             this.button_start = new System.Windows.Forms.Button();
             this.label_domain = new System.Windows.Forms.Label();
             this.panel_retry = new System.Windows.Forms.Panel();
-            this.button_retry = new System.Windows.Forms.Button();
+            this.label59 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label_globe = new System.Windows.Forms.Label();
@@ -207,9 +207,10 @@
             this.label_webtype = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label_totalcountofdomain = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.label_domainscount = new System.Windows.Forms.Label();
             this.label_timeget = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label_lastload = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -320,30 +321,25 @@
             // panel_retry
             // 
             this.panel_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
-            this.panel_retry.Controls.Add(this.button_retry);
+            this.panel_retry.Controls.Add(this.label59);
             this.panel_retry.Controls.Add(this.label14);
-            this.panel_retry.Location = new System.Drawing.Point(1293, 695);
+            this.panel_retry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_retry.Location = new System.Drawing.Point(0, 0);
             this.panel_retry.Name = "panel_retry";
-            this.panel_retry.Size = new System.Drawing.Size(1067, 15);
+            this.panel_retry.Size = new System.Drawing.Size(1254, 725);
             this.panel_retry.TabIndex = 43;
             this.panel_retry.Visible = false;
             // 
-            // button_retry
+            // label59
             // 
-            this.button_retry.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.button_retry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_retry.FlatAppearance.BorderSize = 0;
-            this.button_retry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_retry.ForeColor = System.Drawing.Color.White;
-            this.button_retry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_retry.Location = new System.Drawing.Point(481, 19);
-            this.button_retry.Name = "button_retry";
-            this.button_retry.Size = new System.Drawing.Size(104, 29);
-            this.button_retry.TabIndex = 12;
-            this.button_retry.Text = "Retry (F5)";
-            this.button_retry.UseVisualStyleBackColor = false;
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label59.ForeColor = System.Drawing.Color.White;
+            this.label59.Location = new System.Drawing.Point(604, 350);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(283, 13);
+            this.label59.TabIndex = 13;
+            this.label59.Text = "(Automatically connects when connected back to Internet)";
             // 
             // label14
             // 
@@ -351,7 +347,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(406, -17);
+            this.label14.Location = new System.Drawing.Point(500, 336);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(250, 25);
             this.label14.TabIndex = 2;
@@ -394,7 +390,7 @@
             this.label_rtc.AutoSize = true;
             this.label_rtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_rtc.ForeColor = System.Drawing.Color.White;
-            this.label_rtc.Location = new System.Drawing.Point(1346, 12);
+            this.label_rtc.Location = new System.Drawing.Point(1105, 12);
             this.label_rtc.Name = "label_rtc";
             this.label_rtc.Size = new System.Drawing.Size(46, 20);
             this.label_rtc.TabIndex = 14;
@@ -504,7 +500,7 @@
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_top.Location = new System.Drawing.Point(0, 0);
             this.panel_top.Name = "panel_top";
-            this.panel_top.Size = new System.Drawing.Size(1495, 44);
+            this.panel_top.Size = new System.Drawing.Size(1254, 44);
             this.panel_top.TabIndex = 0;
             // 
             // label_back
@@ -632,7 +628,7 @@
             this.label_separator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.label_separator.Location = new System.Drawing.Point(15, 67);
             this.label_separator.Name = "label_separator";
-            this.label_separator.Size = new System.Drawing.Size(1713, 1);
+            this.label_separator.Size = new System.Drawing.Size(1472, 1);
             this.label_separator.TabIndex = 17;
             this.label_separator.Text = " ";
             // 
@@ -718,7 +714,7 @@
             this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView_domain.RowHeadersVisible = false;
             this.dataGridView_domain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_domain.Size = new System.Drawing.Size(196, 283);
+            this.dataGridView_domain.Size = new System.Drawing.Size(196, 274);
             this.dataGridView_domain.TabIndex = 18;
             this.dataGridView_domain.SelectionChanged += new System.EventHandler(this.DataGridView_devices_SelectionChanged);
             // 
@@ -772,7 +768,8 @@
             dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle19;
-            this.dataGridView_history.Location = new System.Drawing.Point(14, 298);
+            this.dataGridView_history.Enabled = false;
+            this.dataGridView_history.Location = new System.Drawing.Point(14, 287);
             this.dataGridView_history.MultiSelect = false;
             this.dataGridView_history.Name = "dataGridView_history";
             this.dataGridView_history.ReadOnly = true;
@@ -786,7 +783,7 @@
             this.dataGridView_history.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridView_history.RowHeadersVisible = false;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_history.Size = new System.Drawing.Size(196, 283);
+            this.dataGridView_history.Size = new System.Drawing.Size(196, 300);
             this.dataGridView_history.TabIndex = 45;
             // 
             // timer_blink
@@ -919,7 +916,7 @@
             this.panel_loader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_loader.Controls.Add(this.label7);
             this.panel_loader.Controls.Add(this.pictureBox1);
-            this.panel_loader.Location = new System.Drawing.Point(760, 734);
+            this.panel_loader.Location = new System.Drawing.Point(640, 734);
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(294, 219);
             this.panel_loader.TabIndex = 16;
@@ -989,7 +986,7 @@
             this.panel_uploaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_uploaded.Controls.Add(this.button_okay);
             this.panel_uploaded.Controls.Add(this.label_uploadstatus);
-            this.panel_uploaded.Location = new System.Drawing.Point(460, 734);
+            this.panel_uploaded.Location = new System.Drawing.Point(340, 734);
             this.panel_uploaded.Name = "panel_uploaded";
             this.panel_uploaded.Size = new System.Drawing.Size(294, 219);
             this.panel_uploaded.TabIndex = 17;
@@ -1139,7 +1136,7 @@
             // 
             // button_getmaindomains
             // 
-            this.button_getmaindomains.Location = new System.Drawing.Point(1274, 526);
+            this.button_getmaindomains.Location = new System.Drawing.Point(1274, 585);
             this.button_getmaindomains.Name = "button_getmaindomains";
             this.button_getmaindomains.Size = new System.Drawing.Size(100, 23);
             this.button_getmaindomains.TabIndex = 70;
@@ -1158,7 +1155,7 @@
             // 
             // textBox_webtitle
             // 
-            this.textBox_webtitle.Location = new System.Drawing.Point(1274, 487);
+            this.textBox_webtitle.Location = new System.Drawing.Point(1274, 546);
             this.textBox_webtitle.Name = "textBox_webtitle";
             this.textBox_webtitle.Size = new System.Drawing.Size(100, 20);
             this.textBox_webtitle.TabIndex = 68;
@@ -1630,6 +1627,7 @@
             this.label_inaccessible_error_message.Name = "label_inaccessible_error_message";
             this.label_inaccessible_error_message.Size = new System.Drawing.Size(0, 13);
             this.label_inaccessible_error_message.TabIndex = 57;
+            this.label_inaccessible_error_message.TextChanged += new System.EventHandler(this.label_inaccessible_error_message_TextChanged);
             // 
             // label12
             // 
@@ -2024,16 +2022,6 @@
             this.label_totalcountofdomain.TabIndex = 109;
             this.label_totalcountofdomain.Text = "total count of domain";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(1274, 551);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 23);
-            this.button3.TabIndex = 71;
-            this.button3.Text = "test again";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // label_domainscount
             // 
             this.label_domainscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2054,17 +2042,35 @@
             this.label_timeget.TabIndex = 111;
             this.label_timeget.Text = "label5";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1274, 489);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.TabIndex = 112;
+            this.label5.Text = "last load:";
+            // 
+            // label_lastload
+            // 
+            this.label_lastload.AutoSize = true;
+            this.label_lastload.Location = new System.Drawing.Point(1321, 489);
+            this.label_lastload.Name = "label_lastload";
+            this.label_lastload.Size = new System.Drawing.Size(46, 13);
+            this.label_lastload.TabIndex = 113;
+            this.label_lastload.Text = "last load";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1495, 724);
+            this.ClientSize = new System.Drawing.Size(1254, 725);
+            this.Controls.Add(this.label_lastload);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label_timeget);
             this.Controls.Add(this.panel_uploaded);
             this.Controls.Add(this.label_domainscount);
-            this.Controls.Add(this.panel_retry);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label_totalcountofdomain);
             this.Controls.Add(this.label_erroraborted);
@@ -2160,9 +2166,10 @@
             this.Controls.Add(this.label_separator);
             this.Controls.Add(this.label_brandhide);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.panel_top);
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_urgent);
-            this.Controls.Add(this.panel_top);
+            this.Controls.Add(this.panel_retry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -2205,7 +2212,6 @@
         private System.Windows.Forms.Button button_start;
         private System.Windows.Forms.Label label_domain;
         private System.Windows.Forms.Panel panel_retry;
-        private System.Windows.Forms.Button button_retry;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_globe;
@@ -2363,8 +2369,10 @@
         private System.Windows.Forms.Label label_webtype;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label_totalcountofdomain;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label_domainscount;
         private System.Windows.Forms.Label label_timeget;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_lastload;
+        private System.Windows.Forms.Label label59;
     }
 }

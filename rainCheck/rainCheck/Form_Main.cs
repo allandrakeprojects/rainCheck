@@ -51,7 +51,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main()
+        public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
 
@@ -60,10 +60,10 @@ namespace rainCheck
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             //string city, string country, string isp
-            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            //city_get = city;
-            //isp_get = isp;
+            city_get = city;
+            isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -122,12 +122,57 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                button_start.Enabled = false;
+                label_domainscount.Visible = false;
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("Domain(s) List", typeof(string)));
+
+                dt.Rows.Add("No data available in table");
+
+                dataGridView_domain.DataSource = dt;
+
+                dataGridView_domain.ClearSelection();
+
+                dataGridView_domain.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                dataGridView_domain.DefaultCellStyle.SelectionBackColor = dataGridView_domain.DefaultCellStyle.BackColor;
+                dataGridView_domain.DefaultCellStyle.SelectionForeColor = dataGridView_domain.DefaultCellStyle.ForeColor;
+
+                //var st = new StackTrace(ex, true);
+                //var frame = st.GetFrame(0);
+                //var line = frame.GetFileLineNumber();
+                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
+            }
+
+            // Detect history file
+            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+            if (File.Exists(path_history))
+            {
+                using (StreamReader sr = File.OpenText(path_history))
+                {
+                    string s = String.Empty;
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        if (s != "")
+                        {
+                            dataGridView_history.Rows.Add(s);
+                        }
+
+                        dataGridView_history.ClearSelection();
+                    }
+                }
+            }
+            else
+            {
+                detectnohistoryyet = true;
+                dataGridView_history.Rows.Add("No history yet");
+                dataGridView_history.ClearSelection();
+
+                dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.None;
+                dataGridView_history.DefaultCellStyle.SelectionBackColor = dataGridView_domain.DefaultCellStyle.BackColor;
+                dataGridView_history.DefaultCellStyle.SelectionForeColor = dataGridView_domain.DefaultCellStyle.ForeColor;
             }
 
             // Hide loader
@@ -250,7 +295,7 @@ namespace rainCheck
 
             // Getting time for
             label_timeget.Text = label_timefor.Text;
-
+            
             // URGENT PANEL
             try
             {
@@ -280,6 +325,10 @@ namespace rainCheck
 
                 //Close();
             }
+        }
+        
+        private void Form_Main_Shown(object sender, EventArgs e)
+        {
         }
         
         // Get MAC Address
@@ -350,6 +399,8 @@ namespace rainCheck
             {
                 Invoke(new Action(() =>
                 {
+                    chromeBrowser.Stop();
+
                     panel_retry.Visible = true;
                     panel_retry.BringToFront();
 
@@ -808,8 +859,10 @@ namespace rainCheck
                             else
                             {
                                 // error aborted test one more time
-                                if (label_inaccessible_error_message.Text == "ERR_ABORTED")
+                                if (label_inaccessible_error_message.Text == "ERR_ABORTED" || label_inaccessible_error_message.Text == "ERR_NETWORK_CHANGED" || label_inaccessible_error_message.Text == "ERR_INTERNET_DISCONNECTED")
                                 {
+                                    MessageBox.Show("test again");
+
                                     // test one more time
                                     Invoke(new Action(() =>
                                     {
@@ -2270,14 +2323,17 @@ namespace rainCheck
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.No)
+            if (canClose)
             {
-                e.Cancel = true;
-            }
-            else
-            {
-                Cef.Shutdown();
+                dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Cef.Shutdown();
+                }
             }
         }
 
@@ -2401,7 +2457,8 @@ namespace rainCheck
                     button_pause.Visible = false;
                     button_start.Enabled = false;
                     button_startover.Enabled = false;
-                    
+                    pictureBox_loader.Visible = false;
+
                     timer_domain.Stop();
 
                     TopMost = false;
@@ -2462,16 +2519,38 @@ namespace rainCheck
                     catch (Exception)
                     {
                         label_uploadstatus.Text = "Upload Error!";
+                        
+                        if (detectnohistoryyet)
+                        {
+                            dataGridView_history.Rows.Clear();
+                            detectnohistoryyet = false;
+                        }
 
-                        string date_history = DateTime.Now.ToString("MMM dd ");
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+                        // Last load
+                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                        if (!File.Exists(path_last_load))
+                        {
+                            StreamWriter sw = new StreamWriter(path_last_load);
+                            sw.Write(label_lastload.Text);
+                            sw.Close();
+                        }
+
+                        string date_history = DateTime.Now.ToString("dd MMM ");
+                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                         dataGridView_history.ClearSelection();
 
                         // Insert in temp file
                         try
                         {
-                            StreamWriter sw = new StreamWriter(Path.GetTempPath() + @"\rainCheck_history.txt", true, Encoding.UTF8);
+                            dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                            string hex = "#438eb9";
+                            Color color = ColorTranslator.FromHtml(hex);
+                            dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                            dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                            StreamWriter sw = new StreamWriter(Path.GetTempPath() + @"\raincheck_history.txt", true, Encoding.UTF8);
                             sw.WriteLine(date_history + label_timeget.Text + " - ERR");
 
                             sw.Close();
@@ -2700,17 +2779,31 @@ namespace rainCheck
             {
                 foreach (DataGridViewRow row in dataGridView_domain.SelectedRows)
                 {
-                    string domain = row.Cells[1].Value.ToString();
-                    string brand = row.Cells[2].Value.ToString();
-                    string text_search = row.Cells[3].Value.ToString();
-                    string webtype = row.Cells[4].Value.ToString();
+                    string domain;
+                    string brand;
+                    string text_search;
+                    string webtype;
                     //currentIndex = dataGridView_domain.CurrentRow.Index;
 
                     try
                     {
+                        domain = row.Cells[1].Value.ToString();
+                        brand = row.Cells[2].Value.ToString();
+                        text_search = row.Cells[3].Value.ToString();
+                        webtype = row.Cells[4].Value.ToString();
+
                         // Load Browser
                         chromeBrowser.Load(domain);
                         textBox_domain.Text = domain;
+
+                        Invoke(new Action(() =>
+                        {
+                            label_domainhide.Text = domain;
+                            label_brandhide.Text = brand;
+                            label_text_search.Text = text_search;
+                            label_webtype.Text = webtype;
+                            //label4.Text = currentIndex.ToString();
+                        }));
                     }
                     catch (Exception)
                     {
@@ -2722,14 +2815,7 @@ namespace rainCheck
                         //Close();
                     }
 
-                    Invoke(new Action(() =>
-                    {
-                        label_domainhide.Text = domain;
-                        label_brandhide.Text = brand;
-                        label_text_search.Text = text_search;
-                        label_webtype.Text = webtype;
-                        //label4.Text = currentIndex.ToString();
-                    }));
+                    
                 }
             }
         }
@@ -2831,22 +2917,44 @@ namespace rainCheck
                 
                 if (pagesource_history == "SUCCESS")
                 {
-                    string date_history = DateTime.Now.ToString("MMM dd ");
-                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - OK");
+                    if (detectnohistoryyet)
+                    {
+                        dataGridView_history.Rows.Clear();
+                        detectnohistoryyet = false;
+                    }
+
+                    // Last load
+                    string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    if (!File.Exists(path_last_load))
+                    {
+                        StreamWriter sw = new StreamWriter(path_last_load);
+                        sw.Write(label_lastload.Text);
+                        sw.Close();
+                    }
+
+                    string date_history = DateTime.Now.ToString("dd MMM ");
+                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
 
                     dataGridView_history.ClearSelection();
 
                     // Insert in temp file
                     try
                     {
-                        string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                        dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                        string hex = "#438eb9";
+                        Color color = ColorTranslator.FromHtml(hex);
+                        dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                        dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                        string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
                         StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
                         sw_create.Close();
 
                         string oldText = File.ReadAllText(path_history);
                         using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                         {
-                            sw.WriteLine(date_history + label_timeget.Text + " - OK");
+                            sw.WriteLine(date_history + label_timeget.Text + " OK");
                             sw.WriteLine(oldText);
                             sw.Close();
                         }
@@ -2858,22 +2966,44 @@ namespace rainCheck
                 }
                 else if (pagesource_history == "ERROR")
                 {
-                    string date_history = DateTime.Now.ToString("MMM dd ");
-                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+                    if (detectnohistoryyet)
+                    {
+                        dataGridView_history.Rows.Clear();
+                        detectnohistoryyet = false;
+                    }
+
+                    // Last load
+                    string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    if (!File.Exists(path_last_load))
+                    {
+                        StreamWriter sw = new StreamWriter(path_last_load);
+                        sw.Write(label_lastload.Text);
+                        sw.Close();
+                    }
+
+                    string date_history = DateTime.Now.ToString("dd MMM ");
+                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                     dataGridView_history.ClearSelection();
 
                     // Insert in temp file
                     try
                     {
-                        string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                        dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                        string hex = "#438eb9";
+                        Color color = ColorTranslator.FromHtml(hex);
+                        dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                        dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                        string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
                         StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
                         sw_create.Close();
 
                         string oldText = File.ReadAllText(path_history);
                         using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                         {
-                            sw.WriteLine(date_history + label_timeget.Text + " - ERR");
+                            sw.WriteLine(date_history + label_timeget.Text + " ERR");
                             sw.WriteLine(oldText);
                             sw.Close();
                         }
@@ -2885,6 +3015,31 @@ namespace rainCheck
                 }
                 
                 label_timeget.Text = label_timefor.Text;
+                
+                // Restart
+                string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                if (File.Exists(path_last_load_restart))
+                {
+                    string last_load = File.ReadAllText(path_last_load_restart);
+
+                    if (label_timefor.Text == last_load)
+                    {
+                        timefor = 0;
+                               
+                        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (dr == DialogResult.OK)
+                        {
+                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                            string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+
+                            File.Delete(path_history);
+                            File.Delete(path_last_load);
+
+                            canClose = false;
+                            Application.Restart();
+                        }
+                    }
+                }
             }
         }
 
@@ -2909,22 +3064,44 @@ namespace rainCheck
 
             if (pagesource_history == "SUCCESS")
             {
-                string date_history = DateTime.Now.ToString("MMM dd ");
-                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - OK");
+                if (detectnohistoryyet)
+                {
+                    dataGridView_history.Rows.Clear();
+                    detectnohistoryyet = false;
+                }
+                
+                // Last load
+                string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                if (!File.Exists(path_last_load))
+                {
+                    StreamWriter sw = new StreamWriter(path_last_load);
+                    sw.Write(label_lastload.Text);
+                    sw.Close();
+                }
+
+                string date_history = DateTime.Now.ToString("dd MMM ");
+                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
 
                 dataGridView_history.ClearSelection();
 
                 // Insert in temp file
                 try
                 {
-                    string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                    dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                    string hex = "#438eb9";
+                    Color color = ColorTranslator.FromHtml(hex);
+                    dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                    dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                    string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
                     StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
                     sw_create.Close();
 
                     string oldText = File.ReadAllText(path_history);
                     using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                     {
-                        sw.WriteLine(date_history + label_timeget.Text + " - OK");
+                        sw.WriteLine(date_history + label_timeget.Text + " OK");
                         sw.WriteLine(oldText);
                         sw.Close();
                     }
@@ -2936,22 +3113,44 @@ namespace rainCheck
             }
             else if (pagesource_history == "ERROR")
             {
-                string date_history = DateTime.Now.ToString("MMM dd ");
-                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+                if (detectnohistoryyet)
+                {
+                    dataGridView_history.Rows.Clear();
+                    detectnohistoryyet = false;
+                }
+
+                // Last load
+                string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                if (!File.Exists(path_last_load))
+                {
+                    StreamWriter sw = new StreamWriter(path_last_load);
+                    sw.Write(label_lastload.Text);
+                    sw.Close();
+                }
+
+                string date_history = DateTime.Now.ToString("dd MMM ");
+                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                 dataGridView_history.ClearSelection();
 
                 // Insert in temp file
                 try
                 {
-                    string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                    dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                    string hex = "#438eb9";
+                    Color color = ColorTranslator.FromHtml(hex);
+                    dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                    dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                    string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
                     StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
                     sw_create.Close();
 
                     string oldText = File.ReadAllText(path_history);
                     using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                     {
-                        sw.WriteLine(date_history + label_timeget.Text + " - ERR");
+                        sw.WriteLine(date_history + label_timeget.Text + " ERR");
                         sw.WriteLine(oldText);
                         sw.Close();
                     }
@@ -2963,6 +3162,31 @@ namespace rainCheck
             }
 
             label_timeget.Text = label_timefor.Text;
+
+            // Restart
+            string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
+            if (File.Exists(path_last_load_restart))
+            {
+                string last_load = File.ReadAllText(path_last_load_restart);
+
+                if (label_timefor.Text == last_load)
+                {
+                    timefor = 0;
+
+                    dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (dr == DialogResult.OK)
+                    {
+                        string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+
+                        File.Delete(path_history);
+                        File.Delete(path_last_load);
+
+                        canClose = false;
+                        Application.Restart();
+                    }
+                }
+            }
         }
 
         private void Timer_blink_Tick(object sender, EventArgs e)
@@ -3586,43 +3810,12 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
-            //try
-            //{
-            //    using (var client = new WebClient())
-            //    {
-            //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main";
-            //        string request = "http://raincheck.ssitex.com/api/api.php";
-
-            //        NameValueCollection postData = new NameValueCollection()
-            //        {
-            //            { "auth", auth },
-            //            { "type", type }
-            //        };
-
-            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-            //        dataGridView_domain.DataSource = arr;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    var st = new StackTrace(ex, true);
-            //    var frame = st.GetFrame(0);
-            //    var line = frame.GetFileLineNumber();
-            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //    //Close();
-            //}
-
             try
             {
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main_test";
+                    string type = "domain_main";
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
@@ -3647,6 +3840,37 @@ namespace rainCheck
 
                 //Close();
             }
+
+            //try
+            //{
+            //    using (var client = new WebClient())
+            //    {
+            //        string auth = "r@inCh3ckd234b70";
+            //        string type = "domain_main_test";
+            //        string request = "http://raincheck.ssitex.com/api/api.php";
+
+            //        NameValueCollection postData = new NameValueCollection()
+            //        {
+            //            { "auth", auth },
+            //            { "type", type }
+            //        };
+
+            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+            //        dataGridView_domain.DataSource = arr;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var st = new StackTrace(ex, true);
+            //    var frame = st.GetFrame(0);
+            //    var line = frame.GetFileLineNumber();
+            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    //Close();
+            //}
         }
 
         int detectnotloading = 0;
@@ -3683,77 +3907,78 @@ namespace rainCheck
 
             string result = time.Replace(":", ".");
 
-            //if (Convert.ToDouble(result) >= 14.42 && Convert.ToDouble(result) <= 14.43)
-            //{
-            //    label_timefor.Text = "01:00";
-            //    label_cyclein_get.Text = "02:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 14.44 && Convert.ToDouble(result) <= 14.45)
-            //{
-            //    label_timefor.Text = "02:00";
-            //    label_cyclein_get.Text = "02:00:00";
-            //}
-
-            //if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
-            //{
-            //    label_timefor.Text = "00:00";
-            //    label_cyclein_get.Text = "02:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
-            //{
-            //    label_timefor.Text = "02:00";
-            //    label_cyclein_get.Text = "04:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
-            //{
-            //    label_timefor.Text = "04:00";
-            //    label_cyclein_get.Text = "06:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
-            //{
-            //    label_timefor.Text = "06:00";
-            //    label_cyclein_get.Text = "08:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
-            //{
-            //    label_timefor.Text = "08:00";
-            //    label_cyclein_get.Text = "10:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
-            //{
-            //    label_timefor.Text = "10:00";
-            //    label_cyclein_get.Text = "12:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
-            //{
-            //    label_timefor.Text = "12:00";
-            //    label_cyclein_get.Text = "14:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
-            //{
-            //    label_timefor.Text = "14:00";
-            //    label_cyclein_get.Text = "16:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
-            //{
-            //    label_timefor.Text = "16:00";
-            //    label_cyclein_get.Text = "18:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
-            //{
-            //    label_timefor.Text = "18:00";
-            //    label_cyclein_get.Text = "20:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
-            //{
-            //    label_timefor.Text = "20:00";
-            //    label_cyclein_get.Text = "22:00:00";
-            //}
-            //else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
-            //{
-            //    label_timefor.Text = "22:00";
-            //    label_cyclein_get.Text = "24:00:00";
-            //}
+            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            {
+                label_timefor.Text = "00:00";
+                label_cyclein_get.Text = "02:00:00";
+                label_lastload.Text = "22:00";
+            }
+            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            {
+                label_timefor.Text = "02:00";
+                label_cyclein_get.Text = "04:00:00";
+                label_lastload.Text = "00:00";
+            }
+            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            {
+                label_timefor.Text = "04:00";
+                label_cyclein_get.Text = "06:00:00";
+                label_lastload.Text = "02:00";
+            }
+            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            {
+                label_timefor.Text = "06:00";
+                label_cyclein_get.Text = "08:00:00";
+                label_lastload.Text = "04:00";
+            }
+            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            {
+                label_timefor.Text = "08:00";
+                label_cyclein_get.Text = "10:00:00";
+                label_lastload.Text = "06:00";
+            }
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            {
+                label_timefor.Text = "10:00";
+                label_cyclein_get.Text = "12:00:00";
+                label_lastload.Text = "08:00";
+            }
+            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            {
+                label_timefor.Text = "12:00";
+                label_cyclein_get.Text = "14:00:00";
+                label_lastload.Text = "10:00";
+            }
+            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            {
+                label_timefor.Text = "14:00";
+                label_cyclein_get.Text = "16:00:00";
+                label_lastload.Text = "12:00";
+            }
+            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            {
+                label_timefor.Text = "16:00";
+                label_cyclein_get.Text = "18:00:00";
+                label_lastload.Text = "14:00";
+            }
+            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            {
+                label_timefor.Text = "18:00";
+                label_cyclein_get.Text = "20:00:00";
+                label_lastload.Text = "16:00";
+            }
+            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            {
+                label_timefor.Text = "20:00";
+                label_cyclein_get.Text = "22:00:00";
+                label_lastload.Text = "18:00";
+            }
+            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            {
+                label_timefor.Text = "22:00";
+                label_cyclein_get.Text = "24:00:00";
+                label_lastload.Text = "20:00";
+            }
         }
         
         DateTime start = DateTime.Now;
@@ -3808,15 +4033,43 @@ namespace rainCheck
         }
 
         int timefor = 0;
+        int detect_start = 0;
         private bool textchanged_timefor = false;
         private int domain_total;
         private int index;
         private bool timerfornext = false;
         private bool start_detect_button = false;
         private string pagesource_history;
+        private bool detectnohistoryyet = false;
+        private DialogResult dr;
+        private bool canClose = true;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
+
+            // Auto start the checking if label time for is not exists in history
+            string path = Path.GetTempPath() + @"\raincheck_history.txt";
+            if (File.Exists(path))
+            {
+                detect_start++;
+
+                if (detect_start == 1)
+                {
+                    string read = File.ReadAllText(path);
+
+                    if (read.Contains(label_timefor.Text))
+                    {
+                        button_start.Enabled = false;
+                    }
+                    else
+                    {
+                        button_start.Enabled = true;
+                        button_start.PerformClick();
+                        button_start.Enabled = false;
+                    }
+                }
+            }            
+
             if (label_status.Text != "[Running]")
             {
                 label_timeget.Text = label_timefor.Text;
@@ -3852,13 +4105,15 @@ namespace rainCheck
                 }
             }
         }
-        
-        private void button3_Click(object sender, EventArgs e)
-        {
-            string date_history = DateTime.Now.ToString("MMM dd ");
-            dataGridView_history.Rows.Insert(0, date_history + label_timefor.Text + " - OK");
 
-            dataGridView_history.ClearSelection();
+        private void label_inaccessible_error_message_TextChanged(object sender, EventArgs e)
+        {
+            if (label_inaccessible_error_message.Text == "ERR_INTERNET_DISCONNECTED")
+            {
+                MessageBox.Show("boom");
+                timer_domain.Stop();
+                chromeBrowser.Stop();
+            }
         }
     }
 }

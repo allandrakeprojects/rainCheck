@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button_pause = new System.Windows.Forms.Button();
             this.button_go = new System.Windows.Forms.Button();
             this.textBox_domain = new System.Windows.Forms.TextBox();
@@ -103,11 +103,13 @@
             this.label_brandhide = new System.Windows.Forms.Label();
             this.label_domainhide = new System.Windows.Forms.Label();
             this.label_ifloadornot = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label_uploadstatus = new System.Windows.Forms.Label();
             this.button_okay = new System.Windows.Forms.Button();
             this.panel_uploaded = new System.Windows.Forms.Panel();
             this.label_cycle_in = new System.Windows.Forms.Label();
             this.panel_main = new System.Windows.Forms.Panel();
+            this.panel_new = new System.Windows.Forms.Panel();
+            this.webBrowser_new = new System.Windows.Forms.WebBrowser();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label_erroraborted = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
@@ -119,8 +121,6 @@
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.button_getmaindomains = new System.Windows.Forms.Button();
-            this.panel_new = new System.Windows.Forms.Panel();
-            this.webBrowser_new = new System.Windows.Forms.WebBrowser();
             this.label_testonemoretime = new System.Windows.Forms.Label();
             this.textBox_webtitle = new System.Windows.Forms.TextBox();
             this.label_inaccessiblelist = new System.Windows.Forms.Label();
@@ -205,6 +205,11 @@
             this.label_textchangedtimefor = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
             this.label_webtype = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label_totalcountofdomain = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label_domainscount = new System.Windows.Forms.Label();
+            this.label_timeget = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -317,7 +322,7 @@
             this.panel_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_retry.Controls.Add(this.button_retry);
             this.panel_retry.Controls.Add(this.label14);
-            this.panel_retry.Location = new System.Drawing.Point(830, 635);
+            this.panel_retry.Location = new System.Drawing.Point(1293, 695);
             this.panel_retry.Name = "panel_retry";
             this.panel_retry.Size = new System.Drawing.Size(1067, 15);
             this.panel_retry.TabIndex = 43;
@@ -389,7 +394,7 @@
             this.label_rtc.AutoSize = true;
             this.label_rtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_rtc.ForeColor = System.Drawing.Color.White;
-            this.label_rtc.Location = new System.Drawing.Point(1353, 12);
+            this.label_rtc.Location = new System.Drawing.Point(1346, 12);
             this.label_rtc.Name = "label_rtc";
             this.label_rtc.Size = new System.Drawing.Size(46, 20);
             this.label_rtc.TabIndex = 14;
@@ -499,7 +504,7 @@
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_top.Location = new System.Drawing.Point(0, 0);
             this.panel_top.Name = "panel_top";
-            this.panel_top.Size = new System.Drawing.Size(1502, 44);
+            this.panel_top.Size = new System.Drawing.Size(1495, 44);
             this.panel_top.TabIndex = 0;
             // 
             // label_back
@@ -539,7 +544,7 @@
             // label_brand_id
             // 
             this.label_brand_id.AutoSize = true;
-            this.label_brand_id.Location = new System.Drawing.Point(1318, 545);
+            this.label_brand_id.Location = new System.Drawing.Point(1549, 376);
             this.label_brand_id.Name = "label_brand_id";
             this.label_brand_id.Size = new System.Drawing.Size(49, 13);
             this.label_brand_id.TabIndex = 61;
@@ -548,7 +553,7 @@
             // label_text_search_urgent
             // 
             this.label_text_search_urgent.AutoSize = true;
-            this.label_text_search_urgent.Location = new System.Drawing.Point(1333, 559);
+            this.label_text_search_urgent.Location = new System.Drawing.Point(1564, 390);
             this.label_text_search_urgent.Name = "label_text_search_urgent";
             this.label_text_search_urgent.Size = new System.Drawing.Size(92, 13);
             this.label_text_search_urgent.TabIndex = 67;
@@ -557,7 +562,7 @@
             // label_ifloadornot_urgent
             // 
             this.label_ifloadornot_urgent.AutoSize = true;
-            this.label_ifloadornot_urgent.Location = new System.Drawing.Point(1367, 618);
+            this.label_ifloadornot_urgent.Location = new System.Drawing.Point(1598, 449);
             this.label_ifloadornot_urgent.Name = "label_ifloadornot_urgent";
             this.label_ifloadornot_urgent.Size = new System.Drawing.Size(57, 13);
             this.label_ifloadornot_urgent.TabIndex = 66;
@@ -567,7 +572,7 @@
             // label_timerstartpause_urgent
             // 
             this.label_timerstartpause_urgent.AutoSize = true;
-            this.label_timerstartpause_urgent.Location = new System.Drawing.Point(1362, 603);
+            this.label_timerstartpause_urgent.Location = new System.Drawing.Point(1593, 434);
             this.label_timerstartpause_urgent.Name = "label_timerstartpause_urgent";
             this.label_timerstartpause_urgent.Size = new System.Drawing.Size(84, 13);
             this.label_timerstartpause_urgent.TabIndex = 65;
@@ -576,7 +581,7 @@
             // label_brandhide_urgent
             // 
             this.label_brandhide_urgent.AutoSize = true;
-            this.label_brandhide_urgent.Location = new System.Drawing.Point(1308, 588);
+            this.label_brandhide_urgent.Location = new System.Drawing.Point(1539, 419);
             this.label_brandhide_urgent.Name = "label_brandhide_urgent";
             this.label_brandhide_urgent.Size = new System.Drawing.Size(67, 13);
             this.label_brandhide_urgent.TabIndex = 64;
@@ -585,7 +590,7 @@
             // label_domainhide_urgent
             // 
             this.label_domainhide_urgent.AutoSize = true;
-            this.label_domainhide_urgent.Location = new System.Drawing.Point(1316, 573);
+            this.label_domainhide_urgent.Location = new System.Drawing.Point(1547, 404);
             this.label_domainhide_urgent.Name = "label_domainhide_urgent";
             this.label_domainhide_urgent.Size = new System.Drawing.Size(74, 13);
             this.label_domainhide_urgent.TabIndex = 63;
@@ -594,7 +599,7 @@
             // label_timeout_urgent
             // 
             this.label_timeout_urgent.AutoSize = true;
-            this.label_timeout_urgent.Location = new System.Drawing.Point(1287, 517);
+            this.label_timeout_urgent.Location = new System.Drawing.Point(1518, 348);
             this.label_timeout_urgent.Name = "label_timeout_urgent";
             this.label_timeout_urgent.Size = new System.Drawing.Size(74, 13);
             this.label_timeout_urgent.TabIndex = 51;
@@ -604,7 +609,7 @@
             // label_timeoutcount_urgent
             // 
             this.label_timeoutcount_urgent.AutoSize = true;
-            this.label_timeoutcount_urgent.Location = new System.Drawing.Point(1342, 531);
+            this.label_timeoutcount_urgent.Location = new System.Drawing.Point(1573, 362);
             this.label_timeoutcount_urgent.Name = "label_timeoutcount_urgent";
             this.label_timeoutcount_urgent.Size = new System.Drawing.Size(71, 13);
             this.label_timeoutcount_urgent.TabIndex = 52;
@@ -614,7 +619,7 @@
             // label_currentindex_urgent
             // 
             this.label_currentindex_urgent.AutoSize = true;
-            this.label_currentindex_urgent.Location = new System.Drawing.Point(1345, 503);
+            this.label_currentindex_urgent.Location = new System.Drawing.Point(1576, 334);
             this.label_currentindex_urgent.Name = "label_currentindex_urgent";
             this.label_currentindex_urgent.Size = new System.Drawing.Size(13, 13);
             this.label_currentindex_urgent.TabIndex = 62;
@@ -627,7 +632,7 @@
             this.label_separator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.label_separator.Location = new System.Drawing.Point(15, 67);
             this.label_separator.Name = "label_separator";
-            this.label_separator.Size = new System.Drawing.Size(1720, 1);
+            this.label_separator.Size = new System.Drawing.Size(1713, 1);
             this.label_separator.TabIndex = 17;
             this.label_separator.Text = " ";
             // 
@@ -674,43 +679,43 @@
             this.dataGridView_domain.AllowUserToAddRows = false;
             this.dataGridView_domain.AllowUserToDeleteRows = false;
             this.dataGridView_domain.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_domain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_domain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView_domain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_domain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_domain.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_domain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_domain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle14.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_domain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView_domain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_domain.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_domain.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView_domain.Location = new System.Drawing.Point(14, 7);
             this.dataGridView_domain.MultiSelect = false;
             this.dataGridView_domain.Name = "dataGridView_domain";
             this.dataGridView_domain.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView_domain.RowHeadersVisible = false;
             this.dataGridView_domain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_domain.Size = new System.Drawing.Size(196, 283);
@@ -740,46 +745,45 @@
             this.dataGridView_history.AllowUserToAddRows = false;
             this.dataGridView_history.AllowUserToDeleteRows = false;
             this.dataGridView_history.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_history.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_history.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridView_history.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_history.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_history.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_history.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_history.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle18.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_history.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView_history.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_history.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.History});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridView_history.Enabled = false;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridView_history.Location = new System.Drawing.Point(14, 298);
             this.dataGridView_history.MultiSelect = false;
             this.dataGridView_history.Name = "dataGridView_history";
             this.dataGridView_history.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_history.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_history.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridView_history.RowHeadersVisible = false;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_history.Size = new System.Drawing.Size(196, 283);
@@ -915,7 +919,7 @@
             this.panel_loader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_loader.Controls.Add(this.label7);
             this.panel_loader.Controls.Add(this.pictureBox1);
-            this.panel_loader.Location = new System.Drawing.Point(764, 734);
+            this.panel_loader.Location = new System.Drawing.Point(760, 734);
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(294, 219);
             this.panel_loader.TabIndex = 16;
@@ -951,18 +955,17 @@
             this.label_ifloadornot.Text = "label2";
             this.label_ifloadornot.TextChanged += new System.EventHandler(this.Label2_TextChanged);
             // 
-            // label5
+            // label_uploadstatus
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(36, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(212, 25);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Upload Completed!";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_uploadstatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_uploadstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.label_uploadstatus.ForeColor = System.Drawing.Color.White;
+            this.label_uploadstatus.Location = new System.Drawing.Point(0, 97);
+            this.label_uploadstatus.Name = "label_uploadstatus";
+            this.label_uploadstatus.Size = new System.Drawing.Size(291, 25);
+            this.label_uploadstatus.TabIndex = 1;
+            this.label_uploadstatus.Text = "Upload Successful!";
+            this.label_uploadstatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button_okay
             // 
@@ -985,8 +988,8 @@
             this.panel_uploaded.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel_uploaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_uploaded.Controls.Add(this.button_okay);
-            this.panel_uploaded.Controls.Add(this.label5);
-            this.panel_uploaded.Location = new System.Drawing.Point(464, 734);
+            this.panel_uploaded.Controls.Add(this.label_uploadstatus);
+            this.panel_uploaded.Location = new System.Drawing.Point(460, 734);
             this.panel_uploaded.Name = "panel_uploaded";
             this.panel_uploaded.Size = new System.Drawing.Size(294, 219);
             this.panel_uploaded.TabIndex = 17;
@@ -1006,145 +1009,27 @@
             // 
             // panel_main
             // 
-            this.panel_main.Controls.Add(this.textBox1);
-            this.panel_main.Controls.Add(this.label_erroraborted);
-            this.panel_main.Controls.Add(this.label48);
-            this.panel_main.Controls.Add(this.label43);
             this.panel_main.Controls.Add(this.dataGridView_domain);
-            this.panel_main.Controls.Add(this.label42);
             this.panel_main.Controls.Add(this.label_cycle_in);
-            this.panel_main.Controls.Add(this.panel_retry);
-            this.panel_main.Controls.Add(this.label41);
             this.panel_main.Controls.Add(this.label_cycle_in_1);
             this.panel_main.Controls.Add(this.button_startover);
-            this.panel_main.Controls.Add(this.label40);
             this.panel_main.Controls.Add(this.textBox_domain);
             this.panel_main.Controls.Add(this.label_domain);
-            this.panel_main.Controls.Add(this.label39);
             this.panel_main.Controls.Add(this.label_status_1);
             this.panel_main.Controls.Add(this.button_go);
-            this.panel_main.Controls.Add(this.label38);
             this.panel_main.Controls.Add(this.label_status);
             this.panel_main.Controls.Add(this.label_timefor_1);
-            this.panel_main.Controls.Add(this.label37);
-            this.panel_main.Controls.Add(this.button_getmaindomains);
             this.panel_main.Controls.Add(this.label_timefor);
             this.panel_main.Controls.Add(this.panel_new);
-            this.panel_main.Controls.Add(this.label_testonemoretime);
             this.panel_main.Controls.Add(this.panel_browser);
             this.panel_main.Controls.Add(this.pictureBox_loader);
-            this.panel_main.Controls.Add(this.textBox_webtitle);
-            this.panel_main.Controls.Add(this.button_start);
-            this.panel_main.Controls.Add(this.label_inaccessiblelist);
-            this.panel_main.Controls.Add(this.label_fully_loaded);
-            this.panel_main.Controls.Add(this.label_start_detect);
-            this.panel_main.Controls.Add(this.label18);
-            this.panel_main.Controls.Add(this.label_loadeddetect);
-            this.panel_main.Controls.Add(this.label_elseloaded);
             this.panel_main.Controls.Add(this.dataGridView_history);
+            this.panel_main.Controls.Add(this.button_start);
             this.panel_main.Controls.Add(this.button_pause);
             this.panel_main.Location = new System.Drawing.Point(0, 80);
             this.panel_main.Name = "panel_main";
             this.panel_main.Size = new System.Drawing.Size(1254, 642);
             this.panel_main.TabIndex = 49;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(29, 529);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 80;
-            // 
-            // label_erroraborted
-            // 
-            this.label_erroraborted.AutoSize = true;
-            this.label_erroraborted.Location = new System.Drawing.Point(95, 435);
-            this.label_erroraborted.Name = "label_erroraborted";
-            this.label_erroraborted.Size = new System.Drawing.Size(67, 13);
-            this.label_erroraborted.TabIndex = 79;
-            this.label_erroraborted.Text = "error aborted";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(26, 435);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(70, 13);
-            this.label48.TabIndex = 78;
-            this.label48.Text = "error aborted:";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(26, 422);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(89, 13);
-            this.label43.TabIndex = 77;
-            this.label43.Text = "else loaded timer:";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(26, 396);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(96, 13);
-            this.label42.TabIndex = 76;
-            this.label42.Text = "test one more time:";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(26, 383);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(83, 13);
-            this.label41.TabIndex = 75;
-            this.label41.Text = "inaccessible list:";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(26, 409);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(64, 13);
-            this.label40.TabIndex = 74;
-            this.label40.Text = "else loaded:";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(26, 369);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(75, 13);
-            this.label39.TabIndex = 73;
-            this.label39.Text = "loaded detect:";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(26, 356);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(65, 13);
-            this.label38.TabIndex = 72;
-            this.label38.Text = "start loaded:";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(26, 343);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(63, 13);
-            this.label37.TabIndex = 71;
-            this.label37.Text = "fully loaded:";
-            // 
-            // button_getmaindomains
-            // 
-            this.button_getmaindomains.Location = new System.Drawing.Point(29, 499);
-            this.button_getmaindomains.Name = "button_getmaindomains";
-            this.button_getmaindomains.Size = new System.Drawing.Size(93, 23);
-            this.button_getmaindomains.TabIndex = 70;
-            this.button_getmaindomains.Text = "test here";
-            this.button_getmaindomains.UseVisualStyleBackColor = true;
-            this.button_getmaindomains.Click += new System.EventHandler(this.button_getmaindomains_Click);
             // 
             // panel_new
             // 
@@ -1164,10 +1049,108 @@
             this.webBrowser_new.Size = new System.Drawing.Size(1024, 583);
             this.webBrowser_new.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(1509, 284);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 80;
+            // 
+            // label_erroraborted
+            // 
+            this.label_erroraborted.AutoSize = true;
+            this.label_erroraborted.Location = new System.Drawing.Point(1575, 190);
+            this.label_erroraborted.Name = "label_erroraborted";
+            this.label_erroraborted.Size = new System.Drawing.Size(67, 13);
+            this.label_erroraborted.TabIndex = 79;
+            this.label_erroraborted.Text = "error aborted";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(1506, 190);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(70, 13);
+            this.label48.TabIndex = 78;
+            this.label48.Text = "error aborted:";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(1506, 177);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(89, 13);
+            this.label43.TabIndex = 77;
+            this.label43.Text = "else loaded timer:";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(1506, 151);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(96, 13);
+            this.label42.TabIndex = 76;
+            this.label42.Text = "test one more time:";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(1506, 138);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(83, 13);
+            this.label41.TabIndex = 75;
+            this.label41.Text = "inaccessible list:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(1506, 164);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(64, 13);
+            this.label40.TabIndex = 74;
+            this.label40.Text = "else loaded:";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(1506, 124);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(75, 13);
+            this.label39.TabIndex = 73;
+            this.label39.Text = "loaded detect:";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(1506, 111);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(65, 13);
+            this.label38.TabIndex = 72;
+            this.label38.Text = "start loaded:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(1506, 98);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(63, 13);
+            this.label37.TabIndex = 71;
+            this.label37.Text = "fully loaded:";
+            // 
+            // button_getmaindomains
+            // 
+            this.button_getmaindomains.Location = new System.Drawing.Point(1274, 526);
+            this.button_getmaindomains.Name = "button_getmaindomains";
+            this.button_getmaindomains.Size = new System.Drawing.Size(100, 23);
+            this.button_getmaindomains.TabIndex = 70;
+            this.button_getmaindomains.Text = "test here";
+            this.button_getmaindomains.UseVisualStyleBackColor = true;
+            this.button_getmaindomains.Click += new System.EventHandler(this.button_getmaindomains_Click);
+            // 
             // label_testonemoretime
             // 
             this.label_testonemoretime.AutoSize = true;
-            this.label_testonemoretime.Location = new System.Drawing.Point(120, 396);
+            this.label_testonemoretime.Location = new System.Drawing.Point(1600, 151);
             this.label_testonemoretime.Name = "label_testonemoretime";
             this.label_testonemoretime.Size = new System.Drawing.Size(84, 13);
             this.label_testonemoretime.TabIndex = 69;
@@ -1175,7 +1158,7 @@
             // 
             // textBox_webtitle
             // 
-            this.textBox_webtitle.Location = new System.Drawing.Point(29, 471);
+            this.textBox_webtitle.Location = new System.Drawing.Point(1274, 487);
             this.textBox_webtitle.Name = "textBox_webtitle";
             this.textBox_webtitle.Size = new System.Drawing.Size(100, 20);
             this.textBox_webtitle.TabIndex = 68;
@@ -1183,7 +1166,7 @@
             // label_inaccessiblelist
             // 
             this.label_inaccessiblelist.AutoSize = true;
-            this.label_inaccessiblelist.Location = new System.Drawing.Point(109, 383);
+            this.label_inaccessiblelist.Location = new System.Drawing.Point(1589, 138);
             this.label_inaccessiblelist.Name = "label_inaccessiblelist";
             this.label_inaccessiblelist.Size = new System.Drawing.Size(80, 13);
             this.label_inaccessiblelist.TabIndex = 67;
@@ -1192,7 +1175,7 @@
             // label_fully_loaded
             // 
             this.label_fully_loaded.AutoSize = true;
-            this.label_fully_loaded.Location = new System.Drawing.Point(87, 343);
+            this.label_fully_loaded.Location = new System.Drawing.Point(1567, 98);
             this.label_fully_loaded.Name = "label_fully_loaded";
             this.label_fully_loaded.Size = new System.Drawing.Size(60, 13);
             this.label_fully_loaded.TabIndex = 60;
@@ -1201,7 +1184,7 @@
             // label_start_detect
             // 
             this.label_start_detect.AutoSize = true;
-            this.label_start_detect.Location = new System.Drawing.Point(90, 356);
+            this.label_start_detect.Location = new System.Drawing.Point(1570, 111);
             this.label_start_detect.Name = "label_start_detect";
             this.label_start_detect.Size = new System.Drawing.Size(60, 13);
             this.label_start_detect.TabIndex = 61;
@@ -1210,7 +1193,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(120, 422);
+            this.label18.Location = new System.Drawing.Point(1600, 177);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(41, 13);
             this.label18.TabIndex = 66;
@@ -1219,7 +1202,7 @@
             // label_loadeddetect
             // 
             this.label_loadeddetect.AutoSize = true;
-            this.label_loadeddetect.Location = new System.Drawing.Point(101, 370);
+            this.label_loadeddetect.Location = new System.Drawing.Point(1581, 125);
             this.label_loadeddetect.Name = "label_loadeddetect";
             this.label_loadeddetect.Size = new System.Drawing.Size(72, 13);
             this.label_loadeddetect.TabIndex = 62;
@@ -1228,7 +1211,7 @@
             // label_elseloaded
             // 
             this.label_elseloaded.AutoSize = true;
-            this.label_elseloaded.Location = new System.Drawing.Point(95, 411);
+            this.label_elseloaded.Location = new System.Drawing.Point(1575, 166);
             this.label_elseloaded.Name = "label_elseloaded";
             this.label_elseloaded.Size = new System.Drawing.Size(0, 13);
             this.label_elseloaded.TabIndex = 65;
@@ -1364,47 +1347,47 @@
             this.dataGridView_urgent.AllowUserToAddRows = false;
             this.dataGridView_urgent.AllowUserToDeleteRows = false;
             this.dataGridView_urgent.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_urgent.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_urgent.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridView_urgent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_urgent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_urgent.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_urgent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_urgent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle22.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_urgent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridView_urgent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_urgent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.domains_list_urgent,
             this.brand_id,
             this.text_search});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_urgent.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_urgent.DefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridView_urgent.Location = new System.Drawing.Point(14, 7);
             this.dataGridView_urgent.MultiSelect = false;
             this.dataGridView_urgent.Name = "dataGridView_urgent";
             this.dataGridView_urgent.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_urgent.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_urgent.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             this.dataGridView_urgent.RowHeadersVisible = false;
             this.dataGridView_urgent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_urgent.Size = new System.Drawing.Size(196, 574);
@@ -1555,7 +1538,7 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel3.Controls.Add(this.button2);
             this.panel3.Controls.Add(this.label17);
-            this.panel3.Location = new System.Drawing.Point(876, 730);
+            this.panel3.Location = new System.Drawing.Point(1293, 728);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1067, 15);
             this.panel3.TabIndex = 43;
@@ -1617,7 +1600,7 @@
             // label_domaintitle
             // 
             this.label_domaintitle.AutoSize = true;
-            this.label_domaintitle.Location = new System.Drawing.Point(1346, 690);
+            this.label_domaintitle.Location = new System.Drawing.Point(1577, 481);
             this.label_domaintitle.Name = "label_domaintitle";
             this.label_domaintitle.Size = new System.Drawing.Size(0, 13);
             this.label_domaintitle.TabIndex = 54;
@@ -1634,7 +1617,7 @@
             // label_domaintitle_urgent
             // 
             this.label_domaintitle_urgent.AutoSize = true;
-            this.label_domaintitle_urgent.Location = new System.Drawing.Point(1339, 631);
+            this.label_domaintitle_urgent.Location = new System.Drawing.Point(1570, 462);
             this.label_domaintitle_urgent.Name = "label_domaintitle_urgent";
             this.label_domaintitle_urgent.Size = new System.Drawing.Size(93, 13);
             this.label_domaintitle_urgent.TabIndex = 56;
@@ -1651,7 +1634,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1274, 702);
+            this.label12.Location = new System.Drawing.Point(1505, 493);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 58;
@@ -1826,7 +1809,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(1274, 689);
+            this.label35.Location = new System.Drawing.Point(1505, 480);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(63, 13);
             this.label35.TabIndex = 86;
@@ -1844,7 +1827,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(1274, 545);
+            this.label44.Location = new System.Drawing.Point(1505, 376);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(48, 13);
             this.label44.TabIndex = 88;
@@ -1853,7 +1836,7 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(1274, 503);
+            this.label45.Location = new System.Drawing.Point(1505, 334);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(71, 13);
             this.label45.TabIndex = 89;
@@ -1862,7 +1845,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(1274, 559);
+            this.label46.Location = new System.Drawing.Point(1505, 390);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(59, 13);
             this.label46.TabIndex = 90;
@@ -1871,7 +1854,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(1274, 573);
+            this.label47.Location = new System.Drawing.Point(1505, 404);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(44, 13);
             this.label47.TabIndex = 91;
@@ -1880,7 +1863,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(1274, 603);
+            this.label49.Location = new System.Drawing.Point(1505, 434);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(87, 13);
             this.label49.TabIndex = 93;
@@ -1889,7 +1872,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(1274, 588);
+            this.label50.Location = new System.Drawing.Point(1505, 419);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(37, 13);
             this.label50.TabIndex = 94;
@@ -1898,7 +1881,7 @@
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(1275, 618);
+            this.label51.Location = new System.Drawing.Point(1506, 449);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(92, 13);
             this.label51.TabIndex = 95;
@@ -1907,7 +1890,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(1275, 517);
+            this.label52.Location = new System.Drawing.Point(1506, 348);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(13, 13);
             this.label52.TabIndex = 96;
@@ -1916,7 +1899,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(1274, 531);
+            this.label53.Location = new System.Drawing.Point(1505, 362);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(69, 13);
             this.label53.TabIndex = 97;
@@ -1925,7 +1908,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(1274, 631);
+            this.label54.Location = new System.Drawing.Point(1505, 462);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(63, 13);
             this.label54.TabIndex = 98;
@@ -1968,9 +1951,9 @@
             this.label_cyclein_get.AutoSize = true;
             this.label_cyclein_get.Location = new System.Drawing.Point(1317, 426);
             this.label_cyclein_get.Name = "label_cyclein_get";
-            this.label_cyclein_get.Size = new System.Drawing.Size(41, 13);
+            this.label_cyclein_get.Size = new System.Drawing.Size(49, 13);
             this.label_cyclein_get.TabIndex = 102;
-            this.label_cyclein_get.Text = "label15";
+            this.label_cyclein_get.Text = "12:00:00";
             // 
             // label16
             // 
@@ -2001,9 +1984,9 @@
             this.label_textchangedtimefor.AutoSize = true;
             this.label_textchangedtimefor.Location = new System.Drawing.Point(1375, 441);
             this.label_textchangedtimefor.Name = "label_textchangedtimefor";
-            this.label_textchangedtimefor.Size = new System.Drawing.Size(104, 13);
+            this.label_textchangedtimefor.Size = new System.Drawing.Size(101, 13);
             this.label_textchangedtimefor.TabIndex = 105;
-            this.label_textchangedtimefor.Text = "textchanged text for:";
+            this.label_textchangedtimefor.Text = "textchanged text for";
             // 
             // label56
             // 
@@ -2023,42 +2006,116 @@
             this.label_webtype.TabIndex = 107;
             this.label_webtype.Text = "webtype";
             // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(1272, 471);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(109, 13);
+            this.label58.TabIndex = 108;
+            this.label58.Text = "total count of domain:";
+            // 
+            // label_totalcountofdomain
+            // 
+            this.label_totalcountofdomain.AutoSize = true;
+            this.label_totalcountofdomain.Location = new System.Drawing.Point(1377, 471);
+            this.label_totalcountofdomain.Name = "label_totalcountofdomain";
+            this.label_totalcountofdomain.Size = new System.Drawing.Size(106, 13);
+            this.label_totalcountofdomain.TabIndex = 109;
+            this.label_totalcountofdomain.Text = "total count of domain";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1274, 551);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 23);
+            this.button3.TabIndex = 71;
+            this.button3.Text = "test again";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label_domainscount
+            // 
+            this.label_domainscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_domainscount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            this.label_domainscount.Location = new System.Drawing.Point(18, 68);
+            this.label_domainscount.Name = "label_domainscount";
+            this.label_domainscount.Size = new System.Drawing.Size(196, 18);
+            this.label_domainscount.TabIndex = 110;
+            this.label_domainscount.Text = "label59";
+            this.label_domainscount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_timeget
+            // 
+            this.label_timeget.AutoSize = true;
+            this.label_timeget.Location = new System.Drawing.Point(1380, 285);
+            this.label_timeget.Name = "label_timeget";
+            this.label_timeget.Size = new System.Drawing.Size(35, 13);
+            this.label_timeget.TabIndex = 111;
+            this.label_timeget.Text = "label5";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1502, 725);
+            this.ClientSize = new System.Drawing.Size(1495, 724);
+            this.Controls.Add(this.label_timeget);
+            this.Controls.Add(this.panel_uploaded);
+            this.Controls.Add(this.label_domainscount);
+            this.Controls.Add(this.panel_retry);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label_totalcountofdomain);
+            this.Controls.Add(this.label_erroraborted);
+            this.Controls.Add(this.label58);
+            this.Controls.Add(this.label48);
             this.Controls.Add(this.label_webtype);
+            this.Controls.Add(this.label43);
             this.Controls.Add(this.label56);
             this.Controls.Add(this.label_textchangedtimefor);
+            this.Controls.Add(this.label42);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
+            this.Controls.Add(this.button_getmaindomains);
             this.Controls.Add(this.label_cyclein_get);
+            this.Controls.Add(this.label41);
             this.Controls.Add(this.label57);
             this.Controls.Add(this.label_timer_timefor);
+            this.Controls.Add(this.textBox_webtitle);
             this.Controls.Add(this.label55);
+            this.Controls.Add(this.label40);
             this.Controls.Add(this.label54);
             this.Controls.Add(this.label53);
             this.Controls.Add(this.label52);
+            this.Controls.Add(this.label39);
             this.Controls.Add(this.label51);
             this.Controls.Add(this.label50);
             this.Controls.Add(this.label49);
+            this.Controls.Add(this.label38);
             this.Controls.Add(this.label47);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label46);
+            this.Controls.Add(this.label37);
             this.Controls.Add(this.label45);
             this.Controls.Add(this.label44);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.label35);
+            this.Controls.Add(this.label_testonemoretime);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);
+            this.Controls.Add(this.label_inaccessiblelist);
             this.Controls.Add(this.label30);
+            this.Controls.Add(this.label_fully_loaded);
+            this.Controls.Add(this.label_start_detect);
             this.Controls.Add(this.label29);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label_webtitle);
+            this.Controls.Add(this.label_loadeddetect);
             this.Controls.Add(this.label28);
+            this.Controls.Add(this.label_elseloaded);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
@@ -2085,7 +2142,6 @@
             this.Controls.Add(this.label_brandhide_urgent);
             this.Controls.Add(this.label_text_search_urgent);
             this.Controls.Add(this.label_domainhide_urgent);
-            this.Controls.Add(this.panel_uploaded);
             this.Controls.Add(this.label_domaintitle_urgent);
             this.Controls.Add(this.label_hijacked);
             this.Controls.Add(this.label_domaintitle);
@@ -2126,7 +2182,6 @@
             this.panel_loader.ResumeLayout(false);
             this.panel_loader.PerformLayout();
             this.panel_uploaded.ResumeLayout(false);
-            this.panel_uploaded.PerformLayout();
             this.panel_main.ResumeLayout(false);
             this.panel_main.PerformLayout();
             this.panel_new.ResumeLayout(false);
@@ -2192,7 +2247,7 @@
         private System.Windows.Forms.Label label_brandhide;
         private System.Windows.Forms.Label label_domainhide;
         private System.Windows.Forms.Label label_ifloadornot;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_uploadstatus;
         private System.Windows.Forms.Button button_okay;
         private System.Windows.Forms.Panel panel_uploaded;
         private System.Windows.Forms.Label label_cycle_in;
@@ -2306,5 +2361,10 @@
         private System.Windows.Forms.Label label_textchangedtimefor;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label_webtype;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label_totalcountofdomain;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label_domainscount;
+        private System.Windows.Forms.Label label_timeget;
     }
 }

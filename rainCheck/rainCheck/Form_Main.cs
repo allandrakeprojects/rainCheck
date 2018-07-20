@@ -59,7 +59,6 @@ namespace rainCheck
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
-
             //string city, string country, string isp
             //Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
@@ -99,9 +98,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1023", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1023", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
 
             //dataGridView_domains.ClearSelection();
@@ -126,9 +125,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nForm: Main\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
 
             // Hide loader
@@ -177,9 +176,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
 
             // Get timeout option to server
@@ -209,9 +208,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
 
             // Enabling scrolls
@@ -244,6 +243,13 @@ namespace rainCheck
 
             Console.ReadLine();
 
+            // Getting the total count domain
+            domain_total = dataGridView_domain.RowCount;
+            label_totalcountofdomain.Text = domain_total.ToString();
+            label_domainscount.Text = "Total: " + domain_total.ToString();
+
+            // Getting time for
+            label_timeget.Text = label_timefor.Text;
 
             // URGENT PANEL
             try
@@ -270,9 +276,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1004", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1004", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
         
@@ -396,9 +402,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1005", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1005", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
         
@@ -614,9 +620,17 @@ namespace rainCheck
                             // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                             {
-                                if (label_webtype.Text == "Landing Page")
+                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
                                 {
-                                    var html = new WebClient().DownloadString(textBox_domain.Text);
+                                    var html = "";
+                                    try
+                                    {
+                                        html = new WebClient().DownloadString(textBox_domain.Text);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Empty
+                                    }
 
                                     if (html.Contains("landing_image"))
                                     {
@@ -872,8 +886,8 @@ namespace rainCheck
                                                     await Task.Delay(500);
                                                 });
 
-                                                string datetime = label10.Text;
-                                                string datetime_folder = label8.Text;
+                                                string datetime = label11.Text;
+                                                string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                                                 string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -926,8 +940,8 @@ namespace rainCheck
                                                     await Task.Delay(500);
                                                 });
 
-                                                string datetime = label10.Text;
-                                                string datetime_folder = label8.Text;
+                                                string datetime = label11.Text;
+                                                string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                                                 string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -1025,8 +1039,8 @@ namespace rainCheck
                                                 await Task.Delay(500);
                                             });
 
-                                            string datetime = label10.Text;
-                                            string datetime_folder = label8.Text;
+                                            string datetime = label11.Text;
+                                            string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                                             string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -1077,8 +1091,8 @@ namespace rainCheck
                                                 await Task.Delay(500);
                                             });
 
-                                            string datetime = label10.Text;
-                                            string datetime_folder = label8.Text;
+                                            string datetime = label11.Text;
+                                            string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                                             string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -1141,8 +1155,8 @@ namespace rainCheck
                                     await Task.Delay(500);
                                 });
 
-                                string datetime = label10.Text;
-                                string datetime_folder = label8.Text;
+                                string datetime = label11.Text;
+                                string datetime_folder = label9.Text;
                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                                 string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -1571,8 +1585,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -1654,9 +1668,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1006", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1006", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -1668,8 +1682,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -1751,9 +1765,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1007", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1007", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -1765,8 +1779,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -1884,9 +1898,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1008", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1008", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -1898,8 +1912,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2045,9 +2059,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1009", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1009", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -2061,8 +2075,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2114,9 +2128,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1010", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1010", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -2128,8 +2142,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2181,9 +2195,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1011", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1011", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
         
@@ -2195,8 +2209,8 @@ namespace rainCheck
 
             try
             {
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2248,9 +2262,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1012", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1012", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -2325,9 +2339,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1013", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1013", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
 
             buttonGoWasClicked = true;
@@ -2354,12 +2368,28 @@ namespace rainCheck
             if (label_ifloadornot.Text == "0")
             {
                 label_webtitle.Text = "";
-                int domain_total = dataGridView_domain.RowCount;
-                int index = dataGridView_domain.SelectedRows[0].Index + 1;
-                label_currentindex.Text = index.ToString();
+                domain_total = dataGridView_domain.RowCount;
+                
+                label_domainscount.Text = "Total: " + (index + 2) + " of " + domain_total.ToString();
+
+                if (timerfornext == true)
+                {
+                    dataGridView_domain.ClearSelection();
+                    index = domain_total;
+                }
+                else
+                {
+                    index = dataGridView_domain.SelectedRows[0].Index + 1;
+                    label_currentindex.Text = index.ToString();
+                }
 
                 if (index == domain_total)
                 {
+                    label_status.Text = "[Loading]";
+
+                    index = 0;
+                    label_domainscount.Text = "Total: " + domain_total.ToString();
+
                     // Set browser panel dock style
                     chromeBrowser.Dock = DockStyle.None;
                     textBox_domain.Text = "";
@@ -2372,7 +2402,6 @@ namespace rainCheck
                     button_start.Enabled = false;
                     button_startover.Enabled = false;
                     
-                    label_status.Text = "[Loading]";
                     timer_domain.Stop();
 
                     TopMost = false;
@@ -2386,7 +2415,10 @@ namespace rainCheck
                     fully_loaded = 0;
                     start_detect = 0;
 
-                    string datetime_folder = label8.Text;
+                    // set time for next to false
+                    timerfornext = false;
+
+                    string datetime_folder = label9.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                     string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2416,7 +2448,7 @@ namespace rainCheck
                             string type = "reports_normal";
                             string request = "http://raincheck.ssitex.com/api/api.php";
                             string reports = sb.ToString();
-
+                              
                             NameValueCollection postData = new NameValueCollection()
                             {
                                 { "auth", auth },
@@ -2424,17 +2456,30 @@ namespace rainCheck
                                 { "reports", reports },
                             };
 
-                            string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                            pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        var st = new StackTrace(ex, true);
-                        var frame = st.GetFrame(0);
-                        var line = frame.GetFileLineNumber();
-                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1021", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        label_uploadstatus.Text = "Upload Error!";
 
-                        Close();
+                        string date_history = DateTime.Now.ToString("MMM dd ");
+                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+
+                        dataGridView_history.ClearSelection();
+
+                        // Insert in temp file
+                        try
+                        {
+                            StreamWriter sw = new StreamWriter(Path.GetTempPath() + @"\rainCheck_history.txt", true, Encoding.UTF8);
+                            sw.WriteLine(date_history + label_timeget.Text + " - ERR");
+
+                            sw.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            //MessageBox.Show(ex.Message);
+                        }
                     }
 
                     panel_loader.Visible = true;
@@ -2442,9 +2487,9 @@ namespace rainCheck
                     timer_loader.Start();
 
                     label_currentindex.Text = "0";
-
-                    label8.Text = "";
-                    label10.Text = "";
+                    
+                    label9.Text = "";
+                    label11.Text = "";
 
                     using (ZipFile zip = new ZipFile())
                     {
@@ -2466,8 +2511,9 @@ namespace rainCheck
                             var st = new StackTrace(ex, true);
                             var frame = st.GetFrame(0);
                             var line_new = frame.GetFileLineNumber();
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line_new + "\nError Message: " + ex.Message + "\nError Code: rc1014", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Close();
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1014", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            //Close();
                         }
                     }
 
@@ -2482,7 +2528,7 @@ namespace rainCheck
                         Icon = SystemIcons.Information,
                         BalloonTipIcon = ToolTipIcon.Info,
                         BalloonTipTitle = "Information",
-                        BalloonTipText = date + " " + label_timefor.Text + " done.",
+                        BalloonTipText = date + " " + label_timeget.Text + " done.",
                     };
 
                     notification.ShowBalloonTip(1000);
@@ -2510,15 +2556,15 @@ namespace rainCheck
                 // For timeout
                 i = 1;
 
-                if (label8.Text == "")
-                {
-                    label8.Text = label9.Text;
-                }
+                //if (label9.Text == "")
+                //{
+                //    label9.Text = label9.Text;
+                //}
 
-                if (label10.Text == "")
-                {
-                    label10.Text = label11.Text;
-                }
+                //if (label11.Text == "")
+                //{
+                //    label11.Text = label11.Text;
+                //}
 
                 ms_detect = 0;
                 fully_loaded = 0;
@@ -2526,8 +2572,8 @@ namespace rainCheck
                 domain_i = 0;
                 label_currentindex.Text = "0";
 
-                string datetime = label10.Text;
-                string datetime_folder = label8.Text;
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2570,6 +2616,7 @@ namespace rainCheck
 
             button_pause.Visible = false;
             button_start.Visible = true;
+            button_start.Enabled = true;
 
             textBox_domain.Enabled = true;
             button_go.Enabled = true;
@@ -2595,15 +2642,20 @@ namespace rainCheck
             // Set browser panel dock style
             chromeBrowser.Dock = DockStyle.Fill;
 
-            if (label8.Text == "")
-            {
-                label8.Text = label9.Text;
-            }
+            //if (textchange_date == 1)
+            //{
+            //    if (label9.Text == "")
+            //    {
+            //        label9.Text = label9.Text;
+            //    }
 
-            if (label10.Text == "")
-            {
-                label10.Text = label11.Text;
-            }
+            //    if (label11.Text == "")
+            //    {
+            //        label11.Text = label11.Text;
+            //    }
+            //}
+
+            label_domainscount.Text = "Total: " + (index + 1) + " of " + domain_total.ToString();
 
             timer_blink.Stop();
             label_status.Visible = true;
@@ -2665,7 +2717,7 @@ namespace rainCheck
                         //var st = new StackTrace(ex, true);
                         //var frame = st.GetFrame(0);
                         //var line = frame.GetFileLineNumber();
-                        //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         //Close();
                     }
@@ -2693,12 +2745,11 @@ namespace rainCheck
             string date = DateTime.Now.ToString("MMM dd");
             string time = DateTime.Now.ToString("HH:mm");
             label_rtc.Text = date + " " + time;
-
-
+            
             string datetime_folder = DateTime.Now.ToString("yyyy-MM-dd_");
             string replace = label_timefor.Text.Replace(":", "");
             label9.Text = datetime_folder + replace;
-            
+                        
             string datetime = DateTime.Now.ToString("yyyy-MM-dd ");
             label11.Text = datetime + label_timefor.Text + ":00";
         }
@@ -2745,6 +2796,15 @@ namespace rainCheck
                     label_status_urgent.Text = "[Waiting]";
                 }
 
+                if (pagesource_history == "SUCCESS")
+                {
+                    label_uploadstatus.Text = "Upload Successful!";
+                }
+                else if (pagesource_history == "ERROR")
+                {
+                    label_uploadstatus.Text = "Upload Error!";
+                }
+
                 panel_loader.Visible = false;
                 panel_uploaded.Visible = true;
                 panel_uploaded.BringToFront();
@@ -2758,7 +2818,73 @@ namespace rainCheck
                 
                 panel_uploaded.Visible = false;
 
-                button_start.Enabled = true;
+                //button_start.Enabled = true;
+                
+                if (start_detect_button == true)
+                {
+                    button_start.Enabled = true;
+                    button_start.PerformClick();
+                    button_start.Enabled = false;
+
+                    start_detect_button = false;
+                }
+                
+                if (pagesource_history == "SUCCESS")
+                {
+                    string date_history = DateTime.Now.ToString("MMM dd ");
+                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - OK");
+
+                    dataGridView_history.ClearSelection();
+
+                    // Insert in temp file
+                    try
+                    {
+                        string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                        StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                        sw_create.Close();
+
+                        string oldText = File.ReadAllText(path_history);
+                        using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                        {
+                            sw.WriteLine(date_history + label_timeget.Text + " - OK");
+                            sw.WriteLine(oldText);
+                            sw.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (pagesource_history == "ERROR")
+                {
+                    string date_history = DateTime.Now.ToString("MMM dd ");
+                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+
+                    dataGridView_history.ClearSelection();
+
+                    // Insert in temp file
+                    try
+                    {
+                        string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                        StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                        sw_create.Close();
+
+                        string oldText = File.ReadAllText(path_history);
+                        using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                        {
+                            sw.WriteLine(date_history + label_timeget.Text + " - ERR");
+                            sw.WriteLine(oldText);
+                            sw.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                
+                label_timeget.Text = label_timefor.Text;
             }
         }
 
@@ -2770,7 +2896,73 @@ namespace rainCheck
 
             panel_uploaded.Visible = false;
 
-            button_start.Enabled = true;
+            //button_start.Enabled = true;
+
+            if (start_detect_button == true)
+            {
+                button_start.Enabled = true;
+                button_start.PerformClick();
+                button_start.Enabled = false;
+
+                start_detect_button = false;
+            }
+
+            if (pagesource_history == "SUCCESS")
+            {
+                string date_history = DateTime.Now.ToString("MMM dd ");
+                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - OK");
+
+                dataGridView_history.ClearSelection();
+
+                // Insert in temp file
+                try
+                {
+                    string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                    StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                    sw_create.Close();
+
+                    string oldText = File.ReadAllText(path_history);
+                    using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                    {
+                        sw.WriteLine(date_history + label_timeget.Text + " - OK");
+                        sw.WriteLine(oldText);
+                        sw.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (pagesource_history == "ERROR")
+            {
+                string date_history = DateTime.Now.ToString("MMM dd ");
+                dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " - ERR");
+
+                dataGridView_history.ClearSelection();
+
+                // Insert in temp file
+                try
+                {
+                    string path_history = Path.GetTempPath() + @"\rainCheck_history.txt";
+                    StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                    sw_create.Close();
+
+                    string oldText = File.ReadAllText(path_history);
+                    using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                    {
+                        sw.WriteLine(date_history + label_timeget.Text + " - ERR");
+                        sw.WriteLine(oldText);
+                        sw.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            label_timeget.Text = label_timefor.Text;
         }
 
         private void Timer_blink_Tick(object sender, EventArgs e)
@@ -2929,9 +3121,9 @@ namespace rainCheck
                         var st = new StackTrace(ex, true);
                         var frame = st.GetFrame(0);
                         var line = frame.GetFileLineNumber();
-                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1018", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1018", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        Close();
+                        //Close();
                     }
 
                     if (dataGridView_urgent.Rows.Count > 0)
@@ -2991,15 +3183,16 @@ namespace rainCheck
             panel_browser_urgent.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
             
-            if (label8.Text == "")
-            {
-                label8.Text = label9.Text;
-            }
+            //if (label9.Text == "")
+            //{
+            //    label9.Text = label9.Text;
+            //}
 
-            if (label10.Text == "")
-            {
-                label10.Text = label11.Text;
-            }
+            //if (label11.Text == "")
+            //{
+            //    label11.Text = label11.Text;
+            //    MessageBox.Show(label11.Text);
+            //}
 
             timer_blink_urgent.Stop();
             label_status_urgent.Visible = true;
@@ -3083,9 +3276,9 @@ namespace rainCheck
                         var st = new StackTrace(ex, true);
                         var frame = st.GetFrame(0);
                         var line = frame.GetFileLineNumber();
-                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1019", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1019", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        Close();
+                        //Close();
                     }
 
                     Invoke(new Action(() =>
@@ -3130,7 +3323,7 @@ namespace rainCheck
                     timer_domain_urgent.Stop();
 
                     //////////////////////////
-                    //string datetime_folder = label8.Text;
+                    //string datetime_folder = label9.Text;
                     //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                     //string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -3142,8 +3335,8 @@ namespace rainCheck
 
                     //label_currentindex_urgent.Text = "0";
 
-                    //label8.Text = "";
-                    //label10.Text = "";
+                    //label9.Text = "";
+                    //label11.Text = "";
                     ////////////////////////
 
                     TopMost = false;
@@ -3156,7 +3349,7 @@ namespace rainCheck
                         try
                         {
                             con.Open();
-                            string datetime_folder = label8.Text;
+                            string datetime_folder = label9.Text;
                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                             string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -3195,17 +3388,17 @@ namespace rainCheck
 
                             label_currentindex_urgent.Text = "0";
 
-                            //label8.Text = "";
-                            //label10.Text = "";
+                            //label9.Text = "";
+                            //label11.Text = "";
                         }
                         catch (Exception ex)
                         {
                             var st = new StackTrace(ex, true);
                             var frame = st.GetFrame(0);
                             var line_new = frame.GetFileLineNumber();
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line_new + "\nError Message: " + ex.Message + "\nError Code: rc1020", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1020", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                            Close();
+                            //Close();
                         }
                     }
 
@@ -3243,8 +3436,8 @@ namespace rainCheck
         {
             //MessageBox.Show("voila!");
 
-            string datetime = label10.Text;
-            string datetime_folder = label8.Text;
+            string datetime = label11.Text;
+            string datetime_folder = label9.Text;
             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
@@ -3275,34 +3468,16 @@ namespace rainCheck
                     label_ifloadornot.Text = "0";
                 }
             }));
-            //Invoke(new Action(() =>
-            //{
-            //    while (loadedIsRunning)
-            //    {
-            //        MessageBox.Show("once");
-
-            //        fully_loaded = 0;
-            //        start_detect = 0;
-            //        label_ifloadornot.Text = "0";
-
-            //        loadedIsRunning = false;
-            //    }
-
-            //    //MessageBox.Show("final loaded " + label_start_detect.Text);
-            //    //label_elseloaded.Text = elseloaded.ToString();
-            //    //if (elseloaded == 4)
-            //    //{
-            //    //    MessageBox.Show("asdsa2");
-            //    //    //MessageBox.Show("voila!!!!!!!");
-            //    //    fully_loaded = 0;
-            //    //    start_detect = 0;
-            //    //    label_ifloadornot.Text = "0";
-            //    //}
-            //}));
         }
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
+            Random rnd = new Random();
+            int month = rnd.Next(1, 1000);
+
+            label_timefor.Text = month.ToString();
+            
+            //timerfornext = true;
             //string time = textBox1.Text;
             //label_timer_timefor.Text = time;
 
@@ -3411,12 +3586,43 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
+            //try
+            //{
+            //    using (var client = new WebClient())
+            //    {
+            //        string auth = "r@inCh3ckd234b70";
+            //        string type = "domain_main";
+            //        string request = "http://raincheck.ssitex.com/api/api.php";
+
+            //        NameValueCollection postData = new NameValueCollection()
+            //        {
+            //            { "auth", auth },
+            //            { "type", type }
+            //        };
+
+            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+            //        dataGridView_domain.DataSource = arr;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var st = new StackTrace(ex, true);
+            //    var frame = st.GetFrame(0);
+            //    var line = frame.GetFileLineNumber();
+            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    //Close();
+            //}
+
             try
             {
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main";
+                    string type = "domain_main_test";
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
@@ -3437,9 +3643,9 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
         }
 
@@ -3477,66 +3683,77 @@ namespace rainCheck
 
             string result = time.Replace(":", ".");
 
-            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
-            {
-                label_timefor.Text = "00:00";
-                label_cyclein_get.Text = "02:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
-            {
-                label_timefor.Text = "02:00";
-                label_cyclein_get.Text = "04:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
-            {
-                label_timefor.Text = "04:00";
-                label_cyclein_get.Text = "06:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
-            {
-                label_timefor.Text = "06:00";
-                label_cyclein_get.Text = "08:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
-            {
-                label_timefor.Text = "08:00";
-                label_cyclein_get.Text = "10:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
-            {
-                label_timefor.Text = "10:00";
-                label_cyclein_get.Text = "12:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
-            {
-                label_timefor.Text = "12:00";
-                label_cyclein_get.Text = "14:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
-            {
-                label_timefor.Text = "14:00";
-                label_cyclein_get.Text = "16:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
-            {
-                label_timefor.Text = "16:00";
-                label_cyclein_get.Text = "18:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
-            {
-                label_timefor.Text = "18:00";
-                label_cyclein_get.Text = "20:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
-            {
-                label_timefor.Text = "20:00";
-                label_cyclein_get.Text = "22:00:00";
-            }
-            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
-            {
-                label_timefor.Text = "22:00";
-                label_cyclein_get.Text = "24:00:00";
-            }
+            //if (Convert.ToDouble(result) >= 14.42 && Convert.ToDouble(result) <= 14.43)
+            //{
+            //    label_timefor.Text = "01:00";
+            //    label_cyclein_get.Text = "02:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 14.44 && Convert.ToDouble(result) <= 14.45)
+            //{
+            //    label_timefor.Text = "02:00";
+            //    label_cyclein_get.Text = "02:00:00";
+            //}
+
+            //if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            //{
+            //    label_timefor.Text = "00:00";
+            //    label_cyclein_get.Text = "02:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            //{
+            //    label_timefor.Text = "02:00";
+            //    label_cyclein_get.Text = "04:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            //{
+            //    label_timefor.Text = "04:00";
+            //    label_cyclein_get.Text = "06:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            //{
+            //    label_timefor.Text = "06:00";
+            //    label_cyclein_get.Text = "08:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            //{
+            //    label_timefor.Text = "08:00";
+            //    label_cyclein_get.Text = "10:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            //{
+            //    label_timefor.Text = "10:00";
+            //    label_cyclein_get.Text = "12:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            //{
+            //    label_timefor.Text = "12:00";
+            //    label_cyclein_get.Text = "14:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            //{
+            //    label_timefor.Text = "14:00";
+            //    label_cyclein_get.Text = "16:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            //{
+            //    label_timefor.Text = "16:00";
+            //    label_cyclein_get.Text = "18:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            //{
+            //    label_timefor.Text = "18:00";
+            //    label_cyclein_get.Text = "20:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            //{
+            //    label_timefor.Text = "20:00";
+            //    label_cyclein_get.Text = "22:00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            //{
+            //    label_timefor.Text = "22:00";
+            //    label_cyclein_get.Text = "24:00:00";
+            //}
         }
         
         DateTime start = DateTime.Now;
@@ -3592,9 +3809,19 @@ namespace rainCheck
 
         int timefor = 0;
         private bool textchanged_timefor = false;
+        private int domain_total;
+        private int index;
+        private bool timerfornext = false;
+        private bool start_detect_button = false;
+        private string pagesource_history;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
+            if (label_status.Text != "[Running]")
+            {
+                label_timeget.Text = label_timefor.Text;
+            }
+
             if (textchanged_timefor == true)
             {
                 timefor++;
@@ -3604,8 +3831,34 @@ namespace rainCheck
 
             if (timefor > 0)
             {
-                MessageBox.Show("boom started the next");
+                pictureBox_loader.Visible = false;
+
+                if (label_status.Text != "[Waiting]")
+                {
+                    timerfornext = true;
+                    label_ifloadornot.Text = "0";
+
+                    timer_blink.Stop();
+                    label_status.Visible = true;
+                    label_status.Text = "[Running]";
+
+                    start_detect_button = true;
+                }
+                else
+                {
+                    button_start.Enabled = true;
+                    button_start.PerformClick();
+                    button_start.Enabled = false;
+                }
             }
+        }
+        
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string date_history = DateTime.Now.ToString("MMM dd ");
+            dataGridView_history.Rows.Insert(0, date_history + label_timefor.Text + " - OK");
+
+            dataGridView_history.ClearSelection();
         }
     }
 }

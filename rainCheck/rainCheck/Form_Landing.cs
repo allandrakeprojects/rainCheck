@@ -229,6 +229,7 @@ namespace rainCheck
                         {
                             timer_authorisation.Stop();
                             timer_apichanges.Stop();
+                            timer_apichanges.Enabled = false;
 
                             panel_verified.BringToFront();
 
@@ -243,6 +244,7 @@ namespace rainCheck
                         {
                             timer_authorisation.Stop();
                             timer_apichanges.Stop();
+                            timer_apichanges.Enabled = false;
 
                             panel_blank.BringToFront();
                             MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -252,6 +254,7 @@ namespace rainCheck
                         {
                             timer_authorisation.Stop();
                             timer_apichanges.Stop();
+                            timer_apichanges.Enabled = false;
 
                             panel_blank.BringToFront();
                             MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -261,6 +264,7 @@ namespace rainCheck
                         {
                             timer_authorisation.Stop();
                             timer_apichanges.Stop();
+                            timer_apichanges.Enabled = false;
 
                             MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Close();
@@ -341,6 +345,7 @@ namespace rainCheck
                             {
                                 timer_authorisation.Stop();
                                 timer_apichanges.Stop();
+                                timer_apichanges.Enabled = false;
 
                                 panel_verified.BringToFront();
 
@@ -355,6 +360,7 @@ namespace rainCheck
                             {
                                 timer_authorisation.Stop();
                                 timer_apichanges.Stop();
+                                timer_apichanges.Enabled = false;
 
                                 panel_blank.BringToFront();
                                 MessageBox.Show("You're rejected to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -364,6 +370,7 @@ namespace rainCheck
                             {
                                 timer_authorisation.Stop();
                                 timer_apichanges.Stop();
+                                timer_apichanges.Enabled = false;
 
                                 panel_blank.BringToFront();
                                 MessageBox.Show("You're removed to the system! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -373,6 +380,7 @@ namespace rainCheck
                             {
                                 timer_authorisation.Stop();
                                 timer_apichanges.Stop();
+                                timer_apichanges.Enabled = false;
 
                                 MessageBox.Show("There is a problem! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Close();
@@ -387,15 +395,15 @@ namespace rainCheck
                         type = "device_insert";
 
                         NameValueCollection postData_new = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type },
-                        { "mac_id", mac_id },
-                        { "city", city },
-                        { "region", region },
-                        { "country", country },
-                        { "isp", isp }
-                    };
+                        {
+                            { "auth", auth },
+                            { "type", type },
+                            { "mac_id", mac_id },
+                            { "city", city },
+                            { "region", region },
+                            { "country", country },
+                            { "isp", isp }
+                        };
 
                         string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
 
@@ -429,6 +437,8 @@ namespace rainCheck
             gotomain++;
             if (gotomain == 2)
             {
+                timer_apichanges.Stop();
+                timer_apichanges.Enabled = false;
                 timer_gotomain.Stop();
                 //city, country, isp
                 Form_Main form_main = new Form_Main(city, country, isp);

@@ -2314,7 +2314,7 @@ namespace rainCheck
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (canClose)
+            if (can_close)
             {
                 dr = MessageBox.Show("Are you sure you want to exit the program?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.No)
@@ -3027,7 +3027,7 @@ namespace rainCheck
                             File.Delete(path_history);
                             File.Delete(path_last_load);
 
-                            canClose = false;
+                            can_close = false;
                             Application.Restart();
                         }
                     }
@@ -3174,7 +3174,7 @@ namespace rainCheck
                         File.Delete(path_history);
                         File.Delete(path_last_load);
 
-                        canClose = false;
+                        can_close = false;
                         Application.Restart();
                     }
                 }
@@ -4034,7 +4034,8 @@ namespace rainCheck
         private string pagesource_history;
         private bool detectnohistoryyet = false;
         private DialogResult dr;
-        private bool canClose = true;
+        private bool can_close = true;
+        private bool auto_start = true;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
@@ -4060,6 +4061,7 @@ namespace rainCheck
                         button_start.Enabled = true;
                         button_start.PerformClick();
                         button_start.Enabled = false;
+                        auto_start = false;
                     }
                 }
             }            
@@ -4082,14 +4084,19 @@ namespace rainCheck
 
                 if (label_status.Text != "[Waiting]")
                 {
-                    timerfornext = true;
-                    label_ifloadornot.Text = "0";
+                    if (auto_start)
+                    {
+                        timerfornext = true;
+                        label_ifloadornot.Text = "0";
 
-                    timer_blink.Stop();
-                    label_status.Visible = true;
-                    label_status.Text = "[Running]";
+                        timer_blink.Stop();
+                        label_status.Visible = true;
+                        label_status.Text = "[Running]";
 
-                    start_detect_button = true;
+                        start_detect_button = true;
+                    }
+
+                    auto_start = true;
                 }
                 else
                 {

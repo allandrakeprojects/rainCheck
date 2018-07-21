@@ -17,11 +17,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -325,10 +322,6 @@ namespace rainCheck
 
                 //Close();
             }
-        }
-        
-        private void Form_Main_Shown(object sender, EventArgs e)
-        {
         }
         
         // Get MAC Address
@@ -861,8 +854,6 @@ namespace rainCheck
                                 // error aborted test one more time
                                 if (label_inaccessible_error_message.Text == "ERR_ABORTED" || label_inaccessible_error_message.Text == "ERR_NETWORK_CHANGED" || label_inaccessible_error_message.Text == "ERR_INTERNET_DISCONNECTED")
                                 {
-                                    MessageBox.Show("test again");
-
                                     // test one more time
                                     Invoke(new Action(() =>
                                     {
@@ -2468,7 +2459,7 @@ namespace rainCheck
                     detectnotloading = 0;
                     timer_detectnotloading.Stop();
 
-                    ms_detect = 0;
+                    //ms_detect = 0;
                     fully_loaded = 0;
                     start_detect = 0;
 
@@ -2480,7 +2471,7 @@ namespace rainCheck
 
                     string path = path_desktop + "\\rainCheck\\" + datetime_folder;
 
-                    // Insert
+                    // Insert read
 
                     string read = File.ReadAllText(path + "\\result.txt");
 
@@ -3025,7 +3016,8 @@ namespace rainCheck
                     if (label_timefor.Text == last_load)
                     {
                         timefor = 0;
-                               
+                        textchanged_timefor = false;
+
                         dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (dr == DialogResult.OK)
                         {
@@ -4056,13 +4048,15 @@ namespace rainCheck
                 if (detect_start == 1)
                 {
                     string read = File.ReadAllText(path);
-
+                    
                     if (read.Contains(label_timefor.Text))
                     {
+                        MessageBox.Show(label_timefor.Text);
                         button_start.Enabled = false;
                     }
                     else
                     {
+                        MessageBox.Show(label_timefor.Text);
                         button_start.Enabled = true;
                         button_start.PerformClick();
                         button_start.Enabled = false;
@@ -4110,7 +4104,6 @@ namespace rainCheck
         {
             if (label_inaccessible_error_message.Text == "ERR_INTERNET_DISCONNECTED")
             {
-                MessageBox.Show("boom");
                 timer_domain.Stop();
                 chromeBrowser.Stop();
             }

@@ -291,8 +291,11 @@ namespace rainCheck
             label_domainscount.Text = "Total: " + domain_total.ToString();
 
             // Getting time for
-            label_timeget.Text = label_timefor.Text;
-            
+            //label_timeget.Text = label_timefor.Text;
+
+            // Getting mac id
+            label_macid.Text = GetMACAddress().ToLower();
+
             // URGENT PANEL
             try
             {
@@ -947,8 +950,9 @@ namespace rainCheck
                                                     {
                                                         g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                                     }
+
                                                     Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    resized.Save(path + "_" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -1001,9 +1005,9 @@ namespace rainCheck
                                                     {
                                                         g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                                     }
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
 
-                                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                    resized.Save(path + "_" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -1100,14 +1104,17 @@ namespace rainCheck
                                                 {
                                                     g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                                 }
+
                                                 Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                resized.Save(path + "_" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
 
-                                            timer_timeout.Stop();
+                                            // For timeout
                                             i = 1;
+                                            timer_timeout.Stop();
+
                                             pictureBox_loader.Visible = false;
 
                                             label_timeout.Text = "";
@@ -1152,9 +1159,9 @@ namespace rainCheck
                                                 {
                                                     g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                                 }
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
 
-                                                resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                resized.Save(path + "_" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
@@ -1216,9 +1223,9 @@ namespace rainCheck
                                     {
                                         g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
                                     }
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
 
-                                    resized.Save(path + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                    resized.Save(path + "_" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                 }
 
                                 DataToTextFileInaccessible();
@@ -2023,7 +2030,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_domainhide.Text + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
+                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_" + label_domainhide.Text + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -2092,7 +2099,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_domainhide.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_" + label_domainhide.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3199,9 +3206,10 @@ namespace rainCheck
                 {
                     g.CopyFromScreen(new Point(bounds.Left+226, bounds.Top+159), Point.Empty, bounds.Size);
                 }
+
                 Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                resized.Save(path_desktop + "\\testdomain.jpeg", ImageFormat.Jpeg);
+                resized.Save(path_desktop + "\\" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
             }
 
             //MessageBox.Show("ok!");
@@ -3688,11 +3696,65 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show(start_get.ToString());
+
+            //string myDate = "21/07/2018 00:00:00";
+            //DateTime dt1 = DateTime.ParseExact(myDate, "dd/MM/yyyy HH:mm:ss",
+            //                                           CultureInfo.InvariantCulture);
+
+            //string start_myDate = "21/07/2018 23:00:00";
+            //DateTime start = DateTime.ParseExact(start_myDate, "dd/MM/yyyy HH:mm:ss",
+            //                                           CultureInfo.InvariantCulture);
+
+            //TimeSpan difference = dt1 - start;
+            //int hrs = difference.Hours;
+            //int mins = difference.Minutes;
+            //int secs = difference.Seconds;
+
+            //TimeSpan spinTime = new TimeSpan(hrs, mins, secs);
+
+            //TimeSpan delta = DateTime.Now - start;
+            //TimeSpan timeRemaining = spinTime - delta;
+
+
+            //string mins_view;
+            //if (timeRemaining.Minutes == 0 || timeRemaining.Minutes == 1)
+            //{
+            //    mins_view = " min ";
+            //}
+            //else
+            //{
+            //    mins_view = " mins ";
+            //}
+
+            //string secs_view;
+            //if (timeRemaining.Seconds == 0 || timeRemaining.Seconds == 1)
+            //{
+            //    secs_view = " sec";
+            //}
+            //else
+            //{
+            //    secs_view = " secs";
+            //}
+
+            //if (timeRemaining.Hours != 0 && timeRemaining.Minutes != 0)
+            //{
+            //    label_cycle_in.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + mins_view;
+            //}
+            //else if (timeRemaining.Hours == 0 && timeRemaining.Minutes == 0)
+            //{
+            //    label_cycle_in.Text = timeRemaining.Seconds + secs_view;
+            //}
+            //else if (timeRemaining.Hours == 0)
+            //{
+            //    label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
+            //}
+
             Random rnd = new Random();
             int month = rnd.Next(1, 1000);
 
             label_timefor.Text = month.ToString();
-            
+
             //timerfornext = true;
             //string time = textBox1.Text;
             //label_timer_timefor.Text = time;
@@ -3893,7 +3955,7 @@ namespace rainCheck
         }
         
         private void timer_timefor_Tick(object sender, EventArgs e)
-        {
+        {            
             string time = DateTime.Now.ToString("HH:mm");
             label_timer_timefor.Text = time;
 
@@ -3902,93 +3964,100 @@ namespace rainCheck
             if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
             {
                 label_timefor.Text = "00:00";
-                label_cyclein_get.Text = "02:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
                 label_lastload.Text = "22:00";
             }
             else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
             {
                 label_timefor.Text = "02:00";
-                label_cyclein_get.Text = "04:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
                 label_lastload.Text = "00:00";
             }
             else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
             {
                 label_timefor.Text = "04:00";
-                label_cyclein_get.Text = "06:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
                 label_lastload.Text = "02:00";
             }
             else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
             {
                 label_timefor.Text = "06:00";
-                label_cyclein_get.Text = "08:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
                 label_lastload.Text = "04:00";
             }
             else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
             {
                 label_timefor.Text = "08:00";
-                label_cyclein_get.Text = "10:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
                 label_lastload.Text = "06:00";
             }
             else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
             {
                 label_timefor.Text = "10:00";
-                label_cyclein_get.Text = "12:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
                 label_lastload.Text = "08:00";
             }
             else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
             {
                 label_timefor.Text = "12:00";
-                label_cyclein_get.Text = "14:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
                 label_lastload.Text = "10:00";
             }
             else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
             {
                 label_timefor.Text = "14:00";
-                label_cyclein_get.Text = "16:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
                 label_lastload.Text = "12:00";
             }
             else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
             {
                 label_timefor.Text = "16:00";
-                label_cyclein_get.Text = "18:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
                 label_lastload.Text = "14:00";
             }
             else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
             {
                 label_timefor.Text = "18:00";
-                label_cyclein_get.Text = "20:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
                 label_lastload.Text = "16:00";
             }
             else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
             {
                 label_timefor.Text = "20:00";
-                label_cyclein_get.Text = "22:00:00";
+                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
                 label_lastload.Text = "18:00";
             }
             else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
             {
                 label_timefor.Text = "22:00";
-                label_cyclein_get.Text = "24:00:00";
+                DateTime date_parse = DateTime.Now.AddDays(1);
+                string date = date_parse.ToString("dd/MM/yyyy");
+
+                label_cyclein_get.Text = date + " 00:00:00";
                 label_lastload.Text = "20:00";
             }
         }
-        
-        DateTime start = DateTime.Now;
-        string start_get = DateTime.Now.ToString("HH:mm:ss");
+
+        string start_get = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
         private void Timer_cyclein_Tick(object sender, EventArgs e)
         {
-            TimeSpan difference = Convert.ToDateTime(label_cyclein_get.Text) - Convert.ToDateTime(start_get);
+            string cyclein_parse = label_cyclein_get.Text;
+            DateTime cyclein = DateTime.ParseExact(cyclein_parse, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+            string start_parse = start_get;
+            DateTime start = DateTime.ParseExact(start_parse, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+            TimeSpan difference = cyclein - start;
             int hrs = difference.Hours;
             int mins = difference.Minutes;
             int secs = difference.Seconds;
 
             TimeSpan spinTime = new TimeSpan(hrs, mins, secs);
-                        
+
             TimeSpan delta = DateTime.Now - start;
             TimeSpan timeRemaining = spinTime - delta;
-
-
+            
             string mins_view;
             if (timeRemaining.Minutes == 0 || timeRemaining.Minutes == 1)
             {
@@ -4021,7 +4090,6 @@ namespace rainCheck
             {
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             }
-
         }
 
         int timefor = 0;
@@ -4052,12 +4120,11 @@ namespace rainCheck
                     
                     if (read.Contains(label_timefor.Text))
                     {
-                        MessageBox.Show(label_timefor.Text);
                         button_start.Enabled = false;
                     }
                     else
                     {
-                        MessageBox.Show(label_timefor.Text);
+                        label_timeget.Text = label_timefor.Text;
                         button_start.Enabled = true;
                         button_start.PerformClick();
                         button_start.Enabled = false;

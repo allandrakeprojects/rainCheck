@@ -48,7 +48,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main(string city, string country, string isp)
+        public Form_Main()
         {
             InitializeComponent();
 
@@ -57,10 +57,10 @@ namespace rainCheck
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             //string city, string country, string isp
-            Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            city_get = city;
-            isp_get = isp;
+            //city_get = city;
+            //isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -1396,65 +1396,66 @@ namespace rainCheck
 
 
 
-
-
-
-
-
-
-
-
-
-
             // ----BUTTON GO WAS CLICKED----
             else if (buttonGoWasClicked == true)
             {
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    // Date preview
-                    start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Stop();
 
                     Invoke(new Action(() =>
                     {
-                        TopMost = true;
-                        MinimizeBox = false;
-                        timer_timeout.Start();
-                        pictureBox_loader.Visible = true;
-                        button_go.Enabled = false;
-                        button_start.Enabled = false;
+                        panel_browser.Controls.Add(chromeBrowser);
+                        start_detect++;
+                        label_start_detect.Text = start_detect.ToString();
                     }));
 
-                    int webBrowser_i = 0;
-                    while (webBrowser_i <= 2)
+                    //MessageBox.Show("loading asdasdasdasdsa1 " + label_domainhide.Text);
+
+                    // Date preview
+                    start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                    start_load_inaccessible = DateTime.Now;
+
+                    Invoke(new Action(() =>
                     {
-                        webBrowser_new.Navigate(label_domainhide.Text);
-                        webBrowser_i++;
+                        timer_timeout.Start();
+                        pictureBox_loader.Visible = true;
+                        label_ifloadornot.Text = "1";
+                        ms_detect++;
+                        label_loadeddetect.Text = ms_detect.ToString();
+
+                        // else loaded
+                        elseloaded_i = 0;
+                        timer_elseloaded.Stop();
+                    }));
+                    
+                    if (ms_detect == 1)
+                    {
+                        int webBrowser_i = 1;
+                        while (webBrowser_i <= 2)
+                        {
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+                            (new System.Threading.Thread(CloseIt)).Start();
+                            MessageBox.Show("Loading...", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            webBrowser_i++;
+                        }
                     }
-
-                    //chromeBrowser.TitleChanged += (senderr, argss) =>
-                    //{
-                    //    Invoke(new Action(() =>
-                    //    {
-                    //        if (argss.Title == "")
-                    //        {
-                    //            MessageBox.Show("not remove " + argss.Title);
-                    //        }
-                    //        else
-                    //        {
-                    //            int index = argss.Title.Length;
-                    //            string newtitle = argss.Title.Remove(0, index);
-
-                    //            chromeBrowser.TitleChanged += (senderrr, argsss) =>
-                    //            {
-                    //                Invoke(new Action(() =>
-                    //                {
-                    //                    MessageBox.Show("remove " + argsss.Title);
-                    //                }));
-                    //            };
-                    //        }
-                    //    }));
-                    //};
+                    else
+                    {
+                        int webBrowser_i = 0;
+                        while (webBrowser_i <= 2)
+                        {
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+                            webBrowser_i++;
+                        }
+                    }
                 }
 
                 // --Loaded--
@@ -1529,6 +1530,51 @@ namespace rainCheck
                     }));
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // ----TIMER URGENT ENABLED----
             if (timer_domain_urgent.Enabled)
@@ -2547,11 +2593,18 @@ namespace rainCheck
                             Color color = ColorTranslator.FromHtml(hex);
                             dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
                             dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+                                                        
+                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                            StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                            sw_create.Close();
 
-                            StreamWriter sw = new StreamWriter(Path.GetTempPath() + @"\raincheck_history.txt", true, Encoding.UTF8);
-                            sw.WriteLine(date_history + label_timeget.Text + " - ERR");
-
-                            sw.Close();
+                            string oldText = File.ReadAllText(path_history);
+                            using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                            {
+                                sw.WriteLine(date_history + label_timeget.Text + " ERR");
+                                sw.WriteLine(oldText);
+                                sw.Close();
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -3024,16 +3077,16 @@ namespace rainCheck
                     {
                         timefor = 0;
                         textchanged_timefor = false;
+                        
+                        string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+
+                        File.Delete(path_history);
+                        File.Delete(path_last_load);
 
                         dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (dr == DialogResult.OK)
                         {
-                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                            string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-
-                            File.Delete(path_history);
-                            File.Delete(path_last_load);
-
                             can_close = false;
                             Application.Restart();
                         }
@@ -3753,7 +3806,7 @@ namespace rainCheck
             Random rnd = new Random();
             int month = rnd.Next(1, 1000);
 
-            label_timefor.Text = month.ToString();
+            label_timefor.Text = "561";
 
             //timerfornext = true;
             //string time = textBox1.Text;
@@ -3864,43 +3917,12 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-
-                    NameValueCollection postData = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type }
-                    };
-
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-                    dataGridView_domain.DataSource = arr;
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //Close();
-            }
-
             //try
             //{
             //    using (var client = new WebClient())
             //    {
             //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main_test";
+            //        string type = "domain_main";
             //        string request = "http://raincheck.ssitex.com/api/api.php";
 
             //        NameValueCollection postData = new NameValueCollection()
@@ -3925,6 +3947,37 @@ namespace rainCheck
 
             //    //Close();
             //}
+
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "domain_main_test";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                    dataGridView_domain.DataSource = arr;
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Close();
+            }
         }
 
         int detectnotloading = 0;
@@ -3961,81 +4014,81 @@ namespace rainCheck
 
             string result = time.Replace(":", ".");
 
-            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
-            {
-                label_timefor.Text = "00:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
-                label_lastload.Text = "22:00";
-            }
-            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
-            {
-                label_timefor.Text = "02:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
-                label_lastload.Text = "00:00";
-            }
-            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
-            {
-                label_timefor.Text = "04:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
-                label_lastload.Text = "02:00";
-            }
-            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
-            {
-                label_timefor.Text = "06:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
-                label_lastload.Text = "04:00";
-            }
-            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
-            {
-                label_timefor.Text = "08:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
-                label_lastload.Text = "06:00";
-            }
-            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
-            {
-                label_timefor.Text = "10:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
-                label_lastload.Text = "08:00";
-            }
-            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
-            {
-                label_timefor.Text = "12:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
-                label_lastload.Text = "10:00";
-            }
-            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
-            {
-                label_timefor.Text = "14:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
-                label_lastload.Text = "12:00";
-            }
-            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
-            {
-                label_timefor.Text = "16:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
-                label_lastload.Text = "14:00";
-            }
-            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
-            {
-                label_timefor.Text = "18:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
-                label_lastload.Text = "16:00";
-            }
-            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
-            {
-                label_timefor.Text = "20:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
-                label_lastload.Text = "18:00";
-            }
-            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
-            {
-                label_timefor.Text = "22:00";
-                DateTime date_parse = DateTime.Now.AddDays(1);
-                string date = date_parse.ToString("dd/MM/yyyy");
+            //if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            //{
+            //    label_timefor.Text = "00:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
+            //    label_lastload.Text = "22:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            //{
+            //    label_timefor.Text = "02:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
+            //    label_lastload.Text = "00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            //{
+            //    label_timefor.Text = "04:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
+            //    label_lastload.Text = "02:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            //{
+            //    label_timefor.Text = "06:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
+            //    label_lastload.Text = "04:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            //{
+            //    label_timefor.Text = "08:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
+            //    label_lastload.Text = "06:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            //{
+            //    label_timefor.Text = "10:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
+            //    label_lastload.Text = "08:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            //{
+            //    label_timefor.Text = "12:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
+            //    label_lastload.Text = "10:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            //{
+            //    label_timefor.Text = "14:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
+            //    label_lastload.Text = "12:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            //{
+            //    label_timefor.Text = "16:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
+            //    label_lastload.Text = "14:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            //{
+            //    label_timefor.Text = "18:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
+            //    label_lastload.Text = "16:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            //{
+            //    label_timefor.Text = "20:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
+            //    label_lastload.Text = "18:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            //{
+            //    label_timefor.Text = "22:00";
+            //    DateTime date_parse = DateTime.Now.AddDays(1);
+            //    string date = date_parse.ToString("dd/MM/yyyy");
 
-                label_cyclein_get.Text = date + " 00:00:00";
-                label_lastload.Text = "20:00";
-            }
+            //    label_cyclein_get.Text = date + " 00:00:00";
+            //    label_lastload.Text = "20:00";
+            //}
         }
 
         string start_get = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");

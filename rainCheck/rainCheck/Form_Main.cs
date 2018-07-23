@@ -26,7 +26,7 @@ namespace rainCheck
 {
     public partial class Form_Main : Form
     {
-        MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
+        //MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=ssimecgp_ssiit;password=p0w3r@SSI;Database=ssimecgp_raincheck;persistsecurityinfo=True;SslMode=none;port=3306");
 
 
@@ -312,8 +312,8 @@ namespace rainCheck
 
                     new ToolTip().SetToolTip(label_help, "Click Domain button to Import New Set of Domain(s)");
 
-                    dataGridView_urgent.Columns["brand_id"].Visible = false;
-                    dataGridView_urgent.Columns["text_search"].Visible = false;
+                    //dataGridView_urgent.Columns["brand_id"].Visible = false;
+                    //dataGridView_urgent.Columns["text_search"].Visible = false;
 
                 }
             }
@@ -1459,7 +1459,7 @@ namespace rainCheck
                             // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                             {
-                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
+                                if (label_webtype_urgent.Text == "Landing Page" || label_webtype_urgent.Text == "Landing page")
                                 {
                                     var html = "";
                                     try
@@ -2178,6 +2178,12 @@ namespace rainCheck
                 }
             }
 
+            
+            
+
+
+
+
 
 
 
@@ -2230,69 +2236,832 @@ namespace rainCheck
                 if (e.IsLoading)
                 {
                     // Date preview
+                    //start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+
+                    //Invoke(new Action(() =>
+                    //{
+                    //    timer_timeout_urgent.Start();
+                    //    pictureBox_loader_urgent.Visible = true;
+                    //    label_ifloadornot_urgent.Text = "0";
+                    //}));
+
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Stop();
+
+                    Invoke(new Action(() =>
+                    {
+                        panel_browser.Controls.Add(chromeBrowser);
+                        start_detect++;
+                        label_start_detect.Text = start_detect.ToString();
+                    }));
+
+                    //MessageBox.Show("loading asdasdasdasdsa1 " + label_domainhide.Text);
+
+                    // Date preview
                     start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                    start_load_inaccessible = DateTime.Now;
 
                     Invoke(new Action(() =>
                     {
                         timer_timeout_urgent.Start();
-                        pictureBox_loader_urgent.Visible = true;
-                        label_ifloadornot_urgent.Text = "0";
+                        pictureBox_loader.Visible = true;
+                        label_ifloadornot_urgent.Text = "1";
+                        ms_detect++;
+                        label_loadeddetect.Text = ms_detect.ToString();
+
+                        // else loaded
+                        elseloaded_i = 0;
+                        timer_elseloaded.Stop();
                     }));
+
+                    if (ms_detect == 1)
+                    {
+                        int webBrowser_i = 0;
+                        while (webBrowser_i <= 2)
+                        {
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+                            webBrowser_i++;
+                        }
+                    }
+                    else
+                    {
+                        int webBrowser_i = 0;
+                        while (webBrowser_i <= 2)
+                        {
+                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            webBrowser_new.Navigate(label_domainhide.Text);
+                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+                            webBrowser_i++;
+                        }
+                    }
                 }
                 // --Loaded--
                 if (!e.IsLoading)
                 {
-                    string strValue = label_text_search_urgent.Text;
-                    string[] strArray = strValue.Split(',');
-
-                    foreach (string obj in strArray)
-                    {
-                        bool contains = label_domaintitle_urgent.Text.Contains(obj);
-
-                        if (contains == true)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                label_hijacked.Text = "";
-                            }));
-
-                            break;
-                        } else if (!contains)
-                        {
-                            //MessageBox.Show(label_text_search_urgent.Text + " asdasdasd " + label_domaintitle_urgent.Text + "\nnot safe " + label_domainhide_urgent.Text + "\n\n" + textBox_domain.Text);
-
-                            Invoke(new Action(() =>
-                            {
-                                label_hijacked.Text = "hijacked";
-                            }));
-                        }
-                    }
+                    // Detect when stop loads
+                    detectnotloading = 0;
+                    timer_detectnotloading.Start();
 
                     // Date preview
+                    end_load_inaccessible = DateTime.Now;
                     end_load = DateTime.Now.ToString("HH:mm:ss.fff");
 
-                    // Send data to text file
-                    if (label_hijacked.Text == "hijacked")
+                    await Task.Run(async () =>
                     {
-                        DataToTextFileHijacked_Urgent();
-                    } else if (label_timeout_urgent.Text == "timeout")
-                    {
-                        DataToTextFileTimeout_Urgent();
-                    }
-                    else
-                    {
-                        DataToTextFileSuccess_Urgent();
-                    }
+                        await Task.Delay(2000);
+                    });
 
                     Invoke(new Action(() =>
                     {
-                        timer_timeout_urgent.Stop();
-                        i_urgent = 1;
-                        pictureBox_loader_urgent.Visible = false;
-                        label_ifloadornot_urgent.Text = "0";
-                        label_timeout_urgent.Text = "";
-                        label_hijacked.Text = "";
+                        fully_loaded++;
+                        label_fully_loaded.Text = fully_loaded.ToString();
+
+                        string webtitle = webBrowser_new.DocumentTitle;
+                        label_webtitle.Text = webtitle;
+                        textBox_webtitle.Text = webtitle;
+                        MessageBox.Show(label_webtitle.Text);
                     }));
+
+                    if (label_fully_loaded.Text == "1")
+                    {
+                        // Inaccessible Status
+                        string result = "";
+                        string search_replace = label_webtitle.Text;
+
+                        string upper_search = search_replace.ToUpper().ToString();
+
+                        StringBuilder sb = new StringBuilder(upper_search);
+                        sb.Replace("-", "");
+                        sb.Replace(".", "");
+                        string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+
+                        var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+
+                        string[] words = final_search.Split(' ');
+                        foreach (string word in words)
+                        {
+                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                            if (match != null)
+                            {
+                                result = "match";
+                                break;
+                            }
+                            else
+                            {
+                                result = "no match";
+                            }
+                        }
+
+                        if (result == "match")
+                        {
+                            // hijacked
+                            if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
+                            {
+                                if (label_webtype_urgent.Text == "Landing Page" || label_webtype_urgent.Text == "Landing page")
+                                {
+                                    var html = "";
+                                    try
+                                    {
+                                        html = new WebClient().DownloadString(textBox_domain.Text);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Empty
+                                    }
+
+                                    if (html.Contains("landing_image"))
+                                    {
+                                        await Task.Run(async () =>
+                                        {
+                                            await Task.Delay(500);
+                                        });
+
+                                        DataToTextFileSuccess_Urgent();
+
+                                        Invoke(new Action(() =>
+                                        {
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Stop();
+
+                                            pictureBox_loader.Visible = false;
+
+                                            label_timeout.Text = "";
+                                            label_hijacked.Text = "";
+                                            label_inaccessible.Text = "";
+                                            label_inaccessible_error_message.Text = "";
+
+                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            {
+                                                fully_loaded = 0;
+                                                start_detect = 0;
+                                                label_ifloadornot_urgent.Text = "0";
+                                            }
+
+                                            panel_new.Visible = false;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        // test one more time
+                                        Invoke(new Action(() =>
+                                        {
+                                            testonemoretime++;
+                                            label_testonemoretime.Text = testonemoretime.ToString();
+                                        }));
+
+                                        if (testonemoretime == 1)
+                                        {
+                                            Invoke(new Action(() =>
+                                            {
+                                                int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+                                                dataGridView_domain.ClearSelection();
+
+                                                //timer_domain.Start();
+
+                                                // For timeout
+                                                i_urgent = 1;
+                                                timer_timeout_urgent.Start();
+
+                                                fully_loaded = 0;
+                                                start_detect = 0;
+
+                                                dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            if (ms_detect == 1)
+                                            {
+                                                if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                                {
+                                                    Invoke(new Action(() =>
+                                                    {
+                                                        panel_new.Visible = true;
+                                                        panel_new.BringToFront();
+                                                    }));
+                                                }
+                                            }
+
+                                            DataToTextFileHijacked();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i_urgent = 1;
+                                                timer_timeout_urgent.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot_urgent.Text = "0";
+                                                }
+
+                                                testonemoretime = 0;
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // test one more time
+                                    Invoke(new Action(() =>
+                                    {
+                                        testonemoretime++;
+                                        label_testonemoretime.Text = testonemoretime.ToString();
+                                    }));
+
+                                    if (testonemoretime == 1)
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+                                            dataGridView_domain.ClearSelection();
+
+                                            //timer_domain.Start();
+
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Start();
+
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+
+                                            dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        if (ms_detect == 1)
+                                        {
+                                            if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                            {
+                                                Invoke(new Action(() =>
+                                                {
+                                                    panel_new.Visible = true;
+                                                    panel_new.BringToFront();
+                                                }));
+                                            }
+                                        }
+
+                                        DataToTextFileHijacked();
+
+                                        Invoke(new Action(() =>
+                                        {
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Stop();
+
+                                            pictureBox_loader.Visible = false;
+
+                                            label_timeout.Text = "";
+                                            label_hijacked.Text = "";
+                                            label_inaccessible.Text = "";
+                                            label_inaccessible_error_message.Text = "";
+
+                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            {
+                                                fully_loaded = 0;
+                                                start_detect = 0;
+                                                label_ifloadornot_urgent.Text = "0";
+                                            }
+
+                                            testonemoretime = 0;
+                                            panel_new.Visible = false;
+                                        }));
+                                    }
+                                }
+                            }
+                            // inaccessible
+                            else
+                            {
+                                // error aborted test one more time
+                                if (label_inaccessible_error_message.Text == "ERR_ABORTED" || label_inaccessible_error_message.Text == "ERR_NETWORK_CHANGED" || label_inaccessible_error_message.Text == "ERR_INTERNET_DISCONNECTED" || label_inaccessible_error_message.Text == "Navigation Canceled" || label_inaccessible_error_message.Text == "导航已取消")
+                                {
+                                    // test one more time
+                                    Invoke(new Action(() =>
+                                    {
+                                        erroraborted_testonemoretime++;
+                                        label_erroraborted.Text = erroraborted_testonemoretime.ToString();
+                                    }));
+
+                                    if (erroraborted_testonemoretime == 1)
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+                                            dataGridView_domain.ClearSelection();
+
+                                            //timer_domain.Start();
+
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Start();
+
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+
+                                            dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+
+                                            label_inaccessible_error_message.Text = "";
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                        {
+                                            Invoke(new Action(() =>
+                                            {
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+                                            }));
+                                        }
+
+                                        if (ms_detect == 1)
+                                        {
+                                            if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                            {
+                                                Invoke(new Action(() =>
+                                                {
+                                                    panel_new.Visible = true;
+                                                    panel_new.BringToFront();
+                                                }));
+                                            }
+                                        }
+
+                                        Invoke(new Action(async () =>
+                                        {
+                                            label_inaccessible.Text = "inaccessible";
+
+                                            TimeSpan span = end_load_inaccessible - start_load_inaccessible;
+                                            int ms = (int)span.TotalMilliseconds;
+
+                                            // for fast load
+                                            if (ms < 500)
+                                            {
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+
+                                                int webBrowser_i = 0;
+                                                while (webBrowser_i <= 2)
+                                                {
+                                                    webBrowser_new.Navigate(label_domainhide.Text);
+                                                    webBrowser_i++;
+                                                }
+
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
+
+                                                string datetime = label11.Text;
+                                                string datetime_folder = label9.Text;
+                                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                                Rectangle bounds = Bounds;
+                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                {
+                                                    using (Graphics g = Graphics.FromImage(bitmap))
+                                                    {
+                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                    }
+
+                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                    resized.Save(path + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                }
+
+                                                DataToTextFileInaccessible();
+
+                                                // For timeout
+                                                i_urgent = 1;
+                                                timer_timeout_urgent.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+                                                erroraborted_testonemoretime = 0;
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot_urgent.Text = "0";
+                                                }
+
+                                                Invoke(new Action(() =>
+                                                {
+                                                    panel_new.Visible = false;
+                                                }));
+                                            }
+                                            else
+                                            {
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
+
+                                                string datetime = label11.Text;
+                                                string datetime_folder = label9.Text;
+                                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                                Rectangle bounds = Bounds;
+                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                {
+                                                    using (Graphics g = Graphics.FromImage(bitmap))
+                                                    {
+                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                    }
+
+                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                    resized.Save(path + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                }
+
+                                                DataToTextFileInaccessible();
+
+                                                // For timeout
+                                                i_urgent = 1;
+                                                timer_timeout_urgent.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+                                                erroraborted_testonemoretime = 0;
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot_urgent.Text = "0";
+                                                }
+
+                                                Invoke(new Action(() =>
+                                                {
+                                                    panel_new.Visible = false;
+                                                }));
+                                            }
+                                        }));
+                                    }
+                                }
+                                else
+                                {
+                                    if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            panel_new.Visible = true;
+                                            panel_new.BringToFront();
+                                        }));
+                                    }
+
+                                    if (ms_detect == 1)
+                                    {
+                                        if (label_webtitle.Text == "Can’t reach this page" || label_webtitle.Text == "This site isn’t secure" || label_webtitle.Text == "无法访问此页面" || label_webtitle.Text == "此站点不安全")
+                                        {
+                                            Invoke(new Action(() =>
+                                            {
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+                                            }));
+                                        }
+                                    }
+
+                                    Invoke(new Action(async () =>
+                                    {
+                                        label_inaccessible.Text = "inaccessible";
+
+                                        TimeSpan span = end_load_inaccessible - start_load_inaccessible;
+                                        int ms = (int)span.TotalMilliseconds;
+
+                                        // for fast load
+                                        if (ms < 500)
+                                        {
+                                            panel_new.Visible = true;
+                                            panel_new.BringToFront();
+
+                                            int webBrowser_i = 0;
+                                            while (webBrowser_i <= 2)
+                                            {
+                                                webBrowser_new.Navigate(label_domainhide.Text);
+                                                webBrowser_i++;
+                                            }
+
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
+
+                                            string datetime = label11.Text;
+                                            string datetime_folder = label9.Text;
+                                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                            DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                            Rectangle bounds = Bounds;
+                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            {
+                                                using (Graphics g = Graphics.FromImage(bitmap))
+                                                {
+                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                }
+
+                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                resized.Save(path + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            }
+
+                                            DataToTextFileInaccessible();
+
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Stop();
+
+                                            pictureBox_loader.Visible = false;
+
+                                            label_timeout.Text = "";
+                                            label_hijacked.Text = "";
+                                            label_inaccessible.Text = "";
+                                            label_inaccessible_error_message.Text = "";
+                                            erroraborted_testonemoretime = 0;
+
+                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            {
+                                                fully_loaded = 0;
+                                                start_detect = 0;
+                                                label_ifloadornot_urgent.Text = "0";
+                                            }
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
+
+                                            string datetime = label11.Text;
+                                            string datetime_folder = label9.Text;
+                                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                            DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                            Rectangle bounds = Bounds;
+                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            {
+                                                using (Graphics g = Graphics.FromImage(bitmap))
+                                                {
+                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                }
+
+                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                resized.Save(path + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            }
+
+                                            DataToTextFileInaccessible();
+
+                                            // For timeout
+                                            i_urgent = 1;
+                                            timer_timeout_urgent.Stop();
+
+                                            pictureBox_loader.Visible = false;
+
+                                            label_timeout.Text = "";
+                                            label_hijacked.Text = "";
+                                            label_inaccessible.Text = "";
+                                            label_inaccessible_error_message.Text = "";
+                                            erroraborted_testonemoretime = 0;
+
+                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            {
+                                                fully_loaded = 0;
+                                                start_detect = 0;
+                                                label_ifloadornot_urgent.Text = "0";
+                                            }
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                    }));
+                                }
+                            }
+                        }
+                        // Hijacked Status
+                        else
+                        {
+                            // inaccessible
+                            if (label_webtitle.Text == label_domainhide.Text)
+                            {
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
+
+                                string datetime = label11.Text;
+                                string datetime_folder = label9.Text;
+                                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+
+                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+                                DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
+
+                                Rectangle bounds = Bounds;
+                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                {
+                                    using (Graphics g = Graphics.FromImage(bitmap))
+                                    {
+                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                    }
+
+                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                    resized.Save(path + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                }
+
+                                DataToTextFileInaccessible();
+
+                                Invoke(new Action(() =>
+                                {
+                                    // For timeout
+                                    i_urgent = 1;
+                                    timer_timeout_urgent.Stop();
+
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot_urgent.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
+                            }
+                            // success
+                            else if (label_webtitle.Text.Contains("Bing"))
+                            {
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
+
+                                DataToTextFileSuccess_Urgent();
+
+                                Invoke(new Action(() =>
+                                {
+                                    // For timeout
+                                    i_urgent = 1;
+                                    timer_timeout_urgent.Stop();
+
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot_urgent.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
+                            }
+                            // hijacked
+                            else
+                            {
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
+
+                                string strValue = label_text_search.Text;
+                                string[] strArray = strValue.Split(',');
+
+                                foreach (string obj in strArray)
+                                {
+                                    bool contains = label_webtitle.Text.Contains(obj);
+
+                                    if (contains == true)
+                                    {
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_hijacked.Text = "";
+                                        }));
+
+                                        break;
+                                    }
+                                    else if (!contains)
+                                    {
+                                        //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
+
+                                        Invoke(new Action(() =>
+                                        {
+                                            label_hijacked.Text = "hijacked";
+                                        }));
+                                    }
+                                }
+
+                                // Send data to text file
+                                if (label_hijacked.Text == "hijacked")
+                                {
+                                    DataToTextFileHijacked();
+                                }
+                                // Timeout Status
+                                else if (label_timeout.Text == "timeout")
+                                {
+                                    DataToTextFileTimeout();
+                                }
+                                // Successful Status
+                                else
+                                {
+                                    DataToTextFileSuccess_Urgent();
+                                }
+
+                                Invoke(new Action(() =>
+                                {
+                                    // For timeout
+                                    i_urgent = 1;
+                                    timer_timeout_urgent.Stop();
+
+                                    pictureBox_loader.Visible = false;
+
+                                    label_timeout.Text = "";
+                                    label_hijacked.Text = "";
+                                    label_inaccessible.Text = "";
+                                    label_inaccessible_error_message.Text = "";
+
+                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    {
+                                        fully_loaded = 0;
+                                        start_detect = 0;
+                                        label_ifloadornot_urgent.Text = "0";
+                                    }
+
+                                    panel_new.Visible = false;
+                                }));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            timer_elseloaded.Start();
+                        }));
+                    }
                 }
             }
         }
@@ -2830,6 +3599,21 @@ namespace rainCheck
                     StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
+                    // Header
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+
+                        swww.Close();
+                    }
+
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
                     {
@@ -2837,9 +3621,9 @@ namespace rainCheck
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + "," + "," + "," + ",0" + "," + isp_get + "," + city_get + "," + datetime + ",");
+                        StreamWriter swww = new StreamWriter(path + @"\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
                         swww.Close();
                     }
@@ -2852,6 +3636,21 @@ namespace rainCheck
                     StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
+                    // Header
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    {
+                        // Leave for blank
+                    }
+                    else
+                    {
+                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+
+                        swww.Close();
+                    }
+
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
                     {
@@ -2859,9 +3658,9 @@ namespace rainCheck
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + "," + "," + "," + ",0" + "," + isp_get + "," + city_get + "," + datetime + ",");
+                        StreamWriter swww = new StreamWriter(path + @"\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
                         swww.Close();
                     }
@@ -3927,19 +4726,31 @@ namespace rainCheck
             //Bitmap bitmap = new Bitmap(Width, Height);
             //DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
             //bitmap.Save("C:\\Users\\adulay\\Desktop\\testdomain.png", ImageFormat.Png);
-            
-            Rectangle bounds = Bounds;
-            using (Bitmap bitmap = new Bitmap(bounds.Width-267, bounds.Height-202))
-            {
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CopyFromScreen(new Point(bounds.Left+226, bounds.Top+159), Point.Empty, bounds.Size);
-                }
 
-                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                resized.Save(path_desktop + "\\" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-            }
+            //Rectangle bounds = Bounds;
+            //using (Bitmap bitmap = new Bitmap(bounds.Width-267, bounds.Height-202))
+            //{
+            //    using (Graphics g = Graphics.FromImage(bitmap))
+            //    {
+            //        g.CopyFromScreen(new Point(bounds.Left+226, bounds.Top+159), Point.Empty, bounds.Size);
+            //    }
+
+            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //    resized.Save(path_desktop + "\\" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+            //}
+
+            string path_last_load = Path.GetTempPath();
+            textBox_webtitle.Text = path_last_load;
+
+            //if (panel_main.Visible == true)
+            //{
+            //    MessageBox.Show("main visible");
+            //}
+            //else if (panel_urgent.Visible == true)
+            //{
+            //    MessageBox.Show("urgent visible");
+            //}
 
             //MessageBox.Show("ok!");
         }
@@ -4016,56 +4827,102 @@ namespace rainCheck
                         StreamReader streamReader = new StreamReader(ofd.FileName);
                         string domain_urgent = "";
                         for (domain_urgent = streamReader.ReadLine(); domain_urgent != null; domain_urgent = streamReader.ReadLine())
-                        {
-                            using (con)
+                        {   
+                            using (var client = new WebClient())
                             {
-                                try
+                                string auth = "r@inCh3ckd234b70";
+                                string type = "brand";
+                                string request = "http://raincheck.ssitex.com/api/api.php";
+                                string domain = domain_urgent;
+
+                                NameValueCollection postData = new NameValueCollection()
                                 {
-                                    con.Open();
-                                    MySqlCommand command = new MySqlCommand("SELECT d.brand_name as 'brand_name', b.text_search as 'text_search' from domains_test d RIGHT JOIN brands b ON d.brand_name = b.id WHERE d.domain_name = '" + domain_urgent + "'", con);
-                                    command.CommandType = CommandType.Text;
-                                    MySqlDataReader reader = command.ExecuteReader();
+                                    { "auth", auth },
+                                    { "type", type },
+                                    { "domain", domain }
+                                };
 
-                                    if (reader.HasRows)
-                                    {
-                                        while (reader.Read())
-                                        {
-                                            label_brand_id.Text = reader["brand_name"].ToString();
-                                            label_text_search_urgent.Text = reader["text_search"].ToString();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        label_brand_id.Text = "";
+                                string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                                        Form_Brand form_brand = new Form_Brand(domain_urgent);
-                                        form_brand.ShowDialog();
-
-                                        label_brand_id.Text = SetValueForTextBrandID;
-                                        label_text_search_urgent.Text = SetValueForTextSearch;
-                                    }
-
-                                    con.Close();
-                                }
-                                catch (Exception ex)
+                                if (pagesource != "")
                                 {
-                                    con.Close();
+                                    JArray jsonObject = JArray.Parse(pagesource);
 
-                                    var st = new StackTrace(ex, true);
-                                    var frame = st.GetFrame(0);
-                                    var line = frame.GetFileLineNumber();
-                                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1017", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    string brand_name = jsonObject[0]["brand_name"].Value<string>();
+                                    string text_search = jsonObject[0]["text_search"].Value<string>();
+                                    string website_type = jsonObject[0]["website_type"].Value<string>();
 
-                                    Close();
+                                    label_brand_id.Text = brand_name;
+                                    label_text_search_urgent.Text = text_search;
+                                    label_webtype.Text = website_type;
+
+                                    //MessageBox.Show(brand_name + " " + text_search);
                                 }
-                                finally
+                                else
                                 {
-                                    con.Close();
+                                    label_brand_id.Text = "";
+
+                                    Form_Brand form_brand = new Form_Brand(domain_urgent);
+                                    form_brand.ShowDialog();
+
+                                    label_brand_id.Text = SetValueForTextBrandID;
+                                    label_text_search_urgent.Text = SetValueForTextSearch;
+                                    label_webtype.Text = SetValueForWebsiteType;
                                 }
-                            }
+                            }                            
 
                             dataGridView_urgent.ClearSelection();
-                            dataGridView_urgent.Rows.Add(domain_urgent, label_brand_id.Text, label_text_search_urgent.Text);
+                            dataGridView_urgent.Rows.Add(domain_urgent, label_brand_id.Text, label_text_search_urgent.Text, label_webtype.Text);
+
+
+
+
+                            //using (con)
+                            //{
+                            //    try
+                            //    {
+                            //        con.Open();
+                            //        MySqlCommand command = new MySqlCommand("SELECT d.brand_name as 'brand_name', b.text_search as 'text_search' from domains_test d RIGHT JOIN brands b ON d.brand_name = b.id WHERE d.domain_name = '" + domain_urgent + "'", con);
+                            //        command.CommandType = CommandType.Text;
+                            //        MySqlDataReader reader = command.ExecuteReader();
+
+                            //        if (reader.HasRows)
+                            //        {
+                            //            while (reader.Read())
+                            //            {
+                            //                label_brand_id.Text = reader["brand_name"].ToString();
+                            //                label_text_search_urgent.Text = reader["text_search"].ToString();
+                            //            }
+                            //        }
+                            //        else
+                            //        {
+                            //            label_brand_id.Text = "";
+
+                            //            Form_Brand form_brand = new Form_Brand(domain_urgent);
+                            //            form_brand.ShowDialog();
+
+                            //            label_brand_id.Text = SetValueForTextBrandID;
+                            //            label_text_search_urgent.Text = SetValueForTextSearch;
+                            //        }
+
+                            //        con.Close();
+                            //    }
+                            //    catch (Exception ex)
+                            //    {
+                            //        con.Close();
+
+                            //        var st = new StackTrace(ex, true);
+                            //        var frame = st.GetFrame(0);
+                            //        var line = frame.GetFileLineNumber();
+                            //        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nLine Number: " + line + "\nError Message: " + ex.Message + "\nError Code: rc1017", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            //        Close();
+                            //    }
+                            //    finally
+                            //    {
+                            //        con.Close();
+                            //    }
+                            //}
                         }
 
                         button_start_urgent.Enabled = true;
@@ -4202,6 +5059,7 @@ namespace rainCheck
                     string domain = row.Cells[0].Value.ToString();
                     string brand;
                     string text_search;
+                    string webtype;
 
                     if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[1].Value as String))
                     {
@@ -4219,6 +5077,15 @@ namespace rainCheck
                     else
                     {
                         text_search = row.Cells[2].Value.ToString();
+                    }
+
+                    if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[3].Value as String))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        webtype = row.Cells[3].Value.ToString();
                     }
 
 
@@ -4244,6 +5111,7 @@ namespace rainCheck
                         label_domainhide_urgent.Text = domain;
                         label_brandhide_urgent.Text = brand;
                         label_text_search_urgent.Text = text_search;
+                        label_webtype_urgent.Text = webtype;
                         //label4.Text = currentIndex.ToString();
                     }));
                 }
@@ -4302,63 +5170,63 @@ namespace rainCheck
 
                     string line;
 
-                    using (con)
-                    {
-                        try
-                        {
-                            con.Open();
-                            string datetime_folder = label9.Text;
-                            string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    //using (con)
+                    //{
+                    //    try
+                    //    {
+                    //        con.Open();
+                    //        string datetime_folder = label9.Text;
+                    //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                            string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    //        string path = path_desktop + "\\rainCheck\\" + datetime_folder;
 
-                            StreamReader sr = new StreamReader(path + @"\urgent_" + i_timeout + ".txt", System.Text.Encoding.UTF8);
-                            while ((line = sr.ReadLine()) != null)
-                            {
-                                string[] fields = line.Split(',');
+                    //        StreamReader sr = new StreamReader(path + @"\urgent_" + i_timeout + ".txt", System.Text.Encoding.UTF8);
+                    //        while ((line = sr.ReadLine()) != null)
+                    //        {
+                    //            string[] fields = line.Split(',');
 
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `remarks`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`, `type`) VALUES " +
-                                    "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @remarks, @printscreen, @isp, @city, @datetime_created, @action_by, @type", con);
-                                cmd.Parameters.AddWithValue("@id", fields[0].ToString());
-                                cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
-                                cmd.Parameters.AddWithValue("@status", fields[2].ToString());
-                                cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
-                                cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
-                                cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
-                                cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
-                                cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
-                                cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
-                                cmd.Parameters.AddWithValue("@remarks", fields[9].ToString());
-                                cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
-                                cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
-                                cmd.Parameters.AddWithValue("@city", fields[12].ToString());
-                                cmd.Parameters.AddWithValue("@datetime_created", fields[13].ToString());
-                                cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
-                                cmd.Parameters.AddWithValue("@type", fields[15].ToString());
-                                cmd.ExecuteNonQuery();
-                            }
+                    //            MySqlCommand cmd = new MySqlCommand("INSERT INTO `reports`(`id`, `domain_name`, `status`, `brand`, `start_load`, `end_load`, `text_search`, `url_hijacker`, `hijacker`, `remarks`, `printscreen`, `isp`, `city`, `datetime_created`, `action_by`, `type`) VALUES " +
+                    //                "(@id, @domain_name, @status, @brand, @start_load, @end_load, @text_search, @url_hijacker, @hijacker, @remarks, @printscreen, @isp, @city, @datetime_created, @action_by, @type", con);
+                    //            cmd.Parameters.AddWithValue("@id", fields[0].ToString());
+                    //            cmd.Parameters.AddWithValue("@domain_name", fields[1].ToString());
+                    //            cmd.Parameters.AddWithValue("@status", fields[2].ToString());
+                    //            cmd.Parameters.AddWithValue("@brand", fields[3].ToString());
+                    //            cmd.Parameters.AddWithValue("@start_load", fields[4].ToString());
+                    //            cmd.Parameters.AddWithValue("@end_load", fields[5].ToString());
+                    //            cmd.Parameters.AddWithValue("@text_search", fields[6].ToString());
+                    //            cmd.Parameters.AddWithValue("@url_hijacker", fields[7].ToString());
+                    //            cmd.Parameters.AddWithValue("@hijacker", fields[8].ToString());
+                    //            cmd.Parameters.AddWithValue("@remarks", fields[9].ToString());
+                    //            cmd.Parameters.AddWithValue("@printscreen", fields[10].ToString());
+                    //            cmd.Parameters.AddWithValue("@isp", fields[11].ToString());
+                    //            cmd.Parameters.AddWithValue("@city", fields[12].ToString());
+                    //            cmd.Parameters.AddWithValue("@datetime_created", fields[13].ToString());
+                    //            cmd.Parameters.AddWithValue("@action_by", fields[14].ToString());
+                    //            cmd.Parameters.AddWithValue("@type", fields[15].ToString());
+                    //            cmd.ExecuteNonQuery();
+                    //        }
 
-                            sr.Close();
+                    //        sr.Close();
 
-                            panel_loader.Visible = true;
-                            panel_loader.BringToFront();
-                            timer_loader.Start();
+                    //        panel_loader.Visible = true;
+                    //        panel_loader.BringToFront();
+                    //        timer_loader.Start();
 
-                            label_currentindex_urgent.Text = "0";
+                    //        label_currentindex_urgent.Text = "0";
 
-                            //label9.Text = "";
-                            //label11.Text = "";
-                        }
-                        catch (Exception ex)
-                        {
-                            var st = new StackTrace(ex, true);
-                            var frame = st.GetFrame(0);
-                            var line_new = frame.GetFileLineNumber();
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1020", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        //label9.Text = "";
+                    //        //label11.Text = "";
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        var st = new StackTrace(ex, true);
+                    //        var frame = st.GetFrame(0);
+                    //        var line_new = frame.GetFileLineNumber();
+                    //        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1020", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                            //Close();
-                        }
-                    }
+                    //        //Close();
+                    //    }
+                    //}
 
                     // Timer Urgent
                     domain_urgent = 0;
@@ -4423,7 +5291,15 @@ namespace rainCheck
                 {
                     fully_loaded = 0;
                     start_detect = 0;
-                    label_ifloadornot.Text = "0";
+
+                    if (panel_main.Visible == true)
+                    {
+                        label_ifloadornot.Text = "0";
+                    }
+                    else if (panel_urgent.Visible == true)
+                    {
+                        label_ifloadornot_urgent.Text = "0";
+                    }
                 }
             }));
         }
@@ -4697,72 +5573,84 @@ namespace rainCheck
             if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
             {
                 label_timefor.Text = "00:00";
+                label_timefor_urgent.Text = "00:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
                 label_lastload.Text = "22:00";
             }
             else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
             {
                 label_timefor.Text = "02:00";
+                label_timefor_urgent.Text = "02:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
                 label_lastload.Text = "00:00";
             }
             else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
             {
                 label_timefor.Text = "04:00";
+                label_timefor_urgent.Text = "04:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
                 label_lastload.Text = "02:00";
             }
             else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
             {
                 label_timefor.Text = "06:00";
+                label_timefor_urgent.Text = "06:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
                 label_lastload.Text = "04:00";
             }
             else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
             {
                 label_timefor.Text = "08:00";
+                label_timefor_urgent.Text = "08:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
                 label_lastload.Text = "06:00";
             }
             else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
             {
                 label_timefor.Text = "10:00";
+                label_timefor_urgent.Text = "10:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
                 label_lastload.Text = "08:00";
             }
             else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
             {
                 label_timefor.Text = "12:00";
+                label_timefor_urgent.Text = "12:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
                 label_lastload.Text = "10:00";
             }
             else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
             {
                 label_timefor.Text = "14:00";
+                label_timefor_urgent.Text = "14:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
                 label_lastload.Text = "12:00";
             }
             else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
             {
                 label_timefor.Text = "16:00";
+                label_timefor_urgent.Text = "16:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
                 label_lastload.Text = "14:00";
             }
             else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
             {
                 label_timefor.Text = "18:00";
+                label_timefor_urgent.Text = "18:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
                 label_lastload.Text = "16:00";
             }
             else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
             {
                 label_timefor.Text = "20:00";
+                label_timefor_urgent.Text = "20:00";
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
                 label_lastload.Text = "18:00";
             }
             else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
             {
                 label_timefor.Text = "22:00";
+                label_timefor_urgent.Text = "22:00";
                 DateTime date_parse = DateTime.Now.AddDays(1);
                 string date = date_parse.ToString("dd/MM/yyyy");
 
@@ -4814,14 +5702,17 @@ namespace rainCheck
             if (timeRemaining.Hours != 0 && timeRemaining.Minutes != 0)
             {
                 label_cycle_in.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + mins_view;
+                label_cyclein_urgent.Text = timeRemaining.Hours + " hr " + timeRemaining.Minutes + mins_view;
             }
             else if (timeRemaining.Hours == 0 && timeRemaining.Minutes == 0)
             {
                 label_cycle_in.Text = timeRemaining.Seconds + secs_view;
+                label_cyclein_urgent.Text = timeRemaining.Seconds + secs_view;
             }
             else if (timeRemaining.Hours == 0)
             {
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
+                label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             }
         }
 

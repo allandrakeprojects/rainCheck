@@ -35,24 +35,6 @@ namespace rainCheck
             linkLabel_question.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public class RootObject
         {
             public string brand_name { get; set; }

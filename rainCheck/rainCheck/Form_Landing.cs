@@ -441,7 +441,7 @@ namespace rainCheck
                 timer_apichanges.Enabled = false;
                 timer_gotomain.Stop();
                 //city, country, isp
-                Form_Main form_main = new Form_Main();
+                Form_Main form_main = new Form_Main(city, country, isp);
 
                 Hide();
                 form_main.ShowDialog();

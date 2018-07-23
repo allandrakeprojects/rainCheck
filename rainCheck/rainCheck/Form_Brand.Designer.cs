@@ -36,6 +36,8 @@
             this.label_brand_id = new System.Windows.Forms.Label();
             this.label_text_search = new System.Windows.Forms.Label();
             this.linkLabel_question = new System.Windows.Forms.LinkLabel();
+            this.comboBox_websitetype = new System.Windows.Forms.ComboBox();
+            this.label_websitetype = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBox_brand
@@ -76,7 +78,7 @@
             this.button_start_urgent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_start_urgent.ForeColor = System.Drawing.Color.White;
             this.button_start_urgent.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_start_urgent.Location = new System.Drawing.Point(280, 62);
+            this.button_start_urgent.Location = new System.Drawing.Point(470, 62);
             this.button_start_urgent.Name = "button_start_urgent";
             this.button_start_urgent.Padding = new System.Windows.Forms.Padding(13, 0, 12, 0);
             this.button_start_urgent.Size = new System.Drawing.Size(90, 28);
@@ -93,6 +95,7 @@
             this.label_brand_id.Size = new System.Drawing.Size(49, 13);
             this.label_brand_id.TabIndex = 66;
             this.label_brand_id.Text = "Brand ID";
+            this.label_brand_id.Visible = false;
             // 
             // label_text_search
             // 
@@ -102,6 +105,7 @@
             this.label_text_search.Size = new System.Drawing.Size(65, 13);
             this.label_text_search.TabIndex = 67;
             this.label_text_search.Text = "Text Search";
+            this.label_text_search.Visible = false;
             // 
             // linkLabel_question
             // 
@@ -112,18 +116,41 @@
             this.linkLabel_question.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
             this.linkLabel_question.Location = new System.Drawing.Point(87, 37);
             this.linkLabel_question.Name = "linkLabel_question";
-            this.linkLabel_question.Size = new System.Drawing.Size(288, 16);
+            this.linkLabel_question.Size = new System.Drawing.Size(409, 16);
             this.linkLabel_question.TabIndex = 69;
             this.linkLabel_question.TabStop = true;
-            this.linkLabel_question.Text = "Select brand for em.yb1223.com domain:";
+            this.linkLabel_question.Text = "Select brand and website type for em.yb1223.com domain:";
+            // 
+            // comboBox_websitetype
+            // 
+            this.comboBox_websitetype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_websitetype.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_websitetype.FormattingEnabled = true;
+            this.comboBox_websitetype.Location = new System.Drawing.Point(280, 63);
+            this.comboBox_websitetype.Name = "comboBox_websitetype";
+            this.comboBox_websitetype.Size = new System.Drawing.Size(184, 26);
+            this.comboBox_websitetype.TabIndex = 70;
+            this.comboBox_websitetype.SelectedIndexChanged += new System.EventHandler(this.comboBox_websitetype_SelectedIndexChanged);
+            // 
+            // label_websitetype
+            // 
+            this.label_websitetype.AutoSize = true;
+            this.label_websitetype.Location = new System.Drawing.Point(364, 12);
+            this.label_websitetype.Name = "label_websitetype";
+            this.label_websitetype.Size = new System.Drawing.Size(35, 13);
+            this.label_websitetype.TabIndex = 71;
+            this.label_websitetype.Text = "label2";
+            this.label_websitetype.Visible = false;
             // 
             // Form_Brand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(398, 149);
+            this.ClientSize = new System.Drawing.Size(591, 126);
             this.ControlBox = false;
+            this.Controls.Add(this.label_websitetype);
+            this.Controls.Add(this.comboBox_websitetype);
             this.Controls.Add(this.linkLabel_question);
             this.Controls.Add(this.label_text_search);
             this.Controls.Add(this.label_brand_id);
@@ -155,5 +182,7 @@
         private System.Windows.Forms.Label label_brand_id;
         private System.Windows.Forms.Label label_text_search;
         private System.Windows.Forms.LinkLabel linkLabel_question;
+        private System.Windows.Forms.ComboBox comboBox_websitetype;
+        private System.Windows.Forms.Label label_websitetype;
     }
 }

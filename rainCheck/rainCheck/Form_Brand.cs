@@ -24,10 +24,10 @@ namespace rainCheck
             InitializeComponent();
 
             int text_length = domain_urgent.Length;
-            linkLabel_question.Text = "Select brand for " + domain_urgent + " domain:";
+            linkLabel_question.Text = "Select brand and website type for " + domain_urgent + " domain:";
 
             linkLabel_question.Links.Clear();
-            linkLabel_question.Links.Add(17, text_length).Enabled = false;
+            linkLabel_question.Links.Add(34, text_length).Enabled = false;
 
             string hex = "#438eb9";
             Color color = ColorTranslator.FromHtml(hex);
@@ -56,6 +56,11 @@ namespace rainCheck
         public class RootObject
         {
             public string brand_name { get; set; }
+        }
+
+        public class RootObjectWebsiteType
+        {
+            public string category_name { get; set; }
         }
 
         private void Form_Brand_Load(object sender, System.EventArgs e)
@@ -90,12 +95,44 @@ namespace rainCheck
             {
                 MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "websitetype_get";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                    var x = JsonConvert.DeserializeObject<List<RootObjectWebsiteType>>(pagesource);
+
+                    foreach (var websitetype in x)
+                    {
+                        comboBox_websitetype.Items.Add(websitetype.category_name);
+                    }
+
+                    comboBox_websitetype.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is a problem with the server! Please contact IT support. " + ex.Message, "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
         {
             Form_Main.SetValueForTextBrandID = label_brand_id.Text;
             Form_Main.SetValueForTextSearch = label_text_search.Text;
+            Form_Main.SetValueForWebsiteType = label_websitetype.Text;
             Close();
         }
 
@@ -135,6 +172,12 @@ namespace rainCheck
             {
                 MessageBox.Show("There is a problem with the server! Please contact IT support.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void comboBox_websitetype_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label_websitetype .Text = comboBox_websitetype.Text;
+
         }
     }
 }

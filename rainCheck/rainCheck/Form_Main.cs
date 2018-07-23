@@ -609,23 +609,6 @@ namespace rainCheck
                         fully_loaded++;
                         label_fully_loaded.Text = fully_loaded.ToString();
 
-                        // get website title
-                        //HtmlDocument doc = webBrowser_new.Document;
-                        //HtmlElementCollection elems = doc.GetElementsByTagName("TITLE");
-                        //String title = String.Empty;
-                        //if (elems.Count > 0)
-                        //{
-                        //    HtmlElement elem = elems[0];
-                        //    title = elem.InnerText;
-                        //    MessageBox.Show(title);
-                        //}
-
-                        //WebClient x = new WebClient();
-                        //string source = x.DownloadString("dsadsadsadsasa.com");
-
-                        //string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                        //MessageBox.Show(title);
-
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle.Text = webtitle;
                         textBox_webtitle.Text = webtitle;

@@ -49,7 +49,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main(string city, string country, string isp)
+        public Form_Main()
         {
             InitializeComponent();
 
@@ -58,10 +58,10 @@ namespace rainCheck
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             //string city, string country, string isp
-            Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            city_get = city;
-            isp_get = isp;
+            //city_get = city;
+            //isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -150,15 +150,21 @@ namespace rainCheck
             {
                 using (StreamReader sr = File.OpenText(path_history))
                 {
+                    int count = 0;
                     string s = String.Empty;
                     while ((s = sr.ReadLine()) != null)
                     {
-                        if (s != "")
-                        {
-                            dataGridView_history.Rows.Add(s);
-                        }
+                        count++;
 
-                        dataGridView_history.ClearSelection();
+                        if (count <= 12)
+                        {
+                            if (s != "")
+                            {
+                                dataGridView_history.Rows.Add(s);
+                            }
+
+                            dataGridView_history.ClearSelection();
+                        }
                     }
                 }
             }
@@ -4175,6 +4181,7 @@ namespace rainCheck
                 {
                     dataGridView_domain.ClearSelection();
                     index = domain_total;
+                    chromeBrowser.Stop();
                 }
                 else
                 {
@@ -4283,6 +4290,12 @@ namespace rainCheck
                         }
 
                         string date_history = DateTime.Now.ToString("dd MMM ");
+
+                        if (dataGridView_history.RowCount == 12)
+                        {
+                            dataGridView_history.Rows.RemoveAt(12 - 1);
+                        }
+
                         dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                         dataGridView_history.ClearSelection();
@@ -4728,6 +4741,12 @@ namespace rainCheck
                         }
 
                         string date_history = DateTime.Now.ToString("dd MMM ");
+                        
+                        if (dataGridView_history.RowCount == 12)
+                        {
+                            dataGridView_history.Rows.RemoveAt(12 - 1);
+                        }
+
                         dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
 
                         dataGridView_history.ClearSelection();
@@ -4777,6 +4796,12 @@ namespace rainCheck
                         }
 
                         string date_history = DateTime.Now.ToString("dd MMM ");
+
+                        if (dataGridView_history.RowCount == 12)
+                        {
+                            dataGridView_history.Rows.RemoveAt(12 - 1);
+                        }
+
                         dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                         dataGridView_history.ClearSelection();
@@ -4883,6 +4908,12 @@ namespace rainCheck
                     }
 
                     string date_history = DateTime.Now.ToString("dd MMM ");
+
+                    if (dataGridView_history.RowCount == 12)
+                    {
+                        dataGridView_history.Rows.RemoveAt(12 - 1);
+                    }
+
                     dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
 
                     dataGridView_history.ClearSelection();
@@ -4932,6 +4963,12 @@ namespace rainCheck
                     }
 
                     string date_history = DateTime.Now.ToString("dd MMM ");
+
+                    if (dataGridView_history.RowCount == 12)
+                    {
+                        dataGridView_history.Rows.RemoveAt(12 - 1);
+                    }
+
                     dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
 
                     dataGridView_history.ClearSelection();
@@ -5716,43 +5753,12 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-
-                    NameValueCollection postData = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type }
-                    };
-
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-                    dataGridView_domain.DataSource = arr;
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //Close();
-            }
-
             //try
             //{
             //    using (var client = new WebClient())
             //    {
             //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main_test";
+            //        string type = "domain_main";
             //        string request = "http://raincheck.ssitex.com/api/api.php";
 
             //        NameValueCollection postData = new NameValueCollection()
@@ -5762,6 +5768,7 @@ namespace rainCheck
             //        };
 
             //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
             //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
 
             //        dataGridView_domain.DataSource = arr;
@@ -5774,8 +5781,38 @@ namespace rainCheck
             //    var line = frame.GetFileLineNumber();
             //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //    Close();
+            //    //Close();
             //}
+
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "domain_main_test";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                    dataGridView_domain.DataSource = arr;
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
+            }
         }
 
         int detectnotloading = 0;

@@ -6234,6 +6234,9 @@ namespace rainCheck
                     }
                     else
                     {
+                        TopMost = true;
+                        MinimizeBox = false;
+
                         label_timeget.Text = label_timefor.Text;
                         button_start.Enabled = true;
                         button_start.PerformClick();
@@ -6263,6 +6266,9 @@ namespace rainCheck
                 {
                     if (auto_start)
                     {
+                        TopMost = true;
+                        MinimizeBox = false;
+
                         timerfornext = true;
                         label_ifloadornot.Text = "0";
 
@@ -6279,6 +6285,9 @@ namespace rainCheck
                 }
                 else
                 {
+                    TopMost = true;
+                    MinimizeBox = false;
+
                     button_start.Enabled = true;
                     button_start.PerformClick();
                     button_start.Enabled = false;

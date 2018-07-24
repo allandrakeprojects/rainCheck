@@ -4580,7 +4580,8 @@ namespace rainCheck
                 if (label_currentindex.Text == "0")
                 {
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    string path = path_desktop + "\\rainCheck\\" + label9.Text;
+                    string replace = label_timefor.Text.Replace(":", "");
+                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
 
                     if (Directory.Exists(path))
                     {

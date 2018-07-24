@@ -302,7 +302,38 @@ namespace rainCheck
 
             // Getting mac id
             label_macid.Text = GetMACAddress().ToLower();
-                        
+            
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "running";
+                    string mac_id = GetMACAddress();
+                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "run_time", run_time }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Close();
+            }
+
             // URGENT PANEL
             try
             {
@@ -2638,9 +2669,9 @@ namespace rainCheck
                                                 string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
 
-                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2693,9 +2724,9 @@ namespace rainCheck
                                                 string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
 
-                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2792,9 +2823,9 @@ namespace rainCheck
                                             string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
 
-                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2847,9 +2878,9 @@ namespace rainCheck
                                             string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
 
-                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2910,9 +2941,9 @@ namespace rainCheck
                                 string datetime_folder = label9.Text;
                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder;
+                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
 
-                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
+                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -3599,35 +3630,35 @@ namespace rainCheck
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + @"\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
                         swww.Close();
@@ -3638,31 +3669,31 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + @"\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
                         swww.Close();
@@ -3692,35 +3723,35 @@ namespace rainCheck
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
@@ -3732,31 +3763,31 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
 
@@ -3787,35 +3818,35 @@ namespace rainCheck
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
                     
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
                         if (label_webtitle_urgent.Text == "")
                         {
@@ -3845,31 +3876,31 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
                         if (label_webtitle_urgent.Text == "")
                         {
@@ -3918,22 +3949,22 @@ namespace rainCheck
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
@@ -3941,13 +3972,13 @@ namespace rainCheck
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
                         string error_message = "";
 
@@ -3991,18 +4022,18 @@ namespace rainCheck
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
 
@@ -4010,13 +4041,13 @@ namespace rainCheck
                     }
 
                     string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + "\\urgent_" + i_timeout + ".txt").Any(line => line.Contains(contain_text)))
+                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text)))
                     {
                         // Leave for blank
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\urgent_" + i_timeout + ".txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
                         string error_message = "";
 
@@ -4150,7 +4181,7 @@ namespace rainCheck
             }
 
             buttonGoWasClicked = true;
-            buttonGoDetect = true;
+            buttonDetect = true;
 
             chromeBrowser.Load(textBox_domain.Text);
         }
@@ -4228,17 +4259,14 @@ namespace rainCheck
 
                     // set time for next to false
                     timerfornext = false;
-
+                                       
                     string datetime_folder = label9.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                     string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-
-                    // Insert read
-
+                    
+                    // Insert
                     string read = File.ReadAllText(path + "\\result.txt");
-
-                    //MessageBox.Show(read);
 
                     StringBuilder sb = new StringBuilder();
                     using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())
@@ -4249,82 +4277,38 @@ namespace rainCheck
                         }
                     }
 
-                    //MessageBox.Show(sb.ToString());
-
-                    try
+                    int upload = 1;
+                    while (upload <= 5)
                     {
-                        using (var client = new WebClient())
+                        try
                         {
-                            string auth = "r@inCh3ckd234b70";
-                            string type = "reports_normal";
-                            string request = "http://raincheck.ssitex.com/api/api.php";
-                            string reports = sb.ToString();
-                              
-                            NameValueCollection postData = new NameValueCollection()
+                            using (var client = new WebClient())
+                            {
+                                string auth = "r@inCh3ckd234b70";
+                                string type = "reports_normal";
+                                string request = "http://raincheck.ssitex.com/api/api.php";
+                                string reports = sb.ToString();
+
+                                NameValueCollection postData = new NameValueCollection()
                             {
                                 { "auth", auth },
                                 { "type", type },
                                 { "reports", reports },
                             };
 
-                            pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        label_uploadstatus.Text = "Upload Error!";
-                        
-                        if (detectnohistoryyet)
-                        {
-                            dataGridView_history.Rows.Clear();
-                            detectnohistoryyet = false;
-                        }
+                                pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                        // Last load
-                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                        if (!File.Exists(path_last_load))
-                        {
-                            StreamWriter sw = new StreamWriter(path_last_load);
-                            sw.Write(label_lastload.Text);
-                            sw.Close();
-                        }
-
-                        string date_history = DateTime.Now.ToString("dd MMM ");
-
-                        if (dataGridView_history.RowCount == 12)
-                        {
-                            dataGridView_history.Rows.RemoveAt(12 - 1);
-                        }
-
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
-
-                        dataGridView_history.ClearSelection();
-
-                        // Insert in temp file
-                        try
-                        {
-                            dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-
-                            string hex = "#438eb9";
-                            Color color = ColorTranslator.FromHtml(hex);
-                            dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
-                            dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
-                                                        
-                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                            StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
-                            sw_create.Close();
-
-                            string oldText = File.ReadAllText(path_history);
-                            using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
-                            {
-                                sw.WriteLine(date_history + label_timeget.Text + " ERR");
-                                sw.WriteLine(oldText);
-                                sw.Close();
+                                if (pagesource_history == "SUCCESS")
+                                {
+                                    break;
+                                }
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
-                            //MessageBox.Show(ex.Message);
+                            upload++;
+
+                            label_uploadstatus.Text = "Upload Error!";
                         }
                     }
 
@@ -4360,7 +4344,7 @@ namespace rainCheck
                             //Close();
                         }
                     }
-
+                    
                     try
                     {
                         FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder);
@@ -4501,7 +4485,7 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            if (!buttonGoDetect)
+            if (!buttonDetect)
             {
                 if (label_currentindex.Text == "0")
                 {
@@ -4647,7 +4631,7 @@ namespace rainCheck
         int timer_loader_uploaded = 0;
         int timer_loader_okay = 10;
         private bool buttonGoWasClicked;
-        private bool buttonGoDetect;
+        private bool buttonDetect;
 
         private void Timer_loader_Tick(object sender, EventArgs e)
         {
@@ -5065,6 +5049,58 @@ namespace rainCheck
             int domain_total = dataGridView_urgent.RowCount;
             MessageBox.Show(domain_total.ToString());
 
+            //int upload = 1;
+            //while (upload <= 5)
+            //{
+            //    string datetime_folder = label9.Text;
+            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            //    string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+
+            //    // Insert
+            //    string read = File.ReadAllText(path + "\\result.txt");
+
+            //    StringBuilder sb = new StringBuilder();
+            //    using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())
+            //    {
+            //        using (var w = new ChoJSONWriter(sb))
+            //        {
+            //            w.Write(p);
+            //        }
+            //    }
+
+            //    try
+            //    {
+            //        using (var client = new WebClient())
+            //        {
+            //            string auth = "r@inCh3ckd234b70";
+            //            string type = "reports_normal";
+            //            string request = "http://raincheck.ssitex.com/api/api.php";
+            //            string reports = sb.ToString();
+
+            //            NameValueCollection postData = new NameValueCollection()
+            //                {
+            //                    { "auth", auth },
+            //                    { "type", type },
+            //                    { "reports", reports },
+            //                };
+
+            //            pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+            //            if (pagesource_history == "SUCCESS")
+            //            {
+            //                break;
+            //            }
+            //        }
+            //    }
+            //    catch (Exception)
+            //    {
+            //        upload++;
+
+            //        label_uploadstatus.Text = "Upload Error!";
+            //    }
+            //}
+
             //if (panel_main.Visible == true)
             //{
             //    MessageBox.Show("main visible");
@@ -5307,6 +5343,8 @@ namespace rainCheck
             label_inaccessible_error_message.Text = "";
 
             button_startover_urgent.Enabled = true;
+
+            buttonDetect = true;
         }
         
         private void Button_pause_urgent_Click(object sender, EventArgs e)
@@ -5443,11 +5481,11 @@ namespace rainCheck
                     string datetime_folder = label9.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    string path = path_desktop + "\\rainCheck\\" + datetime_folder;
+                    string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
 
-                    // Insert read
 
-                    string read = File.ReadAllText(path + "\\urgent_" + i_timeout + ".txt");
+                    // Insert
+                    string read = File.ReadAllText(path + "\\result.txt");
 
                     //MessageBox.Show(read);
 
@@ -5461,33 +5499,59 @@ namespace rainCheck
                     }
 
                     //MessageBox.Show(sb.ToString());
-
-                    try
+                    int upload = 1;
+                    while (upload <= 5)
                     {
-                        using (var client = new WebClient())
+                        try
                         {
-                            string auth = "r@inCh3ckd234b70";
-                            string type = "reports_normal";
-                            string request = "http://raincheck.ssitex.com/api/api.php";
-                            string reports = sb.ToString();
-
-                            NameValueCollection postData = new NameValueCollection()
+                            using (var client = new WebClient())
                             {
-                                { "auth", auth },
-                                { "type", type },
-                                { "reports", reports },
-                            };
+                                string auth = "r@inCh3ckd234b70";
+                                string type = "reports_normal";
+                                string request = "http://raincheck.ssitex.com/api/api.php";
+                                string reports = sb.ToString();
 
-                            string pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                                NameValueCollection postData = new NameValueCollection()
+                                {
+                                    { "auth", auth },
+                                    { "type", type },
+                                    { "reports", reports },
+                                };
+
+                                string pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                                if (pagesource_history == "SUCCESS")
+                                {
+                                    break;
+                                }
+                            }
                         }
-                    }
-                    catch (Exception)
-                    {
-                        if (pagesource_history == "ERROR")
+                        catch (Exception)
                         {
+                            upload++;
+
                             label_uploadstatus.Text = "Upload Error!";
                         }
                     }
+
+                    // Upload zip file urgent
+                    //try
+                    //{
+                    //    FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder);
+                    //    req.UseBinary = true;
+                    //    req.Method = WebRequestMethods.Ftp.UploadFile;
+                    //    req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
+                    //    byte[] fileData = File.ReadAllBytes(outputpath);
+
+                    //    req.ContentLength = fileData.Length;
+                    //    Stream reqStream = req.GetRequestStream();
+                    //    reqStream.Write(fileData, 0, fileData.Length);
+                    //    reqStream.Close();
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1030", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
 
                     // Enable visible buttons
                     button_start_urgent.Visible = true;
@@ -5641,7 +5705,6 @@ namespace rainCheck
 
             Random rnd = new Random();
             int month = rnd.Next(1, 1000);
-
             label_timefor.Text = month.ToString();
 
             //timerfornext = true;
@@ -6083,6 +6146,8 @@ namespace rainCheck
                         label_status.Text = "[Running]";
 
                         start_detect_button = true;
+
+                        chromeBrowser.Stop();
                     }
 
                     auto_start = true;
@@ -6125,6 +6190,99 @@ namespace rainCheck
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void timer_deviceon_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "running";
+                    string mac_id = GetMACAddress();
+                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    MessageBox.Show(run_time);
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "run_time", run_time }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Close();
+            }
+        }
+
+        private void button_startover_urgent_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Are you sure you want to Start Over domain checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.No)
+            {
+
+            }
+            else
+            {
+                // Set browser panel dock style
+                chromeBrowser.Dock = DockStyle.Fill;
+
+                // For timeout
+                i_urgent = 1;
+
+                //if (label9.Text == "")
+                //{
+                //    label9.Text = label9.Text;
+                //}
+
+                //if (label11.Text == "")
+                //{
+                //    label11.Text = label11.Text;
+                //}
+
+                ms_detect = 0;
+                fully_loaded = 0;
+                start_detect = 0;
+                domain_i = 0;
+                label_currentindex_urgent.Text = "0";
+
+                string datetime = label11.Text;
+                string datetime_folder = label9.Text;
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+
+                timer_blink.Stop();
+                label_status_urgent.Visible = true;
+                button_pause_urgent.Visible = true;
+                button_start_urgent.Visible = false;
+                label_status_urgent.Text = "[Running]";
+                timer_domain_urgent.Start();
+
+                dataGridView_urgent.ClearSelection();
+                dataGridView_urgent.Rows[0].Selected = true;
+
+                textBox_domain_urgent.Enabled = false;
+
+                button_pause_urgent.Enabled = true;
             }
         }
     }

@@ -6253,7 +6253,10 @@ namespace rainCheck
 
             if (textchanged_timefor == true)
             {
-                timefor++;
+                if (detect_start != 1)
+                {
+                    timefor++;
+                }
             }
 
             label_textchangedtimefor.Text = timefor.ToString();

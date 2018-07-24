@@ -4938,7 +4938,7 @@ namespace rainCheck
                 }
                 else if (panel_urgent.Visible == true)
                 {
-                    
+                    button_start_urgent.Enabled = true;
                 }
             }
         }
@@ -5105,7 +5105,7 @@ namespace rainCheck
             }
             else if (panel_urgent.Visible == true)
             {
-
+                button_start_urgent.Enabled = true;
             }
         }
 
@@ -5626,6 +5626,7 @@ namespace rainCheck
                         catch (Exception)
                         {
                             upload++;
+                            MessageBox.Show("boom");
 
                             label_uploadstatus.Text = "Upload Error!";
                         }
@@ -5676,6 +5677,7 @@ namespace rainCheck
                     // Enable visible buttons
                     button_start_urgent.Visible = true;
                     button_pause_urgent.Visible = false;
+                    button_start_urgent.Enabled = false;
                     button_startover_urgent.Enabled = false;
                     pictureBox_loader_urgent.Visible = false;
                                                             
@@ -6214,30 +6216,32 @@ namespace rainCheck
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
             // Auto start the checking if label time for is not exists in history
-            //string path = Path.GetTempPath() + @"\raincheck_history.txt";
-            //if (File.Exists(path))
-            //{
-            //    detect_start++;
+            string path = Path.GetTempPath() + @"\raincheck_history.txt";
+            if (File.Exists(path))
+            {
+                detect_start++;
 
-            //    if (detect_start == 1)
-            //    {
-            //        string read = File.ReadAllText(path);
+                if (detect_start == 1)
+                {
+                    string date_history = DateTime.Now.ToString("dd MMM ");
+                    string read = File.ReadAllText(path);
 
-            //        if (read.Contains(label_timefor.Text))
-            //        {
-            //            button_start.Enabled = false;
-            //        }
-            //        else
-            //        {
-            //            label_timeget.Text = label_timefor.Text;
-            //            button_start.Enabled = true;
-            //            button_start.PerformClick();
-            //            button_start.Enabled = false;
-            //            auto_start = false;
-            //        }
-            //    }
-            //}       
-                        
+                    if (read.Contains(date_history + label_timefor.Text))
+                    {
+                        textchanged_timefor = true;
+                        button_start.Enabled = false;
+                    }
+                    else
+                    {
+                        label_timeget.Text = label_timefor.Text;
+                        button_start.Enabled = true;
+                        button_start.PerformClick();
+                        button_start.Enabled = false;
+                        auto_start = false;
+                    }
+                }
+            }
+
             if (label_status.Text != "[Running]")
             {
                 label_timeget.Text = label_timefor.Text;

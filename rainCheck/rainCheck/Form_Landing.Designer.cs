@@ -54,7 +54,6 @@
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
             this.panel_retry = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.button_retry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_blank = new System.Windows.Forms.Panel();
@@ -312,7 +311,6 @@
             // panel_retry
             // 
             this.panel_retry.Controls.Add(this.label8);
-            this.panel_retry.Controls.Add(this.button_retry);
             this.panel_retry.Controls.Add(this.label1);
             this.panel_retry.Location = new System.Drawing.Point(12, 12);
             this.panel_retry.Name = "panel_retry";
@@ -324,30 +322,11 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(200, 236);
+            this.label8.Location = new System.Drawing.Point(286, 236);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(283, 13);
+            this.label8.Size = new System.Drawing.Size(108, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "(Automatically connects when connected back to Internet)";
-            // 
-            // button_retry
-            // 
-            this.button_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.button_retry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_retry.FlatAppearance.BorderSize = 0;
-            this.button_retry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_retry.ForeColor = System.Drawing.Color.White;
-            this.button_retry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_retry.Location = new System.Drawing.Point(287, 301);
-            this.button_retry.Name = "button_retry";
-            this.button_retry.Size = new System.Drawing.Size(104, 29);
-            this.button_retry.TabIndex = 11;
-            this.button_retry.Text = "Retry (F5)";
-            this.button_retry.UseVisualStyleBackColor = false;
-            this.button_retry.Visible = false;
-            this.button_retry.Click += new System.EventHandler(this.Button_retry_Click);
-            this.button_retry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_retry_KeyDown);
+            this.label8.Text = "Trying to reconnect...";
             // 
             // label1
             // 
@@ -461,7 +440,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel_retry;
-        private System.Windows.Forms.Button button_retry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label_city;

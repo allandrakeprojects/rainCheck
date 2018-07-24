@@ -333,7 +333,7 @@ namespace rainCheck
 
                 //Close();
             }
-
+            
             // URGENT PANEL
             try
             {
@@ -388,66 +388,152 @@ namespace rainCheck
 
             if (networkIsAvailable)
             {
-                Invoke(new Action(() =>
+                if (panel_main.Visible == true)
                 {
-                    int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
-                    dataGridView_domain.ClearSelection();
-
-                    if (getCurrentIndex > 0)
+                    Invoke(new Action(() =>
                     {
-                        panel_retry.Visible = false;
-                        panel_retry.BringToFront();
+                        int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
+                        dataGridView_domain.ClearSelection();
 
-                        TopMost = true;
-                        MinimizeBox = false;
+                        if (getCurrentIndex > 0)
+                        {
+                            panel_retry.Visible = false;
+                            panel_retry.BringToFront();
 
-                        timer_blink.Stop();
-                        label_status.Visible = true;
-                        label_status.Text = "[Running]";
-                        timer_domain.Start();
+                            TopMost = true;
+                            MinimizeBox = false;
 
-                        // For timeout
-                        i = 1;
-                        timer_timeout.Start();
+                            if (label_status.Text == "[Running]")
+                            {
+                                timer_blink.Stop();
+                                label_status.Visible = true;
+                                label_status.Text = "[Running]";
+                                timer_domain.Start();
+                                
+                                // For timeout
+                                i = 1;
+                                timer_timeout.Start();
 
-                        pictureBox_loader.Visible = true;
+                                pictureBox_loader.Visible = true;
+                                
+                                button_pause.Visible = true;
+                                button_start.Visible = false;
 
-                        dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+                                textBox_domain.Enabled = false;
+                                button_go.Enabled = false;
 
-                        button_pause.Visible = true;
-                        button_start.Visible = false;
+                                dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+                            }
+                            else
+                            {
+                                button_pause.Visible = false;
+                                button_start.Visible = true;
 
-                        textBox_domain.Enabled = false;
-                        button_go.Enabled = false;
-                    }
-                    else
+                                dataGridView_domain.Rows[getCurrentIndex].Selected = true;
+                                textBox_domain.Text = "";
+                            }
+                        }
+                        else
+                        {
+                            panel_retry.Visible = false;
+
+                            TopMost = true;
+                            MinimizeBox = false;
+                        }
+
+                    }));
+                } else if (panel_urgent.Visible == true)
+                {
+                    Invoke(new Action(() =>
                     {
-                        panel_retry.Visible = false;
+                        int getCurrentIndex = Convert.ToInt32(label_currentindex_urgent.Text);
+                        dataGridView_urgent.ClearSelection();
 
-                        TopMost = true;
-                        MinimizeBox = false;
-                    }
+                        if (getCurrentIndex > 0)
+                        {
+                            panel_retry.Visible = false;
+                            panel_retry.BringToFront();
 
-                }));
+                            TopMost = true;
+                            MinimizeBox = false;
+
+                            if (label_status_urgent.Text == "[Running]")
+                            {
+                                timer_blink_urgent.Stop();
+                                label_status_urgent.Visible = true;
+                                label_status_urgent.Text = "[Running]";
+                                timer_domain_urgent.Start();
+
+                                // For timeout
+                                i_urgent = 1;
+                                timer_timeout_urgent.Start();
+
+                                pictureBox_loader_urgent.Visible = true;
+
+                                button_pause_urgent.Visible = true;
+                                button_start_urgent.Visible = false;
+
+                                dataGridView_urgent.Rows[getCurrentIndex].Selected = true;
+                            }
+                            else
+                            {
+                                button_pause_urgent.Visible = false;
+                                button_pause_urgent.Visible = true;
+
+                                dataGridView_urgent.Rows[getCurrentIndex].Selected = true;
+                            }
+                        }
+                        else
+                        {
+                            panel_retry.Visible = false;
+
+                            TopMost = true;
+                            MinimizeBox = false;
+                        }
+
+                    }));
+                }
             }
             else
             {
-                Invoke(new Action(() =>
+                if (panel_main.Visible == true)
                 {
-                    chromeBrowser.Stop();
+                    Invoke(new Action(() =>
+                    {
+                        chromeBrowser.Stop();
 
-                    panel_retry.Visible = true;
-                    panel_retry.BringToFront();
+                        panel_retry.Visible = true;
+                        panel_retry.BringToFront();
 
-                    TopMost = false;
-                    MinimizeBox = true;
-                    
-                    timer_domain.Stop();
-                    timer_timeout.Stop();
-                    pictureBox_loader.Visible = false;
-                    button_pause.Visible = false;
-                    button_start.Visible = true;
-                }));
+                        TopMost = false;
+                        MinimizeBox = true;
+
+                        timer_domain.Stop();
+                        timer_timeout.Stop();
+                        pictureBox_loader.Visible = false;
+                        button_pause.Visible = false;
+                        button_start.Visible = true;
+                    }));
+                }
+                else if (panel_urgent.Visible == true)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        chromeBrowser.Stop();
+
+                        panel_retry.Visible = true;
+                        panel_retry.BringToFront();
+
+                        TopMost = false;
+                        MinimizeBox = true;
+
+                        timer_domain_urgent.Stop();
+                        timer_timeout_urgent.Stop();
+                        pictureBox_loader_urgent.Visible = false;
+                        button_pause_urgent.Visible = false;
+                        button_start_urgent.Visible = true;
+                    }));
+                }
             }
         }
         
@@ -498,16 +584,14 @@ namespace rainCheck
         {
             Invoke(new MethodInvoker(() => 
             {
-                //if (panel_main.Visible == true)
-                //{
-                //    textBox_domain.Text = e.Address;
-                //}
-                //else if (panel_urgent.Visible == true)
-                //{
-                //    textBox_domain_urgent.Text = e.Address;
-                //}
-
-                textBox_domain.Text = e.Address;
+                if (panel_main.Visible == true)
+                {
+                    textBox_domain.Text = e.Address;
+                }
+                else if (panel_urgent.Visible == true)
+                {
+                    textBox_domain_urgent.Text = e.Address;
+                }
             }));
         }
 
@@ -6238,10 +6322,9 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "running";
                     string mac_id = GetMACAddress();
-                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
+                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
-                    MessageBox.Show(run_time);
                     NameValueCollection postData = new NameValueCollection()
                     {
                         { "auth", auth },

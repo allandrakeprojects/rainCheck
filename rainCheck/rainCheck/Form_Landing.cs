@@ -35,9 +35,7 @@ namespace rainCheck
 
             foreach (NetworkInterface nic in nics)
             {
-                if (
-                    (nic.NetworkInterfaceType != NetworkInterfaceType.Loopback && nic.NetworkInterfaceType != NetworkInterfaceType.Tunnel) &&
-                    nic.OperationalStatus == OperationalStatus.Up)
+                if ((nic.NetworkInterfaceType != NetworkInterfaceType.Loopback && nic.NetworkInterfaceType != NetworkInterfaceType.Tunnel) && nic.OperationalStatus == OperationalStatus.Up)
                 {
                     networkIsAvailable = true;
                 }
@@ -54,20 +52,37 @@ namespace rainCheck
             {
                 Invoke(new Action(() =>
                 {
-                    panel_authorization.Visible = true;
-                    panel_authorization.BringToFront();
+                    //panel_authorization.Visible = true;
+                    //timer_authorisation.Start();
+                    //panel_authorization.BringToFront();
 
-                    panel_retry.Visible = false;
+                    //panel_retry.Visible = false;
+
+                    authorisation = 0;
+                    label_timer.Text = "";
+
+                    timer_apichanges.Stop();
+
+                    i = 0;
+                    timer.Start();
                 }));
             }
             else
             {
                 Invoke(new Action(() =>
                 {
-                    panel_authorization.Visible = false;
-
                     panel_retry.Visible = true;
                     panel_retry.BringToFront();
+
+                    panel_authorization.Visible = false;
+
+                    authorisation = 0;
+                    timer_authorisation.Stop();
+
+                    timer_apichanges.Stop();
+
+                    i = 0;
+                    timer.Stop();
                 }));
             }
         }
@@ -123,10 +138,11 @@ namespace rainCheck
             panel_loader.BringToFront();
             i++;
 
-            if (i >= 20)
+            if (i > 20)
             {
                 timer.Stop();
-                if (networkIsAvailable == true)
+
+                if (networkIsAvailable)
                 {
                     var API_PATH_IP_API = "http://ip-api.com/json/" + GetExternalIp();
 
@@ -170,7 +186,6 @@ namespace rainCheck
                 else
                 {
                     panel_retry.BringToFront();
-                    button_retry.Enabled = true;
                 }
             }
         }
@@ -208,15 +223,15 @@ namespace rainCheck
                     string mac_id = GetMACAddress();
 
                     NameValueCollection postData = new NameValueCollection()
-                {
-                    { "auth", auth },
-                    { "type", type },
-                    { "mac_id", mac_id },
-                    { "city", city },
-                    { "region", region },
-                    { "country", country },
-                    { "isp", isp }
-                };
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id },
+                        { "city", city },
+                        { "region", region },
+                        { "country", country },
+                        { "isp", isp }
+                    };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
@@ -279,15 +294,15 @@ namespace rainCheck
                         type = "device_insert";
 
                         NameValueCollection postData_new = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type },
-                        { "mac_id", mac_id },
-                        { "city", city },
-                        { "region", region },
-                        { "country", country },
-                        { "isp", isp }
-                    };
+                        {
+                            { "auth", auth },
+                            { "type", type },
+                            { "mac_id", mac_id },
+                            { "city", city },
+                            { "region", region },
+                            { "country", country },
+                            { "isp", isp }
+                        };
 
                         string pagesource_new = Encoding.UTF8.GetString(client.UploadValues(request, postData_new));
 
@@ -438,14 +453,21 @@ namespace rainCheck
             if (gotomain == 2)
             {
                 timer_apichanges.Stop();
-                timer_apichanges.Enabled = false;
+                timer.Stop();
+                timer_authorisation.Stop();
                 timer_gotomain.Stop();
+                
+                timer_apichanges.Enabled = false;
+                timer.Enabled = false;
+                timer_authorisation.Enabled = false;
+                timer_gotomain.Enabled = false;
+                
+                Hide();
+                Close();
+
                 //city, country, isp
                 Form_Main form_main = new Form_Main(city, country, isp);
-
-                Hide();
                 form_main.ShowDialog();
-                Close();
             }
         }
 
@@ -457,6 +479,7 @@ namespace rainCheck
 
             if (authorisation > 60)
             {
+                Application.Exit();
                 Close();
             }
         }

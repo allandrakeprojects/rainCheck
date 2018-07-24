@@ -49,7 +49,7 @@ namespace rainCheck
 
         //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
 
-        public Form_Main()
+        public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
 
@@ -58,10 +58,10 @@ namespace rainCheck
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             //string city, string country, string isp
-            //Text = "rainCheck: " + city + ", " + country + " - " + isp;
+            Text = "rainCheck: " + city + ", " + country + " - " + isp;
 
-            //city_get = city;
-            //isp_get = isp;
+            city_get = city;
+            isp_get = isp;
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
@@ -4230,12 +4230,18 @@ namespace rainCheck
                     // else loaded
                     elseloaded_i = 0;
                     timer_elseloaded.Stop();
-
-                    // Set browser panel dock style
-                    chromeBrowser.Dock = DockStyle.None;
-                    textBox_domain.Text = "";
-
+                    
+                    // Random domains
+                    dataGridView_domain.DataSource = null;
+                    APIGetDomains();
                     dataGridView_domain.ClearSelection();
+                    chromeBrowser.Dock = DockStyle.None;
+                    dataGridView_domain.Columns["domain_name"].Visible = false;
+                    dataGridView_domain.Columns["id"].Visible = false;
+                    dataGridView_domain.Columns["text_search"].Visible = false;
+                    dataGridView_domain.Columns["website_type"].Visible = false;
+
+                    label_domainscount.Text = "Total: " + dataGridView_domain.RowCount.ToString();
 
                     // Enable visible buttons
                     button_start.Visible = true;
@@ -4716,13 +4722,13 @@ namespace rainCheck
                         }
 
                         // Last load
-                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                        if (!File.Exists(path_last_load))
-                        {
-                            StreamWriter sw = new StreamWriter(path_last_load);
-                            sw.Write(label_lastload.Text);
-                            sw.Close();
-                        }
+                        //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                        //if (!File.Exists(path_last_load))
+                        //{
+                        //    StreamWriter sw = new StreamWriter(path_last_load);
+                        //    sw.Write(label_lastload.Text);
+                        //    sw.Close();
+                        //}
 
                         string date_history = DateTime.Now.ToString("dd MMM ");
                         
@@ -4771,13 +4777,13 @@ namespace rainCheck
                         }
 
                         // Last load
-                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                        if (!File.Exists(path_last_load))
-                        {
-                            StreamWriter sw = new StreamWriter(path_last_load);
-                            sw.Write(label_lastload.Text);
-                            sw.Close();
-                        }
+                        //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                        //if (!File.Exists(path_last_load))
+                        //{
+                        //    StreamWriter sw = new StreamWriter(path_last_load);
+                        //    sw.Write(label_lastload.Text);
+                        //    sw.Close();
+                        //}
 
                         string date_history = DateTime.Now.ToString("dd MMM ");
 
@@ -4821,30 +4827,30 @@ namespace rainCheck
                     label_timeget.Text = label_timefor.Text;
 
                     // Restart
-                    string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                    if (File.Exists(path_last_load_restart))
-                    {
-                        string last_load = File.ReadAllText(path_last_load_restart);
+                    //string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    //if (File.Exists(path_last_load_restart))
+                    //{
+                    //    string last_load = File.ReadAllText(path_last_load_restart);
 
-                        if (label_timefor.Text == last_load)
-                        {
-                            timefor = 0;
-                            textchanged_timefor = false;
+                    //    if (label_timefor.Text == last_load)
+                    //    {
+                    //        timefor = 0;
+                    //        textchanged_timefor = false;
 
-                            //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                            string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    //        //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                    //        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
 
-                            //File.Delete(path_history);
-                            File.Delete(path_last_load);
+                    //        //File.Delete(path_history);
+                    //        File.Delete(path_last_load);
 
-                            dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (dr == DialogResult.OK)
-                            {
-                                can_close = false;
-                                Application.Restart();
-                            }
-                        }
-                    }
+                    //        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //        if (dr == DialogResult.OK)
+                    //        {
+                    //            can_close = false;
+                    //            Application.Restart();
+                    //        }
+                    //    }
+                    //}
                 }
                 else if (panel_urgent.Visible == true)
                 {
@@ -4883,13 +4889,13 @@ namespace rainCheck
                     }
 
                     // Last load
-                    string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                    if (!File.Exists(path_last_load))
-                    {
-                        StreamWriter sw = new StreamWriter(path_last_load);
-                        sw.Write(label_lastload.Text);
-                        sw.Close();
-                    }
+                    //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    //if (!File.Exists(path_last_load))
+                    //{
+                    //    StreamWriter sw = new StreamWriter(path_last_load);
+                    //    sw.Write(label_lastload.Text);
+                    //    sw.Close();
+                    //}
 
                     string date_history = DateTime.Now.ToString("dd MMM ");
 
@@ -4938,13 +4944,13 @@ namespace rainCheck
                     }
 
                     // Last load
-                    string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                    if (!File.Exists(path_last_load))
-                    {
-                        StreamWriter sw = new StreamWriter(path_last_load);
-                        sw.Write(label_lastload.Text);
-                        sw.Close();
-                    }
+                    //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                    //if (!File.Exists(path_last_load))
+                    //{
+                    //    StreamWriter sw = new StreamWriter(path_last_load);
+                    //    sw.Write(label_lastload.Text);
+                    //    sw.Close();
+                    //}
 
                     string date_history = DateTime.Now.ToString("dd MMM ");
 
@@ -4988,30 +4994,30 @@ namespace rainCheck
                 label_timeget.Text = label_timefor.Text;
 
                 // Restart
-                string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                if (File.Exists(path_last_load_restart))
-                {
-                    string last_load = File.ReadAllText(path_last_load_restart);
+                //string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                //if (File.Exists(path_last_load_restart))
+                //{
+                //    string last_load = File.ReadAllText(path_last_load_restart);
 
-                    if (label_timefor.Text == last_load)
-                    {
-                        timefor = 0;
-                        textchanged_timefor = false;
+                //    if (label_timefor.Text == last_load)
+                //    {
+                //        timefor = 0;
+                //        textchanged_timefor = false;
 
-                        //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                //        //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                //        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
 
-                        //File.Delete(path_history);
-                        File.Delete(path_last_load);
+                //        //File.Delete(path_history);
+                //        File.Delete(path_last_load);
 
-                        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if (dr == DialogResult.OK)
-                        {
-                            can_close = false;
-                            Application.Restart();
-                        }
-                    }
-                }
+                //        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //        if (dr == DialogResult.OK)
+                //        {
+                //            can_close = false;
+                //            Application.Restart();
+                //        }
+                //    }
+                //}
             }
             else if (panel_urgent.Visible == true)
             {
@@ -5026,6 +5032,19 @@ namespace rainCheck
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string temp_path = Path.GetTempPath();
+            textBox_webtitle.Text = temp_path;
+
+            int domain_total = dataGridView_urgent.RowCount;
+            MessageBox.Show(domain_total.ToString());
+
+
+
+
+
+
+
+
             //Bitmap bitmap = new Bitmap(Width, Height);
             //DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
             //bitmap.Save("C:\\Users\\adulay\\Desktop\\testdomain.png", ImageFormat.Png);
@@ -5042,12 +5061,6 @@ namespace rainCheck
             //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //    resized.Save(path_desktop + "\\" + label_macid.Text + "_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
             //}
-
-            string path_last_load = Path.GetTempPath();
-            textBox_webtitle.Text = path_last_load;
-
-            int domain_total = dataGridView_urgent.RowCount;
-            MessageBox.Show(domain_total.ToString());
 
             //int upload = 1;
             //while (upload <= 5)
@@ -5534,24 +5547,47 @@ namespace rainCheck
                         }
                     }
 
-                    // Upload zip file urgent
-                    //try
-                    //{
-                    //    FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder);
-                    //    req.UseBinary = true;
-                    //    req.Method = WebRequestMethods.Ftp.UploadFile;
-                    //    req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
-                    //    byte[] fileData = File.ReadAllBytes(outputpath);
+                    string outputpath = "";
+                    using (ZipFile zip = new ZipFile())
+                    {
+                        try
+                        {
+                            outputpath = path + ".zip";
+                            //zip.Password = "youdidntknowthispasswordhaha";
+                            zip.Password = "a";
+                            zip.AddDirectory(path);
+                            zip.Save(outputpath);
 
-                    //    req.ContentLength = fileData.Length;
-                    //    Stream reqStream = req.GetRequestStream();
-                    //    reqStream.Write(fileData, 0, fileData.Length);
-                    //    reqStream.Close();
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1030", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //}
+                            if (Directory.Exists(path))
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1014", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            //Close();
+                        }
+                    }
+
+                    try
+                    {
+                        FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder + "_urgent_" + i_timeout);
+                        req.UseBinary = true;
+                        req.Method = WebRequestMethods.Ftp.UploadFile;
+                        req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
+                        byte[] fileData = File.ReadAllBytes(outputpath);
+
+                        req.ContentLength = fileData.Length;
+                        Stream reqStream = req.GetRequestStream();
+                        reqStream.Write(fileData, 0, fileData.Length);
+                        reqStream.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1030", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
                     // Enable visible buttons
                     button_start_urgent.Visible = true;
@@ -5816,43 +5852,12 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
-            //try
-            //{
-            //    using (var client = new WebClient())
-            //    {
-            //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main";
-            //        string request = "http://raincheck.ssitex.com/api/api.php";
-
-            //        NameValueCollection postData = new NameValueCollection()
-            //        {
-            //            { "auth", auth },
-            //            { "type", type }
-            //        };
-
-            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-            //        dataGridView_domain.DataSource = arr;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    var st = new StackTrace(ex, true);
-            //    var frame = st.GetFrame(0);
-            //    var line = frame.GetFileLineNumber();
-            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //    //Close();
-            //}
-
             try
             {
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main_test";
+                    string type = "domain_main";
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
@@ -5862,6 +5867,7 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
                     var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
 
                     dataGridView_domain.DataSource = arr;
@@ -5874,8 +5880,38 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
+
+            //try
+            //{
+            //    using (var client = new WebClient())
+            //    {
+            //        string auth = "r@inCh3ckd234b70";
+            //        string type = "domain_main_test";
+            //        string request = "http://raincheck.ssitex.com/api/api.php";
+
+            //        NameValueCollection postData = new NameValueCollection()
+            //        {
+            //            { "auth", auth },
+            //            { "type", type }
+            //        };
+
+            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+            //        dataGridView_domain.DataSource = arr;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var st = new StackTrace(ex, true);
+            //    var frame = st.GetFrame(0);
+            //    var line = frame.GetFileLineNumber();
+            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    Close();
+            //}
         }
 
         int detectnotloading = 0;

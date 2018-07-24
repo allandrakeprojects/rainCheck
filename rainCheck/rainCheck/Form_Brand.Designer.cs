@@ -90,7 +90,7 @@
             // label_brand_id
             // 
             this.label_brand_id.AutoSize = true;
-            this.label_brand_id.Location = new System.Drawing.Point(183, 13);
+            this.label_brand_id.Location = new System.Drawing.Point(189, 156);
             this.label_brand_id.Name = "label_brand_id";
             this.label_brand_id.Size = new System.Drawing.Size(49, 13);
             this.label_brand_id.TabIndex = 66;
@@ -100,7 +100,7 @@
             // label_text_search
             // 
             this.label_text_search.AutoSize = true;
-            this.label_text_search.Location = new System.Drawing.Point(238, 12);
+            this.label_text_search.Location = new System.Drawing.Point(244, 155);
             this.label_text_search.Name = "label_text_search";
             this.label_text_search.Size = new System.Drawing.Size(65, 13);
             this.label_text_search.TabIndex = 67;
@@ -135,7 +135,7 @@
             // label_websitetype
             // 
             this.label_websitetype.AutoSize = true;
-            this.label_websitetype.Location = new System.Drawing.Point(364, 12);
+            this.label_websitetype.Location = new System.Drawing.Point(370, 155);
             this.label_websitetype.Name = "label_websitetype";
             this.label_websitetype.Size = new System.Drawing.Size(35, 13);
             this.label_websitetype.TabIndex = 71;
@@ -147,7 +147,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(591, 126);
+            this.ClientSize = new System.Drawing.Size(580, 126);
             this.ControlBox = false;
             this.Controls.Add(this.label_websitetype);
             this.Controls.Add(this.comboBox_websitetype);
@@ -160,8 +160,9 @@
             this.Controls.Add(this.comboBox_brand);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(900, 165);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(414, 165);
+            this.MinimumSize = new System.Drawing.Size(596, 165);
             this.Name = "Form_Brand";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

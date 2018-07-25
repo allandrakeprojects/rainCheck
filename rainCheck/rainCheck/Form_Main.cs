@@ -144,6 +144,28 @@ namespace rainCheck
                 //Close();
             }
 
+            // Delete after 7 days
+            DateTime date = DateTime.Now.AddDays(-7);
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\rainCheck\";
+            string[] files = Directory.GetFiles(directory, date.ToString("yyyy-MM-dd") + "_????.zip");
+
+            string pattern = date.ToString("yyyy-MM-dd") + "_[0-9]{4}\\.zip";
+
+            foreach (string file in files)
+            {
+                if (Regex.IsMatch(file, pattern))
+                {
+                    string result = file.Replace(".zip", "");
+
+                    if (Directory.Exists(result))
+                    {
+                        Directory.Delete(result, true);
+                    }
+
+                    File.Delete(file);
+                }
+            }
+
             // Detect history file
             string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
             if (File.Exists(path_history))
@@ -4326,6 +4348,9 @@ namespace rainCheck
                     dataGridView_domain.Columns["website_type"].Visible = false;
 
                     label_domainscount.Text = "Total: " + dataGridView_domain.RowCount.ToString();
+
+                    pictureBox_loader.Visible = false;
+                    textBox_domain.Text = "";
 
                     // Enable visible buttons
                     button_start.Visible = true;

@@ -116,10 +116,10 @@
             this.linkLabel_question.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
             this.linkLabel_question.Location = new System.Drawing.Point(87, 37);
             this.linkLabel_question.Name = "linkLabel_question";
-            this.linkLabel_question.Size = new System.Drawing.Size(409, 16);
+            this.linkLabel_question.Size = new System.Drawing.Size(312, 16);
             this.linkLabel_question.TabIndex = 69;
             this.linkLabel_question.TabStop = true;
-            this.linkLabel_question.Text = "Select brand and website type for em.yb1223.com domain:";
+            this.linkLabel_question.Text = "Select brand and website type for [] domain:";
             // 
             // comboBox_websitetype
             // 

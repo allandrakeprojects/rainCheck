@@ -67,14 +67,16 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "running";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
                     string mac_id = GetMACAddress();
+                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
                         { "auth", auth },
                         { "type", type },
-                        { "mac_id", mac_id }
+                        { "mac_id", mac_id },
+                        { "run_time", run_time }
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
@@ -85,7 +87,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1023", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
             }
@@ -6481,174 +6483,6 @@ namespace rainCheck
 
                 button_pause_urgent.Enabled = true;
             }
-        }
-
-        
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //using (var pic = new Bitmap(webBrowser_new.Width-18, webBrowser_new.Height-18))
-            //{
-            //    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
-            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
-            //    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-            //    resized.Save(path_desktop, ImageFormat.Jpeg);
-            //}   
-
-            //Rectangle bounds = Bounds;
-            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-            //{
-            //    using (Graphics g = Graphics.FromImage(bitmap))
-            //    {
-            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-            //    }
-
-            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-            //}
-
-
-            //PrintDialog myPrintDialog = new PrintDialog();
-            //System.Drawing.Bitmap memoryImage = new System.Drawing.Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height);
-            //panel_browser_urgent.DrawToBitmap(memoryImage, panel_browser_urgent.ClientRectangle);
-            //if (myPrintDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    System.Drawing.Printing.PrinterSettings values;
-            //    values = myPrintDialog.PrinterSettings;
-            //    myPrintDialog.Document = printDocument1;
-            //    printDocument1.PrintController = new StandardPrintController();
-            //    printDocument1.Print();
-            //}
-            //printDocument1.Dispose();
-
-
-
-
-
-            //CaptureScreen();
-            //printDocument1.Print();
-
-
-            //timer1.Start();
-
-            //printDocument1.Print();
-
-            //Bitmap bitmap = new Bitmap(panel_browser.Width, panel_browser.Height);
-            //panel_browser.DrawToBitmap(bitmap, new Rectangle(new Point(0, 0), panel_browser.Size));
-            //e.Graphics.DrawImage(bitmap, e.MarginBounds.Location);
-
-            //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
-            //bitmap.Save(path_desktop);
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //var frm = ActiveForm;
-            //using (var bmp = new Bitmap(frm.Width, frm.Height))
-            //{
-            //    frm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
-            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
-            //    bmp.Save(path_desktop);
-            //    timer1.Stop();
-            //}
-
-            //using (Bitmap bmp = new Bitmap(ClientRectangle.Width, ClientRectangle.Height))
-            //{
-            //    using (Graphics g = Graphics.FromImage(bmp))
-            //    {
-            //        g.CopyFromScreen(PointToScreen(ClientRectangle.Location).X, PointToScreen(ClientRectangle.Location).Y, 0, 0, ClientRectangle.Size);
-            //    }
-
-            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
-            //    bmp.Save(path_desktop, ImageFormat.Png);
-            //}
-
-            //PrintDocument doc = new PrintDocument();
-            //doc.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-            //doc.Print();
-
-        }
-
-        Bitmap memoryImage;
-        private void CaptureScreen()
-        {
-            Graphics myGraphics = this.CreateGraphics();
-            Size s = this.Size;
-            memoryImage = new Bitmap(s.Width, s.Height, myGraphics);
-            Graphics memoryGraphics = Graphics.FromImage(memoryImage);
-            memoryGraphics.CopyFromScreen(this.Location.X, this.Location.Y, 0, 0, s);
-        }
-
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
-
-            e.Graphics.DrawImage(memoryImage, 0, 0);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //Bitmap bmp = new Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height, panel_browser_urgent.CreateGraphics());
-            //panel_browser_urgent.DrawToBitmap(bmp, new Rectangle(0, 0, panel_browser_urgent.Width, panel_browser_urgent.Height));
-            //RectangleF bounds = e.PageSettings.PrintableArea;
-            //float factor = ((float)bmp.Height / (float)bmp.Width);
-            //e.Graphics.DrawImage(bmp, bounds.Left, bounds.Top, bounds.Width, factor * bounds.Width);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //Bitmap bitmap = new Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height);
-            //panel_browser_urgent.DrawToBitmap(bitmap, new Rectangle(new Point(0, 0), panel_browser_urgent.Size));
-            //e.Graphics.DrawImage(bitmap, e.MarginBounds.Location);
-
-            // Draw a picture.
-
-            //bitmap.Save(path_desktop);
         }
     }
 }

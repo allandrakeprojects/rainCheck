@@ -423,8 +423,8 @@ namespace rainCheck
                             panel_retry.Visible = false;
                             panel_retry.BringToFront();
 
-                            TopMost = true;
-                            MinimizeBox = false;
+                            //TopMost = true;
+                            //MinimizeBox = false;
 
                             if (label_status.Text == "[Running]")
                             {
@@ -460,8 +460,8 @@ namespace rainCheck
                         {
                             panel_retry.Visible = false;
 
-                            TopMost = true;
-                            MinimizeBox = false;
+                            //TopMost = true;
+                            //MinimizeBox = false;
                         }
 
                     }));
@@ -477,8 +477,8 @@ namespace rainCheck
                             panel_retry.Visible = false;
                             panel_retry.BringToFront();
 
-                            TopMost = true;
-                            MinimizeBox = false;
+                            //TopMost = true;
+                            //MinimizeBox = false;
 
                             if (label_status_urgent.Text == "[Running]")
                             {
@@ -510,8 +510,8 @@ namespace rainCheck
                         {
                             panel_retry.Visible = false;
 
-                            TopMost = true;
-                            MinimizeBox = false;
+                            //TopMost = true;
+                            //MinimizeBox = false;
                         }
 
                     }));
@@ -528,8 +528,8 @@ namespace rainCheck
                         panel_retry.Visible = true;
                         panel_retry.BringToFront();
 
-                        TopMost = false;
-                        MinimizeBox = true;
+                        //TopMost = false;
+                        //MinimizeBox = true;
 
                         timer_domain.Stop();
                         timer_timeout.Stop();
@@ -547,8 +547,8 @@ namespace rainCheck
                         panel_retry.Visible = true;
                         panel_retry.BringToFront();
 
-                        TopMost = false;
-                        MinimizeBox = true;
+                        //TopMost = false;
+                        //MinimizeBox = true;
 
                         timer_domain_urgent.Stop();
                         timer_timeout_urgent.Stop();
@@ -1076,15 +1076,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -1131,15 +1138,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -1230,15 +1244,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -1285,15 +1306,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -1348,15 +1376,22 @@ namespace rainCheck
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                Rectangle bounds = Bounds;
-                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                {
-                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                    {
-                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                    }
+                                //Rectangle bounds = Bounds;
+                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                //{
+                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                //    {
+                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                //    }
 
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                //}
+
+                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                {
+                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                 }
 
@@ -1644,7 +1679,7 @@ namespace rainCheck
                                             label_inaccessible.Text = "";
                                             label_inaccessible_error_message.Text = "";
 
-                                            TopMost = false;
+                                            //TopMost = false;
                                             buttonGoWasClicked = false;
 
                                             if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -1713,7 +1748,7 @@ namespace rainCheck
                                                 label_inaccessible.Text = "";
                                                 label_inaccessible_error_message.Text = "";
 
-                                                TopMost = false;
+                                                //TopMost = false;
                                                 buttonGoWasClicked = false;
 
                                                 if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -1780,7 +1815,7 @@ namespace rainCheck
                                             label_inaccessible.Text = "";
                                             label_inaccessible_error_message.Text = "";
 
-                                            TopMost = false;
+                                            //TopMost = false;
                                             buttonGoWasClicked = false;
 
                                             if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -1882,15 +1917,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -1908,7 +1950,7 @@ namespace rainCheck
                                                 label_inaccessible_error_message.Text = "";
                                                 erroraborted_testonemoretime = 0;
 
-                                                TopMost = false;
+                                                //TopMost = false;
                                                 buttonGoWasClicked = false;
 
                                                 if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -1939,15 +1981,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -1965,7 +2014,7 @@ namespace rainCheck
                                                 label_inaccessible_error_message.Text = "";
                                                 erroraborted_testonemoretime = 0;
                                                 
-                                                TopMost = false;
+                                                //TopMost = false;
                                                 buttonGoWasClicked = false;
 
                                                 if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2040,15 +2089,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -2066,7 +2122,7 @@ namespace rainCheck
                                             label_inaccessible_error_message.Text = "";
                                             erroraborted_testonemoretime = 0;
                                             
-                                            TopMost = false;
+                                            //TopMost = false;
                                             buttonGoWasClicked = false;
 
                                             if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2097,15 +2153,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -2123,7 +2186,7 @@ namespace rainCheck
                                             label_inaccessible_error_message.Text = "";
                                             erroraborted_testonemoretime = 0;
                                             
-                                            TopMost = false;
+                                            //TopMost = false;
                                             buttonGoWasClicked = false;
 
                                             if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2162,17 +2225,23 @@ namespace rainCheck
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                Rectangle bounds = Bounds;
-                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                //Rectangle bounds = Bounds;
+                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                //{
+                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                //    {
+                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                //    }
+
+                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                //}
+
+                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                 {
-                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                    {
-                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                    }
-
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                     resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-
                                 }
 
                                 DataToTextFileInaccessible();
@@ -2190,7 +2259,7 @@ namespace rainCheck
                                     label_inaccessible.Text = "";
                                     label_inaccessible_error_message.Text = "";
 
-                                    TopMost = false;
+                                    //TopMost = false;
                                     buttonGoWasClicked = false;
 
                                     if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2225,7 +2294,7 @@ namespace rainCheck
                                     label_inaccessible.Text = "";
                                     label_inaccessible_error_message.Text = "";
                                     
-                                    TopMost = false;
+                                    //TopMost = false;
                                     buttonGoWasClicked = false;
 
                                     if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2301,7 +2370,7 @@ namespace rainCheck
                                     label_inaccessible.Text = "";
                                     label_inaccessible_error_message.Text = "";
 
-                                    TopMost = false;
+                                    //TopMost = false;
                                     buttonGoWasClicked = false;
 
                                     if (Convert.ToInt32(label_start_detect.Text) <= 1)
@@ -2319,7 +2388,7 @@ namespace rainCheck
                     {
                         Invoke(new Action(() =>
                         {
-                            TopMost = false;
+                            //TopMost = false;
                             buttonGoWasClicked = false;
 
                             fully_loaded = 0;
@@ -2739,15 +2808,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -2794,15 +2870,22 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                Rectangle bounds = Bounds;
-                                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                {
-                                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                                    {
-                                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                    }
+                                                //Rectangle bounds = Bounds;
+                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                                //{
+                                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                                //    {
+                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                                //    }
 
-                                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                //}
+
+                                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                                {
+                                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                     resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                                 }
 
@@ -2893,15 +2976,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -2948,15 +3038,22 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            Rectangle bounds = Bounds;
-                                            using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            {
-                                                using (Graphics g = Graphics.FromImage(bitmap))
-                                                {
-                                                    g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                }
+                                            //Rectangle bounds = Bounds;
+                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                            //{
+                                            //    using (Graphics g = Graphics.FromImage(bitmap))
+                                            //    {
+                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                            //    }
 
-                                                Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                            //}
+
+                                            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                            {
+                                                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                                 resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
@@ -3011,15 +3108,22 @@ namespace rainCheck
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                Rectangle bounds = Bounds;
-                                using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                {
-                                    using (Graphics g = Graphics.FromImage(bitmap))
-                                    {
-                                        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                    }
+                                //Rectangle bounds = Bounds;
+                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+                                //{
+                                //    using (Graphics g = Graphics.FromImage(bitmap))
+                                //    {
+                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+                                //    }
 
-                                    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                //}
+
+                                using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+                                {
+                                    webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                                    Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
                                     resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                 }
 
@@ -4319,8 +4423,8 @@ namespace rainCheck
 
                     timer_domain.Stop();
 
-                    TopMost = false;
-                    MinimizeBox = true;
+                    //TopMost = false;
+                    //MinimizeBox = true;
 
                     // Detect when stop loads
                     detectnotloading = 0;
@@ -4521,8 +4625,8 @@ namespace rainCheck
 
         private void Button_pause_Click(object sender, EventArgs e)
         {
-            TopMost = false;
-            MinimizeBox = true;
+            //TopMost = false;
+            //MinimizeBox = true;
 
             chromeBrowser.Stop();
 
@@ -4580,8 +4684,8 @@ namespace rainCheck
                 }
             }
 
-            TopMost = true;
-            MinimizeBox = false;
+            //TopMost = true;
+            //MinimizeBox = false;
 
             pictureBox_loader.Visible = true;
 
@@ -5405,8 +5509,8 @@ namespace rainCheck
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
         {
-            TopMost = true;
-            MinimizeBox = false;
+            //TopMost = true;
+            //MinimizeBox = false;
             
             pictureBox_loader_urgent.Visible = true;
 
@@ -5456,8 +5560,8 @@ namespace rainCheck
         
         private void Button_pause_urgent_Click(object sender, EventArgs e)
         {
-            TopMost = false;
-            MinimizeBox = true;
+            //TopMost = false;
+            //MinimizeBox = true;
 
             // Set browser panel dock style
             chromeBrowser.Dock = DockStyle.None;
@@ -5696,8 +5800,8 @@ namespace rainCheck
                     label_status_urgent.Text = "[Loading]";
                     timer_domain_urgent.Stop();
 
-                    TopMost = false;
-                    MinimizeBox = true;
+                    //TopMost = false;
+                    //MinimizeBox = true;
 
                     // Timer Urgent
                     domain_urgent = 0;
@@ -6295,8 +6399,8 @@ namespace rainCheck
                     }
                     else
                     {
-                        TopMost = true;
-                        MinimizeBox = false;
+                        //TopMost = true;
+                        //MinimizeBox = false;
 
                         label_timeget.Text = label_timefor.Text;
                         button_start.Enabled = true;
@@ -6330,8 +6434,8 @@ namespace rainCheck
                 {
                     if (auto_start)
                     {
-                        TopMost = true;
-                        MinimizeBox = false;
+                        //TopMost = true;
+                        //MinimizeBox = false;
 
                         timerfornext = true;
                         label_ifloadornot.Text = "0";
@@ -6349,8 +6453,8 @@ namespace rainCheck
                 }
                 else
                 {
-                    TopMost = true;
-                    MinimizeBox = false;
+                    //TopMost = true;
+                    //MinimizeBox = false;
 
                     button_start.Enabled = true;
                     button_start.PerformClick();
@@ -6488,12 +6592,27 @@ namespace rainCheck
 
         private void button4_Click(object sender, EventArgs e)
         {
-            using (var pic = new Bitmap(webBrowser_new.Width, webBrowser_new.Height))
+            using (var pic = new Bitmap(webBrowser_new.Width-18, webBrowser_new.Height-18))
             {
-                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width-16, pic.Height-16));
+                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
-                pic.Save(path_desktop);
+                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
+                resized.Save(path_desktop, ImageFormat.Jpeg);
             }
+
+
+
+            //Rectangle bounds = Bounds;
+            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
+            //{
+            //    using (Graphics g = Graphics.FromImage(bitmap))
+            //    {
+            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
+            //    }
+
+            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
+            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+            //}
 
 
             //PrintDialog myPrintDialog = new PrintDialog();

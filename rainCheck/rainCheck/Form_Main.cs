@@ -12,6 +12,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -2330,56 +2331,6 @@ namespace rainCheck
             }
 
             
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             // ----TIMER URGENT ENABLED----
             if (timer_domain_urgent.Enabled)
             {
@@ -2431,9 +2382,12 @@ namespace rainCheck
                         int webBrowser_i = 0;
                         while (webBrowser_i <= 2)
                         {
-                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
+                            Invoke(new Action(() =>
+                            {
+                                panel_new.Visible = true;
+                                panel_new.BringToFront();
+                            }));
                             webBrowser_new.Navigate(label_domainhide_urgent.Text);
-                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
                             webBrowser_i++;
                         }
                     }
@@ -2442,9 +2396,7 @@ namespace rainCheck
                         int webBrowser_i = 0;
                         while (webBrowser_i <= 2)
                         {
-                            //string header = "Accept: application/xml\r\nAccept-Language: en-US\r\n";
                             webBrowser_new.Navigate(label_domainhide_urgent.Text);
-                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
                             webBrowser_i++;
                         }
                     }
@@ -4612,16 +4564,21 @@ namespace rainCheck
                 {
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     string replace = label_timefor.Text.Replace(":", "");
+
                     string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
                     if (Directory.Exists(path))
                     {
                         Directory.Delete(path, true);
                     }
+
+                    if (Directory.Exists(path_noreplace))
+                    {
+                        Directory.Delete(path_noreplace, true);
+                    }
                 }
             }
-
-            panel_browser.Controls.Add(chromeBrowser);
 
             TopMost = true;
             MinimizeBox = false;
@@ -4629,6 +4586,9 @@ namespace rainCheck
             pictureBox_loader.Visible = true;
 
             // Set browser panel dock style
+            panel_browser.Visible = true;
+            panel_browser.BringToFront();
+            panel_browser.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
 
             //if (textchange_date == 1)
@@ -4676,6 +4636,12 @@ namespace rainCheck
         // SELECTED CHANGED
         private void DataGridView_devices_SelectionChanged(object sender, EventArgs e)
         {
+            if (label_currentindex.Text == "0")
+            {
+                pictureBox_loader.Visible = false;
+                textBox_domain.Text = "";
+            }
+
             //if (dataGridView_domain.SelectedCells.Count > 0)
             //{
             //    dataGridView_domain.ClearSelection();
@@ -5156,11 +5122,11 @@ namespace rainCheck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string temp_path = Path.GetTempPath();
-            //textBox_webtitle.Text = temp_path;
+            string temp_path = Path.GetTempPath();
+            textBox_webtitle.Text = temp_path;
 
-            //int domain_total = dataGridView_urgent.RowCount;
-            //MessageBox.Show(domain_total.ToString());
+            int domain_total = dataGridView_urgent.RowCount;
+            MessageBox.Show(domain_total.ToString());
 
 
 
@@ -5445,6 +5411,8 @@ namespace rainCheck
             pictureBox_loader_urgent.Visible = true;
 
             // Set browser panel dock style
+            panel_browser_urgent.Visible = true;
+            panel_browser_urgent.BringToFront();
             panel_browser_urgent.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
 
@@ -5464,6 +5432,8 @@ namespace rainCheck
             timer_blink_urgent.Stop();
             label_status_urgent.Visible = true;
             label_status_urgent.Text = "[Running]";
+
+            timer_domain_urgent.Enabled = true;
             timer_domain_urgent.Start();
 
             int getCurrentIndex = Convert.ToInt32(label_currentindex_urgent.Text);
@@ -5811,52 +5781,52 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            //Random rnd = new Random();
-            //int month = rnd.Next(1, 1000);
-            //label_timefor.Text = month.ToString();
+            Random rnd = new Random();
+            int month = rnd.Next(1, 1000);
+            label_timefor.Text = month.ToString();
 
 
-            string result = "";
-            string search_replace = "丰盈娱乐城";
+            //string result = "";
+            //string search_replace = "丰盈娱乐城";
 
-            string upper_search = search_replace.ToUpper().ToString();
+            //string upper_search = search_replace.ToUpper().ToString();
 
-            StringBuilder sb = new StringBuilder(upper_search);
-            sb.Replace("-", "");
-            sb.Replace(".", "");
-            sb.Replace(",", "");
-            sb.Replace("!", "");
-            string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+            //StringBuilder sb = new StringBuilder(upper_search);
+            //sb.Replace("-", "");
+            //sb.Replace(".", "");
+            //sb.Replace(",", "");
+            //sb.Replace("!", "");
+            //string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
-            var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+            //var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
-            string[] words = final_search.Split(' ');
-            foreach (string word in words)
-            {
-                if (word != "")
-                {
-                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+            //string[] words = final_search.Split(' ');
+            //foreach (string word in words)
+            //{
+            //    if (word != "")
+            //    {
+            //        var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
 
-                    if (match != null)
-                    {
-                        result = "match";
-                        break;
-                    }
-                    else
-                    {
-                        result = "no match";
-                    }
-                }
-            }
+            //        if (match != null)
+            //        {
+            //            result = "match";
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            result = "no match";
+            //        }
+            //    }
+            //}
 
-            if (result == "match")
-            {
-                MessageBox.Show("booom match");
-            }
-            else
-            {
-                MessageBox.Show("booom no match");
-            }
+            //if (result == "match")
+            //{
+            //    MessageBox.Show("booom match");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("booom no match");
+            //}
 
 
 
@@ -6285,8 +6255,7 @@ namespace rainCheck
 
                 if (timeRemaining.Minutes <= 30)
                 {
-                    button_urgent.Visible = false;
-                    button_urgent.Enabled = false;
+                    //button_urgent.Visible = false;
                 }
             }
         }
@@ -6450,7 +6419,8 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
             }
@@ -6512,6 +6482,161 @@ namespace rainCheck
 
                 button_pause_urgent.Enabled = true;
             }
+        }
+
+        
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (var pic = new Bitmap(webBrowser_new.Width, webBrowser_new.Height))
+            {
+                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width-16, pic.Height-16));
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
+                pic.Save(path_desktop);
+            }
+
+
+            //PrintDialog myPrintDialog = new PrintDialog();
+            //System.Drawing.Bitmap memoryImage = new System.Drawing.Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height);
+            //panel_browser_urgent.DrawToBitmap(memoryImage, panel_browser_urgent.ClientRectangle);
+            //if (myPrintDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    System.Drawing.Printing.PrinterSettings values;
+            //    values = myPrintDialog.PrinterSettings;
+            //    myPrintDialog.Document = printDocument1;
+            //    printDocument1.PrintController = new StandardPrintController();
+            //    printDocument1.Print();
+            //}
+            //printDocument1.Dispose();
+
+
+
+
+
+            //CaptureScreen();
+            //printDocument1.Print();
+
+
+            //timer1.Start();
+
+            //printDocument1.Print();
+
+            //Bitmap bitmap = new Bitmap(panel_browser.Width, panel_browser.Height);
+            //panel_browser.DrawToBitmap(bitmap, new Rectangle(new Point(0, 0), panel_browser.Size));
+            //e.Graphics.DrawImage(bitmap, e.MarginBounds.Location);
+
+            //string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
+            //bitmap.Save(path_desktop);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //var frm = ActiveForm;
+            //using (var bmp = new Bitmap(frm.Width, frm.Height))
+            //{
+            //    frm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
+            //    bmp.Save(path_desktop);
+            //    timer1.Stop();
+            //}
+
+            //using (Bitmap bmp = new Bitmap(ClientRectangle.Width, ClientRectangle.Height))
+            //{
+            //    using (Graphics g = Graphics.FromImage(bmp))
+            //    {
+            //        g.CopyFromScreen(PointToScreen(ClientRectangle.Location).X, PointToScreen(ClientRectangle.Location).Y, 0, 0, ClientRectangle.Size);
+            //    }
+
+            //    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg";
+            //    bmp.Save(path_desktop, ImageFormat.Png);
+            //}
+
+            //PrintDocument doc = new PrintDocument();
+            //doc.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+            //doc.Print();
+
+        }
+
+        Bitmap memoryImage;
+        private void CaptureScreen()
+        {
+            Graphics myGraphics = this.CreateGraphics();
+            Size s = this.Size;
+            memoryImage = new Bitmap(s.Width, s.Height, myGraphics);
+            Graphics memoryGraphics = Graphics.FromImage(memoryImage);
+            memoryGraphics.CopyFromScreen(this.Location.X, this.Location.Y, 0, 0, s);
+        }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+
+            e.Graphics.DrawImage(memoryImage, 0, 0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //Bitmap bmp = new Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height, panel_browser_urgent.CreateGraphics());
+            //panel_browser_urgent.DrawToBitmap(bmp, new Rectangle(0, 0, panel_browser_urgent.Width, panel_browser_urgent.Height));
+            //RectangleF bounds = e.PageSettings.PrintableArea;
+            //float factor = ((float)bmp.Height / (float)bmp.Width);
+            //e.Graphics.DrawImage(bmp, bounds.Left, bounds.Top, bounds.Width, factor * bounds.Width);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //Bitmap bitmap = new Bitmap(panel_browser_urgent.Width, panel_browser_urgent.Height);
+            //panel_browser_urgent.DrawToBitmap(bitmap, new Rectangle(new Point(0, 0), panel_browser_urgent.Size));
+            //e.Graphics.DrawImage(bitmap, e.MarginBounds.Location);
+
+            // Draw a picture.
+
+            //bitmap.Save(path_desktop);
         }
     }
 }

@@ -770,6 +770,7 @@ namespace rainCheck
                         sb.Replace(".", "");
                         sb.Replace(",", "");
                         sb.Replace("!", "");
+
                         string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
                         var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
@@ -4827,6 +4828,10 @@ namespace rainCheck
 
                         start_detect_button = false;
                     }
+                    else
+                    {
+                        button_urgent.Visible = true;
+                    }
 
                     if (pagesource_history == "SUCCESS")
                     {
@@ -4993,6 +4998,10 @@ namespace rainCheck
                     button_start.Enabled = false;
 
                     start_detect_button = false;
+                }
+                else
+                {
+                    button_urgent.Visible = true;
                 }
 
                 if (pagesource_history == "SUCCESS")
@@ -6015,43 +6024,12 @@ namespace rainCheck
 
         private void APIGetDomains()
         {
-            //try
-            //{
-            //    using (var client = new WebClient())
-            //    {
-            //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main";
-            //        string request = "http://raincheck.ssitex.com/api/api.php";
-
-            //        NameValueCollection postData = new NameValueCollection()
-            //        {
-            //            { "auth", auth },
-            //            { "type", type }
-            //        };
-
-            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-            //        dataGridView_domain.DataSource = arr;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    var st = new StackTrace(ex, true);
-            //    var frame = st.GetFrame(0);
-            //    var line = frame.GetFileLineNumber();
-            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //    //Close();
-            //}
-
             try
             {
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main_test";
+                    string type = "domain_main";
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
@@ -6061,6 +6039,7 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
                     var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
 
                     dataGridView_domain.DataSource = arr;
@@ -6073,8 +6052,38 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                //Close();
             }
+
+            //try
+            //{
+            //    using (var client = new WebClient())
+            //    {
+            //        string auth = "r@inCh3ckd234b70";
+            //        string type = "domain_main_test";
+            //        string request = "http://raincheck.ssitex.com/api/api.php";
+
+            //        NameValueCollection postData = new NameValueCollection()
+            //        {
+            //            { "auth", auth },
+            //            { "type", type }
+            //        };
+
+            //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+            //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+            //        dataGridView_domain.DataSource = arr;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var st = new StackTrace(ex, true);
+            //    var frame = st.GetFrame(0);
+            //    var line = frame.GetFileLineNumber();
+            //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    Close();
+            //}
         }
 
         int detectnotloading = 0;
@@ -6273,6 +6282,12 @@ namespace rainCheck
             {
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
+
+                if (timeRemaining.Minutes <= 30)
+                {
+                    button_urgent.Visible = false;
+                    button_urgent.Enabled = false;
+                }
             }
         }
 

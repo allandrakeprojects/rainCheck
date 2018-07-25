@@ -2,7 +2,6 @@
 using CefSharp.WinForms;
 using ChoETL;
 using Ionic.Zip;
-using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -27,10 +26,6 @@ namespace rainCheck
 {
     public partial class Form_Main : Form
     {
-        //MySqlConnection con = new MySqlConnection("server=mysql5018.site4now.net;user id=a3d1a6_check;password=admin12345;database=db_a3d1a6_check;persistsecurityinfo=True;SslMode=none");
-        //MySqlConnection con = new MySqlConnection("server=localhost;user id=ssimecgp_ssiit;password=p0w3r@SSI;Database=ssimecgp_raincheck;persistsecurityinfo=True;SslMode=none;port=3306");
-
-
         public ChromiumWebBrowser chromeBrowser { get; private set; }
 
         public static string SetValueForTextBrandID = "";
@@ -44,12 +39,6 @@ namespace rainCheck
         string city_get;
         string isp_get;
         int currentIndex;
-
-        //TimeSpan TimeLeft = new TimeSpan();
-        //DateTime VoteTime = Properties.Settings.Default.voteTime;
-
-        //MySqlConnection con = new MySqlConnection("server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=raincheck;SslMode=none");
-
         public Form_Main(string city, string country, string isp)
         {
             InitializeComponent();
@@ -66,8 +55,7 @@ namespace rainCheck
 
             // Design
             //this.WindowState = FormWindowState.Maximized;
-
-            //DataToGridView("SELECT CONCAT(b.brand_code, ' - ', REPEAT('*', length(d.domain_name)-5), RIGHT(d.domain_name, 5)) as 'Domain(s) List', d.domain_name, b.id, b.text_search from domains_test d inner join brands b ON d.brand_name=b.id WHERE d.status='A' order by FIELD(b.id, 4, 1, 2, 5, 3), d.domain_name");
+            
             APIGetDomains();
         }
 
@@ -302,14 +290,14 @@ namespace rainCheck
                 }
             }
 
-            //if (networkIsAvailable)
-            //{
-            //    panel_retry.Visible = false;
-            //}
-            //else
-            //{
-            //    panel_retry.Visible = true;
-            //}
+            if (networkIsAvailable)
+            {
+                panel_retry.Visible = false;
+            }
+            else
+            {
+                panel_retry.Visible = true;
+            }
 
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
 
@@ -422,10 +410,7 @@ namespace rainCheck
                         {
                             panel_retry.Visible = false;
                             panel_retry.BringToFront();
-
-                            //TopMost = true;
-                            //MinimizeBox = false;
-
+                            
                             if (label_status.Text == "[Running]")
                             {
                                 timer_blink.Stop();
@@ -459,13 +444,10 @@ namespace rainCheck
                         else
                         {
                             panel_retry.Visible = false;
-
-                            //TopMost = true;
-                            //MinimizeBox = false;
                         }
-
                     }));
-                } else if (panel_urgent.Visible == true)
+                }
+                else if (panel_urgent.Visible == true)
                 {
                     Invoke(new Action(() =>
                     {
@@ -476,9 +458,6 @@ namespace rainCheck
                         {
                             panel_retry.Visible = false;
                             panel_retry.BringToFront();
-
-                            //TopMost = true;
-                            //MinimizeBox = false;
 
                             if (label_status_urgent.Text == "[Running]")
                             {
@@ -509,11 +488,7 @@ namespace rainCheck
                         else
                         {
                             panel_retry.Visible = false;
-
-                            //TopMost = true;
-                            //MinimizeBox = false;
                         }
-
                     }));
                 }
             }
@@ -527,9 +502,6 @@ namespace rainCheck
 
                         panel_retry.Visible = true;
                         panel_retry.BringToFront();
-
-                        //TopMost = false;
-                        //MinimizeBox = true;
 
                         timer_domain.Stop();
                         timer_timeout.Stop();
@@ -547,9 +519,6 @@ namespace rainCheck
                         panel_retry.Visible = true;
                         panel_retry.BringToFront();
 
-                        //TopMost = false;
-                        //MinimizeBox = true;
-
                         timer_domain_urgent.Stop();
                         timer_timeout_urgent.Stop();
                         pictureBox_loader_urgent.Visible = false;
@@ -565,20 +534,9 @@ namespace rainCheck
             try
             {
                 CefSettings settings = new CefSettings();
-
-                //settings.IgnoreCertificateErrors = true;
-                //settings.SetOffScreenRenderingBestPerformanceArgs();
-                //settings.PackLoadingDisabled = true;
                 settings.CefCommandLineArgs.Add("disable-plugins-discovery", "1");
                 settings.CefCommandLineArgs.Add("no-proxy-server", "1");
-
                 Cef.Initialize(settings);
-
-                //chromeBrowser = new ChromiumWebBrowser(CustomLinks[0].ToString());
-                //JsDialogHandler jss = new JsDialogHandler();
-                //chromeBrowser.JsDialogHandler = jss;
-
-                //textBox_domain.Text = "google.com";
 
                 chromeBrowser = new ChromiumWebBrowser(textBox_domain.Text);
 
@@ -588,8 +546,6 @@ namespace rainCheck
                 
                 chromeBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChangedAsync;
                 chromeBrowser.AddressChanged += ChromiumWebBrowser_AddressChanged;
-                //chromeBrowser.TitleChanged += ChromiumWebBrowser_TitleChanged;
-                //chromeBrowser.StatusMessage += OnBrowserStatusMessage;
                 chromeBrowser.LoadError += ChromiumWebBrowser_BrowserLoadError;
             }
             catch (Exception ex)
@@ -639,25 +595,6 @@ namespace rainCheck
                 chromeBrowser.Stop();
                 label_timeout.Text = "timeout";
             }
-
-            //if(i >= 2)
-            //{
-            //    // timeout message
-            //    MessageBox.Show("timeout");
-
-            //    // Stop function
-            //    timer_timeout.Stop();
-            //    chromeBrowser.Stop();
-
-            //    // Date preview
-            //    string end_load = DateTime.Now.ToString("hh:mm:ss");
-            //    MessageBox.Show(end_load);
-
-            //    // Set i to 1
-            //    i = 1;
-
-            //    return;
-            //}
         }
 
         string start_load = "";
@@ -777,8 +714,12 @@ namespace rainCheck
                         var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
                         string[] words = final_search.Split(' ');
+
+                        int i = 0;
                         foreach (string word in words)
                         {
+                            i++;
+
                             if (word != "")
                             {
                                 var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
@@ -793,11 +734,16 @@ namespace rainCheck
                                     result = "no match";
                                 }
                             }
+
+                            if (i == 1 && search_replace == "")
+                            {
+                                result = "match";
+                            }
                         }
 
                         if (result == "match")
+                        // hijacked
                         {
-                            // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                             {
                                 if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
@@ -1620,23 +1566,38 @@ namespace rainCheck
                         StringBuilder sb = new StringBuilder(upper_search);
                         sb.Replace("-", "");
                         sb.Replace(".", "");
+                        sb.Replace(",", "");
+                        sb.Replace("!", "");
+
                         string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
                         var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
                         string[] words = final_search.Split(' ');
+
+                        int i = 0;
                         foreach (string word in words)
                         {
-                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+                            i++;
 
-                            if (match != null)
+                            if (word != "")
+                            {
+                                var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                                if (match != null)
+                                {
+                                    result = "match";
+                                    break;
+                                }
+                                else
+                                {
+                                    result = "no match";
+                                }
+                            }
+
+                            if (i == 1 && search_replace == "")
                             {
                                 result = "match";
-                                break;
-                            }
-                            else
-                            {
-                                result = "no match";
                             }
                         }
 
@@ -2398,8 +2359,7 @@ namespace rainCheck
                     }                    
                 }
             }
-
-            
+                        
             // ----TIMER URGENT ENABLED----
             if (timer_domain_urgent.Enabled)
             {
@@ -2507,23 +2467,38 @@ namespace rainCheck
                         StringBuilder sb = new StringBuilder(upper_search);
                         sb.Replace("-", "");
                         sb.Replace(".", "");
+                        sb.Replace(",", "");
+                        sb.Replace("!", "");
+
                         string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
                         var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
                         string[] words = final_search.Split(' ');
+
+                        int i = 0;
                         foreach (string word in words)
                         {
-                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+                            i++;
 
-                            if (match != null)
+                            if (word != "")
+                            {
+                                var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                                if (match != null)
+                                {
+                                    result = "match";
+                                    break;
+                                }
+                                else
+                                {
+                                    result = "no match";
+                                }
+                            }
+
+                            if (i == 1 && search_replace == "")
                             {
                                 result = "match";
-                                break;
-                            }
-                            else
-                            {
-                                result = "no match";
                             }
                         }
 
@@ -2802,9 +2777,9 @@ namespace rainCheck
                                                 string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
+                                                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout + "\\" + label_getdatetime_urgent.Text;
 
-                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2864,9 +2839,9 @@ namespace rainCheck
                                                 string datetime_folder = label9.Text;
                                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
+                                                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout + "\\" + label_getdatetime_urgent.Text;
 
-                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -2970,9 +2945,9 @@ namespace rainCheck
                                             string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
+                                            string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout + "\\" + label_getdatetime_urgent.Text;
 
-                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -3032,9 +3007,9 @@ namespace rainCheck
                                             string datetime_folder = label9.Text;
                                             string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                            string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
+                                            string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout + "\\" + label_getdatetime_urgent.Text;
 
-                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                                            string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -3102,9 +3077,9 @@ namespace rainCheck
                                 string datetime_folder = label9.Text;
                                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout + "\\" + datetime_folder;
+                                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout + "\\" + label_getdatetime_urgent.Text;
 
-                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                                string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
@@ -3271,37 +3246,10 @@ namespace rainCheck
                 }
             }
         }
-        
-        private void CloseIt()
-        {
-            System.Threading.Thread.Sleep(500);
-            Microsoft.VisualBasic.Interaction.AppActivate(
-                 System.Diagnostics.Process.GetCurrentProcess().Id);
-            SendKeys.SendWait(" ");
-        }
-
-        //public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
-        //{
-        //    callback.Continue(true);
-        //    return true;
-        //}
-
-        //public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IWindowInfo windowInfo, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
-        //{
-        //    //System.Diagnostics.Process.Start(targetUrl);
-        //    //newBrowser = null;
-        //    //return false;
-
-        //    chromeBrowser.Load(targetUrl);
-        //    return false;
-        //}
 
         // Main
         private void DataToTextFileSuccess()
         {
-            //MessageBox.Show("Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
@@ -3395,10 +3343,6 @@ namespace rainCheck
 
         private void DataToTextFileTimeout()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
@@ -3492,10 +3436,6 @@ namespace rainCheck
 
         private void DataToTextFileHijacked()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
@@ -3625,10 +3565,6 @@ namespace rainCheck
 
         private void DataToTextFileInaccessible()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
@@ -3788,17 +3724,13 @@ namespace rainCheck
         int i_timeout = 1;
         private void DataToTextFileSuccess_Urgent()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "_urgent_" + i_timeout;
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
@@ -3827,7 +3759,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -3862,7 +3794,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -3881,17 +3813,13 @@ namespace rainCheck
 
         private void DataToTextFileTimeout_Urgent()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "_urgent_" + i_timeout;
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
@@ -3921,7 +3849,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -3957,7 +3885,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -3976,17 +3904,13 @@ namespace rainCheck
         
         private void DataToTextFileHijacked_Urgent()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "_urgent_" + i_timeout;
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
@@ -4034,7 +3958,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4088,7 +4012,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4107,17 +4031,13 @@ namespace rainCheck
 
         private void DataToTextFileInaccessible_Urgent()
         {
-            //MessageBox.Show("Date Today: " + datetime + "\n" +
-            //                "Start Time: " + start_load + "\n" +
-            //                "End Time: " + end_load);
-
             try
             {
                 string datetime = label11.Text;
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "_urgent_" + i_timeout;
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {
@@ -4180,7 +4100,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4249,7 +4169,7 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4393,6 +4313,8 @@ namespace rainCheck
                     label_status.Text = "[Loading]";
 
                     index = 0;
+                    label_currentindex.Text = "0";
+
                     label_domainscount.Text = "Total: " + domain_total.ToString();
 
                     // else loaded
@@ -4662,31 +4584,28 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            //if (!buttonDetect)
-            //{
-            //    if (label_currentindex.Text == "0")
-            //    {
-            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //        string replace = label_timefor.Text.Replace(":", "");
+            if (!buttonDetect)
+            {
+                if (label_currentindex.Text == "0")
+                {
+                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string replace = label_timefor.Text.Replace(":", "");
 
-            //        string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
-            //        string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
+                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
-            //        if (Directory.Exists(path))
-            //        {
-            //            Directory.Delete(path, true);
-            //        }
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+                    }
 
-            //        if (Directory.Exists(path_noreplace))
-            //        {
-            //            Directory.Delete(path_noreplace, true);
-            //        }
-            //    }
-            //}
-
-            //TopMost = true;
-            //MinimizeBox = false;
-
+                    if (Directory.Exists(path_noreplace))
+                    {
+                        Directory.Delete(path_noreplace, true);
+                    }
+                }
+            }
+            
             pictureBox_loader.Visible = true;
 
             // Set browser panel dock style
@@ -4694,19 +4613,6 @@ namespace rainCheck
             panel_browser.BringToFront();
             panel_browser.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
-
-            //if (textchange_date == 1)
-            //{
-            //    if (label9.Text == "")
-            //    {
-            //        label9.Text = label9.Text;
-            //    }
-
-            //    if (label11.Text == "")
-            //    {
-            //        label11.Text = label11.Text;
-            //    }
-            //}
 
             label_domainscount.Text = "Total: " + (index + 1) + " of " + domain_total.ToString();
 
@@ -5509,8 +5415,8 @@ namespace rainCheck
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
         {
-            //TopMost = true;
-            //MinimizeBox = false;
+            label_getdatetime_urgent.Text = label9.Text;
+            label_datetimetextfile_urgent.Text = DateTime.Now.ToString("yyyy-MM-dd ") + label_timefor.Text + ":00";
             
             pictureBox_loader_urgent.Visible = true;
 
@@ -5692,8 +5598,7 @@ namespace rainCheck
                     string datetime_folder = label9.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
-
+                    string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;                    
 
                     // Insert
                     string read = File.ReadAllText(path + "\\result.txt");
@@ -5885,52 +5790,61 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            int month = rnd.Next(1, 1000);
-            label_timefor.Text = month.ToString();
+            //Random rnd = new Random();
+            //int month = rnd.Next(1, 1000);
+            //label_timefor.Text = month.ToString();
 
 
-            //string result = "";
-            //string search_replace = "丰盈娱乐城";
+            string result = "";
+            string search_replace = "";
 
-            //string upper_search = search_replace.ToUpper().ToString();
+            string upper_search = search_replace.ToUpper().ToString();
 
-            //StringBuilder sb = new StringBuilder(upper_search);
-            //sb.Replace("-", "");
-            //sb.Replace(".", "");
-            //sb.Replace(",", "");
-            //sb.Replace("!", "");
-            //string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+            StringBuilder sb = new StringBuilder(upper_search);
+            sb.Replace("-", "");
+            sb.Replace(".", "");
+            sb.Replace(",", "");
+            sb.Replace("!", "");
+            string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
-            //var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+            var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
-            //string[] words = final_search.Split(' ');
-            //foreach (string word in words)
-            //{
-            //    if (word != "")
-            //    {
-            //        var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+            string[] words = final_search.Split(' ');
 
-            //        if (match != null)
-            //        {
-            //            result = "match";
-            //            break;
-            //        }
-            //        else
-            //        {
-            //            result = "no match";
-            //        }
-            //    }
-            //}
+            int i = 0;
+            foreach (string word in words)
+            {
+                i++;
 
-            //if (result == "match")
-            //{
-            //    MessageBox.Show("booom match");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("booom no match");
-            //}
+                if (word != "")
+                {
+                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                    if (match != null)
+                    {
+                        result = "match";
+                        break;
+                    }
+                    else
+                    {
+                        result = "no match";
+                    }
+                }
+
+                if (i == 1 && search_replace == "")
+                {
+                    result = "match";
+                }
+            }
+
+            if (result == "match")
+            {
+                MessageBox.Show("booom match");
+            }
+            else
+            {
+                MessageBox.Show("booom no match");
+            }
 
 
 
@@ -6356,11 +6270,6 @@ namespace rainCheck
             {
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
-
-                //if (timeRemaining.Minutes <= 30)
-                //{
-                //    button_urgent.Visible = false;
-                //}
             }
 
             if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
@@ -6405,9 +6314,6 @@ namespace rainCheck
                     }
                     else
                     {
-                        //TopMost = true;
-                        //MinimizeBox = false;
-
                         label_timeget.Text = label_timefor.Text;
                         button_start.Enabled = true;
                         button_start.PerformClick();
@@ -6440,9 +6346,6 @@ namespace rainCheck
                 {
                     if (auto_start)
                     {
-                        //TopMost = true;
-                        //MinimizeBox = false;
-
                         timerfornext = true;
                         label_ifloadornot.Text = "0";
 
@@ -6459,9 +6362,6 @@ namespace rainCheck
                 }
                 else
                 {
-                    //TopMost = true;
-                    //MinimizeBox = false;
-
                     button_start.Enabled = true;
                     button_start.PerformClick();
                     button_start.Enabled = false;
@@ -6550,16 +6450,6 @@ namespace rainCheck
                 // For timeout
                 i_urgent = 1;
 
-                //if (label9.Text == "")
-                //{
-                //    label9.Text = label9.Text;
-                //}
-
-                //if (label11.Text == "")
-                //{
-                //    label11.Text = label11.Text;
-                //}
-
                 ms_detect = 0;
                 fully_loaded = 0;
                 start_detect = 0;
@@ -6570,7 +6460,7 @@ namespace rainCheck
                 string datetime_folder = label9.Text;
                 string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string path = path_desktop + "\\rainCheck\\" + datetime_folder + "\\" + datetime_folder + "_urgent_" + i_timeout;
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                 if (Directory.Exists(path))
                 {

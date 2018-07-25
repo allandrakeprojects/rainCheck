@@ -768,6 +768,8 @@ namespace rainCheck
                         StringBuilder sb = new StringBuilder(upper_search);
                         sb.Replace("-", "");
                         sb.Replace(".", "");
+                        sb.Replace(",", "");
+                        sb.Replace("!", "");
                         string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
                         var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
@@ -775,16 +777,19 @@ namespace rainCheck
                         string[] words = final_search.Split(' ');
                         foreach (string word in words)
                         {
-                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+                            if (word != "")
+                            {
+                                var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
 
-                            if (match != null)
-                            {
-                                result = "match";
-                                break;
-                            }
-                            else
-                            {
-                                result = "no match";
+                                if (match != null)
+                                {
+                                    result = "match";
+                                    break;
+                                }
+                                else
+                                {
+                                    result = "no match";
+                                }
                             }
                         }
 
@@ -5142,11 +5147,11 @@ namespace rainCheck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string temp_path = Path.GetTempPath();
-            textBox_webtitle.Text = temp_path;
+            //string temp_path = Path.GetTempPath();
+            //textBox_webtitle.Text = temp_path;
 
-            int domain_total = dataGridView_urgent.RowCount;
-            MessageBox.Show(domain_total.ToString());
+            //int domain_total = dataGridView_urgent.RowCount;
+            //MessageBox.Show(domain_total.ToString());
 
 
 
@@ -5797,6 +5802,93 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
+            //Random rnd = new Random();
+            //int month = rnd.Next(1, 1000);
+            //label_timefor.Text = month.ToString();
+
+
+            string result = "";
+            string search_replace = "丰盈娱乐城";
+
+            string upper_search = search_replace.ToUpper().ToString();
+
+            StringBuilder sb = new StringBuilder(upper_search);
+            sb.Replace("-", "");
+            sb.Replace(".", "");
+            sb.Replace(",", "");
+            sb.Replace("!", "");
+            string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+
+            var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+
+            string[] words = final_search.Split(' ');
+            foreach (string word in words)
+            {
+                if (word != "")
+                {
+                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+
+                    if (match != null)
+                    {
+                        result = "match";
+                        break;
+                    }
+                    else
+                    {
+                        result = "no match";
+                    }
+                }
+            }
+
+            if (result == "match")
+            {
+                MessageBox.Show("booom match");
+            }
+            else
+            {
+                MessageBox.Show("booom no match");
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //MessageBox.Show(start_get.ToString());
 
             //string myDate = "21/07/2018 00:00:00";
@@ -5850,10 +5942,6 @@ namespace rainCheck
             //{
             //    label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             //}
-
-            Random rnd = new Random();
-            int month = rnd.Next(1, 1000);
-            label_timefor.Text = month.ToString();
 
             //timerfornext = true;
             //string time = textBox1.Text;
@@ -5923,84 +6011,16 @@ namespace rainCheck
             //};
 
             //notification.ShowBalloonTip(1000);
-
-            //string result = "";
-            //string search_replace = "天發娱乐城";
-
-            //string upper_search = search_replace.ToUpper().ToString();
-
-            //StringBuilder sb = new StringBuilder(upper_search);
-            //sb.Replace("-", "");
-            //sb.Replace(".", "");
-            //string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
-
-            //var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());            
-
-            //string[] words = final_search.Split(' ');
-            //foreach (string word in words)
-            //{
-            //    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
-
-            //    if (match != null)
-            //    {
-            //        result = "match";
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        result = "no match";
-            //    }
-            //}
-
-            //if (result == "match")
-            //{
-            //    MessageBox.Show("booom match");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("booom no match");
-            //}
         }
 
         private void APIGetDomains()
         {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "domain_main";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-
-                    NameValueCollection postData = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type }
-                    };
-
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
-
-                    dataGridView_domain.DataSource = arr;
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //Close();
-            }
-
             //try
             //{
             //    using (var client = new WebClient())
             //    {
             //        string auth = "r@inCh3ckd234b70";
-            //        string type = "domain_main_test";
+            //        string type = "domain_main";
             //        string request = "http://raincheck.ssitex.com/api/api.php";
 
             //        NameValueCollection postData = new NameValueCollection()
@@ -6010,6 +6030,7 @@ namespace rainCheck
             //        };
 
             //        string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
             //        var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
 
             //        dataGridView_domain.DataSource = arr;
@@ -6022,8 +6043,38 @@ namespace rainCheck
             //    var line = frame.GetFileLineNumber();
             //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //    Close();
+            //    //Close();
             //}
+
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "domain_main_test";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    var arr = JsonConvert.DeserializeObject<JArray>(pagesource);
+
+                    dataGridView_domain.DataSource = arr;
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
+            }
         }
 
         int detectnotloading = 0;
@@ -6254,6 +6305,7 @@ namespace rainCheck
 
                     if (read.Contains(date_history + label_timefor.Text))
                     {
+                        button_urgent.Visible = true;
                         textchanged_timefor = true;
                         button_start.Enabled = false;
                     }

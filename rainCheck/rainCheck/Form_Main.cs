@@ -636,6 +636,7 @@ namespace rainCheck
 
                     Invoke(new Action(() =>
                     {
+                        i = 1;
                         timer_timeout.Start();
                         pictureBox_loader.Visible = true;
                         label_ifloadornot.Text = "1";
@@ -1512,6 +1513,7 @@ namespace rainCheck
 
                     Invoke(new Action(() =>
                     {
+                        i = 1;
                         timer_timeout.Start();
                         pictureBox_loader.Visible = true;
                         ms_detect++;
@@ -2397,6 +2399,7 @@ namespace rainCheck
 
                     Invoke(new Action(() =>
                     {
+                        i_urgent = 1;
                         timer_timeout_urgent.Start();
                         pictureBox_loader_urgent.Visible = true;
                         label_ifloadornot_urgent.Text = "1";
@@ -4607,7 +4610,7 @@ namespace rainCheck
                     }
                 }
             }
-            
+
             pictureBox_loader.Visible = true;
 
             // Set browser panel dock style
@@ -5408,12 +5411,6 @@ namespace rainCheck
                 MessageBox.Show("Please wait until the process is finish. Thank you!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void OnResourceRedirect(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, ref string newUrl)
-        {
-
-        }
-
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
         {

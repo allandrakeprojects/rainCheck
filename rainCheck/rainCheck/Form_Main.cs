@@ -5148,6 +5148,8 @@ namespace rainCheck
 
                     textBox_domain.Text = "";
 
+                    timer_start_urgent.Start();
+
                     //if (label_status.Text != "[Waiting]")
                     //{
                     //    button_start.PerformClick();
@@ -5311,6 +5313,8 @@ namespace rainCheck
                 label_domainscount_urgent.Visible = false;
 
                 textBox_domain.Text = "";
+
+                timer_start_urgent.Start();
 
                 //if (label_status.Text != "[Waiting]")
                 //{
@@ -6707,7 +6711,7 @@ namespace rainCheck
                             using (var client_1 = new WebClient())
                             {
                                 string auth_1 = "r@inCh3ckd234b70";
-                                string type_1 = "domain_main_test";
+                                string type_1 = "domain_urgent";
                                 string request_1 = "http://raincheck.ssitex.com/api/api.php";
 
                                 NameValueCollection postData_1 = new NameValueCollection()
@@ -6759,6 +6763,7 @@ namespace rainCheck
                             dataGridView_urgent.ClearSelection();
 
                             // Start urgent
+                            button_start_urgent.Enabled = false;
                             timer_start_urgent.Start();
                             timer_urgent_detect.Stop();
                         }

@@ -11,7 +11,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -61,6 +60,71 @@ namespace rainCheck
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            InitializeChromium();
+
+            string path_urgent_domain_detect = Path.GetTempPath() + @"\raincheck_urgent.txt";
+            if (File.Exists(path_urgent_domain_detect))
+            {
+                if (label_status.Text == "[Running]")
+                {
+                    button_pause.PerformClick();
+                }
+
+                try
+                {
+                    using (var client_1 = new WebClient())
+                    {
+                        string auth_1 = "r@inCh3ckd234b70";
+                        string type_1 = "domain_main";
+                        string request_1 = "http://raincheck.ssitex.com/api/api.php";
+
+                        NameValueCollection postData_1 = new NameValueCollection()
+                                {
+                                    { "auth", auth_1 },
+                                    { "type", type_1 }
+                                };
+
+                        string pagesource_1 = Encoding.UTF8.GetString(client_1.UploadValues(request_1, postData_1));
+                        var arr = JsonConvert.DeserializeObject<JArray>(pagesource_1);
+                        dataGridView_urgent.DataSource = arr;
+                    }
+                }
+                catch (Exception)
+                {
+                    StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
+                    sw_create.Close();
+
+                    can_close = false;
+                    Application.Restart();
+                }
+
+                if (can_close)
+                {
+                    // Table UI
+                    dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+                    string hex = "#438eb9";
+                    Color color = ColorTranslator.FromHtml(hex);
+                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color;
+                    dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
+                    dataGridView_urgent.Columns["domain_name"].Visible = false;
+                    dataGridView_urgent.Columns["id"].Visible = false;
+                    dataGridView_urgent.Columns["text_search"].Visible = false;
+                    dataGridView_urgent.Columns["website_type"].Visible = false;
+                    dataGridView_urgent.ClearSelection();
+                    label_domainscount_urgent.Visible = true;
+                    label_domainscount_urgent.Text = "Total: " + dataGridView_urgent.RowCount.ToString();
+
+                    // Go to urgent panel
+                    panel_urgent.Visible = true;
+                    panel_main.Visible = false;
+                    label_domainscount.Visible = false;
+                    label_domain_urgent.Visible = true;
+                    textBox_domain_urgent.Text = "";
+                    
+                    File.Delete(path_urgent_domain_detect);
+                }
+            }
+
             try
             {
                 using (var client = new WebClient())
@@ -68,7 +132,7 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "running";
                     string mac_id = GetMACAddress();
-                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()
@@ -87,15 +151,41 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                //Close();
+                Close();
             }
 
-            //dataGridView_domains.ClearSelection();
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "urgent_device";
+                    string mac_id = GetMACAddress();
+                    string request = "http://raincheck.ssitex.com/api/api.php";
 
-            InitializeChromium();
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id }
+                    };
 
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    label_urgent_detect.Text = pagesource;
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Close();
+            }
+            
             foreach (DataGridViewColumn column in dataGridView_domain.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -315,68 +405,6 @@ namespace rainCheck
 
             // Getting mac id
             label_macid.Text = GetMACAddress().ToLower();
-            
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "running";
-                    string mac_id = GetMACAddress();
-                    string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-
-                    NameValueCollection postData = new NameValueCollection()
-                    {
-                        { "auth", auth },
-                        { "type", type },
-                        { "mac_id", mac_id },
-                        { "run_time", run_time }
-                    };
-
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //Close();
-            }
-            
-            // URGENT PANEL
-            try
-            {
-                if (dataGridView_urgent.Rows.Count == 0)
-                {
-                    button_start_urgent.Enabled = false;
-
-                    dataGridView_urgent.Rows.Add("No data available in table");
-                    dataGridView_urgent.ClearSelection();
-                    dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.None;
-                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = dataGridView_urgent.DefaultCellStyle.BackColor;
-                    dataGridView_urgent.DefaultCellStyle.SelectionForeColor = dataGridView_urgent.DefaultCellStyle.ForeColor;
-
-                    new ToolTip().SetToolTip(label_help, "Click Domain button to Import New Set of Domain(s)");
-
-                    dataGridView_urgent.Columns["brand_id"].Visible = false;
-                    dataGridView_urgent.Columns["text_search"].Visible = false;
-                    dataGridView_urgent.Columns["website_type"].Visible = false;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1004", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //Close();
-            }
         }
         
         // Get MAC Address
@@ -2370,16 +2398,6 @@ namespace rainCheck
                 // --Loading--
                 if (e.IsLoading)
                 {
-                    // Date preview
-                    //start_load = DateTime.Now.ToString("HH:mm:ss.fff");
-
-                    //Invoke(new Action(() =>
-                    //{
-                    //    timer_timeout_urgent.Start();
-                    //    pictureBox_loader_urgent.Visible = true;
-                    //    label_ifloadornot_urgent.Text = "0";
-                    //}));
-
                     // Detect when stop loads
                     detectnotloading = 0;
                     timer_detectnotloading.Stop();
@@ -2517,7 +2535,7 @@ namespace rainCheck
                                     var html = "";
                                     try
                                     {
-                                        html = new WebClient().DownloadString(textBox_domain.Text);
+                                        html = new WebClient().DownloadString(textBox_domain_urgent.Text);
                                     }
                                     catch (Exception)
                                     {
@@ -2909,18 +2927,6 @@ namespace rainCheck
                                         }));
                                     }
 
-                                    if (ms_detect == 1)
-                                    {
-                                        if (label_webtitle_urgent.Text == "Can’t reach this page" || label_webtitle_urgent.Text == "This site isn’t secure" || label_webtitle_urgent.Text == "无法访问此页面" || label_webtitle_urgent.Text == "此站点不安全")
-                                        {
-                                            Invoke(new Action(() =>
-                                            {
-                                                panel_new.Visible = true;
-                                                panel_new.BringToFront();
-                                            }));
-                                        }
-                                    }
-
                                     Invoke(new Action(async () =>
                                     {
                                         label_inaccessible.Text = "inaccessible";
@@ -2956,23 +2962,11 @@ namespace rainCheck
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                pic.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible_Urgent();
@@ -4205,6 +4199,10 @@ namespace rainCheck
                     Cef.Shutdown();
                 }
             }
+            else
+            {
+                Cef.Shutdown();
+            }
         }
 
         private void Button_go_Click(object sender, EventArgs e)
@@ -4326,18 +4324,6 @@ namespace rainCheck
                     elseloaded_i = 0;
                     timer_elseloaded.Stop();
                     
-                    // Random domains
-                    dataGridView_domain.DataSource = null;
-                    APIGetDomains();
-                    dataGridView_domain.ClearSelection();
-                    chromeBrowser.Dock = DockStyle.None;
-                    dataGridView_domain.Columns["domain_name"].Visible = false;
-                    dataGridView_domain.Columns["id"].Visible = false;
-                    dataGridView_domain.Columns["text_search"].Visible = false;
-                    dataGridView_domain.Columns["website_type"].Visible = false;
-
-                    label_domainscount.Text = "Total: " + dataGridView_domain.RowCount.ToString();
-
                     pictureBox_loader.Visible = false;
                     textBox_domain.Text = "";
 
@@ -4394,11 +4380,11 @@ namespace rainCheck
                                 string reports = sb.ToString();
 
                                 NameValueCollection postData = new NameValueCollection()
-                            {
-                                { "auth", auth },
-                                { "type", type },
-                                { "reports", reports },
-                            };
+                                {
+                                    { "auth", auth },
+                                    { "type", type },
+                                    { "reports", reports },
+                                };
 
                                 pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
@@ -4482,6 +4468,18 @@ namespace rainCheck
                     };
 
                     notification.ShowBalloonTip(1000);
+                    
+                    // Random domains
+                    dataGridView_domain.DataSource = null;
+                    APIGetDomains();
+                    dataGridView_domain.ClearSelection();
+                    chromeBrowser.Dock = DockStyle.None;
+                    dataGridView_domain.Columns["domain_name"].Visible = false;
+                    dataGridView_domain.Columns["id"].Visible = false;
+                    dataGridView_domain.Columns["text_search"].Visible = false;
+                    dataGridView_domain.Columns["website_type"].Visible = false;
+
+                    label_domainscount.Text = "Total: " + dataGridView_domain.RowCount.ToString();
                 }
                 else
                 {
@@ -4580,8 +4578,8 @@ namespace rainCheck
             textBox_domain.Text = "";
             ActiveControl = textBox_domain;
 
-            button_urgent.Visible = true;
-            
+            //button_urgent.Visible = true;
+
             fully_loaded = 0;
             start_detect = 0;
             //label_domaintitle.Text = "";
@@ -4589,27 +4587,27 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            if (!buttonDetect)
-            {
-                if (label_currentindex.Text == "0")
-                {
-                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    string replace = label_timefor.Text.Replace(":", "");
+            //if (!buttonDetect)
+            //{
+            //    if (label_currentindex.Text == "0")
+            //    {
+            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //        string replace = label_timefor.Text.Replace(":", "");
 
-                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
-                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
+            //        string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+            //        string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
-                    if (Directory.Exists(path))
-                    {
-                        Directory.Delete(path, true);
-                    }
+            //        if (Directory.Exists(path))
+            //        {
+            //            Directory.Delete(path, true);
+            //        }
 
-                    if (Directory.Exists(path_noreplace))
-                    {
-                        Directory.Delete(path_noreplace, true);
-                    }
-                }
-            }
+            //        if (Directory.Exists(path_noreplace))
+            //        {
+            //            Directory.Delete(path_noreplace, true);
+            //        }
+            //    }
+            //}
 
             pictureBox_loader.Visible = true;
 
@@ -4642,7 +4640,7 @@ namespace rainCheck
 
             button_startover.Enabled = true;
             
-            button_urgent.Visible = false;
+            // button_urgent.visible = false;
 
             // textchanged timefor
             textchanged_timefor = true;
@@ -4735,6 +4733,7 @@ namespace rainCheck
         int timer_loader_okay = 10;
         private bool buttonGoWasClicked;
         private bool buttonDetect;
+        private bool urgentRunning;
 
         private void Timer_loader_Tick(object sender, EventArgs e)
         {
@@ -4794,10 +4793,7 @@ namespace rainCheck
                 timer_loader_okay = 10;
                 timer_loader_uploaded = 0;
                 timer_loader.Stop();
-                
                 panel_uploaded.Visible = false;
-
-                //button_start.Enabled = true;
 
                 if (panel_main.Visible == true)
                 {
@@ -4811,7 +4807,7 @@ namespace rainCheck
                     }
                     else
                     {
-                        button_urgent.Visible = true;
+                        // button_urgent.visible = true;
                     }
 
                     if (pagesource_history == "SUCCESS")
@@ -4926,36 +4922,32 @@ namespace rainCheck
                     }
 
                     label_timeget.Text = label_timefor.Text;
-
-                    // Restart
-                    //string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                    //if (File.Exists(path_last_load_restart))
-                    //{
-                    //    string last_load = File.ReadAllText(path_last_load_restart);
-
-                    //    if (label_timefor.Text == last_load)
-                    //    {
-                    //        timefor = 0;
-                    //        textchanged_timefor = false;
-
-                    //        //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                    //        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-
-                    //        //File.Delete(path_history);
-                    //        File.Delete(path_last_load);
-
-                    //        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //        if (dr == DialogResult.OK)
-                    //        {
-                    //            can_close = false;
-                    //            Application.Restart();
-                    //        }
-                    //    }
-                    //}
+                    
+                    if (server)
+                    {
+                        can_close = false;
+                        Application.Restart();
+                    }
                 }
                 else if (panel_urgent.Visible == true)
                 {
-                    button_start_urgent.Enabled = true;
+                    urgentRunning = false;
+                    label_timefor.Text = "RC";
+
+                    panel_urgent.Visible = false;
+                    panel_main.Visible = true;
+                    label_domainscount.Visible = true;
+                    label_domain_urgent.Visible = false;
+                    label_domainscount_urgent.Visible = false;
+
+                    textBox_domain.Text = "";
+
+                    if (label_status.Text != "[Waiting]")
+                    {
+                        button_start.PerformClick();
+                    }
+
+                    timer_urgent_detect.Start();
                 }
             }
         }
@@ -4965,10 +4957,7 @@ namespace rainCheck
             timer_loader_okay = 10;
             timer_loader_uploaded = 0;
             timer_loader.Stop();
-
             panel_uploaded.Visible = false;
-
-            //button_start.Enabled = true;
 
             if (panel_main.Visible == true)
             {
@@ -4982,7 +4971,7 @@ namespace rainCheck
                 }
                 else
                 {
-                    button_urgent.Visible = true;
+                    // button_urgent.visible = true;
                 }
 
                 if (pagesource_history == "SUCCESS")
@@ -5098,35 +5087,31 @@ namespace rainCheck
 
                 label_timeget.Text = label_timefor.Text;
 
-                // Restart
-                //string path_last_load_restart = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                //if (File.Exists(path_last_load_restart))
-                //{
-                //    string last_load = File.ReadAllText(path_last_load_restart);
-
-                //    if (label_timefor.Text == last_load)
-                //    {
-                //        timefor = 0;
-                //        textchanged_timefor = false;
-
-                //        //string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                //        string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-
-                //        //File.Delete(path_history);
-                //        File.Delete(path_last_load);
-
-                //        dr = MessageBox.Show("24 hours session done. Ready for the next session!", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //        if (dr == DialogResult.OK)
-                //        {
-                //            can_close = false;
-                //            Application.Restart();
-                //        }
-                //    }
-                //}
+                if (server)
+                {
+                    can_close = false;
+                    Application.Restart();
+                }
             }
             else if (panel_urgent.Visible == true)
             {
-                button_start_urgent.Enabled = true;
+                urgentRunning = false;
+                label_timefor.Text = "RC";
+
+                panel_urgent.Visible = false;
+                panel_main.Visible = true;
+                label_domainscount.Visible = true;
+                label_domain_urgent.Visible = false;
+                label_domainscount_urgent.Visible = false;
+
+                textBox_domain.Text = "";
+
+                if (label_status.Text != "[Waiting]")
+                {
+                    button_start.PerformClick();
+                }
+
+                timer_urgent_detect.Start();
             }
         }
 
@@ -5137,13 +5122,19 @@ namespace rainCheck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string temp_path = Path.GetTempPath();
-            textBox_webtitle.Text = temp_path;
+            //string temp_path = Path.GetTempPath();
+            //textBox_webtitle.Text = temp_path;
 
-            int domain_total = dataGridView_urgent.RowCount;
-            MessageBox.Show(domain_total.ToString());
+            //int domain_total = dataGridView_urgent.RowCount;
+            //MessageBox.Show(domain_total.ToString());
 
-
+            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+            {
+                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                resized.Save(path + "\\test.jpeg", ImageFormat.Jpeg);
+            }
 
 
 
@@ -5238,13 +5229,13 @@ namespace rainCheck
             
             panel_urgent.Visible = true;
 
-            button_urgent.Visible = false;
+            // button_urgent.visible = false;
 
             panel_main.Visible = false;
 
             label_domainscount.Visible = false;
 
-            label_back.Visible = true;
+            // label_back.visible = true;
             label_domain_urgent.Visible = true;
             
             textBox_domain_urgent.Text = "";
@@ -5256,12 +5247,12 @@ namespace rainCheck
             {
                 panel_urgent.Visible = false;
 
-                button_urgent.Visible = true;
+                // button_urgent.visible = true;
                 panel_main.Visible = true;
 
                 label_domainscount.Visible = true;
 
-                label_back.Visible = false;
+                // label_back.visible = false;
                 label_domain_urgent.Visible = false;
                 label_domainscount_urgent.Visible = false;
 
@@ -5374,7 +5365,7 @@ namespace rainCheck
                     if (dataGridView_urgent.Rows.Count > 0)
                     {
                         label_clear.Visible = true;
-                        label_help.Visible = false;
+                        // label_help.visible = false;
                     }
 
                     //dataGridView_urgent.DataSource = dt;
@@ -5397,7 +5388,7 @@ namespace rainCheck
 
                 button_start_urgent.Enabled = false;
                 label_clear.Visible = false;
-                label_help.Visible = true;
+                // label_help.visible = true;
                 label_domainscount_urgent.Visible = false;
 
                 dataGridView_urgent.Rows.Add("No data available in table");
@@ -5416,6 +5407,17 @@ namespace rainCheck
         {
             label_getdatetime_urgent.Text = label9.Text;
             label_datetimetextfile_urgent.Text = DateTime.Now.ToString("yyyy-MM-dd ") + label_timefor.Text + ":00";
+
+            if (label_currentindex_urgent.Text == "0")
+            {
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
+
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+            }
             
             pictureBox_loader_urgent.Visible = true;
 
@@ -5424,17 +5426,6 @@ namespace rainCheck
             panel_browser_urgent.BringToFront();
             panel_browser_urgent.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
-
-            //if (label9.Text == "")
-            //{
-            //    label9.Text = label9.Text;
-            //}
-
-            //if (label11.Text == "")
-            //{
-            //    label11.Text = label11.Text;
-            //    MessageBox.Show(label11.Text);
-            //}
 
             label_domainscount_urgent.Text = "Total: " + (index_urgent + 1) + " of " + dataGridView_urgent.RowCount.ToString();
 
@@ -5461,13 +5452,12 @@ namespace rainCheck
             button_startover_urgent.Enabled = true;
 
             buttonDetect = true;
+
+            urgentRunning = true;
         }
         
         private void Button_pause_urgent_Click(object sender, EventArgs e)
         {
-            //TopMost = false;
-            //MinimizeBox = true;
-
             // Set browser panel dock style
             chromeBrowser.Dock = DockStyle.None;
 
@@ -5476,6 +5466,9 @@ namespace rainCheck
             timer_domain_urgent.Stop();
             timer_timeout_urgent.Stop();
             pictureBox_loader_urgent.Visible = false;
+
+            timer_detectnotloading.Stop();
+            detectnotloading = 0;
 
             button_pause_urgent.Visible = false;
             button_start_urgent.Visible = true;
@@ -5491,39 +5484,11 @@ namespace rainCheck
             {
                 foreach (DataGridViewRow row in dataGridView_urgent.SelectedRows)
                 {
-                    string domain = row.Cells[0].Value.ToString();
-                    string brand;
-                    string text_search;
-                    string webtype;
-
-                    if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[1].Value as String))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        brand = row.Cells[1].Value.ToString();
-                    }
-
-                    if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[2].Value as String))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        text_search = row.Cells[2].Value.ToString();
-                    }
-
-                    if (String.IsNullOrEmpty(dataGridView_urgent.Rows[0].Cells[3].Value as String))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        webtype = row.Cells[3].Value.ToString();
-                    }
-
-
+                    string domain = row.Cells[1].Value.ToString();
+                    string brand = row.Cells[2].Value.ToString();
+                    string text_search = row.Cells[3].Value.ToString();
+                    string webtype = row.Cells[4].Value.ToString();
+                    
                     //currentIndex = dataGridView_domain.CurrentRow.Index;
 
                     try
@@ -5644,7 +5609,6 @@ namespace rainCheck
                         catch (Exception)
                         {
                             upload++;
-                            MessageBox.Show("boom");
 
                             label_uploadstatus.Text = "Upload Error!";
                         }
@@ -6039,9 +6003,19 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
+                {
+                    can_close = false;
+                    Application.Restart();
+                }
+                else
+                {
+                    server = true;
+                }
+
                 //Close();
             }
-
+            
             //try
             //{
             //    using (var client = new WebClient())
@@ -6068,6 +6042,8 @@ namespace rainCheck
             //    var frame = st.GetFrame(0);
             //    var line = frame.GetFileLineNumber();
             //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    server = true;
 
             //    Close();
             //}
@@ -6291,79 +6267,87 @@ namespace rainCheck
         private bool can_close = true;
         private bool auto_start = true;
         private int index_urgent;
+        private bool server = true;
+        private int load_once = 0;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
-            // Auto start the checking if label time for is not exists in history
-            string path = Path.GetTempPath() + @"\raincheck_history.txt";
-            if (File.Exists(path))
+            if (label_timefor.Text != "RC")
             {
-                detect_start++;
-
-                if (detect_start == 1)
+                if (!urgentRunning)
                 {
-                    string date_history = DateTime.Now.ToString("dd MMM ");
-                    string read = File.ReadAllText(path);
-
-                    if (read.Contains(date_history + label_timefor.Text))
+                    // Auto start the checking if label time for is not exists in history
+                    string path = Path.GetTempPath() + @"\raincheck_history.txt";
+                    if (File.Exists(path))
                     {
-                        button_urgent.Visible = true;
-                        textchanged_timefor = true;
-                        button_start.Enabled = false;
+                        detect_start++;
+
+                        if (detect_start == 1)
+                        {
+                            string date_history = DateTime.Now.ToString("dd MMM ");
+                            string read = File.ReadAllText(path);
+
+                            if (read.Contains(date_history + label_timefor.Text))
+                            {
+                                // button_urgent.visible = true;
+                                textchanged_timefor = true;
+                                button_start.Enabled = false;
+                            }
+                            else
+                            {
+                                label_timeget.Text = label_timefor.Text;
+                                button_start.Enabled = true;
+                                button_start.PerformClick();
+                                button_start.Enabled = false;
+                                auto_start = false;
+                            }
+                        }
                     }
-                    else
+
+                    if (label_status.Text != "[Running]")
                     {
                         label_timeget.Text = label_timefor.Text;
-                        button_start.Enabled = true;
-                        button_start.PerformClick();
-                        button_start.Enabled = false;
-                        auto_start = false;
                     }
-                }
-            }
 
-            if (label_status.Text != "[Running]")
-            {
-                label_timeget.Text = label_timefor.Text;
-            }
-
-            if (textchanged_timefor == true)
-            {
-                if (detect_start != 1)
-                {
-                    timefor++;
-                }
-            }
-
-            label_textchangedtimefor.Text = timefor.ToString();
-
-            if (timefor > 0)
-            {
-                pictureBox_loader.Visible = false;
-
-                if (label_status.Text != "[Waiting]")
-                {
-                    if (auto_start)
+                    if (textchanged_timefor == true)
                     {
-                        timerfornext = true;
-                        label_ifloadornot.Text = "0";
-
-                        timer_blink.Stop();
-                        label_status.Visible = true;
-                        label_status.Text = "[Running]";
-
-                        start_detect_button = true;
-
-                        chromeBrowser.Stop();
+                        if (detect_start != 1)
+                        {
+                            timefor++;
+                        }
                     }
 
-                    auto_start = true;
-                }
-                else
-                {
-                    button_start.Enabled = true;
-                    button_start.PerformClick();
-                    button_start.Enabled = false;
+                    label_textchangedtimefor.Text = timefor.ToString();
+
+                    if (timefor > 0)
+                    {
+                        pictureBox_loader.Visible = false;
+
+                        if (label_status.Text != "[Waiting]")
+                        {
+                            if (auto_start)
+                            {
+                                timerfornext = true;
+                                label_ifloadornot.Text = "0";
+
+                                timer_blink.Stop();
+                                label_status.Visible = true;
+                                label_status.Text = "[Running]";
+
+                                start_detect_button = true;
+
+                                chromeBrowser.Stop();
+                            }
+
+                            auto_start = true;
+                        }
+                        else
+                        {
+                            button_start.Enabled = true;
+                            button_start.PerformClick();
+                            button_start.Enabled = false;
+                        }
+                    }
                 }
             }
         }
@@ -6480,6 +6464,114 @@ namespace rainCheck
 
                 button_pause_urgent.Enabled = true;
             }
+        }
+
+        private void timer_urgent_detect_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
+                    string type = "urgent_device";
+                    string mac_id = GetMACAddress();
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                        { "mac_id", mac_id }
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    string path_urgent_domain_detect = Path.GetTempPath() + @"\raincheck_urgent.txt";
+
+                    if (pagesource != label_urgent_detect.Text)
+                    {
+                        if (label_status.Text == "[Running]")
+                        {
+                            button_pause.PerformClick();
+                        }
+
+                        try
+                        {
+                            using (var client_1 = new WebClient())
+                            {
+                                string auth_1 = "r@inCh3ckd234b70";
+                                string type_1 = "domain_main_test";
+                                string request_1 = "http://raincheck.ssitex.com/api/api.php";
+
+                                NameValueCollection postData_1 = new NameValueCollection()
+                                {
+                                    { "auth", auth_1 },
+                                    { "type", type_1 }
+                                };
+
+                                string pagesource_1 = Encoding.UTF8.GetString(client_1.UploadValues(request_1, postData_1));
+                                var arr = JsonConvert.DeserializeObject<JArray>(pagesource_1);
+                                dataGridView_urgent.DataSource = arr;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
+                            sw_create.Close();
+
+                            can_close = false;
+                            Application.Restart();
+                        }
+
+                        if (can_close)
+                        {
+                            // Table UI
+                            dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+                            string hex = "#438eb9";
+                            Color color = ColorTranslator.FromHtml(hex);
+                            dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color;
+                            dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
+                            dataGridView_urgent.Columns["domain_name"].Visible = false;
+                            dataGridView_urgent.Columns["id"].Visible = false;
+                            dataGridView_urgent.Columns["text_search"].Visible = false;
+                            dataGridView_urgent.Columns["website_type"].Visible = false;
+                            label_domainscount_urgent.Visible = true;
+                            label_domainscount_urgent.Text = "Total: " + dataGridView_urgent.RowCount.ToString();
+
+                            // Go to urgent panel
+                            panel_urgent.Visible = true;
+                            panel_main.Visible = false;
+                            label_domainscount.Visible = false;
+                            label_domain_urgent.Visible = true;
+                            textBox_domain_urgent.Text = "";
+
+                            label_urgent_detect.Text = pagesource;
+
+                            File.Delete(path_urgent_domain_detect);
+
+                            dataGridView_urgent.ClearSelection();
+
+                            // Start urgent
+                            timer_start_urgent.Start();
+                            timer_urgent_detect.Stop();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Close();
+            }
+        }
+
+        private void timer_start_urgent_Tick(object sender, EventArgs e)
+        {
+            button_start_urgent.Enabled = true;
+            button_start_urgent.PerformClick();
+            timer_start_urgent.Stop();
         }
     }
 }

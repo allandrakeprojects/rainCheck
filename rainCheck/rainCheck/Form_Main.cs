@@ -4793,27 +4793,27 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            //if (!buttonDetect)
-            //{
-            //    if (label_currentindex.Text == "0")
-            //    {
-            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //        string replace = label_timefor.Text.Replace(":", "");
+            if (!buttonDetect)
+            {
+                if (label_currentindex.Text == "0")
+                {
+                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string replace = label_timefor.Text.Replace(":", "");
 
-            //        string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
-            //        string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
+                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
-            //        if (Directory.Exists(path))
-            //        {
-            //            Directory.Delete(path, true);
-            //        }
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+                    }
 
-            //        if (Directory.Exists(path_noreplace))
-            //        {
-            //            Directory.Delete(path_noreplace, true);
-            //        }
-            //    }
-            //}
+                    if (Directory.Exists(path_noreplace))
+                    {
+                        Directory.Delete(path_noreplace, true);
+                    }
+                }
+            }
 
             pictureBox_loader.Visible = true;
 
@@ -5003,140 +5003,271 @@ namespace rainCheck
 
                 if (panel_main.Visible == true)
                 {
-                    if (start_detect_button == true)
+                    if (!urgentRunning)
                     {
-                        button_start.Enabled = true;
-                        button_start.PerformClick();
-                        button_start.Enabled = false;
+                        if (start_detect_button == true)
+                        {
+                            button_start.Enabled = true;
+                            button_start.PerformClick();
+                            button_start.Enabled = false;
 
-                        start_detect_button = false;
+                            start_detect_button = false;
+                        }
+                        else
+                        {
+                            // button_urgent.visible = true;
+                        }
+
+                        if (pagesource_history == "SUCCESS")
+                        {
+                            if (detectnohistoryyet)
+                            {
+                                dataGridView_history.Rows.Clear();
+                                detectnohistoryyet = false;
+                            }
+
+                            // Last load
+                            //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                            //if (!File.Exists(path_last_load))
+                            //{
+                            //    StreamWriter sw = new StreamWriter(path_last_load);
+                            //    sw.Write(label_lastload.Text);
+                            //    sw.Close();
+                            //}
+
+                            string date_history = DateTime.Now.ToString("dd MMM ");
+
+                            if (dataGridView_history.RowCount == 12)
+                            {
+                                dataGridView_history.Rows.RemoveAt(12 - 1);
+                            }
+
+                            dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
+
+                            dataGridView_history.ClearSelection();
+
+                            // Insert in temp file
+                            try
+                            {
+                                dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                                string hex = "#438eb9";
+                                Color color = ColorTranslator.FromHtml(hex);
+                                dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                                dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                                string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                                StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                string oldText = File.ReadAllText(path_history);
+                                using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                                {
+                                    sw.WriteLine(date_history + label_timeget.Text + " OK");
+                                    sw.WriteLine(oldText);
+                                    sw.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else if (pagesource_history == "ERROR")
+                        {
+                            if (detectnohistoryyet)
+                            {
+                                dataGridView_history.Rows.Clear();
+                                detectnohistoryyet = false;
+                            }
+
+                            // Last load
+                            //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                            //if (!File.Exists(path_last_load))
+                            //{
+                            //    StreamWriter sw = new StreamWriter(path_last_load);
+                            //    sw.Write(label_lastload.Text);
+                            //    sw.Close();
+                            //}
+
+                            string date_history = DateTime.Now.ToString("dd MMM ");
+
+                            if (dataGridView_history.RowCount == 12)
+                            {
+                                dataGridView_history.Rows.RemoveAt(12 - 1);
+                            }
+
+                            dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
+
+                            dataGridView_history.ClearSelection();
+
+                            // Insert in temp file
+                            try
+                            {
+                                dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                                string hex = "#438eb9";
+                                Color color = ColorTranslator.FromHtml(hex);
+                                dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                                dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                                string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                                StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                string oldText = File.ReadAllText(path_history);
+                                using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                                {
+                                    sw.WriteLine(date_history + label_timeget.Text + " ERR");
+                                    sw.WriteLine(oldText);
+                                    sw.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        label_timeget.Text = label_timefor.Text;
+
+                        if (server)
+                        {
+                            can_close = false;
+                            Application.Restart();
+                        }
                     }
                     else
                     {
-                        // button_urgent.visible = true;
-                    }
-
-                    if (pagesource_history == "SUCCESS")
-                    {
-                        if (detectnohistoryyet)
+                        if (pagesource_history == "SUCCESS")
                         {
-                            dataGridView_history.Rows.Clear();
-                            detectnohistoryyet = false;
-                        }
-
-                        // Last load
-                        //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                        //if (!File.Exists(path_last_load))
-                        //{
-                        //    StreamWriter sw = new StreamWriter(path_last_load);
-                        //    sw.Write(label_lastload.Text);
-                        //    sw.Close();
-                        //}
-
-                        string date_history = DateTime.Now.ToString("dd MMM ");
-                        
-                        if (dataGridView_history.RowCount == 12)
-                        {
-                            dataGridView_history.Rows.RemoveAt(12 - 1);
-                        }
-
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
-
-                        dataGridView_history.ClearSelection();
-
-                        // Insert in temp file
-                        try
-                        {
-                            dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-
-                            string hex = "#438eb9";
-                            Color color = ColorTranslator.FromHtml(hex);
-                            dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
-                            dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
-
-                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                            StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
-                            sw_create.Close();
-
-                            string oldText = File.ReadAllText(path_history);
-                            using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                            if (detectnohistoryyet)
                             {
-                                sw.WriteLine(date_history + label_timeget.Text + " OK");
-                                sw.WriteLine(oldText);
-                                sw.Close();
+                                dataGridView_history.Rows.Clear();
+                                detectnohistoryyet = false;
+                            }
+
+                            // Last load
+                            //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                            //if (!File.Exists(path_last_load))
+                            //{
+                            //    StreamWriter sw = new StreamWriter(path_last_load);
+                            //    sw.Write(label_lastload.Text);
+                            //    sw.Close();
+                            //}
+
+                            string date_history = DateTime.Now.ToString("dd MMM ");
+
+                            if (dataGridView_history.RowCount == 12)
+                            {
+                                dataGridView_history.Rows.RemoveAt(12 - 1);
+                            }
+
+                            dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK");
+
+                            dataGridView_history.ClearSelection();
+
+                            // Insert in temp file
+                            try
+                            {
+                                dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                                string hex = "#438eb9";
+                                Color color = ColorTranslator.FromHtml(hex);
+                                dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                                dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                                string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                                StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                string oldText = File.ReadAllText(path_history);
+                                using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                                {
+                                    sw.WriteLine(date_history + label_timeget.Text + " OK");
+                                    sw.WriteLine(oldText);
+                                    sw.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                        catch (Exception ex)
+                        else if (pagesource_history == "ERROR")
                         {
-                            //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else if (pagesource_history == "ERROR")
-                    {
-                        if (detectnohistoryyet)
-                        {
-                            dataGridView_history.Rows.Clear();
-                            detectnohistoryyet = false;
-                        }
-
-                        // Last load
-                        //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
-                        //if (!File.Exists(path_last_load))
-                        //{
-                        //    StreamWriter sw = new StreamWriter(path_last_load);
-                        //    sw.Write(label_lastload.Text);
-                        //    sw.Close();
-                        //}
-
-                        string date_history = DateTime.Now.ToString("dd MMM ");
-
-                        if (dataGridView_history.RowCount == 12)
-                        {
-                            dataGridView_history.Rows.RemoveAt(12 - 1);
-                        }
-
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
-
-                        dataGridView_history.ClearSelection();
-
-                        // Insert in temp file
-                        try
-                        {
-                            dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-
-                            string hex = "#438eb9";
-                            Color color = ColorTranslator.FromHtml(hex);
-                            dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
-                            dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
-
-                            string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
-                            StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
-                            sw_create.Close();
-
-                            string oldText = File.ReadAllText(path_history);
-                            using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                            if (detectnohistoryyet)
                             {
-                                sw.WriteLine(date_history + label_timeget.Text + " ERR");
-                                sw.WriteLine(oldText);
-                                sw.Close();
+                                dataGridView_history.Rows.Clear();
+                                detectnohistoryyet = false;
+                            }
+
+                            // Last load
+                            //string path_last_load = Path.GetTempPath() + @"\raincheck_lastload.txt";
+                            //if (!File.Exists(path_last_load))
+                            //{
+                            //    StreamWriter sw = new StreamWriter(path_last_load);
+                            //    sw.Write(label_lastload.Text);
+                            //    sw.Close();
+                            //}
+
+                            string date_history = DateTime.Now.ToString("dd MMM ");
+
+                            if (dataGridView_history.RowCount == 12)
+                            {
+                                dataGridView_history.Rows.RemoveAt(12 - 1);
+                            }
+
+                            dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR");
+
+                            dataGridView_history.ClearSelection();
+
+                            // Insert in temp file
+                            try
+                            {
+                                dataGridView_history.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+                                string hex = "#438eb9";
+                                Color color = ColorTranslator.FromHtml(hex);
+                                dataGridView_history.DefaultCellStyle.SelectionBackColor = color;
+                                dataGridView_history.DefaultCellStyle.SelectionForeColor = Color.White;
+
+                                string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                                StreamWriter sw_create = new StreamWriter(path_history, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                string oldText = File.ReadAllText(path_history);
+                                using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
+                                {
+                                    sw.WriteLine(date_history + label_timeget.Text + " ERR");
+                                    sw.WriteLine(oldText);
+                                    sw.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
 
-                    label_timeget.Text = label_timefor.Text;
-                    
-                    if (server)
-                    {
-                        can_close = false;
-                        Application.Restart();
+                        label_timeget.Text = label_timefor.Text;
+
+                        panel_urgent.Visible = true;
+                        panel_main.Visible = false;
+                        label_domainscount.Visible = false;
+                        label_domain_urgent.Visible = true;
+                        textBox_domain_urgent.Text = "";
+
+                        button_start_urgent.PerformClick();
                     }
                 }
                 else if (panel_urgent.Visible == true)
                 {
+                    urgentRunning = false;
+
+                    label_getdatetime_urgent.Text = "";
+                    label_datetimetextfile_urgent.Text = "";
+
                     panel_urgent.Visible = false;
                     panel_main.Visible = true;
                     label_domainscount.Visible = true;
@@ -5144,7 +5275,6 @@ namespace rainCheck
                     label_domainscount_urgent.Visible = false;
                     textBox_domain.Text = "";
                     timer_start_urgent.Start();
-                    dataGridView_domain.ClearSelection();
 
                     // Auto start the checking if label time for is not exists in history
                     string path = Path.GetTempPath() + @"\raincheck_history.txt";
@@ -5161,24 +5291,11 @@ namespace rainCheck
                         }
                         else
                         {
-                            label_timeget.Text = label_timefor.Text;
                             button_start.Enabled = true;
                             button_start.PerformClick();
                             button_start.Enabled = false;
-                            auto_start = false;
                         }
                     }
-
-
-
-
-                    //label_timefor.Text = "RC";
-                    //if (label_status.Text != "[Waiting]")
-                    //{
-                    //    button_start.PerformClick();
-                    //}
-
-                    //timer_urgent_detect.Start();
                 }
             }
         }
@@ -5331,17 +5448,32 @@ namespace rainCheck
                 label_domainscount.Visible = true;
                 label_domain_urgent.Visible = false;
                 label_domainscount_urgent.Visible = false;
-
                 textBox_domain.Text = "";
-
                 timer_start_urgent.Start();
+                dataGridView_domain.ClearSelection();
 
-                //if (label_status.Text != "[Waiting]")
-                //{
-                //    button_start.PerformClick();
-                //}
+                // Auto start the checking if label time for is not exists in history
+                string path = Path.GetTempPath() + @"\raincheck_history.txt";
+                if (File.Exists(path))
+                {
+                    string date_history = DateTime.Now.ToString("dd MMM ");
+                    string read = File.ReadAllText(path);
 
-                //timer_urgent_detect.Start();
+                    if (read.Contains(date_history + label_timefor.Text))
+                    {
+                        // button_urgent.visible = true;
+                        textchanged_timefor = true;
+                        button_start.Enabled = false;
+                    }
+                    else
+                    {
+                        label_timeget.Text = label_timefor.Text;
+                        button_start.Enabled = true;
+                        button_start.PerformClick();
+                        button_start.Enabled = false;
+                        auto_start = false;
+                    }
+                }
             }
         }
 
@@ -5635,8 +5767,15 @@ namespace rainCheck
 
         private void Button_start_urgent_Click(object sender, EventArgs e)
         {
-            label_getdatetime_urgent.Text = label9.Text;
-            label_datetimetextfile_urgent.Text = DateTime.Now.ToString("yyyy-MM-dd ") + label_timefor.Text + ":00";
+            if (label_getdatetime_urgent.Text == "")
+            {
+                label_getdatetime_urgent.Text = label9.Text;
+            }
+
+            if (label_datetimetextfile_urgent.Text == "")
+            {
+                label_datetimetextfile_urgent.Text = DateTime.Now.ToString("yyyy-MM-dd ") + label_timefor.Text + ":00";
+            }
 
             if (label_currentindex_urgent.Text == "0")
             {
@@ -5985,61 +6124,61 @@ namespace rainCheck
 
         private void button_getmaindomains_Click(object sender, EventArgs e)
         {
-            //Random rnd = new Random();
-            //int month = rnd.Next(1, 1000);
-            //label_timefor.Text = month.ToString();
+            Random rnd = new Random();
+            int month = rnd.Next(1, 1000);
+            label_timefor.Text = month.ToString();
 
 
-            string result = "";
-            string search_replace = "";
+            //string result = "";
+            //string search_replace = "";
 
-            string upper_search = search_replace.ToUpper().ToString();
+            //string upper_search = search_replace.ToUpper().ToString();
 
-            StringBuilder sb = new StringBuilder(upper_search);
-            sb.Replace("-", "");
-            sb.Replace(".", "");
-            sb.Replace(",", "");
-            sb.Replace("!", "");
-            string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+            //StringBuilder sb = new StringBuilder(upper_search);
+            //sb.Replace("-", "");
+            //sb.Replace(".", "");
+            //sb.Replace(",", "");
+            //sb.Replace("!", "");
+            //string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
 
-            var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+            //var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
 
-            string[] words = final_search.Split(' ');
+            //string[] words = final_search.Split(' ');
 
-            int i = 0;
-            foreach (string word in words)
-            {
-                i++;
+            //int i = 0;
+            //foreach (string word in words)
+            //{
+            //    i++;
 
-                if (word != "")
-                {
-                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+            //    if (word != "")
+            //    {
+            //        var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
 
-                    if (match != null)
-                    {
-                        result = "match";
-                        break;
-                    }
-                    else
-                    {
-                        result = "no match";
-                    }
-                }
+            //        if (match != null)
+            //        {
+            //            result = "match";
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            result = "no match";
+            //        }
+            //    }
 
-                if (i == 1 && search_replace == "")
-                {
-                    result = "match";
-                }
-            }
+            //    if (i == 1 && search_replace == "")
+            //    {
+            //        result = "match";
+            //    }
+            //}
 
-            if (result == "match")
-            {
-                MessageBox.Show("booom match");
-            }
-            else
-            {
-                MessageBox.Show("booom no match");
-            }
+            //if (result == "match")
+            //{
+            //    MessageBox.Show("booom match");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("booom no match");
+            //}
 
 
 
@@ -6334,93 +6473,93 @@ namespace rainCheck
 
             string result = time.Replace(":", ".");
 
-            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
-            {
-                label_timefor.Text = "00:00";
-                label_timefor_urgent.Text = "00:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
-                label_lastload.Text = "22:00";
-            }
-            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
-            {
-                label_timefor.Text = "02:00";
-                label_timefor_urgent.Text = "02:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
-                label_lastload.Text = "00:00";
-            }
-            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
-            {
-                label_timefor.Text = "04:00";
-                label_timefor_urgent.Text = "04:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
-                label_lastload.Text = "02:00";
-            }
-            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
-            {
-                label_timefor.Text = "06:00";
-                label_timefor_urgent.Text = "06:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
-                label_lastload.Text = "04:00";
-            }
-            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
-            {
-                label_timefor.Text = "08:00";
-                label_timefor_urgent.Text = "08:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
-                label_lastload.Text = "06:00";
-            }
-            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
-            {
-                label_timefor.Text = "10:00";
-                label_timefor_urgent.Text = "10:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
-                label_lastload.Text = "08:00";
-            }
-            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
-            {
-                label_timefor.Text = "12:00";
-                label_timefor_urgent.Text = "12:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
-                label_lastload.Text = "10:00";
-            }
-            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
-            {
-                label_timefor.Text = "14:00";
-                label_timefor_urgent.Text = "14:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
-                label_lastload.Text = "12:00";
-            }
-            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
-            {
-                label_timefor.Text = "16:00";
-                label_timefor_urgent.Text = "16:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
-                label_lastload.Text = "14:00";
-            }
-            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
-            {
-                label_timefor.Text = "18:00";
-                label_timefor_urgent.Text = "18:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
-                label_lastload.Text = "16:00";
-            }
-            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
-            {
-                label_timefor.Text = "20:00";
-                label_timefor_urgent.Text = "20:00";
-                label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
-                label_lastload.Text = "18:00";
-            }
-            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
-            {
-                label_timefor.Text = "22:00";
-                label_timefor_urgent.Text = "22:00";
-                DateTime date_parse = DateTime.Now.AddDays(1);
-                string date = date_parse.ToString("dd/MM/yyyy");
+            //if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            //{
+            //    label_timefor.Text = "00:00";
+            //    label_timefor_urgent.Text = "00:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 02:00:00");
+            //    label_lastload.Text = "22:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            //{
+            //    label_timefor.Text = "02:00";
+            //    label_timefor_urgent.Text = "02:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 04:00:00");
+            //    label_lastload.Text = "00:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            //{
+            //    label_timefor.Text = "04:00";
+            //    label_timefor_urgent.Text = "04:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 06:00:00");
+            //    label_lastload.Text = "02:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            //{
+            //    label_timefor.Text = "06:00";
+            //    label_timefor_urgent.Text = "06:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 08:00:00");
+            //    label_lastload.Text = "04:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            //{
+            //    label_timefor.Text = "08:00";
+            //    label_timefor_urgent.Text = "08:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
+            //    label_lastload.Text = "06:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            //{
+            //    label_timefor.Text = "10:00";
+            //    label_timefor_urgent.Text = "10:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
+            //    label_lastload.Text = "08:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            //{
+            //    label_timefor.Text = "12:00";
+            //    label_timefor_urgent.Text = "12:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 14:00:00");
+            //    label_lastload.Text = "10:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            //{
+            //    label_timefor.Text = "14:00";
+            //    label_timefor_urgent.Text = "14:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 16:00:00");
+            //    label_lastload.Text = "12:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            //{
+            //    label_timefor.Text = "16:00";
+            //    label_timefor_urgent.Text = "16:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 18:00:00");
+            //    label_lastload.Text = "14:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            //{
+            //    label_timefor.Text = "18:00";
+            //    label_timefor_urgent.Text = "18:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 20:00:00");
+            //    label_lastload.Text = "16:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            //{
+            //    label_timefor.Text = "20:00";
+            //    label_timefor_urgent.Text = "20:00";
+            //    label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 22:00:00");
+            //    label_lastload.Text = "18:00";
+            //}
+            //else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            //{
+            //    label_timefor.Text = "22:00";
+            //    label_timefor_urgent.Text = "22:00";
+            //    DateTime date_parse = DateTime.Now.AddDays(1);
+            //    string date = date_parse.ToString("dd/MM/yyyy");
 
-                label_cyclein_get.Text = date + " 00:00:00";
-                label_lastload.Text = "20:00";
-            }
+            //    label_cyclein_get.Text = date + " 00:00:00";
+            //    label_lastload.Text = "20:00";
+            //}
         }
 
         string start_get = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
@@ -6537,7 +6676,7 @@ namespace rainCheck
                 {
                     label_timeget.Text = label_timefor.Text;
                 }
-
+                                
                 if (textchanged_timefor == true)
                 {
                     if (detect_start != 1)
@@ -6580,7 +6719,26 @@ namespace rainCheck
             }
             else
             {
+                button_pause_urgent.PerformClick();
 
+                panel_urgent.Visible = false;
+                panel_main.Visible = true;
+                label_domainscount.Visible = true;
+                label_domain_urgent.Visible = false;
+                label_domainscount_urgent.Visible = false;
+                textBox_domain.Text = "";
+
+                timerfornext = true;
+                label_ifloadornot.Text = "1";
+                label_ifloadornot.Text = "0";
+
+                timer_blink.Stop();
+                label_status.Visible = true;
+                label_status.Text = "[Running]";
+
+                start_detect_button = true;
+
+                chromeBrowser.Stop();
             }
         }
 

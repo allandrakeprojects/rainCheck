@@ -4939,7 +4939,7 @@ namespace rainCheck
         int timer_loader_okay = 10;
         private bool buttonGoWasClicked;
         private bool buttonDetect;
-        private bool urgentRunning;
+        private bool urgentRunning = false;
 
         private void Timer_loader_Tick(object sender, EventArgs e)
         {
@@ -5137,19 +5137,42 @@ namespace rainCheck
                 }
                 else if (panel_urgent.Visible == true)
                 {
-                    urgentRunning = false;
-                    label_timefor.Text = "RC";
-
                     panel_urgent.Visible = false;
                     panel_main.Visible = true;
                     label_domainscount.Visible = true;
                     label_domain_urgent.Visible = false;
                     label_domainscount_urgent.Visible = false;
-
                     textBox_domain.Text = "";
-
                     timer_start_urgent.Start();
+                    dataGridView_domain.ClearSelection();
 
+                    // Auto start the checking if label time for is not exists in history
+                    string path = Path.GetTempPath() + @"\raincheck_history.txt";
+                    if (File.Exists(path))
+                    {
+                        string date_history = DateTime.Now.ToString("dd MMM ");
+                        string read = File.ReadAllText(path);
+
+                        if (read.Contains(date_history + label_timefor.Text))
+                        {
+                            // button_urgent.visible = true;
+                            textchanged_timefor = true;
+                            button_start.Enabled = false;
+                        }
+                        else
+                        {
+                            label_timeget.Text = label_timefor.Text;
+                            button_start.Enabled = true;
+                            button_start.PerformClick();
+                            button_start.Enabled = false;
+                            auto_start = false;
+                        }
+                    }
+
+
+
+
+                    //label_timefor.Text = "RC";
                     //if (label_status.Text != "[Waiting]")
                     //{
                     //    button_start.PerformClick();
@@ -5303,9 +5326,6 @@ namespace rainCheck
             }
             else if (panel_urgent.Visible == true)
             {
-                urgentRunning = false;
-                label_timefor.Text = "RC";
-
                 panel_urgent.Visible = false;
                 panel_main.Visible = true;
                 label_domainscount.Visible = true;
@@ -6480,87 +6500,87 @@ namespace rainCheck
         private bool auto_start = true;
         private int index_urgent;
         private bool server = false;
-        private int load_once = 0;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
-            if (label_timefor.Text != "RC")
+            if (!urgentRunning)
             {
-                if (!urgentRunning)
+                // Auto start the checking if label time for is not exists in history
+                string path = Path.GetTempPath() + @"\raincheck_history.txt";
+                if (File.Exists(path))
                 {
-                    // Auto start the checking if label time for is not exists in history
-                    string path = Path.GetTempPath() + @"\raincheck_history.txt";
-                    if (File.Exists(path))
-                    {
-                        detect_start++;
+                    detect_start++;
 
-                        if (detect_start == 1)
+                    if (detect_start == 1)
+                    {
+                        string date_history = DateTime.Now.ToString("dd MMM ");
+                        string read = File.ReadAllText(path);
+
+                        if (read.Contains(date_history + label_timefor.Text))
                         {
-                            string date_history = DateTime.Now.ToString("dd MMM ");
-                            string read = File.ReadAllText(path);
-
-                            if (read.Contains(date_history + label_timefor.Text))
-                            {
-                                // button_urgent.visible = true;
-                                textchanged_timefor = true;
-                                button_start.Enabled = false;
-                            }
-                            else
-                            {
-                                label_timeget.Text = label_timefor.Text;
-                                button_start.Enabled = true;
-                                button_start.PerformClick();
-                                button_start.Enabled = false;
-                                auto_start = false;
-                            }
-                        }
-                    }
-
-                    if (label_status.Text != "[Running]")
-                    {
-                        label_timeget.Text = label_timefor.Text;
-                    }
-
-                    if (textchanged_timefor == true)
-                    {
-                        if (detect_start != 1)
-                        {
-                            timefor++;
-                        }
-                    }
-
-                    label_textchangedtimefor.Text = timefor.ToString();
-
-                    if (timefor > 0)
-                    {
-                        pictureBox_loader.Visible = false;
-
-                        if (label_status.Text != "[Waiting]")
-                        {
-                            if (auto_start)
-                            {
-                                timerfornext = true;
-                                label_ifloadornot.Text = "0";
-
-                                timer_blink.Stop();
-                                label_status.Visible = true;
-                                label_status.Text = "[Running]";
-
-                                start_detect_button = true;
-
-                                chromeBrowser.Stop();
-                            }
-
-                            auto_start = true;
+                            // button_urgent.visible = true;
+                            textchanged_timefor = true;
+                            button_start.Enabled = false;
                         }
                         else
                         {
+                            label_timeget.Text = label_timefor.Text;
                             button_start.Enabled = true;
                             button_start.PerformClick();
                             button_start.Enabled = false;
+                            auto_start = false;
                         }
                     }
                 }
+
+                if (label_status.Text != "[Running]")
+                {
+                    label_timeget.Text = label_timefor.Text;
+                }
+
+                if (textchanged_timefor == true)
+                {
+                    if (detect_start != 1)
+                    {
+                        timefor++;
+                    }
+                }
+
+                label_textchangedtimefor.Text = timefor.ToString();
+
+                if (timefor > 0)
+                {
+                    pictureBox_loader.Visible = false;
+
+                    if (label_status.Text != "[Waiting]")
+                    {
+                        if (auto_start)
+                        {
+                            timerfornext = true;
+                            label_ifloadornot.Text = "0";
+
+                            timer_blink.Stop();
+                            label_status.Visible = true;
+                            label_status.Text = "[Running]";
+
+                            start_detect_button = true;
+
+                            chromeBrowser.Stop();
+                        }
+
+                        auto_start = true;
+                    }
+                    else
+                    {
+                        button_start.Enabled = true;
+                        button_start.PerformClick();
+                        button_start.Enabled = false;
+                    }
+                }
+            }
+            else
+            {
+
             }
         }
 

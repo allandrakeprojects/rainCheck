@@ -153,7 +153,8 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                Close();
+                can_close = false;
+                Application.Restart();
             }
 
             try
@@ -182,8 +183,9 @@ namespace rainCheck
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                Close();
+                                
+                can_close = false;
+                Application.Restart();
             }
             
             foreach (DataGridViewColumn column in dataGridView_domain.Columns)
@@ -497,8 +499,8 @@ namespace rainCheck
                                 timer_domain_urgent.Start();
 
                                 // For timeout
-                                i_urgent = 1;
-                                timer_timeout_urgent.Start();
+                                i = 1;
+                                timer_timeout.Start();
 
                                 pictureBox_loader_urgent.Visible = true;
 
@@ -550,7 +552,7 @@ namespace rainCheck
                         panel_retry.BringToFront();
 
                         timer_domain_urgent.Stop();
-                        timer_timeout_urgent.Stop();
+                        timer_timeout.Stop();
                         pictureBox_loader_urgent.Visible = false;
                         button_pause_urgent.Visible = false;
                         button_start_urgent.Visible = true;
@@ -1069,7 +1071,19 @@ namespace rainCheck
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -1131,7 +1145,19 @@ namespace rainCheck
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -1237,7 +1263,19 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
@@ -1299,7 +1337,19 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
@@ -1369,7 +1419,19 @@ namespace rainCheck
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                    string domain_replace = label_domainhide.Text;
+                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                    sb_pic.Replace("\\", "");
+                                    sb_pic.Replace("/", "");
+                                    sb_pic.Replace("\"", "");
+                                    sb_pic.Replace("*", "");
+                                    sb_pic.Replace(":", "");
+                                    sb_pic.Replace("?", "");
+                                    sb_pic.Replace("<", "");
+                                    sb_pic.Replace(">", "");
+                                    sb_pic.Replace("|", "");
+                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                    resized.Save(full_path, ImageFormat.Jpeg);
                                 }
 
                                 DataToTextFileInaccessible();
@@ -1926,7 +1988,19 @@ namespace rainCheck
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -1990,7 +2064,19 @@ namespace rainCheck
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible();
@@ -2098,7 +2184,19 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
@@ -2162,7 +2260,19 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible();
@@ -2234,7 +2344,19 @@ namespace rainCheck
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
+                                    string domain_replace = label_domainhide.Text;
+                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                    sb_pic.Replace("\\", "");
+                                    sb_pic.Replace("/", "");
+                                    sb_pic.Replace("\"", "");
+                                    sb_pic.Replace("*", "");
+                                    sb_pic.Replace(":", "");
+                                    sb_pic.Replace("?", "");
+                                    sb_pic.Replace("<", "");
+                                    sb_pic.Replace(">", "");
+                                    sb_pic.Replace("|", "");
+                                    string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
+                                    resized.Save(full_path, ImageFormat.Jpeg);
                                 }
 
                                 DataToTextFileInaccessible();
@@ -2417,8 +2539,8 @@ namespace rainCheck
 
                     Invoke(new Action(() =>
                     {
-                        i_urgent = 1;
-                        timer_timeout_urgent.Start();
+                        i = 1;
+                        timer_timeout.Start();
                         pictureBox_loader_urgent.Visible = true;
                         label_ifloadornot_urgent.Text = "1";
                         ms_detect++;
@@ -2554,8 +2676,8 @@ namespace rainCheck
                                         Invoke(new Action(() =>
                                         {
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Stop();
+                                            i = 1;
+                                            timer_timeout.Stop();
 
                                             pictureBox_loader_urgent.Visible = false;
 
@@ -2593,8 +2715,8 @@ namespace rainCheck
                                                 //timer_domain.Start();
 
                                                 // For timeout
-                                                i_urgent = 1;
-                                                timer_timeout_urgent.Start();
+                                                i = 1;
+                                                timer_timeout.Start();
 
                                                 fully_loaded = 0;
                                                 start_detect = 0;
@@ -2621,8 +2743,8 @@ namespace rainCheck
                                             Invoke(new Action(() =>
                                             {
                                                 // For timeout
-                                                i_urgent = 1;
-                                                timer_timeout_urgent.Stop();
+                                                i = 1;
+                                                timer_timeout.Stop();
 
                                                 pictureBox_loader_urgent.Visible = false;
 
@@ -2663,8 +2785,8 @@ namespace rainCheck
                                             //timer_domain.Start();
 
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Start();
+                                            i = 1;
+                                            timer_timeout.Start();
 
                                             fully_loaded = 0;
                                             start_detect = 0;
@@ -2691,8 +2813,8 @@ namespace rainCheck
                                         Invoke(new Action(() =>
                                         {
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Stop();
+                                            i = 1;
+                                            timer_timeout.Stop();
 
                                             pictureBox_loader_urgent.Visible = false;
 
@@ -2737,8 +2859,8 @@ namespace rainCheck
                                             //timer_domain.Start();
 
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Start();
+                                            i = 1;
+                                            timer_timeout.Start();
 
                                             fully_loaded = 0;
                                             start_detect = 0;
@@ -2806,30 +2928,30 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide_urgent.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible_Urgent();
 
                                                 // For timeout
-                                                i_urgent = 1;
-                                                timer_timeout_urgent.Stop();
+                                                i = 1;
+                                                timer_timeout.Stop();
 
                                                 pictureBox_loader_urgent.Visible = false;
 
@@ -2868,30 +2990,30 @@ namespace rainCheck
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
 
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                    string domain_replace = label_domainhide_urgent.Text;
+                                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                    sb_pic.Replace("\\", "");
+                                                    sb_pic.Replace("/", "");
+                                                    sb_pic.Replace("\"", "");
+                                                    sb_pic.Replace("*", "");
+                                                    sb_pic.Replace(":", "");
+                                                    sb_pic.Replace("?", "");
+                                                    sb_pic.Replace("<", "");
+                                                    sb_pic.Replace(">", "");
+                                                    sb_pic.Replace("|", "");
+                                                    string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
                                                 DataToTextFileInaccessible_Urgent();
 
                                                 // For timeout
-                                                i_urgent = 1;
-                                                timer_timeout_urgent.Stop();
+                                                i = 1;
+                                                timer_timeout.Stop();
 
                                                 pictureBox_loader_urgent.Visible = false;
 
@@ -2966,14 +3088,26 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                pic.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide_urgent.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible_Urgent();
 
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Stop();
+                                            i = 1;
+                                            timer_timeout.Stop();
 
                                             pictureBox_loader_urgent.Visible = false;
 
@@ -3028,14 +3162,26 @@ namespace rainCheck
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                                 Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                                resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                                string domain_replace = label_domainhide_urgent.Text;
+                                                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                                sb_pic.Replace("\\", "");
+                                                sb_pic.Replace("/", "");
+                                                sb_pic.Replace("\"", "");
+                                                sb_pic.Replace("*", "");
+                                                sb_pic.Replace(":", "");
+                                                sb_pic.Replace("?", "");
+                                                sb_pic.Replace("<", "");
+                                                sb_pic.Replace(">", "");
+                                                sb_pic.Replace("|", "");
+                                                string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
+                                                resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
                                             DataToTextFileInaccessible_Urgent();
 
                                             // For timeout
-                                            i_urgent = 1;
-                                            timer_timeout_urgent.Stop();
+                                            i = 1;
+                                            timer_timeout.Stop();
 
                                             pictureBox_loader_urgent.Visible = false;
 
@@ -3098,7 +3244,19 @@ namespace rainCheck
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
                                     Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                                    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
+                                    string domain_replace = label_domainhide_urgent.Text;
+                                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                                    sb_pic.Replace("\\", "");
+                                    sb_pic.Replace("/", "");
+                                    sb_pic.Replace("\"", "");
+                                    sb_pic.Replace("*", "");
+                                    sb_pic.Replace(":", "");
+                                    sb_pic.Replace("?", "");
+                                    sb_pic.Replace("<", "");
+                                    sb_pic.Replace(">", "");
+                                    sb_pic.Replace("|", "");
+                                    string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
+                                    resized.Save(full_path, ImageFormat.Jpeg);
                                 }
 
                                 DataToTextFileInaccessible_Urgent();
@@ -3106,8 +3264,8 @@ namespace rainCheck
                                 Invoke(new Action(() =>
                                 {
                                     // For timeout
-                                    i_urgent = 1;
-                                    timer_timeout_urgent.Stop();
+                                    i = 1;
+                                    timer_timeout.Stop();
 
                                     pictureBox_loader_urgent.Visible = false;
 
@@ -3139,8 +3297,8 @@ namespace rainCheck
                                 Invoke(new Action(() =>
                                 {
                                     // For timeout
-                                    i_urgent = 1;
-                                    timer_timeout_urgent.Stop();
+                                    i = 1;
+                                    timer_timeout.Stop();
 
                                     pictureBox_loader_urgent.Visible = false;
 
@@ -3213,8 +3371,8 @@ namespace rainCheck
                                 Invoke(new Action(() =>
                                 {
                                     // For timeout
-                                    i_urgent = 1;
-                                    timer_timeout_urgent.Stop();
+                                    i = 1;
+                                    timer_timeout.Stop();
 
                                     pictureBox_loader_urgent.Visible = false;
 
@@ -3633,7 +3791,19 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
+                        string domain_replace = label_domainhide.Text;
+                        StringBuilder sb_pic = new StringBuilder(domain_replace);
+                        sb_pic.Replace("\\", "");
+                        sb_pic.Replace("/", "");
+                        sb_pic.Replace("\"", "");
+                        sb_pic.Replace("*", "");
+                        sb_pic.Replace(":", "");
+                        sb_pic.Replace("?", "");
+                        sb_pic.Replace("<", "");
+                        sb_pic.Replace(">", "");
+                        sb_pic.Replace("|", "");
+
+                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3702,7 +3872,19 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + label_domainhide.Text + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        string domain_replace = label_domainhide.Text;
+                        StringBuilder sb_pic = new StringBuilder(domain_replace);
+                        sb_pic.Replace("\\", "");
+                        sb_pic.Replace("/", "");
+                        sb_pic.Replace("\"", "");
+                        sb_pic.Replace("*", "");
+                        sb_pic.Replace(":", "");
+                        sb_pic.Replace("?", "");
+                        sb_pic.Replace("<", "");
+                        sb_pic.Replace(">", "");
+                        sb_pic.Replace("|", "");
+
+                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -4098,8 +4280,20 @@ namespace rainCheck
                         {
                             city_get = "-";
                         }
+                        
+                        string domain_replace = label_domainhide_urgent.Text;
+                        StringBuilder sb_pic = new StringBuilder(domain_replace);
+                        sb_pic.Replace("\\", "");
+                        sb_pic.Replace("/", "");
+                        sb_pic.Replace("\"", "");
+                        sb_pic.Replace("*", "");
+                        sb_pic.Replace(":", "");
+                        sb_pic.Replace("?", "");
+                        sb_pic.Replace("<", "");
+                        sb_pic.Replace(">", "");
+                        sb_pic.Replace("|", "");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4168,7 +4362,19 @@ namespace rainCheck
                             city_get = "-";
                         }
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        string domain_replace = label_domainhide_urgent.Text;
+                        StringBuilder sb_pic = new StringBuilder(domain_replace);
+                        sb_pic.Replace("\\", "");
+                        sb_pic.Replace("/", "");
+                        sb_pic.Replace("\"", "");
+                        sb_pic.Replace("*", "");
+                        sb_pic.Replace(":", "");
+                        sb_pic.Replace("?", "");
+                        sb_pic.Replace("<", "");
+                        sb_pic.Replace(">", "");
+                        sb_pic.Replace("|", "");
+
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4942,12 +5148,12 @@ namespace rainCheck
 
                     textBox_domain.Text = "";
 
-                    if (label_status.Text != "[Waiting]")
-                    {
-                        button_start.PerformClick();
-                    }
+                    //if (label_status.Text != "[Waiting]")
+                    //{
+                    //    button_start.PerformClick();
+                    //}
 
-                    timer_urgent_detect.Start();
+                    //timer_urgent_detect.Start();
                 }
             }
         }
@@ -5106,12 +5312,12 @@ namespace rainCheck
 
                 textBox_domain.Text = "";
 
-                if (label_status.Text != "[Waiting]")
-                {
-                    button_start.PerformClick();
-                }
+                //if (label_status.Text != "[Waiting]")
+                //{
+                //    button_start.PerformClick();
+                //}
 
-                timer_urgent_detect.Start();
+                //timer_urgent_detect.Start();
             }
         }
 
@@ -5441,8 +5647,8 @@ namespace rainCheck
             dataGridView_urgent.Rows[getCurrentIndex].Selected = true;
 
             // For timeout
-            i_urgent = 1;
-            timer_timeout_urgent.Start();
+            i = 1;
+            timer_timeout.Start();
 
             button_pause_urgent.Visible = true;
             button_start_urgent.Visible = false;
@@ -5464,7 +5670,7 @@ namespace rainCheck
             timer_blink_urgent.Start();
             label_status_urgent.Text = "[Paused]";
             timer_domain_urgent.Stop();
-            timer_timeout_urgent.Stop();
+            timer_timeout.Stop();
             pictureBox_loader_urgent.Visible = false;
 
             timer_detectnotloading.Stop();
@@ -5703,6 +5909,8 @@ namespace rainCheck
                 chromeBrowser.Stop();
                 label_timeout_urgent.Text = "timeout";
             }
+
+            MessageBox.Show("asd");
         }
 
         private void Timer_new_Tick(object sender, EventArgs e)
@@ -6084,7 +6292,7 @@ namespace rainCheck
 
                         // For timeout
                         i = 1;
-                        timer_timeout_urgent.Start();
+                        timer_timeout.Start();
 
                         dataGridView_urgent.Rows[getCurrentIndex].Selected = true;
 
@@ -6267,7 +6475,7 @@ namespace rainCheck
         private bool can_close = true;
         private bool auto_start = true;
         private int index_urgent;
-        private bool server = true;
+        private bool server = false;
         private int load_once = 0;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
@@ -6431,7 +6639,7 @@ namespace rainCheck
                 chromeBrowser.Dock = DockStyle.Fill;
 
                 // For timeout
-                i_urgent = 1;
+                i = 1;
 
                 ms_detect = 0;
                 fully_loaded = 0;

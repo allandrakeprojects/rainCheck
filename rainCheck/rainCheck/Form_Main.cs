@@ -491,6 +491,10 @@ namespace rainCheck
             {
                 if (panel_main.Visible == true)
                 {
+                    string color = "#438eb9";
+                    Color color_change = ColorTranslator.FromHtml(color);
+                    panel_top.BackColor = color_change;
+
                     Invoke(new Action(() =>
                     {
                         int getCurrentIndex = Convert.ToInt32(label_currentindex.Text);
@@ -539,6 +543,10 @@ namespace rainCheck
                 }
                 else if (panel_urgent.Visible == true)
                 {
+                    string color = "#394557";
+                    Color color_change = ColorTranslator.FromHtml(color);
+                    panel_top.BackColor = color_change;
+
                     Invoke(new Action(() =>
                     {
                         int getCurrentIndex = Convert.ToInt32(label_currentindex_urgent.Text);
@@ -584,6 +592,10 @@ namespace rainCheck
             }
             else
             {
+                string color = "#394557";
+                Color color_change = ColorTranslator.FromHtml(color);
+                panel_top.BackColor = color_change;
+
                 if (panel_main.Visible == true)
                 {
                     Invoke(new Action(() =>
@@ -4889,27 +4901,27 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            //if (!buttonDetect)
-            //{
-            //    if (label_currentindex.Text == "0")
-            //    {
-            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //        string replace = label_timefor.Text.Replace(":", "");
+            if (!buttonDetect)
+            {
+                if (label_currentindex.Text == "0")
+                {
+                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string replace = label_timefor.Text.Replace(":", "");
 
-            //        string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
-            //        string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
+                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
-            //        if (Directory.Exists(path))
-            //        {
-            //            Directory.Delete(path, true);
-            //        }
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+                    }
 
-            //        if (Directory.Exists(path_noreplace))
-            //        {
-            //            Directory.Delete(path_noreplace, true);
-            //        }
-            //    }
-            //}
+                    if (Directory.Exists(path_noreplace))
+                    {
+                        Directory.Delete(path_noreplace, true);
+                    }
+                }
+            }
 
             pictureBox_loader.Visible = true;
 
@@ -4957,11 +4969,6 @@ namespace rainCheck
                 textBox_domain.Text = "";
             }
 
-            //if (dataGridView_domain.SelectedCells.Count > 0)
-            //{
-            //    dataGridView_domain.ClearSelection();
-            //}
-
             if (dataGridView_domain.CurrentCell == null || dataGridView_domain.CurrentCell.Value == null)
             {
                 return;
@@ -5006,7 +5013,7 @@ namespace rainCheck
                         //Close();
                     }
 
-                    
+
                 }
             }
         }
@@ -5041,6 +5048,19 @@ namespace rainCheck
 
         private void Timer_loader_Tick(object sender, EventArgs e)
         {
+            if (panel_main.Visible == true)
+            {
+                string color = "#438eb9";
+                Color color_change = ColorTranslator.FromHtml(color);
+                button_okay.BackColor = color_change;
+            }
+            else if (panel_urgent.Visible == true)
+            {
+                string color = "#394557";
+                Color color_change = ColorTranslator.FromHtml(color);
+                button_okay.BackColor = color_change;
+            }
+
             timer_loader_uploaded++;
             timer_loader_okay -= 1;
             label6.Text = timer_loader_uploaded.ToString();
@@ -7458,18 +7478,9 @@ namespace rainCheck
             timer_start_urgent.Stop();
         }
 
-        private void dataGridView_domain_MouseClick(object sender, MouseEventArgs e)
+        private void dataGridView_domain_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                dataGridView_domain.Enabled = false;
 
-            }
-        }
-
-        private void dataGridView_domain_Click(object sender, EventArgs e)
-        {
-            dataGridView_domain.Enabled = false;
         }
     }
 }

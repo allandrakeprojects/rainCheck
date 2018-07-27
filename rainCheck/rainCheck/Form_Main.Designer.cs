@@ -224,6 +224,7 @@
             this.label64 = new System.Windows.Forms.Label();
             this.label_urgent_detect = new System.Windows.Forms.Label();
             this.label_time_urgent = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -339,7 +340,7 @@
             this.panel_retry.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_retry.Location = new System.Drawing.Point(0, 0);
             this.panel_retry.Name = "panel_retry";
-            this.panel_retry.Size = new System.Drawing.Size(1254, 723);
+            this.panel_retry.Size = new System.Drawing.Size(1254, 725);
             this.panel_retry.TabIndex = 43;
             this.panel_retry.Visible = false;
             // 
@@ -504,7 +505,6 @@
             // panel_top
             // 
             this.panel_top.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            this.panel_top.Controls.Add(this.label_time_urgent);
             this.panel_top.Controls.Add(this.label_back);
             this.panel_top.Controls.Add(this.button_urgent);
             this.panel_top.Controls.Add(this.label_rtc);
@@ -730,9 +730,8 @@
             this.dataGridView_domain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_domain.Size = new System.Drawing.Size(196, 275);
             this.dataGridView_domain.TabIndex = 18;
+            this.dataGridView_domain.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_domain_CellMouseClick);
             this.dataGridView_domain.SelectionChanged += new System.EventHandler(this.DataGridView_devices_SelectionChanged);
-            this.dataGridView_domain.Click += new System.EventHandler(this.dataGridView_domain_Click);
-            this.dataGridView_domain.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_domain_MouseClick);
             // 
             // label_status
             // 
@@ -931,7 +930,7 @@
             this.panel_loader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_loader.Controls.Add(this.label7);
             this.panel_loader.Controls.Add(this.pictureBox1);
-            this.panel_loader.Location = new System.Drawing.Point(872, 733);
+            this.panel_loader.Location = new System.Drawing.Point(872, 742);
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(294, 219);
             this.panel_loader.TabIndex = 16;
@@ -1001,7 +1000,7 @@
             this.panel_uploaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_uploaded.Controls.Add(this.button_okay);
             this.panel_uploaded.Controls.Add(this.label_uploadstatus);
-            this.panel_uploaded.Location = new System.Drawing.Point(572, 733);
+            this.panel_uploaded.Location = new System.Drawing.Point(572, 742);
             this.panel_uploaded.Name = "panel_uploaded";
             this.panel_uploaded.Size = new System.Drawing.Size(294, 219);
             this.panel_uploaded.TabIndex = 17;
@@ -2186,18 +2185,29 @@
             // label_time_urgent
             // 
             this.label_time_urgent.AutoSize = true;
-            this.label_time_urgent.Location = new System.Drawing.Point(867, 23);
+            this.label_time_urgent.Location = new System.Drawing.Point(1575, 577);
             this.label_time_urgent.Name = "label_time_urgent";
-            this.label_time_urgent.Size = new System.Drawing.Size(41, 13);
+            this.label_time_urgent.Size = new System.Drawing.Size(59, 13);
             this.label_time_urgent.TabIndex = 61;
-            this.label_time_urgent.Text = "label65";
+            this.label_time_urgent.Text = "time urgent";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(1508, 577);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(65, 13);
+            this.label65.TabIndex = 127;
+            this.label65.Text = "timer urgent:";
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1254, 723);
+            this.ClientSize = new System.Drawing.Size(1254, 725);
+            this.Controls.Add(this.label65);
+            this.Controls.Add(this.label_time_urgent);
             this.Controls.Add(this.label_timeoutcount_urgent);
             this.Controls.Add(this.label64);
             this.Controls.Add(this.label_urgent_detect);
@@ -2312,9 +2322,9 @@
             this.Controls.Add(this.label_cyclein_get);
             this.Controls.Add(this.label57);
             this.Controls.Add(this.label_timer_timefor);
-            this.Controls.Add(this.panel_urgent);
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_retry);
+            this.Controls.Add(this.panel_urgent);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -2532,5 +2542,6 @@
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label_urgent_detect;
         private System.Windows.Forms.Label label_time_urgent;
+        private System.Windows.Forms.Label label65;
     }
 }

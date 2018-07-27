@@ -1140,6 +1140,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -1214,6 +1216,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -1332,6 +1336,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -1406,6 +1412,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -1488,6 +1496,8 @@ namespace rainCheck
                                     sb_pic.Replace("<", "");
                                     sb_pic.Replace(">", "");
                                     sb_pic.Replace("|", "");
+                                    sb_pic.Replace(" ", "");
+                                    sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
@@ -2057,6 +2067,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -2133,6 +2145,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -2253,6 +2267,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -2329,6 +2345,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -2413,6 +2431,8 @@ namespace rainCheck
                                     sb_pic.Replace("<", "");
                                     sb_pic.Replace(">", "");
                                     sb_pic.Replace("|", "");
+                                    sb_pic.Replace(" ", "");
+                                    sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
@@ -3001,6 +3021,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -3063,6 +3085,8 @@ namespace rainCheck
                                                     sb_pic.Replace("<", "");
                                                     sb_pic.Replace(">", "");
                                                     sb_pic.Replace("|", "");
+                                                    sb_pic.Replace(" ", "");
+                                                    sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
@@ -3157,6 +3181,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -3231,6 +3257,8 @@ namespace rainCheck
                                                 sb_pic.Replace("<", "");
                                                 sb_pic.Replace(">", "");
                                                 sb_pic.Replace("|", "");
+                                                sb_pic.Replace(" ", "");
+                                                sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
@@ -3313,6 +3341,8 @@ namespace rainCheck
                                     sb_pic.Replace("<", "");
                                     sb_pic.Replace(">", "");
                                     sb_pic.Replace("|", "");
+                                    sb_pic.Replace(" ", "");
+                                    sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
@@ -3860,6 +3890,8 @@ namespace rainCheck
                         sb_pic.Replace("<", "");
                         sb_pic.Replace(">", "");
                         sb_pic.Replace("|", "");
+                        sb_pic.Replace(" ", "");
+                        sb_pic.Replace("_", "");
 
                         swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+label_webtitle.Text  + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
 
@@ -3941,6 +3973,8 @@ namespace rainCheck
                         sb_pic.Replace("<", "");
                         sb_pic.Replace(">", "");
                         sb_pic.Replace("|", "");
+                        sb_pic.Replace(" ", "");
+                        sb_pic.Replace("_", "");
 
                         swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
 
@@ -4350,6 +4384,8 @@ namespace rainCheck
                         sb_pic.Replace("<", "");
                         sb_pic.Replace(">", "");
                         sb_pic.Replace("|", "");
+                        sb_pic.Replace(" ", "");
+                        sb_pic.Replace("_", "");
 
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
@@ -4431,6 +4467,8 @@ namespace rainCheck
                         sb_pic.Replace("<", "");
                         sb_pic.Replace(">", "");
                         sb_pic.Replace("|", "");
+                        sb_pic.Replace(" ", "");
+                        sb_pic.Replace("_", "");
 
                         swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + label_webtitle_urgent.Text + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
@@ -4851,27 +4889,27 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
-            if (!buttonDetect)
-            {
-                if (label_currentindex.Text == "0")
-                {
-                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    string replace = label_timefor.Text.Replace(":", "");
+            //if (!buttonDetect)
+            //{
+            //    if (label_currentindex.Text == "0")
+            //    {
+            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //        string replace = label_timefor.Text.Replace(":", "");
 
-                    string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
-                    string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
+            //        string path = path_desktop + "\\rainCheck\\" + label9.Text + replace;
+            //        string path_noreplace = path_desktop + "\\rainCheck\\" + label9.Text;
 
-                    if (Directory.Exists(path))
-                    {
-                        Directory.Delete(path, true);
-                    }
+            //        if (Directory.Exists(path))
+            //        {
+            //            Directory.Delete(path, true);
+            //        }
 
-                    if (Directory.Exists(path_noreplace))
-                    {
-                        Directory.Delete(path_noreplace, true);
-                    }
-                }
-            }
+            //        if (Directory.Exists(path_noreplace))
+            //        {
+            //            Directory.Delete(path_noreplace, true);
+            //        }
+            //    }
+            //}
 
             pictureBox_loader.Visible = true;
 
@@ -4991,6 +5029,8 @@ namespace rainCheck
             
             string datetime = DateTime.Now.ToString("yyyy-MM-dd ");
             label11.Text = datetime + label_timefor.Text + ":00";
+
+            label_time_urgent.Text = time;
         }
 
         int timer_loader_uploaded = 0;
@@ -5301,6 +5341,27 @@ namespace rainCheck
                 }
                 else if (panel_urgent.Visible == true)
                 {
+                    // Normal
+                    string urgent = "#438eb9";
+                    Color color_change = ColorTranslator.FromHtml(urgent);
+
+                    panel_top.BackColor = color_change;
+                    button_start_urgent.BackColor = color_change;
+                    button_pause_urgent.BackColor = color_change;
+                    button_startover_urgent.BackColor = color_change;
+                    label_domainscount_urgent.ForeColor = color_change;
+
+                    label_status_1_urgent.ForeColor = color_change;
+                    label_status_urgent.ForeColor = color_change;
+
+                    label_timefor_1_urgent.ForeColor = color_change;
+                    label_timefor_urgent.ForeColor = color_change;
+
+                    label_cyclein_1_urgent.ForeColor = color_change;
+                    label_cyclein_urgent.ForeColor = color_change;
+
+                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color_change;
+
                     if (pagesource_history == "SUCCESS")
                     {
                         if (detectnohistoryyet)
@@ -5316,7 +5377,7 @@ namespace rainCheck
                             dataGridView_history.Rows.RemoveAt(12 - 1);
                         }
 
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK (urgent)");
+                        dataGridView_history.Rows.Insert(0, date_history + label_time_urgent.Text + " OK (urgent)");
                         dataGridView_history.ClearSelection();
 
                         try
@@ -5333,7 +5394,7 @@ namespace rainCheck
 
                             using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                             {
-                                sw.WriteLine(date_history + label_timeget.Text + " OK (urgent)");
+                                sw.WriteLine(date_history + label_time_urgent.Text + " OK (urgent)");
                                 sw.WriteLine(oldText);
                                 sw.Close();
                             }
@@ -5358,7 +5419,7 @@ namespace rainCheck
                             dataGridView_history.Rows.RemoveAt(12 - 1);
                         }
 
-                        dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR (urgent)");
+                        dataGridView_history.Rows.Insert(0, date_history + label_time_urgent.Text + " ERR (urgent)");
                         dataGridView_history.ClearSelection();
 
                         try
@@ -5375,7 +5436,7 @@ namespace rainCheck
 
                             using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                             {
-                                sw.WriteLine(date_history + label_timeget.Text + " ERR (urgent)");
+                                sw.WriteLine(date_history + label_time_urgent.Text + " ERR (urgent)");
                                 sw.WriteLine(oldText);
                                 sw.Close();
                             }
@@ -5703,6 +5764,27 @@ namespace rainCheck
             }
             else if (panel_urgent.Visible == true)
             {
+                // Normal
+                string urgent = "#438eb9";
+                Color color_change = ColorTranslator.FromHtml(urgent);
+
+                panel_top.BackColor = color_change;
+                button_start_urgent.BackColor = color_change;
+                button_pause_urgent.BackColor = color_change;
+                button_startover_urgent.BackColor = color_change;
+                label_domainscount_urgent.ForeColor = color_change;
+
+                label_status_1_urgent.ForeColor = color_change;
+                label_status_urgent.ForeColor = color_change;
+
+                label_timefor_1_urgent.ForeColor = color_change;
+                label_timefor_urgent.ForeColor = color_change;
+
+                label_cyclein_1_urgent.ForeColor = color_change;
+                label_cyclein_urgent.ForeColor = color_change;
+
+                dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color_change;
+
                 if (pagesource_history == "SUCCESS")
                 {
                     if (detectnohistoryyet)
@@ -5718,7 +5800,7 @@ namespace rainCheck
                         dataGridView_history.Rows.RemoveAt(12 - 1);
                     }
 
-                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " OK (urgent)");
+                    dataGridView_history.Rows.Insert(0, date_history + label_time_urgent.Text + " OK (urgent)");
                     dataGridView_history.ClearSelection();
 
                     try
@@ -5735,7 +5817,7 @@ namespace rainCheck
 
                         using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                         {
-                            sw.WriteLine(date_history + label_timeget.Text + " OK (urgent)");
+                            sw.WriteLine(date_history + label_time_urgent.Text + " OK (urgent)");
                             sw.WriteLine(oldText);
                             sw.Close();
                         }
@@ -5760,7 +5842,7 @@ namespace rainCheck
                         dataGridView_history.Rows.RemoveAt(12 - 1);
                     }
 
-                    dataGridView_history.Rows.Insert(0, date_history + label_timeget.Text + " ERR (urgent)");
+                    dataGridView_history.Rows.Insert(0, date_history + label_time_urgent.Text + " ERR (urgent)");
                     dataGridView_history.ClearSelection();
 
                     try
@@ -5777,7 +5859,7 @@ namespace rainCheck
 
                         using (var sw = new StreamWriter(path_history, false, Encoding.UTF8))
                         {
-                            sw.WriteLine(date_history + label_timeget.Text + " ERR (urgent)");
+                            sw.WriteLine(date_history + label_time_urgent.Text + " ERR (urgent)");
                             sw.WriteLine(oldText);
                             sw.Close();
                         }
@@ -7306,11 +7388,30 @@ namespace rainCheck
 
                         if (can_close)
                         {
+                            // Urgent
+                            string urgent = "#394557";
+                            Color color_change = ColorTranslator.FromHtml(urgent);
+
+                            panel_top.BackColor = color_change;
+                            button_start_urgent.BackColor = color_change;
+                            button_pause_urgent.BackColor = color_change;
+                            button_startover_urgent.BackColor = color_change;
+                            label_domainscount_urgent.ForeColor = color_change;
+
+                            label_status_1_urgent.ForeColor = color_change;
+                            label_status_urgent.ForeColor = color_change;
+
+                            label_timefor_1_urgent.ForeColor = color_change;
+                            label_timefor_urgent.ForeColor = color_change;
+
+                            label_cyclein_1_urgent.ForeColor = color_change;
+                            label_cyclein_urgent.ForeColor = color_change;
+
                             // Table UI
                             dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
                             string hex = "#438eb9";
                             Color color = ColorTranslator.FromHtml(hex);
-                            dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color;
+                            dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color_change;
                             dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
                             dataGridView_urgent.Columns["domain_name"].Visible = false;
                             dataGridView_urgent.Columns["id"].Visible = false;
@@ -7355,6 +7456,20 @@ namespace rainCheck
             button_start_urgent.Enabled = true;
             button_start_urgent.PerformClick();
             timer_start_urgent.Stop();
+        }
+
+        private void dataGridView_domain_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                dataGridView_domain.Enabled = false;
+
+            }
+        }
+
+        private void dataGridView_domain_Click(object sender, EventArgs e)
+        {
+            dataGridView_domain.Enabled = false;
         }
     }
 }

@@ -5404,11 +5404,30 @@ namespace rainCheck
                     if (File.Exists(path))
                     {
                         string date_history = DateTime.Now.ToString("dd MMM ");
-                        string read = File.ReadAllText(path);
+                        string result_history = "";
 
-                        if (read.Contains(date_history + label_timefor.Text))
+                        using (StreamReader sr = File.OpenText(path))
                         {
-                            // button_urgent.visible = true;
+                            string s = String.Empty;
+                            while ((s = sr.ReadLine()) != null)
+                            {
+                                if (s != "")
+                                {
+                                    if (s == date_history + label_timefor.Text + " OK" || s == date_history + label_timefor.Text + " ERR" || s == date_history + label_timefor.Text)
+                                    {
+                                        result_history = "contains";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        result_history = "not contains";
+                                    }
+                                }
+                            }
+                        }
+
+                        if (result_history == "contains")
+                        {
                             textchanged_timefor = true;
                             button_start.Enabled = false;
                         }
@@ -5787,11 +5806,30 @@ namespace rainCheck
                 if (File.Exists(path))
                 {
                     string date_history = DateTime.Now.ToString("dd MMM ");
-                    string read = File.ReadAllText(path);
+                    string result_history = "";
 
-                    if (read.Contains(date_history + label_timefor.Text))
+                    using (StreamReader sr = File.OpenText(path))
                     {
-                        // button_urgent.visible = true;
+                        string s = String.Empty;
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            if (s != "")
+                            {
+                                if (s == date_history + label_timefor.Text + " OK" || s == date_history + label_timefor.Text + " ERR" || s == date_history + label_timefor.Text)
+                                {
+                                    result_history = "contains";
+                                    break;
+                                }
+                                else
+                                {
+                                    result_history = "not contains";
+                                }
+                            }
+                        }
+                    }
+
+                    if (result_history == "contains")
+                    {
                         textchanged_timefor = true;
                         button_start.Enabled = false;
                     }
@@ -6231,8 +6269,9 @@ namespace rainCheck
                 int domain_total = dataGridView_urgent.RowCount;
                 
                 label_domainscount_urgent.Text = "Total: " + (index_urgent + 2) + " of " + domain_total.ToString();
-
+                
                 index_urgent = dataGridView_urgent.SelectedRows[0].Index + 1;
+
                 label_currentindex_urgent.Text = index_urgent.ToString();
                 
                 if (index_urgent == domain_total)
@@ -6983,9 +7022,29 @@ namespace rainCheck
                     if (detect_start == 1)
                     {
                         string date_history = DateTime.Now.ToString("dd MMM ");
-                        string read = File.ReadAllText(path);
+                        string result_history = "";
 
-                        if (read.Contains(date_history + label_timefor.Text))
+                        using (StreamReader sr = File.OpenText(path))
+                        {
+                            string s = String.Empty;
+                            while ((s = sr.ReadLine()) != null)
+                            {
+                                if (s != "")
+                                {
+                                    if (s == date_history + label_timefor.Text + " OK" || s == date_history + label_timefor.Text + " ERR" || s == date_history + label_timefor.Text)
+                                    {
+                                        result_history = "contains";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        result_history = "not contains";
+                                    }
+                                }
+                            }
+                        }
+
+                        if (result_history == "contains")
                         {
                             textchanged_timefor = true;
                             button_start.Enabled = false;
@@ -6998,7 +7057,7 @@ namespace rainCheck
                             button_start.Enabled = false;
                             auto_start = false;
                         }
-                    }
+                    }                    
                 }
 
                 if (label_status.Text != "[Running]")
@@ -7008,7 +7067,14 @@ namespace rainCheck
                                 
                 if (textchanged_timefor == true)
                 {
-                    timefor++;
+                    if (detect_start != 1)
+                    {
+                        timefor++;
+                    }
+                    else
+                    {
+                        auto_start = true;
+                    }
                 }
 
                 label_textchangedtimefor.Text = timefor.ToString();

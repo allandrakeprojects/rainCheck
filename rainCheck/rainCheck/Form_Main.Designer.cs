@@ -657,7 +657,7 @@
             this.button_startover.ForeColor = System.Drawing.Color.White;
             this.button_startover.Image = global::rainCheck.Properties.Resources.start_over;
             this.button_startover.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_startover.Location = new System.Drawing.Point(54, 600);
+            this.button_startover.Location = new System.Drawing.Point(54, 599);
             this.button_startover.Name = "button_startover";
             this.button_startover.Padding = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.button_startover.Size = new System.Drawing.Size(117, 30);
@@ -728,7 +728,7 @@
             this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_domain.RowHeadersVisible = false;
             this.dataGridView_domain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_domain.Size = new System.Drawing.Size(196, 275);
+            this.dataGridView_domain.Size = new System.Drawing.Size(196, 276);
             this.dataGridView_domain.TabIndex = 18;
             this.dataGridView_domain.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_domain_CellMouseClick);
             this.dataGridView_domain.SelectionChanged += new System.EventHandler(this.DataGridView_devices_SelectionChanged);
@@ -784,7 +784,7 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView_history.Enabled = false;
-            this.dataGridView_history.Location = new System.Drawing.Point(14, 288);
+            this.dataGridView_history.Location = new System.Drawing.Point(14, 289);
             this.dataGridView_history.MultiSelect = false;
             this.dataGridView_history.Name = "dataGridView_history";
             this.dataGridView_history.ReadOnly = true;
@@ -1379,7 +1379,7 @@
             this.dataGridView_urgent.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_urgent.RowHeadersVisible = false;
             this.dataGridView_urgent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_urgent.Size = new System.Drawing.Size(196, 575);
+            this.dataGridView_urgent.Size = new System.Drawing.Size(196, 582);
             this.dataGridView_urgent.TabIndex = 18;
             this.dataGridView_urgent.SelectionChanged += new System.EventHandler(this.DataGridView_urgent_SelectionChanged);
             // 
@@ -1394,7 +1394,7 @@
             this.button_startover_urgent.ForeColor = System.Drawing.Color.White;
             this.button_startover_urgent.Image = global::rainCheck.Properties.Resources.start_over;
             this.button_startover_urgent.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_startover_urgent.Location = new System.Drawing.Point(54, 598);
+            this.button_startover_urgent.Location = new System.Drawing.Point(54, 599);
             this.button_startover_urgent.Name = "button_startover_urgent";
             this.button_startover_urgent.Padding = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.button_startover_urgent.Size = new System.Drawing.Size(117, 30);

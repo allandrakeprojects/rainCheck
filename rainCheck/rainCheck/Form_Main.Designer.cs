@@ -225,6 +225,8 @@
             this.label_urgent_detect = new System.Windows.Forms.Label();
             this.label_time_urgent = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
+            this.label_utype = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -337,7 +339,6 @@
             this.panel_retry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_retry.Controls.Add(this.label14);
             this.panel_retry.Controls.Add(this.label59);
-            this.panel_retry.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_retry.Location = new System.Drawing.Point(0, 0);
             this.panel_retry.Name = "panel_retry";
             this.panel_retry.Size = new System.Drawing.Size(1254, 725);
@@ -403,7 +404,7 @@
             this.label_rtc.AutoSize = true;
             this.label_rtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_rtc.ForeColor = System.Drawing.Color.White;
-            this.label_rtc.Location = new System.Drawing.Point(1108, 12);
+            this.label_rtc.Location = new System.Drawing.Point(1711, 12);
             this.label_rtc.Name = "label_rtc";
             this.label_rtc.Size = new System.Drawing.Size(46, 20);
             this.label_rtc.TabIndex = 14;
@@ -514,7 +515,7 @@
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_top.Location = new System.Drawing.Point(0, 0);
             this.panel_top.Name = "panel_top";
-            this.panel_top.Size = new System.Drawing.Size(1254, 44);
+            this.panel_top.Size = new System.Drawing.Size(1857, 44);
             this.panel_top.TabIndex = 0;
             // 
             // label_back
@@ -642,7 +643,7 @@
             this.label_separator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.label_separator.Location = new System.Drawing.Point(15, 67);
             this.label_separator.Name = "label_separator";
-            this.label_separator.Size = new System.Drawing.Size(1220, 1);
+            this.label_separator.Size = new System.Drawing.Size(1823, 1);
             this.label_separator.TabIndex = 17;
             this.label_separator.Text = " ";
             // 
@@ -930,7 +931,7 @@
             this.panel_loader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_loader.Controls.Add(this.label7);
             this.panel_loader.Controls.Add(this.pictureBox1);
-            this.panel_loader.Location = new System.Drawing.Point(872, 742);
+            this.panel_loader.Location = new System.Drawing.Point(1173, 742);
             this.panel_loader.Name = "panel_loader";
             this.panel_loader.Size = new System.Drawing.Size(294, 219);
             this.panel_loader.TabIndex = 16;
@@ -1000,7 +1001,7 @@
             this.panel_uploaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.panel_uploaded.Controls.Add(this.button_okay);
             this.panel_uploaded.Controls.Add(this.label_uploadstatus);
-            this.panel_uploaded.Location = new System.Drawing.Point(572, 742);
+            this.panel_uploaded.Location = new System.Drawing.Point(873, 742);
             this.panel_uploaded.Name = "panel_uploaded";
             this.panel_uploaded.Size = new System.Drawing.Size(294, 219);
             this.panel_uploaded.TabIndex = 17;
@@ -1626,7 +1627,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1505, 607);
+            this.label12.Location = new System.Drawing.Point(1505, 660);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 58;
@@ -1801,7 +1802,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(1505, 594);
+            this.label35.Location = new System.Drawing.Point(1505, 647);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(63, 13);
             this.label35.TabIndex = 86;
@@ -2116,7 +2117,7 @@
             // timer_deviceon
             // 
             this.timer_deviceon.Enabled = true;
-            this.timer_deviceon.Interval = 1200000;
+            this.timer_deviceon.Interval = 300000;
             this.timer_deviceon.Tick += new System.EventHandler(this.timer_deviceon_Tick);
             // 
             // label_getdatetime_urgent
@@ -2200,12 +2201,32 @@
             this.label65.TabIndex = 127;
             this.label65.Text = "timer urgent:";
             // 
+            // label_utype
+            // 
+            this.label_utype.AutoSize = true;
+            this.label_utype.Location = new System.Drawing.Point(1549, 600);
+            this.label_utype.Name = "label_utype";
+            this.label_utype.Size = new System.Drawing.Size(39, 13);
+            this.label_utype.TabIndex = 128;
+            this.label_utype.Text = "u_type";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(1507, 600);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(42, 13);
+            this.label66.TabIndex = 129;
+            this.label66.Text = "u_type:";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1254, 725);
+            this.ClientSize = new System.Drawing.Size(1857, 725);
+            this.Controls.Add(this.label66);
+            this.Controls.Add(this.label_utype);
             this.Controls.Add(this.label65);
             this.Controls.Add(this.label_time_urgent);
             this.Controls.Add(this.label_timeoutcount_urgent);
@@ -2543,5 +2564,7 @@
         private System.Windows.Forms.Label label_urgent_detect;
         private System.Windows.Forms.Label label_time_urgent;
         private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label_utype;
+        private System.Windows.Forms.Label label66;
     }
 }

@@ -180,7 +180,13 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                    label_urgent_detect.Text = pagesource;
+
+                    JArray jsonObject = JArray.Parse(pagesource);
+                    string u_id = jsonObject[0]["u_id"].Value<string>();
+                    string u_type = jsonObject[0]["set_type"].Value<string>();
+                    
+                    label_urgent_detect.Text = u_id;
+                    label_utype.Text = u_type;
                 }
             }
             catch (Exception ex)
@@ -3521,7 +3527,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3530,7 +3536,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3548,7 +3554,7 @@ namespace rainCheck
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3562,7 +3568,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3571,7 +3577,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3588,7 +3594,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3621,7 +3627,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3630,7 +3636,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3647,7 +3653,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3661,7 +3667,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3670,7 +3676,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3687,7 +3693,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3720,7 +3726,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3729,7 +3735,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3765,7 +3771,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3779,7 +3785,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3788,7 +3794,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3824,7 +3830,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3857,7 +3863,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3866,7 +3872,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -3930,7 +3936,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+ webtitle.ToString() + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ","+isp_get + ","+city_get + ","+datetime + "," + ",N");
+                        swww.WriteLine(","+label_domainhide.Text + ",I" + ","+label_brandhide.Text + ","+start_load + ","+end_load + ","+ webtitle.ToString() + ",-" + ",-" + ","+error_message + ","+datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ","+isp_get + ","+city_get + ",-,"+datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -3944,7 +3950,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -3953,7 +3959,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4017,7 +4023,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -4052,7 +4058,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4060,7 +4066,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4077,7 +4083,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4091,7 +4097,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4099,7 +4105,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4116,7 +4122,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4149,7 +4155,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4157,7 +4163,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4174,7 +4180,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4188,7 +4194,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4196,7 +4202,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4213,7 +4219,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
 
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4246,7 +4252,7 @@ namespace rainCheck
                     sw.Close();
                     
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4254,7 +4260,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4290,7 +4296,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4304,7 +4310,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4312,7 +4318,7 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4348,7 +4354,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4381,7 +4387,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4390,7 +4396,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4454,7 +4460,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" +label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -4468,7 +4474,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type";
                     if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4477,7 +4483,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, set_type, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4541,7 +4547,7 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
 
                         swww.Close();
                     }
@@ -5306,6 +5312,10 @@ namespace rainCheck
                     }
                     else
                     {
+                        string color_urgent = "#394557";
+                        Color color_change = ColorTranslator.FromHtml(color_urgent);
+                        panel_top.BackColor = color_change;
+
                         if (pagesource_history == "SUCCESS")
                         {
                             if (detectnohistoryyet)
@@ -5422,9 +5432,8 @@ namespace rainCheck
                 }
                 else if (panel_urgent.Visible == true)
                 {
-                    // Normal
-                    string urgent = "#438eb9";
-                    Color color_change = ColorTranslator.FromHtml(urgent);
+                    string color_normal = "#438eb9";
+                    Color color_change = ColorTranslator.FromHtml(color_normal);
 
                     panel_top.BackColor = color_change;
                     button_start_urgent.BackColor = color_change;
@@ -5721,6 +5730,10 @@ namespace rainCheck
                 }
                 else
                 {
+                    string color_urgent = "#394557";
+                    Color color_change = ColorTranslator.FromHtml(color_urgent);
+                    panel_top.BackColor = color_change;
+
                     if (pagesource_history == "SUCCESS")
                     {
                         if (detectnohistoryyet)
@@ -5837,9 +5850,8 @@ namespace rainCheck
             }
             else if (panel_urgent.Visible == true)
             {
-                // Normal
-                string urgent = "#438eb9";
-                Color color_change = ColorTranslator.FromHtml(urgent);
+                string color_normal = "#438eb9";
+                Color color_change = ColorTranslator.FromHtml(color_normal);
 
                 panel_top.BackColor = color_change;
                 button_start_urgent.BackColor = color_change;
@@ -7266,30 +7278,35 @@ namespace rainCheck
             }
             else
             {
-                string color = "#438eb9";
-                Color color_change = ColorTranslator.FromHtml(color);
-                panel_top.BackColor = color_change;
+                if (label_currentindex.Text != "0")
+                {
+                    button_pause_urgent.PerformClick();
 
-                button_pause_urgent.PerformClick();
+                    panel_urgent.Visible = false;
+                    panel_main.Visible = true;
+                    label_domainscount.Visible = true;
+                    label_domain_urgent.Visible = false;
+                    label_domainscount_urgent.Visible = false;
+                    textBox_domain.Text = "";
+                    textBox_domain.Enabled = false;
+                    button_start.Enabled = false;
 
-                panel_urgent.Visible = false;
-                panel_main.Visible = true;
-                label_domainscount.Visible = true;
-                label_domain_urgent.Visible = false;
-                label_domainscount_urgent.Visible = false;
-                textBox_domain.Text = "";
+                    string color = "#438eb9";
+                    Color color_change = ColorTranslator.FromHtml(color);
+                    panel_top.BackColor = color_change;
 
-                timerfornext = true;
-                label_ifloadornot.Text = "1";
-                label_ifloadornot.Text = "0";
+                    timerfornext = true;
+                    label_ifloadornot.Text = "1";
+                    label_ifloadornot.Text = "0";
 
-                timer_blink.Stop();
-                label_status.Visible = true;
-                label_status.Text = "[Running]";
+                    timer_blink.Stop();
+                    label_status.Visible = true;
+                    label_status.Text = "[Running]";
 
-                start_detect_button = true;
+                    start_detect_button = true;
 
-                chromeBrowser.Stop();
+                    chromeBrowser.Stop();
+                }
             }
         }
 
@@ -7428,7 +7445,13 @@ namespace rainCheck
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
                     string path_urgent_domain_detect = Path.GetTempPath() + @"\raincheck_urgent.txt";
 
-                    if (pagesource != label_urgent_detect.Text)
+                    JArray jsonObject = JArray.Parse(pagesource);
+                    string u_id = jsonObject[0]["u_id"].Value<string>();
+                    string u_type = jsonObject[0]["set_type"].Value<string>();
+                    
+                    label_utype.Text = u_type;
+
+                    if (u_id != label_urgent_detect.Text)
                     {
                         if (label_status.Text == "[Running]")
                         {
@@ -7504,7 +7527,7 @@ namespace rainCheck
                             label_domain_urgent.Visible = true;
                             textBox_domain_urgent.Text = "";
 
-                            label_urgent_detect.Text = pagesource;
+                            label_urgent_detect.Text = u_id;
 
                             File.Delete(path_urgent_domain_detect);
 

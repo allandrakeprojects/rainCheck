@@ -1168,6 +1168,11 @@ namespace rainCheck
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
+
                                                 DataToTextFileInaccessible();
 
                                                 // For timeout
@@ -1210,19 +1215,7 @@ namespace rainCheck
                                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
+                                                
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -1243,6 +1236,11 @@ namespace rainCheck
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
+
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
 
                                                 DataToTextFileInaccessible();
 
@@ -1364,6 +1362,11 @@ namespace rainCheck
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
+
                                             DataToTextFileInaccessible();
 
                                             // For timeout
@@ -1439,6 +1442,11 @@ namespace rainCheck
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
+
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
 
                                             DataToTextFileInaccessible();
 
@@ -1523,6 +1531,11 @@ namespace rainCheck
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
+
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
 
                                 DataToTextFileInaccessible();
                                 
@@ -2095,6 +2108,11 @@ namespace rainCheck
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
+
                                                 DataToTextFileInaccessible();
 
                                                 // For timeout
@@ -2172,6 +2190,11 @@ namespace rainCheck
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
+
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
 
                                                 DataToTextFileInaccessible();
 
@@ -2295,6 +2318,11 @@ namespace rainCheck
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
+
                                             DataToTextFileInaccessible();
 
                                             // For timeout
@@ -2372,6 +2400,11 @@ namespace rainCheck
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
+
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
 
                                             DataToTextFileInaccessible();
 
@@ -2458,6 +2491,11 @@ namespace rainCheck
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
+
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
 
                                 DataToTextFileInaccessible();
 
@@ -3049,6 +3087,11 @@ namespace rainCheck
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
 
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
+
                                                 DataToTextFileInaccessible_Urgent();
 
                                                 // For timeout
@@ -3112,6 +3155,11 @@ namespace rainCheck
                                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
                                                 }
+
+                                                await Task.Run(async () =>
+                                                {
+                                                    await Task.Delay(500);
+                                                });
 
                                                 DataToTextFileInaccessible_Urgent();
 
@@ -3209,6 +3257,11 @@ namespace rainCheck
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
 
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
+
                                             DataToTextFileInaccessible_Urgent();
 
                                             // For timeout
@@ -3284,6 +3337,11 @@ namespace rainCheck
                                                 string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
                                             }
+
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(500);
+                                            });
 
                                             DataToTextFileInaccessible_Urgent();
 
@@ -3368,6 +3426,11 @@ namespace rainCheck
                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
                                 }
+
+                                await Task.Run(async () =>
+                                {
+                                    await Task.Delay(500);
+                                });
 
                                 DataToTextFileInaccessible_Urgent();
 
@@ -7627,7 +7690,6 @@ namespace rainCheck
                         {
                             StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
                             sw_create.Close();
-
                             can_close = false;
                             Application.Restart();
                         }
@@ -7687,11 +7749,8 @@ namespace rainCheck
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
                 //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //Close();
             }

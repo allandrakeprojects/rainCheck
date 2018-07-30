@@ -1134,19 +1134,7 @@ namespace rainCheck
                                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
+                                                
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -1328,19 +1316,7 @@ namespace rainCheck
                                             string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
+                                            
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -1409,19 +1385,7 @@ namespace rainCheck
                                             string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
+                                                                                        
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -1498,19 +1462,7 @@ namespace rainCheck
                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                //Rectangle bounds = Bounds;
-                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                //{
-                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                //    {
-                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                //    }
-
-                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                //}
-
+                                
                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -2074,19 +2026,7 @@ namespace rainCheck
                                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
+                                                
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -2157,19 +2097,7 @@ namespace rainCheck
                                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                                //Rectangle bounds = Bounds;
-                                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                                //{
-                                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                                //    {
-                                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                                //    }
-
-                                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                                //}
-
+                                                
                                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                                 {
                                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -2284,19 +2212,7 @@ namespace rainCheck
                                             string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
+                                            
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -2367,19 +2283,7 @@ namespace rainCheck
                                             string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
+                                            
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -2458,19 +2362,7 @@ namespace rainCheck
                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + datetime_folder;
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                //Rectangle bounds = Bounds;
-                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                //{
-                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                //    {
-                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                //    }
-
-                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                //    resized.Save(path + "_" + label_macid.Text + "_n_" + label_domainhide.Text + ".jpeg", ImageFormat.Jpeg);
-                                //}
-
+                                
                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -3304,19 +3196,7 @@ namespace rainCheck
                                             string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                             DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                            //Rectangle bounds = Bounds;
-                                            //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                            //{
-                                            //    using (Graphics g = Graphics.FromImage(bitmap))
-                                            //    {
-                                            //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                            //    }
-
-                                            //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                            //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-                                            //}
-
+                                            
                                             using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                             {
                                                 webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
@@ -3393,19 +3273,7 @@ namespace rainCheck
                                 string path_create_rainCheck = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
 
                                 DirectoryInfo di = Directory.CreateDirectory(path_create_rainCheck);
-
-                                //Rectangle bounds = Bounds;
-                                //using (Bitmap bitmap = new Bitmap(bounds.Width - 267, bounds.Height - 202))
-                                //{
-                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                //    {
-                                //        g.CopyFromScreen(new Point(bounds.Left + 226, bounds.Top + 159), Point.Empty, bounds.Size);
-                                //    }
-
-                                //    Bitmap resized = new Bitmap(bitmap, new Size(bitmap.Width / 2, bitmap.Height / 2));
-                                //    resized.Save(path + "_" + label_macid.Text + "_u_" + label_domainhide_urgent.Text + ".jpeg", ImageFormat.Jpeg);
-                                //}
-
+                                
                                 using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
                                 {
                                     webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));

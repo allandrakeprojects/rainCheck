@@ -31,6 +31,8 @@ namespace rainCheck
 
         private void Form_Landing_Load(object sender, EventArgs e)
         {
+            GetTime();
+
             // Checking internet connection
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 
@@ -467,77 +469,109 @@ namespace rainCheck
                 Close();
 
                 //city, country, isp
-
                 string path = Path.GetTempPath() + @"\raincheck_brand.txt";
+                string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
+                string path_lastcurrentindex = Path.GetTempPath() + @"\raincheck_lastcurrentindex.txt";
+                string result = "";
 
-                if (File.Exists(path))
+                string path_datetime = Path.GetTempPath() + @"\raincheck_datetime.txt";
+                if (File.Exists(path_datetime))
                 {
-                    DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dr == DialogResult.Yes)
+                    string read = File.ReadAllText(path_datetime);
+                    string datetime = DateTime.Now.ToString("dd MMM ") + label_timefor.Text;
+                    
+                    if (read != datetime)
                     {
-                        Form_Main.SetResult = "Yes";
-                        Form_Main form_main = new Form_Main(city, country, isp);
-                        form_main.ShowDialog();
+                        result = "not equal";
                     }
                     else
                     {
-                        Form_Main.SetResult = "No";
-                        Form_Main form_main = new Form_Main(city, country, isp);
-                        form_main.ShowDialog();
+                        result = "equal";
                     }
                 }
-                else
+
+                if (result == "not equal")
                 {
-                    try
+                    Form_Main.SetResult = "No";
+                    
+                    if (File.Exists(path_lastcurrentindex))
                     {
-                        using (var client = new WebClient())
-                        {
-                            string auth = "r@inCh3ckd234b70";
-                            string type = "brand_get";
-                            string request = "http://raincheck.ssitex.com/api/api.php";
-
-                            NameValueCollection postData = new NameValueCollection()
-                            {
-                                { "auth", auth },
-                                { "type", type }
-                            };
-
-                            string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                            if (File.Exists(path))
-                            {
-                                File.Delete(path);
-
-                                StreamWriter sw_create = new StreamWriter(path, true, Encoding.UTF8);
-                                sw_create.Close();
-
-                                StreamWriter sw = new StreamWriter(path, true, Encoding.UTF8);
-                                sw.Write(pagesource);
-                                sw.Close();
-                            }
-                            else
-                            {
-                                StreamWriter sw_create = new StreamWriter(path, true, Encoding.UTF8);
-                                sw_create.Close();
-
-                                StreamWriter sw = new StreamWriter(path, true, Encoding.UTF8);
-                                sw.Write(pagesource);
-                                sw.Close();
-                            }
-                        }
+                        File.Delete(path_lastcurrentindex);
                     }
-                    catch (Exception ex)
+
+                    if (File.Exists(path))
                     {
-                        var st = new StackTrace(ex, true);
-                        var frame = st.GetFrame(0);
-                        var line = frame.GetFileLineNumber();
-                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        
-                        Application.Restart();
+                        File.Delete(path);
+                    }
+
+                    if (File.Exists(path_datetime))
+                    {
+                        File.Delete(path_datetime);
                     }
 
                     Form_Main form_main = new Form_Main(city, country, isp);
                     form_main.ShowDialog();
+                }
+                else
+                {
+                    if (File.Exists(path))
+                    {
+                        DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == DialogResult.Yes)
+                        {
+                            Form_Main.SetResult = "Yes";
+
+                            string read = File.ReadAllText(path);
+                            Form_Main.BrandIDs = read;
+
+                            if (File.Exists(path_lastcurrentindex))
+                            {
+                                string read_lastcurrentindex = File.ReadAllText(path_lastcurrentindex);
+                                Form_Main.LastCurrentIndex = read_lastcurrentindex;
+                            }
+                            else
+                            {
+                                Form_Main.LastCurrentIndex = "1";
+                            }
+
+                            Form_Main form_main = new Form_Main(city, country, isp);
+                            form_main.ShowDialog();
+                        }
+                        else
+                        {
+                            Form_Main.SetResult = "No";
+
+                            if (File.Exists(path_lastcurrentindex))
+                            {
+                                File.Delete(path_lastcurrentindex);
+                            }
+
+                            if (File.Exists(path_datetime))
+                            {
+                                File.Delete(path_datetime);
+                            }
+
+                            Form_Main form_main = new Form_Main(city, country, isp);
+                            form_main.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        Form_Main.SetResult = "Not Exists";
+
+                        if (File.Exists(path_lastcurrentindex))
+                        {
+                            File.Delete(path_lastcurrentindex);
+                        }
+
+                        if (File.Exists(path_datetime))
+                        {
+                            File.Delete(path_datetime);
+                        }
+
+                        Form_Main form_main = new Form_Main(city, country, isp);
+                        form_main.ShowDialog();
+                    }
                 }
             }
         }
@@ -584,6 +618,61 @@ namespace rainCheck
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: RC1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
                 //Close();
+            }
+        }
+
+        private void GetTime()
+        {
+            string time = DateTime.Now.ToString("HH:mm");
+            string result = time.Replace(":", ".");
+
+            if (Convert.ToDouble(result) >= 0 && Convert.ToDouble(result) <= 1.59)
+            {
+                label_timefor.Text = "00:00";
+            }
+            else if (Convert.ToDouble(result) >= 2 && Convert.ToDouble(result) <= 3.59)
+            {
+                label_timefor.Text = "02:00";
+            }
+            else if (Convert.ToDouble(result) >= 4 && Convert.ToDouble(result) <= 5.59)
+            {
+                label_timefor.Text = "04:00";
+            }
+            else if (Convert.ToDouble(result) >= 6 && Convert.ToDouble(result) <= 7.59)
+            {
+                label_timefor.Text = "06:00";
+            }
+            else if (Convert.ToDouble(result) >= 8 && Convert.ToDouble(result) <= 9.59)
+            {
+                label_timefor.Text = "08:00";
+            }
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            {
+                label_timefor.Text = "10:00";
+            }
+            else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
+            {
+                label_timefor.Text = "12:00";
+            }
+            else if (Convert.ToDouble(result) >= 14 && Convert.ToDouble(result) <= 15.59)
+            {
+                label_timefor.Text = "14:00";
+            }
+            else if (Convert.ToDouble(result) >= 16 && Convert.ToDouble(result) <= 17.59)
+            {
+                label_timefor.Text = "16:00";
+            }
+            else if (Convert.ToDouble(result) >= 18 && Convert.ToDouble(result) <= 19.59)
+            {
+                label_timefor.Text = "18:00";
+            }
+            else if (Convert.ToDouble(result) >= 20 && Convert.ToDouble(result) <= 21.59)
+            {
+                label_timefor.Text = "20:00";
+            }
+            else if (Convert.ToDouble(result) >= 22 && Convert.ToDouble(result) <= 23.59)
+            {
+                label_timefor.Text = "22:00";
             }
         }
     }

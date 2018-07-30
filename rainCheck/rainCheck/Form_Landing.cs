@@ -4,6 +4,7 @@ using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -466,8 +467,78 @@ namespace rainCheck
                 Close();
 
                 //city, country, isp
-                Form_Main form_main = new Form_Main(city, country, isp);
-                form_main.ShowDialog();
+
+                string path = Path.GetTempPath() + @"\raincheck_brand.txt";
+
+                if (File.Exists(path))
+                {
+                    DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        Form_Main.SetResult = "Yes";
+                        Form_Main form_main = new Form_Main(city, country, isp);
+                        form_main.ShowDialog();
+                    }
+                    else
+                    {
+                        Form_Main.SetResult = "No";
+                        Form_Main form_main = new Form_Main(city, country, isp);
+                        form_main.ShowDialog();
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        using (var client = new WebClient())
+                        {
+                            string auth = "r@inCh3ckd234b70";
+                            string type = "brand_get";
+                            string request = "http://raincheck.ssitex.com/api/api.php";
+
+                            NameValueCollection postData = new NameValueCollection()
+                            {
+                                { "auth", auth },
+                                { "type", type }
+                            };
+
+                            string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+
+                            if (File.Exists(path))
+                            {
+                                File.Delete(path);
+
+                                StreamWriter sw_create = new StreamWriter(path, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                StreamWriter sw = new StreamWriter(path, true, Encoding.UTF8);
+                                sw.Write(pagesource);
+                                sw.Close();
+                            }
+                            else
+                            {
+                                StreamWriter sw_create = new StreamWriter(path, true, Encoding.UTF8);
+                                sw_create.Close();
+
+                                StreamWriter sw = new StreamWriter(path, true, Encoding.UTF8);
+                                sw.Write(pagesource);
+                                sw.Close();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var st = new StackTrace(ex, true);
+                        var frame = st.GetFrame(0);
+                        var line = frame.GetFileLineNumber();
+                        MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
+                        Application.Restart();
+                    }
+
+                    Form_Main form_main = new Form_Main(city, country, isp);
+                    form_main.ShowDialog();
+                }
             }
         }
 

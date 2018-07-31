@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Landing));
             this.panel_authorization = new System.Windows.Forms.Panel();
+            this.label_timefor = new System.Windows.Forms.Label();
             this.label_authorisation = new System.Windows.Forms.Label();
             this.label_timer = new System.Windows.Forms.Label();
             this.label_apichanges = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.timer_gotomain = new System.Windows.Forms.Timer(this.components);
             this.timer_authorisation = new System.Windows.Forms.Timer(this.components);
-            this.label_timefor = new System.Windows.Forms.Label();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -96,6 +96,16 @@
             this.panel_authorization.Name = "panel_authorization";
             this.panel_authorization.Size = new System.Drawing.Size(680, 457);
             this.panel_authorization.TabIndex = 14;
+            // 
+            // label_timefor
+            // 
+            this.label_timefor.AutoSize = true;
+            this.label_timefor.Location = new System.Drawing.Point(401, 86);
+            this.label_timefor.Name = "label_timefor";
+            this.label_timefor.Size = new System.Drawing.Size(41, 13);
+            this.label_timefor.TabIndex = 30;
+            this.label_timefor.Text = "time for";
+            this.label_timefor.Visible = false;
             // 
             // label_authorisation
             // 
@@ -396,16 +406,6 @@
             // 
             this.timer_authorisation.Interval = 1000;
             this.timer_authorisation.Tick += new System.EventHandler(this.Timer_authorisation_Tick);
-            // 
-            // label_timefor
-            // 
-            this.label_timefor.AutoSize = true;
-            this.label_timefor.Location = new System.Drawing.Point(401, 86);
-            this.label_timefor.Name = "label_timefor";
-            this.label_timefor.Size = new System.Drawing.Size(41, 13);
-            this.label_timefor.TabIndex = 30;
-            this.label_timefor.Text = "time for";
-            this.label_timefor.Visible = false;
             // 
             // Form_Landing
             // 

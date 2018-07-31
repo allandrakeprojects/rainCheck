@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CefSharp;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Specialized;
@@ -319,12 +320,15 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
+                panel_blank.BringToFront();
+
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: RC1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                //Close();
+                Close();
+                Application.Restart();
             }
         }
 
@@ -635,43 +639,7 @@ namespace rainCheck
 
                     Form_Main form_main = new Form_Main(city, country, isp);
                     form_main.ShowDialog();
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+                }                
             }
         }
 
@@ -685,38 +653,6 @@ namespace rainCheck
             {
                 Application.Exit();
                 Close();
-            }
-        }
-
-        private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    string auth = "r@inCh3ckd234b70";
-                    string type = "closing";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
-                    string mac_id = GetMACAddress();
-
-                    NameValueCollection postData = new NameValueCollection()
-                {
-                    { "auth", auth },
-                    { "type", type },
-                    { "mac_id", mac_id }
-                };
-
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                }
-            }
-            catch (Exception ex)
-            {
-                var st = new StackTrace(ex, true);
-                var frame = st.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: RC1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-                //Close();
             }
         }
 
@@ -773,6 +709,11 @@ namespace rainCheck
             {
                 label_timefor.Text = "22:00";
             }
+        }
+
+        private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Cef.Shutdown();
         }
     }
 }

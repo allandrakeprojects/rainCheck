@@ -706,6 +706,8 @@ namespace rainCheck
             {
                 chromeBrowser.Stop();
                 label_timeout.Text = "timeout";
+                timer_timefor.Stop();
+                pictureBox_loader.Visible = false;
             }
         }
 
@@ -873,35 +875,71 @@ namespace rainCheck
 
                                     if (html.Contains("landing_image"))
                                     {
-                                        await Task.Run(async () =>
+                                        // Timeout Status
+                                        if (label_timeout.Text == "timeout")
                                         {
-                                            await Task.Delay(1000);
-                                        });
-
-                                        DataToTextFileSuccess();
-
-                                        Invoke(new Action(() =>
-                                        {
-                                            // For timeout
-                                            i = 1;
-                                            timer_timeout.Stop();
-
-                                            pictureBox_loader.Visible = false;
-
-                                            label_timeout.Text = "";
-                                            label_hijacked.Text = "";
-                                            label_inaccessible.Text = "";
-                                            label_inaccessible_error_message.Text = "";
-
-                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            await Task.Run(async () =>
                                             {
-                                                fully_loaded = 0;
-                                                start_detect = 0;
-                                                label_ifloadornot.Text = "0";
-                                            }
+                                                await Task.Delay(1000);
+                                            });
 
-                                            panel_new.Visible = false;
-                                        }));
+                                            DataToTextFileTimeout();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot.Text = "0";
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(1000);
+                                            });
+
+                                            DataToTextFileSuccess();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot.Text = "0";
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
                                     }
                                     else
                                     {
@@ -1517,35 +1555,71 @@ namespace rainCheck
                             // success
                             else if (label_webtitle.Text.Contains("Bing"))
                             {
-                                await Task.Run(async () =>
+                                // Timeout Status
+                                if (label_timeout.Text == "timeout")
                                 {
-                                    await Task.Delay(1000);
-                                });
-
-                                DataToTextFileSuccess();
-
-                                Invoke(new Action(() =>
-                                {
-                                    // For timeout
-                                    i = 1;
-                                    timer_timeout.Stop();
-
-                                    pictureBox_loader.Visible = false;
-
-                                    label_timeout.Text = "";
-                                    label_hijacked.Text = "";
-                                    label_inaccessible.Text = "";
-                                    label_inaccessible_error_message.Text = "";
-
-                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    await Task.Run(async () =>
                                     {
-                                        fully_loaded = 0;
-                                        start_detect = 0;
-                                        label_ifloadornot.Text = "0";
-                                    }
+                                        await Task.Delay(1000);
+                                    });
 
-                                    panel_new.Visible = false;
-                                }));
+                                    DataToTextFileTimeout();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                            label_ifloadornot.Text = "0";
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
+                                else
+                                {
+                                    await Task.Run(async () =>
+                                    {
+                                        await Task.Delay(1000);
+                                    });
+
+                                    DataToTextFileSuccess();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                            label_ifloadornot.Text = "0";
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
                             }
                             // hijacked
                             else
@@ -1761,40 +1835,78 @@ namespace rainCheck
                                     {
                                         // Empty
                                     }
-
+                                    
                                     if (html.Contains("landing_image"))
                                     {
-                                        await Task.Run(async () =>
+                                        // Timeout Status
+                                        if (label_timeout.Text == "timeout")
                                         {
-                                            await Task.Delay(1000);
-                                        });
-
-                                        DataToTextFileSuccess();
-
-                                        Invoke(new Action(() =>
-                                        {
-                                            // For timeout
-                                            i = 1;
-                                            timer_timeout.Stop();
-
-                                            pictureBox_loader.Visible = false;
-
-                                            label_timeout.Text = "";
-                                            label_hijacked.Text = "";
-                                            label_inaccessible.Text = "";
-                                            label_inaccessible_error_message.Text = "";
-
-                                            //TopMost = false;
-                                            buttonGoWasClicked = false;
-
-                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            await Task.Run(async () =>
                                             {
-                                                fully_loaded = 0;
-                                                start_detect = 0;
-                                            }
+                                                await Task.Delay(1000);
+                                            });
 
-                                            panel_new.Visible = false;
-                                        }));
+                                            DataToTextFileTimeout();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                //TopMost = false;
+                                                buttonGoWasClicked = false;
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(1000);
+                                            });
+
+                                            DataToTextFileSuccess();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                //TopMost = false;
+                                                buttonGoWasClicked = false;
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
                                     }
                                     else
                                     {
@@ -2414,37 +2526,75 @@ namespace rainCheck
                             // success
                             else if (label_webtitle.Text.Contains("Bing"))
                             {
-                                await Task.Run(async () =>
+                                // Timeout Status
+                                if (label_timeout.Text == "timeout")
                                 {
-                                    await Task.Delay(1000);
-                                });
-
-                                DataToTextFileSuccess();
-
-                                Invoke(new Action(() =>
-                                {
-                                    // For timeout
-                                    i = 1;
-                                    timer_timeout.Stop();
-
-                                    pictureBox_loader.Visible = false;
-
-                                    label_timeout.Text = "";
-                                    label_hijacked.Text = "";
-                                    label_inaccessible.Text = "";
-                                    label_inaccessible_error_message.Text = "";
-                                    
-                                    //TopMost = false;
-                                    buttonGoWasClicked = false;
-
-                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    await Task.Run(async () =>
                                     {
-                                        fully_loaded = 0;
-                                        start_detect = 0;
-                                    }
+                                        await Task.Delay(1000);
+                                    });
 
-                                    panel_new.Visible = false;
-                                }));
+                                    DataToTextFileTimeout();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        //TopMost = false;
+                                        buttonGoWasClicked = false;
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
+                                else
+                                {
+                                    await Task.Run(async () =>
+                                    {
+                                        await Task.Delay(1000);
+                                    });
+
+                                    DataToTextFileSuccess();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        //TopMost = false;
+                                        buttonGoWasClicked = false;
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
                             }
                             // hijacked
                             else
@@ -2472,8 +2622,6 @@ namespace rainCheck
                                     }
                                     else if (!contains)
                                     {
-                                        //MessageBox.Show(label_text_search.Text + " asdasdasd " + label_domaintitle.Text + "\nnot safe " + label_domainhide.Text + "\n\n" + textBox_domain.Text);
-
                                         Invoke(new Action(() =>
                                         {
                                             label_hijacked.Text = "hijacked";
@@ -2600,6 +2748,7 @@ namespace rainCheck
                         }
                     }
                 }
+                
                 // --Loaded--
                 if (!e.IsLoading)
                 {
@@ -2689,37 +2838,74 @@ namespace rainCheck
                                         // Empty
                                     }
 
+
                                     if (html.Contains("landing_image"))
                                     {
-                                        await Task.Run(async () =>
+                                        // Timeout Status
+                                        if (label_timeout.Text == "timeout")
                                         {
-                                            await Task.Delay(1000);
-                                        });
-
-                                        DataToTextFileSuccess_Urgent();
-
-                                        Invoke(new Action(() =>
-                                        {
-                                            // For timeout
-                                            i = 1;
-                                            timer_timeout.Stop();
-
-                                            pictureBox_loader_urgent.Visible = false;
-
-                                            label_timeout.Text = "";
-                                            label_hijacked.Text = "";
-                                            label_inaccessible.Text = "";
-                                            label_inaccessible_error_message.Text = "";
-
-                                            if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                            await Task.Run(async () =>
                                             {
-                                                fully_loaded = 0;
-                                                start_detect = 0;
-                                                label_ifloadornot_urgent.Text = "0";
-                                            }
+                                                await Task.Delay(1000);
+                                            });
 
-                                            panel_new.Visible = false;
-                                        }));
+                                            DataToTextFileTimeout();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader_urgent.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot_urgent.Text = "0";
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            await Task.Run(async () =>
+                                            {
+                                                await Task.Delay(1000);
+                                            });
+
+                                            DataToTextFileSuccess_Urgent();
+
+                                            Invoke(new Action(() =>
+                                            {
+                                                // For timeout
+                                                i = 1;
+                                                timer_timeout.Stop();
+
+                                                pictureBox_loader_urgent.Visible = false;
+
+                                                label_timeout.Text = "";
+                                                label_hijacked.Text = "";
+                                                label_inaccessible.Text = "";
+                                                label_inaccessible_error_message.Text = "";
+
+                                                if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                                {
+                                                    fully_loaded = 0;
+                                                    start_detect = 0;
+                                                    label_ifloadornot_urgent.Text = "0";
+                                                }
+
+                                                panel_new.Visible = false;
+                                            }));
+                                        }
                                     }
                                     else
                                     {
@@ -3323,35 +3509,71 @@ namespace rainCheck
                             // success
                             else if (label_webtitle_urgent.Text.Contains("Bing"))
                             {
-                                await Task.Run(async () =>
+                                // Timeout Status
+                                if (label_timeout.Text == "timeout")
                                 {
-                                    await Task.Delay(1000);
-                                });
-
-                                DataToTextFileSuccess_Urgent();
-
-                                Invoke(new Action(() =>
-                                {
-                                    // For timeout
-                                    i = 1;
-                                    timer_timeout.Stop();
-
-                                    pictureBox_loader_urgent.Visible = false;
-
-                                    label_timeout.Text = "";
-                                    label_hijacked.Text = "";
-                                    label_inaccessible.Text = "";
-                                    label_inaccessible_error_message.Text = "";
-
-                                    if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                    await Task.Run(async () =>
                                     {
-                                        fully_loaded = 0;
-                                        start_detect = 0;
-                                        label_ifloadornot_urgent.Text = "0";
-                                    }
+                                        await Task.Delay(1000);
+                                    });
 
-                                    panel_new.Visible = false;
-                                }));
+                                    DataToTextFileTimeout();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader_urgent.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                            label_ifloadornot_urgent.Text = "0";
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
+                                else
+                                {
+                                    await Task.Run(async () =>
+                                    {
+                                        await Task.Delay(1000);
+                                    });
+
+                                    DataToTextFileSuccess_Urgent();
+
+                                    Invoke(new Action(() =>
+                                    {
+                                        // For timeout
+                                        i = 1;
+                                        timer_timeout.Stop();
+
+                                        pictureBox_loader_urgent.Visible = false;
+
+                                        label_timeout.Text = "";
+                                        label_hijacked.Text = "";
+                                        label_inaccessible.Text = "";
+                                        label_inaccessible_error_message.Text = "";
+
+                                        if (Convert.ToInt32(label_start_detect.Text) <= 1)
+                                        {
+                                            fully_loaded = 0;
+                                            start_detect = 0;
+                                            label_ifloadornot_urgent.Text = "0";
+                                        }
+
+                                        panel_new.Visible = false;
+                                    }));
+                                }
                             }
                             // hijacked
                             else

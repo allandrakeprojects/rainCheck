@@ -52,7 +52,7 @@ namespace rainCheck
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
-                    string type = "brand_get";
+                    string type = "brand_get_popup";
                     string request = "http://raincheck.ssitex.com/api/api.php";
 
                     NameValueCollection postData = new NameValueCollection()

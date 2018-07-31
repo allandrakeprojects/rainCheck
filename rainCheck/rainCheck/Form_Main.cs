@@ -875,7 +875,7 @@ namespace rainCheck
                                     {
                                         await Task.Run(async () =>
                                         {
-                                            await Task.Delay(500);
+                                            await Task.Delay(1000);
                                         });
 
                                         DataToTextFileSuccess();
@@ -1122,7 +1122,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -1158,7 +1158,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible();
@@ -1191,7 +1191,7 @@ namespace rainCheck
                                             {
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -1227,7 +1227,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible();
@@ -1304,7 +1304,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -1340,7 +1340,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible();
@@ -1373,7 +1373,7 @@ namespace rainCheck
                                         {
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -1409,7 +1409,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible();
@@ -1450,7 +1450,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string datetime = label11.Text;
@@ -1486,7 +1486,7 @@ namespace rainCheck
 
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileInaccessible();
@@ -1519,7 +1519,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileSuccess();
@@ -1552,7 +1552,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string strValue = label_text_search.Text;
@@ -1680,11 +1680,6 @@ namespace rainCheck
                 // --Loaded--
                 if (!e.IsLoading)
                 {
-                    //MessageBox.Show(label_domainhide.Text);
-                    // Detect when stop loads
-                    //detectnotloading = 0;
-                    //timer_detectnotloading.Start();
-
                     // Date preview
                     end_load_inaccessible = DateTime.Now;
                     end_load = DateTime.Now.ToString("HH:mm:ss.fff");
@@ -1755,7 +1750,7 @@ namespace rainCheck
                             // hijacked
                             if (label_webtitle.Text == "" && label_inaccessible_error_message.Text == "")
                             {
-                                if (label_webtype_urgent.Text == "Landing Page" || label_webtype_urgent.Text == "Landing page")
+                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
                                 {
                                     var html = "";
                                     try
@@ -1771,7 +1766,7 @@ namespace rainCheck
                                     {
                                         await Task.Run(async () =>
                                         {
-                                            await Task.Delay(500);
+                                            await Task.Delay(1000);
                                         });
 
                                         DataToTextFileSuccess();
@@ -2014,7 +2009,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -2050,7 +2045,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible();
@@ -2085,7 +2080,7 @@ namespace rainCheck
                                             {
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -2121,7 +2116,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible();
@@ -2200,7 +2195,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -2236,7 +2231,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible();
@@ -2271,7 +2266,7 @@ namespace rainCheck
                                         {
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -2307,7 +2302,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible();
@@ -2350,7 +2345,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string datetime = label11.Text;
@@ -2386,7 +2381,7 @@ namespace rainCheck
 
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileInaccessible();
@@ -2421,7 +2416,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileSuccess();
@@ -2456,7 +2451,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string strValue = label_text_search.Text;
@@ -2698,7 +2693,7 @@ namespace rainCheck
                                     {
                                         await Task.Run(async () =>
                                         {
-                                            await Task.Delay(500);
+                                            await Task.Delay(1000);
                                         });
 
                                         DataToTextFileSuccess_Urgent();
@@ -2945,7 +2940,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -2981,7 +2976,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible_Urgent();
@@ -3014,7 +3009,7 @@ namespace rainCheck
                                             {
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 string datetime = label11.Text;
@@ -3050,7 +3045,7 @@ namespace rainCheck
 
                                                 await Task.Run(async () =>
                                                 {
-                                                    await Task.Delay(500);
+                                                    await Task.Delay(1000);
                                                 });
 
                                                 DataToTextFileInaccessible_Urgent();
@@ -3115,7 +3110,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -3151,7 +3146,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible_Urgent();
@@ -3184,7 +3179,7 @@ namespace rainCheck
                                         {
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             string datetime = label11.Text;
@@ -3220,7 +3215,7 @@ namespace rainCheck
 
                                             await Task.Run(async () =>
                                             {
-                                                await Task.Delay(500);
+                                                await Task.Delay(1000);
                                             });
 
                                             DataToTextFileInaccessible_Urgent();
@@ -3261,7 +3256,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string datetime = label11.Text;
@@ -3297,7 +3292,7 @@ namespace rainCheck
 
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileInaccessible_Urgent();
@@ -3330,7 +3325,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 DataToTextFileSuccess_Urgent();
@@ -3363,7 +3358,7 @@ namespace rainCheck
                             {
                                 await Task.Run(async () =>
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(1000);
                                 });
 
                                 string strValue = label_text_search_urgent.Text;
@@ -4695,9 +4690,18 @@ namespace rainCheck
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                     string path = path_desktop + "\\rainCheck\\" + datetime_folder;
-                    
+                    string read = "";
+
                     // Insert
-                    string read = File.ReadAllText(path + "\\result.txt");
+                    if (File.Exists(path))
+                    {
+                        read = File.ReadAllText(path + "\\result.txt");
+                    }
+                    else
+                    {
+                        can_close = false;
+                        Application.Restart();
+                    }
 
                     StringBuilder sb = new StringBuilder();
                     using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())

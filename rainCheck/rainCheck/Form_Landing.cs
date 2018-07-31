@@ -489,75 +489,35 @@ namespace rainCheck
                         result = "equal";
                     }
                 }
-
-                if (result == "not equal")
+                              
+                if (File.Exists(path_history))
                 {
-                    Form_Main.SetResult = "No";
-                    
-                    if (File.Exists(path_lastcurrentindex))
-                    {
-                        File.Delete(path_lastcurrentindex);
-                    }
+                    string date_history = DateTime.Now.ToString("dd MMM ");
+                    string result_history = "";
 
-                    if (File.Exists(path))
+                    using (StreamReader sr = File.OpenText(path_history))
                     {
-                        File.Delete(path);
-                    }
-
-                    if (File.Exists(path_datetime))
-                    {
-                        File.Delete(path_datetime);
-                    }
-
-                    Form_Main form_main = new Form_Main(city, country, isp);
-                    form_main.ShowDialog();
-                }
-                else
-                {
-                    if (File.Exists(path))
-                    {
-                        DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (dr == DialogResult.Yes)
+                        string s = String.Empty;
+                        while ((s = sr.ReadLine()) != null)
                         {
-                            Form_Main.SetResult = "Yes";
-
-                            string read = File.ReadAllText(path);
-                            Form_Main.BrandIDs = read;
-
-                            if (File.Exists(path_lastcurrentindex))
+                            if (s != "")
                             {
-                                string read_lastcurrentindex = File.ReadAllText(path_lastcurrentindex);
-                                Form_Main.LastCurrentIndex = read_lastcurrentindex;
+                                if (s == date_history + label_timefor.Text + " OK" || s == date_history + label_timefor.Text + " ERR" || s == date_history + label_timefor.Text)
+                                {
+                                    result_history = "contains";
+                                    break;
+                                }
+                                else
+                                {
+                                    result_history = "not contains";
+                                }
                             }
-                            else
-                            {
-                                Form_Main.LastCurrentIndex = "1";
-                            }
-
-                            Form_Main form_main = new Form_Main(city, country, isp);
-                            form_main.ShowDialog();
-                        }
-                        else
-                        {
-                            Form_Main.SetResult = "No";
-
-                            if (File.Exists(path_lastcurrentindex))
-                            {
-                                File.Delete(path_lastcurrentindex);
-                            }
-
-                            if (File.Exists(path_datetime))
-                            {
-                                File.Delete(path_datetime);
-                            }
-
-                            Form_Main form_main = new Form_Main(city, country, isp);
-                            form_main.ShowDialog();
                         }
                     }
-                    else
+
+                    if (result_history == "contains")
                     {
-                        Form_Main.SetResult = "Not Exists";
+                        Form_Main.SetResult = "No";
 
                         if (File.Exists(path_lastcurrentindex))
                         {
@@ -572,7 +532,130 @@ namespace rainCheck
                         Form_Main form_main = new Form_Main(city, country, isp);
                         form_main.ShowDialog();
                     }
+                    else
+                    {
+                        if (result == "not equal")
+                        {
+                            Form_Main.SetResult = "No";
+
+                            if (File.Exists(path_lastcurrentindex))
+                            {
+                                File.Delete(path_lastcurrentindex);
+                            }
+
+                            if (File.Exists(path))
+                            {
+                                File.Delete(path);
+                            }
+
+                            if (File.Exists(path_datetime))
+                            {
+                                File.Delete(path_datetime);
+                            }
+
+                            Form_Main form_main = new Form_Main(city, country, isp);
+                            form_main.ShowDialog();
+                        }
+                        else
+                        {
+                            if (File.Exists(path))
+                            {
+                                DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (dr == DialogResult.Yes)
+                                {
+                                    Form_Main.SetResult = "Yes";
+
+                                    string read = File.ReadAllText(path);
+                                    Form_Main.BrandIDs = read;
+
+                                    if (File.Exists(path_lastcurrentindex))
+                                    {
+                                        string read_lastcurrentindex = File.ReadAllText(path_lastcurrentindex);
+                                        Form_Main.LastCurrentIndex = read_lastcurrentindex;
+                                    }
+                                    else
+                                    {
+                                        Form_Main.LastCurrentIndex = "1";
+                                    }
+
+                                    Form_Main form_main = new Form_Main(city, country, isp);
+                                    form_main.ShowDialog();
+                                }
+                                else
+                                {
+                                    Form_Main.SetResult = "No";
+
+                                    if (File.Exists(path_lastcurrentindex))
+                                    {
+                                        File.Delete(path_lastcurrentindex);
+                                    }
+
+                                    if (File.Exists(path_datetime))
+                                    {
+                                        File.Delete(path_datetime);
+                                    }
+
+                                    Form_Main form_main = new Form_Main(city, country, isp);
+                                    form_main.ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                Form_Main.SetResult = "Not Exists";
+
+                                if (File.Exists(path_lastcurrentindex))
+                                {
+                                    File.Delete(path_lastcurrentindex);
+                                }
+
+                                if (File.Exists(path_datetime))
+                                {
+                                    File.Delete(path_datetime);
+                                }
+
+                                Form_Main form_main = new Form_Main(city, country, isp);
+                                form_main.ShowDialog();
+                            }
+                        }
+                    }
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
             }
         }
 

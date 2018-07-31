@@ -2837,8 +2837,7 @@ namespace rainCheck
                                     {
                                         // Empty
                                     }
-
-
+                                    
                                     if (html.Contains("landing_image"))
                                     {
                                         // Timeout Status
@@ -2849,7 +2848,7 @@ namespace rainCheck
                                                 await Task.Delay(1000);
                                             });
 
-                                            DataToTextFileTimeout();
+                                            DataToTextFileTimeout_Urgent();
 
                                             Invoke(new Action(() =>
                                             {
@@ -3517,7 +3516,7 @@ namespace rainCheck
                                         await Task.Delay(1000);
                                     });
 
-                                    DataToTextFileTimeout();
+                                    DataToTextFileTimeout_Urgent();
 
                                     Invoke(new Action(() =>
                                     {

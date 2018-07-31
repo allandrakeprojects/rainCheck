@@ -56,12 +56,6 @@ namespace rainCheck
             {
                 Invoke(new Action(() =>
                 {
-                    //panel_authorization.Visible = true;
-                    //timer_authorisation.Start();
-                    //panel_authorization.BringToFront();
-
-                    //panel_retry.Visible = false;
-
                     authorisation = 0;
                     label_timer.Text = "";
 
@@ -194,26 +188,6 @@ namespace rainCheck
             }
         }
 
-        // Button retry
-        private void Button_retry_Click(object sender, EventArgs e)
-        {
-            i = 0;
-            timer.Start();
-        }
-
-        // F5
-        private void Button_retry_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5)
-            {
-                if(i >= 20)
-                {
-                    i = 0;
-                    timer.Start();
-                }
-            }
-        }
-
         // Insert device condition
         private void InsertDeviceCondition()
         {
@@ -320,6 +294,11 @@ namespace rainCheck
             }
             catch (Exception ex)
             {
+                timer.Stop();
+                timer_apichanges.Stop();
+                timer_authorisation.Stop();
+                timer_gotomain.Stop();
+
                 panel_blank.BringToFront();
 
                 var st = new StackTrace(ex, true);

@@ -4973,13 +4973,14 @@ namespace rainCheck
                     string read = "";
 
                     // Insert
-                    if (File.Exists(path))
+                    if (File.Exists(path + "\\result.txt"))
                     {
                         read = File.ReadAllText(path + "\\result.txt");
                     }
                     else
                     {
                         can_close = false;
+                        Close();
                         Application.Restart();
                     }
 
@@ -7445,11 +7446,6 @@ namespace rainCheck
             button_start_urgent.Enabled = true;
             button_start_urgent.PerformClick();
             timer_start_urgent.Stop();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

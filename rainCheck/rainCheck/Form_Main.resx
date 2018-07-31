@@ -998,12 +998,6 @@
   <metadata name="timer_blink_urgent.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>771, 17</value>
   </metadata>
-  <metadata name="timer_timeout_urgent.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>924, 17</value>
-  </metadata>
-  <metadata name="timer_new.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1093, 17</value>
-  </metadata>
   <metadata name="timer_elseloaded.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1201, 17</value>
   </metadata>

@@ -6563,10 +6563,20 @@ namespace rainCheck
                     string datetime_folder = label9.Text;
                     string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;                    
+                    string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
+                    string read = "";
 
                     // Insert
-                    string read = File.ReadAllText(path + "\\result.txt");
+                    if (File.Exists(path + "\\result.txt"))
+                    {
+                        read = File.ReadAllText(path + "\\result.txt");
+                    }
+                    else
+                    {
+                        can_close = false;
+                        Close();
+                        Application.Restart();
+                    }
                     
                     StringBuilder sb = new StringBuilder();
                     using (var p = ChoCSVReader.LoadText(read).WithFirstLineHeader())

@@ -7111,7 +7111,7 @@ namespace rainCheck
                         }
                     }                    
                 }
-
+                
                 if (label_status.Text != "[Running]")
                 {
                     label_timeget.Text = label_timefor.Text;
@@ -7158,6 +7158,14 @@ namespace rainCheck
                         button_start.Enabled = true;
                         button_start.PerformClick();
                         button_start.Enabled = false;
+                    }
+                }
+
+                if (!File.Exists(path))
+                {
+                    if (SetResult == "Yes")
+                    {
+                        button_start.PerformClick();
                     }
                 }
             }

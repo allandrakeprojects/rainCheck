@@ -98,6 +98,7 @@ namespace rainCheck
                     sw_create.Close();
 
                     can_close = false;
+                    Close();
                     Application.Restart();
                 }
 
@@ -163,6 +164,7 @@ namespace rainCheck
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 can_close = false;
+                Close();
                 Application.Restart();
             }
 
@@ -200,6 +202,7 @@ namespace rainCheck
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 
                 can_close = false;
+                Close();
                 Application.Restart();
             }
             
@@ -5556,6 +5559,7 @@ namespace rainCheck
                         if (server)
                         {
                             can_close = false;
+                            Close();
                             Application.Restart();
                         }
                     }
@@ -5952,6 +5956,7 @@ namespace rainCheck
                     if (server)
                     {
                         can_close = false;
+                        Close();
                         Application.Restart();
                     }
                 }
@@ -6740,6 +6745,7 @@ namespace rainCheck
                     if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
                     {
                         can_close = false;
+                        Close();
                         Application.Restart();
                     }
                     else
@@ -6801,6 +6807,8 @@ namespace rainCheck
                     var line = frame.GetFileLineNumber();
                     MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                    can_close = false;
+                    Close();
                     Application.Restart();
                 }
 
@@ -6836,6 +6844,7 @@ namespace rainCheck
                     if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
                     {
                         can_close = false;
+                        Close();
                         Application.Restart();
                     }
                     else
@@ -7375,7 +7384,9 @@ namespace rainCheck
                         {
                             StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
                             sw_create.Close();
+
                             can_close = false;
+                            Close();
                             Application.Restart();
                         }
 

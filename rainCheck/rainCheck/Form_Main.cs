@@ -1121,6 +1121,9 @@ namespace rainCheck
                                             // for fast load
                                             if (ms < 500)
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+                                                
                                                 panel_new.Visible = true;
                                                 panel_new.BringToFront();
 
@@ -1200,6 +1203,19 @@ namespace rainCheck
                                             }
                                             else
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+
+                                                int webBrowser_i = 0;
+                                                while (webBrowser_i <= 2)
+                                                {
+                                                    webBrowser_new.Navigate(label_domainhide.Text);
+                                                    webBrowser_i++;
+                                                }
+
                                                 await Task.Run(async () =>
                                                 {
                                                     await Task.Delay(1000);
@@ -1303,6 +1319,9 @@ namespace rainCheck
                                         // for fast load
                                         if (ms < 500)
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
                                             panel_new.Visible = true;
                                             panel_new.BringToFront();
 
@@ -1382,6 +1401,19 @@ namespace rainCheck
                                         }
                                         else
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                            panel_new.Visible = true;
+                                            panel_new.BringToFront();
+
+                                            int webBrowser_i = 0;
+                                            while (webBrowser_i <= 2)
+                                            {
+                                                webBrowser_new.Navigate(label_domainhide.Text);
+                                                webBrowser_i++;
+                                            }
+
                                             await Task.Run(async () =>
                                             {
                                                 await Task.Delay(1000);
@@ -1459,6 +1491,19 @@ namespace rainCheck
                             // inaccessible
                             if (label_webtitle.Text == label_domainhide.Text)
                             {
+                                webBrowser_new.Stop();
+                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                panel_new.Visible = true;
+                                panel_new.BringToFront();
+
+                                int webBrowser_i = 0;
+                                while (webBrowser_i <= 2)
+                                {
+                                    webBrowser_new.Navigate(label_domainhide.Text);
+                                    webBrowser_i++;
+                                }
+
                                 await Task.Run(async () =>
                                 {
                                     await Task.Delay(1000);
@@ -2071,6 +2116,9 @@ namespace rainCheck
                                             // for fast load
                                             if (ms < 500)
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
                                                 panel_new.Visible = true;
                                                 panel_new.BringToFront();
 
@@ -2151,6 +2199,19 @@ namespace rainCheck
                                             }
                                             else
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+
+                                                int webBrowser_i = 0;
+                                                while (webBrowser_i <= 2)
+                                                {
+                                                    webBrowser_new.Navigate(label_domainhide.Text);
+                                                    webBrowser_i++;
+                                                }
+
                                                 await Task.Run(async () =>
                                                 {
                                                     await Task.Delay(1000);
@@ -2255,6 +2316,9 @@ namespace rainCheck
                                         // for fast load
                                         if (ms < 500)
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
                                             panel_new.Visible = true;
                                             panel_new.BringToFront();
 
@@ -2335,6 +2399,19 @@ namespace rainCheck
                                         }
                                         else
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                            panel_new.Visible = true;
+                                            panel_new.BringToFront();
+
+                                            int webBrowser_i = 0;
+                                            while (webBrowser_i <= 2)
+                                            {
+                                                webBrowser_new.Navigate(label_domainhide.Text);
+                                                webBrowser_i++;
+                                            }
+
                                             await Task.Run(async () =>
                                             {
                                                 await Task.Delay(1000);
@@ -2413,6 +2490,19 @@ namespace rainCheck
                             // inaccessible
                             if (label_webtitle.Text == label_domainhide.Text)
                             {
+                                webBrowser_new.Stop();
+                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                panel_new.Visible = true;
+                                panel_new.BringToFront();
+
+                                int webBrowser_i = 0;
+                                while (webBrowser_i <= 2)
+                                {
+                                    webBrowser_new.Navigate(label_domainhide.Text);
+                                    webBrowser_i++;
+                                }
+
                                 await Task.Run(async () =>
                                 {
                                     await Task.Delay(1000);
@@ -3059,6 +3149,9 @@ namespace rainCheck
                                             // for fast load
                                             if (ms < 500)
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
                                                 panel_new.Visible = true;
                                                 panel_new.BringToFront();
 
@@ -3138,6 +3231,19 @@ namespace rainCheck
                                             }
                                             else
                                             {
+                                                webBrowser_new.Stop();
+                                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                                panel_new.Visible = true;
+                                                panel_new.BringToFront();
+
+                                                int webBrowser_i = 0;
+                                                while (webBrowser_i <= 2)
+                                                {
+                                                    webBrowser_new.Navigate(label_domainhide_urgent.Text);
+                                                    webBrowser_i++;
+                                                }
+
                                                 await Task.Run(async () =>
                                                 {
                                                     await Task.Delay(1000);
@@ -3229,6 +3335,9 @@ namespace rainCheck
                                         // for fast load
                                         if (ms < 500)
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
                                             panel_new.Visible = true;
                                             panel_new.BringToFront();
 
@@ -3308,6 +3417,19 @@ namespace rainCheck
                                         }
                                         else
                                         {
+                                            webBrowser_new.Stop();
+                                            //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                            panel_new.Visible = true;
+                                            panel_new.BringToFront();
+
+                                            int webBrowser_i = 0;
+                                            while (webBrowser_i <= 2)
+                                            {
+                                                webBrowser_new.Navigate(label_domainhide_urgent.Text);
+                                                webBrowser_i++;
+                                            }
+
                                             await Task.Run(async () =>
                                             {
                                                 await Task.Delay(1000);
@@ -3385,6 +3507,19 @@ namespace rainCheck
                             // inaccessible
                             if (label_webtitle_urgent.Text == label_domainhide_urgent.Text)
                             {
+                                webBrowser_new.Stop();
+                                //webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
+
+                                panel_new.Visible = true;
+                                panel_new.BringToFront();
+
+                                int webBrowser_i = 0;
+                                while (webBrowser_i <= 2)
+                                {
+                                    webBrowser_new.Navigate(label_domainhide_urgent.Text);
+                                    webBrowser_i++;
+                                }
+
                                 await Task.Run(async () =>
                                 {
                                     await Task.Delay(1000);
@@ -4969,6 +5104,8 @@ namespace rainCheck
                     dataGridView_domain.Columns["website_type"].Visible = false;
 
                     label_domainscount.Text = "Total: " + dataGridView_domain.RowCount.ToString();
+
+                    webBrowser_new.Refresh(WebBrowserRefreshOption.Completely);
                 }
                 else
                 {
@@ -4997,8 +5134,6 @@ namespace rainCheck
                     dataGridView_domain.FirstDisplayedScrollingRowIndex = index;
                     dataGridView_domain.Rows[index].Selected = true;
                 }
-
-
             }
         }
 
@@ -5116,7 +5251,7 @@ namespace rainCheck
             panel_browser.BringToFront();
             panel_browser.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
-            
+
             timer_blink.Stop();
             label_status.Visible = true;
             label_status.Text = "[Running]";
@@ -5175,49 +5310,35 @@ namespace rainCheck
                 pictureBox_loader.Visible = false;
                 textBox_domain.Text = "";
             }
+            
+            foreach (DataGridViewRow row in dataGridView_domain.SelectedRows)
+            {
+                string domain;
+                string brand;
+                string text_search;
+                string webtype;
 
-            if (dataGridView_domain.CurrentCell == null || dataGridView_domain.CurrentCell.Value == null)
-            {
-                return;
-            }
-            else
-            {
-                foreach (DataGridViewRow row in dataGridView_domain.SelectedRows)
+                try
                 {
-                    string domain;
-                    string brand;
-                    string text_search;
-                    string webtype;
+                    domain = row.Cells[1].Value.ToString();
+                    brand = row.Cells[2].Value.ToString();
+                    text_search = row.Cells[3].Value.ToString();
+                    webtype = row.Cells[4].Value.ToString();
 
-                    try
+                    // Load Browser
+                    chromeBrowser.Load(domain);
+                    textBox_domain.Text = domain;
+
+                    Invoke(new Action(() =>
                     {
-                        domain = row.Cells[1].Value.ToString();
-                        brand = row.Cells[2].Value.ToString();
-                        text_search = row.Cells[3].Value.ToString();
-                        webtype = row.Cells[4].Value.ToString();
-
-                        // Load Browser
-                        chromeBrowser.Load(domain);
-                        textBox_domain.Text = domain;
-
-                        Invoke(new Action(() =>
-                        {
-                            label_domainhide.Text = domain;
-                            label_brandhide.Text = brand;
-                            label_text_search.Text = text_search;
-                            label_webtype.Text = webtype;
-                        }));
-                    }
-                    catch (Exception)
-                    {
-                        //var st = new StackTrace(ex, true);
-                        //var frame = st.GetFrame(0);
-                        //var line = frame.GetFileLineNumber();
-                        //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        //Close();
-                    }
-
+                        label_domainhide.Text = domain;
+                        label_brandhide.Text = brand;
+                        label_text_search.Text = text_search;
+                        label_webtype.Text = webtype;
+                    }));
+                }
+                catch (Exception)
+                {
 
                 }
             }

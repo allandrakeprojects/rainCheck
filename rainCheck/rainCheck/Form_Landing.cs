@@ -619,7 +619,23 @@ namespace rainCheck
                         }
                     }
                 }
+                else
+                {
+                    Form_Main.SetResult = "Not Exists";
 
+                    if (File.Exists(path_lastcurrentindex))
+                    {
+                        File.Delete(path_lastcurrentindex);
+                    }
+
+                    if (File.Exists(path_datetime))
+                    {
+                        File.Delete(path_datetime);
+                    }
+
+                    Form_Main form_main = new Form_Main(city, country, isp);
+                    form_main.ShowDialog();
+                }
 
 
 

@@ -7279,7 +7279,7 @@ namespace rainCheck
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
                 label_lastload.Text = "06:00";
             }
-            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 10.59)
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
             {
                 label_timefor.Text = "10:00";
                 label_timefor_urgent.Text = "10:00";
@@ -7352,7 +7352,7 @@ namespace rainCheck
 
             TimeSpan delta = DateTime.Now - start;
             TimeSpan timeRemaining = spinTime - delta;
-            
+
             string mins_view;
             if (timeRemaining.Minutes == 0 || timeRemaining.Minutes == 1)
             {

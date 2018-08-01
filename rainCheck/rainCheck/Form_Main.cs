@@ -852,7 +852,7 @@ namespace rainCheck
                                     }
                                     catch (Exception)
                                     {
-                                        // Empty
+                                        // Leave blank
                                     }
 
                                     if (html.Contains("landing_image"))
@@ -963,6 +963,10 @@ namespace rainCheck
                                                 }
                                             }
 
+                                            //MessageBox.Show("1");
+                                            //MessageBox.Show(label_domainhide.Text);
+                                            //MessageBox.Show(label_webtitle.Text);
+
                                             DataToTextFileHijacked();
 
                                             Invoke(new Action(() =>
@@ -1030,6 +1034,10 @@ namespace rainCheck
                                                 }));
                                             }
                                         }
+
+                                        //MessageBox.Show("2");
+                                        //MessageBox.Show(label_domainhide.Text);
+                                        //MessageBox.Show(label_webtitle.Text);
 
                                         DataToTextFileHijacked();
 
@@ -1788,6 +1796,10 @@ namespace rainCheck
                                 // Send data to text file
                                 if (label_hijacked.Text == "hijacked")
                                 {
+                                    //MessageBox.Show("3");
+                                    //MessageBox.Show(label_domainhide.Text);
+                                    //MessageBox.Show(label_webtitle.Text);
+                                    
                                     DataToTextFileHijacked();
                                 }
                                 // Timeout Status
@@ -1956,7 +1968,7 @@ namespace rainCheck
                                     }
                                     catch (Exception)
                                     {
-                                        // Empty
+                                        // Leave blank
                                     }
                                     
                                     if (html.Contains("landing_image"))
@@ -3099,7 +3111,7 @@ namespace rainCheck
                                     }
                                     catch (Exception)
                                     {
-                                        // Empty
+                                        // Leave blank
                                     }
                                     
                                     if (html.Contains("landing_image"))
@@ -5644,36 +5656,43 @@ namespace rainCheck
                 pictureBox_loader.Visible = false;
                 textBox_domain.Text = "";
             }
-            
-            foreach (DataGridViewRow row in dataGridView_domain.SelectedRows)
+
+            if (dataGridView_domain.CurrentCell == null || dataGridView_domain.CurrentCell.Value == null)
             {
-                string domain;
-                string brand;
-                string text_search;
-                string webtype;
-
-                try
+                return;
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dataGridView_domain.SelectedRows)
                 {
-                    domain = row.Cells[1].Value.ToString();
-                    brand = row.Cells[2].Value.ToString();
-                    text_search = row.Cells[3].Value.ToString();
-                    webtype = row.Cells[4].Value.ToString();
+                    string domain;
+                    string brand;
+                    string text_search;
+                    string webtype;
 
-                    // Load Browser
-                    chromeBrowser.Load(domain);
-                    textBox_domain.Text = domain;
-
-                    Invoke(new Action(() =>
+                    try
                     {
-                        label_domainhide.Text = domain;
-                        label_brandhide.Text = brand;
-                        label_text_search.Text = text_search;
-                        label_webtype.Text = webtype;
-                    }));
-                }
-                catch (Exception)
-                {
+                        domain = row.Cells[1].Value.ToString();
+                        brand = row.Cells[2].Value.ToString();
+                        text_search = row.Cells[3].Value.ToString();
+                        webtype = row.Cells[4].Value.ToString();
 
+                        // Load Browser
+                        chromeBrowser.Load(domain);
+                        textBox_domain.Text = domain;
+
+                        Invoke(new Action(() =>
+                        {
+                            label_domainhide.Text = domain;
+                            label_brandhide.Text = brand;
+                            label_text_search.Text = text_search;
+                            label_webtype.Text = webtype;
+                        }));
+                    }
+                    catch (Exception)
+                    {
+                        // Leave blank
+                    }
                 }
             }
         }

@@ -694,7 +694,7 @@ namespace rainCheck
             {
                 chromeBrowser.Stop();
                 label_timeout.Text = "timeout";
-                timer_timefor.Stop();
+                timer_timeout.Stop();
                 pictureBox_loader.Visible = false;
             }
         }
@@ -1171,6 +1171,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -1253,6 +1275,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -1369,6 +1413,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -1451,6 +1517,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -1541,6 +1629,28 @@ namespace rainCheck
                                     sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                    var fileLength = new FileInfo(full_path).Length;
+
+                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                    {
+                                        var access = new Bitmap(Properties.Resources.access);
+                                        access.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                    {
+                                        var secure = new Bitmap(Properties.Resources.secure);
+                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                    {
+                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                    }
                                 }
 
                                 await Task.Run(async () =>
@@ -2166,6 +2276,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -2249,6 +2381,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -2366,6 +2520,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -2449,6 +2625,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -2540,6 +2738,28 @@ namespace rainCheck
                                     sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                    var fileLength = new FileInfo(full_path).Length;
+
+                                    if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                                    {
+                                        var access = new Bitmap(Properties.Resources.access);
+                                        access.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                                    {
+                                        var secure = new Bitmap(Properties.Resources.secure);
+                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle.Text == "导航已取消")
+                                    {
+                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                    }
                                 }
 
                                 await Task.Run(async () =>
@@ -3199,6 +3419,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle_urgent.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle_urgent.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle_urgent.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle_urgent.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -3281,6 +3523,28 @@ namespace rainCheck
                                                     sb_pic.Replace("_", "");
                                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                    var fileLength = new FileInfo(full_path).Length;
+
+                                                    if (fileLength < 3200 && label_webtitle_urgent.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle_urgent.Text == "无法访问此页面")
+                                                    {
+                                                        var access = new Bitmap(Properties.Resources.access);
+                                                        access.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle_urgent.Text == "此站点不安全")
+                                                    {
+                                                        var secure = new Bitmap(Properties.Resources.secure);
+                                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle_urgent.Text == "导航已取消")
+                                                    {
+                                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                                    }
+                                                    else
+                                                    {
+                                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                                    }
                                                 }
 
                                                 await Task.Run(async () =>
@@ -3385,6 +3649,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle_urgent.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle_urgent.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle_urgent.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle_urgent.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle_urgent.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle_urgent.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -3467,6 +3753,28 @@ namespace rainCheck
                                                 sb_pic.Replace("_", "");
                                                 string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                                 resized.Save(full_path, ImageFormat.Jpeg);
+
+                                                var fileLength = new FileInfo(full_path).Length;
+
+                                                if (fileLength < 3200 && label_webtitle_urgent.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle_urgent.Text == "无法访问此页面")
+                                                {
+                                                    var access = new Bitmap(Properties.Resources.access);
+                                                    access.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle_urgent.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle_urgent.Text == "此站点不安全")
+                                                {
+                                                    var secure = new Bitmap(Properties.Resources.secure);
+                                                    secure.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else if (fileLength < 3200 && label_webtitle_urgent.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle_urgent.Text == "导航已取消")
+                                                {
+                                                    var navigation = new Bitmap(Properties.Resources.navigation);
+                                                    navigation.Save(full_path, ImageFormat.Jpeg);
+                                                }
+                                                else
+                                                {
+                                                    resized.Save(full_path, ImageFormat.Jpeg);
+                                                }
                                             }
 
                                             await Task.Run(async () =>
@@ -3557,6 +3865,28 @@ namespace rainCheck
                                     sb_pic.Replace("_", "");
                                     string full_path = path + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + ".jpeg";
                                     resized.Save(full_path, ImageFormat.Jpeg);
+
+                                    var fileLength = new FileInfo(full_path).Length;
+
+                                    if (fileLength < 3200 && label_webtitle_urgent.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle_urgent.Text == "无法访问此页面")
+                                    {
+                                        var access = new Bitmap(Properties.Resources.access);
+                                        access.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle_urgent.Text == "此站点不安全")
+                                    {
+                                        var secure = new Bitmap(Properties.Resources.secure);
+                                        secure.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else if (fileLength < 3200 && label_webtitle_urgent.Text == "Navigation Canceled" || fileLength < 3200 && label_webtitle_urgent.Text == "导航已取消")
+                                    {
+                                        var navigation = new Bitmap(Properties.Resources.navigation);
+                                        navigation.Save(full_path, ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        resized.Save(full_path, ImageFormat.Jpeg);
+                                    }
                                 }
 
                                 await Task.Run(async () =>
@@ -6949,7 +7279,7 @@ namespace rainCheck
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 10:00:00");
                 label_lastload.Text = "06:00";
             }
-            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 11.59)
+            else if (Convert.ToDouble(result) >= 10 && Convert.ToDouble(result) <= 10.59)
             {
                 label_timefor.Text = "10:00";
                 label_timefor_urgent.Text = "10:00";
@@ -7080,6 +7410,7 @@ namespace rainCheck
         private bool auto_start = true;
         private int index_urgent;
         private bool server = false;
+        private int estimatedLength;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
@@ -7467,6 +7798,48 @@ namespace rainCheck
             button_start_urgent.Enabled = true;
             button_start_urgent.PerformClick();
             timer_start_urgent.Stop();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
+            {
+                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
+                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
+                string domain_replace = label_domainhide.Text;
+                StringBuilder sb_pic = new StringBuilder(domain_replace);
+                sb_pic.Replace("\\", "");
+                sb_pic.Replace("/", "");
+                sb_pic.Replace("\"", "");
+                sb_pic.Replace("*", "");
+                sb_pic.Replace(":", "");
+                sb_pic.Replace("?", "");
+                sb_pic.Replace("<", "");
+                sb_pic.Replace(">", "");
+                sb_pic.Replace("|", "");
+                sb_pic.Replace(" ", "");
+                sb_pic.Replace("_", "");
+                string full_path = path_desktop + "\\test.jpeg";
+                resized.Save(full_path, ImageFormat.Jpeg);
+
+                var fileLength = new FileInfo(full_path).Length;
+
+                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
+                {
+                    var access = new Bitmap(Properties.Resources.access);
+                    access.Save(full_path, ImageFormat.Jpeg);
+                }
+                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
+                {
+                    var secure = new Bitmap(Properties.Resources.secure);
+                    secure.Save(full_path, ImageFormat.Jpeg);
+                }
+                else
+                {
+                    resized.Save(full_path, ImageFormat.Jpeg);
+                }
+            }
         }
     }
 }

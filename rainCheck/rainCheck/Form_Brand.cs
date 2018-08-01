@@ -4,13 +4,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace rainCheck

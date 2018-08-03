@@ -4253,52 +4253,49 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
 
-                        if (label_webtitle_get.Contains(label_domainhide.Text))
+                        if (label_webtitle_get.Contains("平台紧急通知公告"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
+                            textbox_domain_get = "http://nuwa8a5.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
+                        if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                        {
+                            textbox_domain_get = "http://www.hgaa02.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
+                        if (label_webtitle_get.Contains("澳門太陽城集團"))
+                        {
+                            textbox_domain_get = "http://www.suncity-group.com/tc";
+                        }
 
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
+                        if (label_webtitle_get.Contains("太阳城集团"))
+                        {
+                            textbox_domain_get = "http://703297.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
+                        if (label_webtitle_get.Contains("盈彩网"))
+                        {
+                            textbox_domain_get = "http://www.cdtxyzs.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("体育投"))
-                            { 
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
+                        if (label_webtitle_get.Contains("体育投"))
+                        { 
+                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                        }
 
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
+                        if (label_webtitle_get.Contains("全新改"))
+                        {
+                            textbox_domain_get = "http://ee938.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
+                        if (label_webtitle_get.Contains("合并公告"))
+                        {
+                            textbox_domain_get = "http://7vwb.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
+                        if (label_webtitle_get.Contains("网易"))
+                        {
+                            textbox_domain_get = "http://i00081.com/";
                         }
 
                         if (label_webtitle.Text == "")
@@ -4402,53 +4399,50 @@ namespace rainCheck
 
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
-
-                        if (label_webtitle_get.Contains(label_domainhide.Text))
+                        
+                        if (label_webtitle_get.Contains("平台紧急通知公告"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
+                            textbox_domain_get = "http://nuwa8a5.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
+                        if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                        {
+                            textbox_domain_get = "http://www.hgaa02.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
+                        if (label_webtitle_get.Contains("澳門太陽城集團"))
+                        {
+                            textbox_domain_get = "http://www.suncity-group.com/tc";
+                        }
 
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
+                        if (label_webtitle_get.Contains("太阳城集团"))
+                        {
+                            textbox_domain_get = "http://703297.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
+                        if (label_webtitle_get.Contains("盈彩网"))
+                        {
+                            textbox_domain_get = "http://www.cdtxyzs.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("体育投"))
-                            {
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
+                        if (label_webtitle_get.Contains("体育投"))
+                        {
+                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                        }
 
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
+                        if (label_webtitle_get.Contains("全新改"))
+                        {
+                            textbox_domain_get = "http://ee938.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
+                        if (label_webtitle_get.Contains("合并公告"))
+                        {
+                            textbox_domain_get = "http://7vwb.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
+                        if (label_webtitle_get.Contains("网易"))
+                        {
+                            textbox_domain_get = "http://i00081.com/";
                         }
 
                         if (string.IsNullOrEmpty(isp_get))
@@ -4967,52 +4961,49 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
 
-                        if (label_webtitle_get.Contains(label_domainhide_urgent.Text))
+                        if (label_webtitle_get.Contains("平台紧急通知公告"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
+                            textbox_domain_get = "http://nuwa8a5.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
+                        if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                        {
+                            textbox_domain_get = "http://www.hgaa02.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
+                        if (label_webtitle_get.Contains("澳門太陽城集團"))
+                        {
+                            textbox_domain_get = "http://www.suncity-group.com/tc";
+                        }
 
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
+                        if (label_webtitle_get.Contains("太阳城集团"))
+                        {
+                            textbox_domain_get = "http://703297.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
+                        if (label_webtitle_get.Contains("盈彩网"))
+                        {
+                            textbox_domain_get = "http://www.cdtxyzs.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("体育投"))
-                            {
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
+                        if (label_webtitle_get.Contains("体育投"))
+                        {
+                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                        }
 
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
+                        if (label_webtitle_get.Contains("全新改"))
+                        {
+                            textbox_domain_get = "http://ee938.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
+                        if (label_webtitle_get.Contains("合并公告"))
+                        {
+                            textbox_domain_get = "http://7vwb.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
+                        if (label_webtitle_get.Contains("网易"))
+                        {
+                            textbox_domain_get = "http://i00081.com/";
                         }
 
                         if (label_webtitle_urgent.Text == "")
@@ -5116,53 +5107,50 @@ namespace rainCheck
 
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
-
-                        if (label_webtitle_get.Contains(label_domainhide_urgent.Text))
+                        
+                        if (label_webtitle_get.Contains("平台紧急通知公告"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
+                            textbox_domain_get = "http://nuwa8a5.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
+                        if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                        {
+                            textbox_domain_get = "http://www.hgaa02.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
+                        if (label_webtitle_get.Contains("澳門太陽城集團"))
+                        {
+                            textbox_domain_get = "http://www.suncity-group.com/tc";
+                        }
 
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
+                        if (label_webtitle_get.Contains("太阳城集团"))
+                        {
+                            textbox_domain_get = "http://703297.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
+                        if (label_webtitle_get.Contains("盈彩网"))
+                        {
+                            textbox_domain_get = "http://www.cdtxyzs.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("体育投"))
-                            {
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
+                        if (label_webtitle_get.Contains("体育投"))
+                        {
+                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                        }
 
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
+                        if (label_webtitle_get.Contains("全新改"))
+                        {
+                            textbox_domain_get = "http://ee938.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
+                        if (label_webtitle_get.Contains("合并公告"))
+                        {
+                            textbox_domain_get = "http://7vwb.com/";
+                        }
 
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
+                        if (label_webtitle_get.Contains("网易"))
+                        {
+                            textbox_domain_get = "http://i00081.com/";
                         }
 
                         if (label_webtitle_urgent.Text == "")
@@ -8170,16 +8158,6 @@ namespace rainCheck
                 {
                     resized.Save(full_path, ImageFormat.Jpeg);
                 }
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            string asd = "https://a2776.com/";
-
-            if (asd.Contains("a2776.com"))
-            {
-                MessageBox.Show("asd");
             }
         }
     }

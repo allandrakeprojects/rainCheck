@@ -173,6 +173,36 @@ namespace rainCheck
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";
+                    string type = "text_search_brand";
+                    string request = "http://raincheck.ssitex.com/api/api.php";
+
+                    NameValueCollection postData = new NameValueCollection()
+                    {
+                        { "auth", auth },
+                        { "type", type },
+                    };
+
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    label_textsearch_brand.Text = pagesource;
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = new StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                can_close = false;
+                Close();
+                Application.Restart();
+            }
+
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    string auth = "r@inCh3ckd234b70";
                     string type = "urgent_device";
                     string mac_id = GetMACAddress();
                     string request = "http://raincheck.ssitex.com/api/api.php";
@@ -4222,41 +4252,55 @@ namespace rainCheck
 
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
-                        if (label_webtitle_get == "平台紧急通知公告")
+
+                        if (label_webtitle_get.Contains(label_domainhide.Text))
                         {
-                            textbox_domain_get = "http://nuwa8a5.com/";
+                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            {
+                                textbox_domain_get = "http://nuwa8a5.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                            {
+                                textbox_domain_get = "http://www.hgaa02.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("澳門太陽城集團"))
+                            {
+                                textbox_domain_get = "http://www.suncity-group.com/tc";
+                            }
+
+                            if (label_webtitle_get.Contains("太阳城集团"))
+                            {
+                                textbox_domain_get = "http://703297.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("盈彩网"))
+                            {
+                                textbox_domain_get = "http://www.cdtxyzs.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("体育投"))
+                            { 
+                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                            }
+
+                            if (label_webtitle_get.Contains("全新改"))
+                            {
+                                textbox_domain_get = "http://ee938.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("合并公告"))
+                            {
+                                textbox_domain_get = "http://7vwb.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("网易"))
+                            {
+                                textbox_domain_get = "http://i00081.com/";
+                            }
                         }
 
-                        if (label_webtitle_get == "世界杯指定投注网站")
-                        {
-                            textbox_domain_get = "http://www.hgaa02.com/";
-                        }
-
-                        if (label_webtitle_get == "澳門太陽城集團")
-                        {
-                            textbox_domain_get = "http://www.suncity-group.com/tc";
-                        }
-
-                        if (label_webtitle_get == "太阳城集团")
-                        {
-                            textbox_domain_get = "http://suncity-group.com/";
-                        }
-
-                        if (label_webtitle_get == "盈彩网")
-                        {
-                            textbox_domain_get = "http://www.cdtxyzs.com/";
-                        }
-
-                        if (label_webtitle_get.Contains("体育投"))
-                        {
-                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                        }
-
-                        if (label_webtitle_get.Contains("全新改"))
-                        {
-                            textbox_domain_get = "http://ee938.com/";
-                        }
-                        
                         if (label_webtitle.Text == "")
                         {
                             Invoke(new Action(() =>
@@ -4274,13 +4318,53 @@ namespace rainCheck
                         {
                             city_get = "-";
                         }
-                        
+
                         string webtitle_replace = label_webtitle.Text;
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                        string strValue = label_textsearch_brand.Text;
+                        string[] strArray = strValue.Split(',');
+                        string result = "";
+
+                        foreach (string obj in strArray)
+                        {
+                            bool contains = label_webtitle.Text.Contains(obj);
+
+                            if (contains == true)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "not hijacked";
+                                }));
+
+                                break;
+                            }
+                            else if (!contains)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "hijacked";
+                                }));
+                            }
+                        }
+
+                        if (result == "hijacked")
+                        {
+                            if (label_webtitle.Text == "-" && textBox_domain.Text.Contains(label_domainhide.Text))
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                            else
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                        }
+                        else
+                        {
+                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                        }
 
                         swww.Close();
                     }
@@ -4290,7 +4374,7 @@ namespace rainCheck
                     // Create directory
                     DirectoryInfo di = Directory.CreateDirectory(path);
 
-                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
                     sw.Close();
 
                     // Header
@@ -4301,7 +4385,7 @@ namespace rainCheck
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
@@ -4314,51 +4398,57 @@ namespace rainCheck
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
-                        if (label_webtitle_get == "平台紧急通知公告")
-                        {
-                            textbox_domain_get = "http://nuwa8a5.com/";
-                        }
 
-                        if (label_webtitle_get == "世界杯指定投注网站")
+                        if (label_webtitle_get.Contains(label_domainhide.Text))
                         {
-                            textbox_domain_get = "http://www.hgaa02.com/";
-                        }
-
-                        if (label_webtitle_get == "澳門太陽城集團")
-                        {
-                            textbox_domain_get = "http://www.suncity-group.com/tc";
-                        }
-
-                        if (label_webtitle_get == "太阳城集团")
-                        {
-                            textbox_domain_get = "http://suncity-group.com/";
-                        }
-
-                        if (label_webtitle_get == "盈彩网")
-                        {
-                            textbox_domain_get = "http://www.cdtxyzs.com/";
-                        }
-
-                        if (label_webtitle_get.Contains("体育投"))
-                        {
-                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                        }
-
-                        if (label_webtitle_get.Contains("全新改"))
-                        {
-                            textbox_domain_get = "http://ee938.com/";
-                        }
-
-                        if (label_webtitle.Text == "")
-                        {
-                            Invoke(new Action(() =>
+                            if (label_webtitle_get.Contains("平台紧急通知公告"))
                             {
-                                label_webtitle.Text = "-";
-                            }));
+                                textbox_domain_get = "http://nuwa8a5.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                            {
+                                textbox_domain_get = "http://www.hgaa02.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("澳門太陽城集團"))
+                            {
+                                textbox_domain_get = "http://www.suncity-group.com/tc";
+                            }
+
+                            if (label_webtitle_get.Contains("太阳城集团"))
+                            {
+                                textbox_domain_get = "http://703297.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("盈彩网"))
+                            {
+                                textbox_domain_get = "http://www.cdtxyzs.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("体育投"))
+                            {
+                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                            }
+
+                            if (label_webtitle_get.Contains("全新改"))
+                            {
+                                textbox_domain_get = "http://ee938.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("合并公告"))
+                            {
+                                textbox_domain_get = "http://7vwb.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("网易"))
+                            {
+                                textbox_domain_get = "http://i00081.com/";
+                            }
                         }
 
                         if (string.IsNullOrEmpty(isp_get))
@@ -4376,7 +4466,47 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                        string strValue = label_textsearch_brand.Text;
+                        string[] strArray = strValue.Split(',');
+                        string result = "";
+
+                        foreach (string obj in strArray)
+                        {
+                            bool contains = label_webtitle.Text.Contains(obj);
+
+                            if (contains == true)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "not hijacked";
+                                }));
+
+                                break;
+                            }
+                            else if (!contains)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "hijacked";
+                                }));
+                            }
+                        }
+
+                        if (result == "hijacked")
+                        {
+                            if (label_webtitle.Text == "-" && textBox_domain.Text.Contains(label_domainhide.Text))
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                            else
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                        }
+                        else
+                        {
+                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                        }
 
                         swww.Close();
                     }
@@ -4836,39 +4966,53 @@ namespace rainCheck
                         
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
-                        if (label_webtitle_get == "平台紧急通知公告")
-                        {
-                            textbox_domain_get = "http://nuwa8a5.com/";
-                        }
 
-                        if (label_webtitle_get == "世界杯指定投注网站")
+                        if (label_webtitle_get.Contains(label_domainhide_urgent.Text))
                         {
-                            textbox_domain_get = "http://www.hgaa02.com/";
-                        }
+                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            {
+                                textbox_domain_get = "http://nuwa8a5.com/";
+                            }
 
-                        if (label_webtitle_get == "澳門太陽城集團")
-                        {
-                            textbox_domain_get = "http://www.suncity-group.com/tc";
-                        }
+                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                            {
+                                textbox_domain_get = "http://www.hgaa02.com/";
+                            }
 
-                        if (label_webtitle_get == "太阳城集团")
-                        {
-                            textbox_domain_get = "http://suncity-group.com/";
-                        }
+                            if (label_webtitle_get.Contains("澳門太陽城集團"))
+                            {
+                                textbox_domain_get = "http://www.suncity-group.com/tc";
+                            }
 
-                        if (label_webtitle_get == "盈彩网")
-                        {
-                            textbox_domain_get = "http://www.cdtxyzs.com/";
-                        }
+                            if (label_webtitle_get.Contains("太阳城集团"))
+                            {
+                                textbox_domain_get = "http://703297.com/";
+                            }
 
-                        if (label_webtitle_get.Contains("体育投"))
-                        {
-                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                        }
+                            if (label_webtitle_get.Contains("盈彩网"))
+                            {
+                                textbox_domain_get = "http://www.cdtxyzs.com/";
+                            }
 
-                        if (label_webtitle_get.Contains("全新改"))
-                        {
-                            textbox_domain_get = "http://ee938.com/";
+                            if (label_webtitle_get.Contains("体育投"))
+                            {
+                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                            }
+
+                            if (label_webtitle_get.Contains("全新改"))
+                            {
+                                textbox_domain_get = "http://ee938.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("合并公告"))
+                            {
+                                textbox_domain_get = "http://7vwb.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("网易"))
+                            {
+                                textbox_domain_get = "http://i00081.com/";
+                            }
                         }
 
                         if (label_webtitle_urgent.Text == "")
@@ -4894,7 +5038,47 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        string strValue = label_textsearch_brand.Text;
+                        string[] strArray = strValue.Split(',');
+                        string result = "";
+
+                        foreach (string obj in strArray)
+                        {
+                            bool contains = label_webtitle_urgent.Text.Contains(obj);
+
+                            if (contains == true)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "not hijacked";
+                                }));
+
+                                break;
+                            }
+                            else if (!contains)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "hijacked";
+                                }));
+                            }
+                        }
+
+                        if (result == "hijacked")
+                        {
+                            if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                            else
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                        }
+                        else
+                        {
+                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        }
 
                         swww.Close();
                     }
@@ -4932,39 +5116,53 @@ namespace rainCheck
 
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
-                        if (label_webtitle_get == "平台紧急通知公告")
-                        {
-                            textbox_domain_get = "http://nuwa8a5.com/";
-                        }
 
-                        if (label_webtitle_get == "世界杯指定投注网站")
+                        if (label_webtitle_get.Contains(label_domainhide_urgent.Text))
                         {
-                            textbox_domain_get = "http://www.hgaa02.com/";
-                        }
+                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            {
+                                textbox_domain_get = "http://nuwa8a5.com/";
+                            }
 
-                        if (label_webtitle_get == "澳門太陽城集團")
-                        {
-                            textbox_domain_get = "http://www.suncity-group.com/tc";
-                        }
+                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
+                            {
+                                textbox_domain_get = "http://www.hgaa02.com/";
+                            }
 
-                        if (label_webtitle_get == "太阳城集团")
-                        {
-                            textbox_domain_get = "http://suncity-group.com/";
-                        }
+                            if (label_webtitle_get.Contains("澳門太陽城集團"))
+                            {
+                                textbox_domain_get = "http://www.suncity-group.com/tc";
+                            }
 
-                        if (label_webtitle_get == "盈彩网")
-                        {
-                            textbox_domain_get = "http://www.cdtxyzs.com/";
-                        }
+                            if (label_webtitle_get.Contains("太阳城集团"))
+                            {
+                                textbox_domain_get = "http://703297.com/";
+                            }
 
-                        if (label_webtitle_get.Contains("体育投"))
-                        {
-                            textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                        }
+                            if (label_webtitle_get.Contains("盈彩网"))
+                            {
+                                textbox_domain_get = "http://www.cdtxyzs.com/";
+                            }
 
-                        if (label_webtitle_get.Contains("全新改"))
-                        {
-                            textbox_domain_get = "http://ee938.com/";
+                            if (label_webtitle_get.Contains("体育投"))
+                            {
+                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
+                            }
+
+                            if (label_webtitle_get.Contains("全新改"))
+                            {
+                                textbox_domain_get = "http://ee938.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("合并公告"))
+                            {
+                                textbox_domain_get = "http://7vwb.com/";
+                            }
+
+                            if (label_webtitle_get.Contains("网易"))
+                            {
+                                textbox_domain_get = "http://i00081.com/";
+                            }
                         }
 
                         if (label_webtitle_urgent.Text == "")
@@ -4990,7 +5188,47 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        string strValue = label_textsearch_brand.Text;
+                        string[] strArray = strValue.Split(',');
+                        string result = "";
+
+                        foreach (string obj in strArray)
+                        {
+                            bool contains = label_webtitle_urgent.Text.Contains(obj);
+
+                            if (contains == true)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "not hijacked";
+                                }));
+
+                                break;
+                            }
+                            else if (!contains)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    result = "hijacked";
+                                }));
+                            }
+                        }
+
+                        if (result == "hijacked")
+                        {
+                            if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                            else
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                        }
+                        else
+                        {
+                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                        }
 
                         swww.Close();
                     }
@@ -7937,16 +8175,12 @@ namespace rainCheck
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string currentDir = Directory.GetCurrentDirectory() + "\\access.jpeg";
-            MessageBox.Show(currentDir);
+            string asd = "https://a2776.com/";
 
-            if (File.Exists(currentDir))
+            if (asd.Contains("a2776.com"))
             {
-                MessageBox.Show("exists");
+                MessageBox.Show("asd");
             }
-
-            var secure = new Bitmap(Properties.Resources.secure);
-            secure.Save(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test.jpeg", ImageFormat.Jpeg);
         }
     }
 }

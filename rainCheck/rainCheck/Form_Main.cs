@@ -819,7 +819,6 @@ namespace rainCheck
 
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle.Text = webtitle;
-                        textBox_webtitle.Text = webtitle;
                     }));
                     
                     if (label_fully_loaded.Text == "1")
@@ -1889,7 +1888,6 @@ namespace rainCheck
 
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle.Text = webtitle;
-                        textBox_webtitle.Text = webtitle;
                     }));
 
                     if (label_fully_loaded.Text == "1")
@@ -2998,7 +2996,6 @@ namespace rainCheck
 
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle_urgent.Text = webtitle;
-                        textBox_webtitle.Text = webtitle;
                     }));
 
                     if (label_fully_loaded.Text == "1")
@@ -7882,29 +7879,6 @@ namespace rainCheck
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string path = path_desktop + "\\2018-07-23_1600_e0d55e8ec0ae_u_dasdsadsa.com.zip";
-                FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + "zip_test");
-                req.UseBinary = true;
-                req.Method = WebRequestMethods.Ftp.UploadFile;
-                req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
-                byte[] fileData = File.ReadAllBytes(path);
-
-                req.ContentLength = fileData.Length;
-                Stream reqStream = req.GetRequestStream();
-                reqStream.Write(fileData, 0, fileData.Length);
-                reqStream.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void timer_deviceon_Tick(object sender, EventArgs e)
         {
             try
@@ -8117,48 +8091,6 @@ namespace rainCheck
             button_start_urgent.Enabled = true;
             button_start_urgent.PerformClick();
             timer_start_urgent.Stop();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (var pic = new Bitmap(webBrowser_new.Width - 18, webBrowser_new.Height - 18))
-            {
-                string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                webBrowser_new.DrawToBitmap(pic, new Rectangle(0, 0, pic.Width, pic.Height));
-                Bitmap resized = new Bitmap(pic, new Size(pic.Width / 2, pic.Height / 2));
-                string domain_replace = label_domainhide.Text;
-                StringBuilder sb_pic = new StringBuilder(domain_replace);
-                sb_pic.Replace("\\", "");
-                sb_pic.Replace("/", "");
-                sb_pic.Replace("\"", "");
-                sb_pic.Replace("*", "");
-                sb_pic.Replace(":", "");
-                sb_pic.Replace("?", "");
-                sb_pic.Replace("<", "");
-                sb_pic.Replace(">", "");
-                sb_pic.Replace("|", "");
-                sb_pic.Replace(" ", "");
-                sb_pic.Replace("_", "");
-                string full_path = path_desktop + "\\test.jpeg";
-                resized.Save(full_path, ImageFormat.Jpeg);
-
-                var fileLength = new FileInfo(full_path).Length;
-
-                if (fileLength < 3200 && label_webtitle.Text == "Can’t reach this page" || fileLength < 3200 && label_webtitle.Text == "无法访问此页面")
-                {
-                    var access = new Bitmap(Properties.Resources.access);
-                    access.Save(full_path, ImageFormat.Jpeg);
-                }
-                else if (fileLength < 3200 && label_webtitle.Text == "This site isn’t secure" || fileLength < 3200 && label_webtitle.Text == "此站点不安全")
-                {
-                    var secure = new Bitmap(Properties.Resources.secure);
-                    secure.Save(full_path, ImageFormat.Jpeg);
-                }
-                else
-                {
-                    resized.Save(full_path, ImageFormat.Jpeg);
-                }
-            }
         }
     }
 }

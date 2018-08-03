@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle121 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle122 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle123 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle124 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle125 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle126 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle127 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle128 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle129 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle130 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle131 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle132 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button_pause = new System.Windows.Forms.Button();
             this.button_go = new System.Windows.Forms.Button();
             this.textBox_domain = new System.Windows.Forms.TextBox();
@@ -92,7 +92,6 @@
             this.timer_loader = new System.Windows.Forms.Timer(this.components);
             this.timer_rtc = new System.Windows.Forms.Timer(this.components);
             this.label_timerstartpause = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label_currentindex = new System.Windows.Forms.Label();
             this.panel_browser = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -109,18 +108,8 @@
             this.panel_main = new System.Windows.Forms.Panel();
             this.panel_new = new System.Windows.Forms.Panel();
             this.webBrowser_new = new System.Windows.Forms.WebBrowser();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label_erroraborted = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
             this.label_testonemoretime = new System.Windows.Forms.Label();
-            this.textBox_webtitle = new System.Windows.Forms.TextBox();
             this.label_inaccessiblelist = new System.Windows.Forms.Label();
             this.label_fully_loaded = new System.Windows.Forms.Label();
             this.label_start_detect = new System.Windows.Forms.Label();
@@ -155,77 +144,31 @@
             this.label_hijacked = new System.Windows.Forms.Label();
             this.label_webtitle_urgent = new System.Windows.Forms.Label();
             this.label_inaccessible_error_message = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.timer_elseloaded = new System.Windows.Forms.Timer(this.components);
             this.timer_detectnotloading = new System.Windows.Forms.Timer(this.components);
             this.label_detectnotloading = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
             this.timer_timefor = new System.Windows.Forms.Timer(this.components);
             this.label_timer_timefor = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.label_cyclein_get = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.timer_cyclein = new System.Windows.Forms.Timer(this.components);
-            this.label15 = new System.Windows.Forms.Label();
             this.label_textchangedtimefor = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
             this.label_webtype = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
             this.label_totalcountofdomain = new System.Windows.Forms.Label();
             this.label_timeget = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label_lastload = new System.Windows.Forms.Label();
             this.label_macid = new System.Windows.Forms.Label();
-            this.label60 = new System.Windows.Forms.Label();
             this.label_domainscount = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
             this.label_webtype_urgent = new System.Windows.Forms.Label();
             this.label_domainscount_urgent = new System.Windows.Forms.Label();
             this.timer_deviceon = new System.Windows.Forms.Timer(this.components);
             this.label_getdatetime_urgent = new System.Windows.Forms.Label();
             this.label_datetimetextfile_urgent = new System.Windows.Forms.Label();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
             this.timer_urgent_detect = new System.Windows.Forms.Timer(this.components);
             this.timer_start_urgent = new System.Windows.Forms.Timer(this.components);
-            this.label64 = new System.Windows.Forms.Label();
             this.label_urgent_detect = new System.Windows.Forms.Label();
             this.label_time_urgent = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
             this.label_utype = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label_textsearch_brand = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
             this.panel_top.SuspendLayout();
@@ -370,7 +313,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1345, 170);
+            this.label3.Location = new System.Drawing.Point(1280, 170);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 26;
@@ -412,7 +355,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1372, 285);
+            this.label10.Location = new System.Drawing.Point(1280, 285);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 15;
@@ -421,7 +364,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1373, 286);
+            this.label8.Location = new System.Drawing.Point(1280, 286);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 13);
             this.label8.TabIndex = 43;
@@ -429,7 +372,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1350, 268);
+            this.label9.Location = new System.Drawing.Point(1280, 268);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 44;
@@ -438,7 +381,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1359, 251);
+            this.label11.Location = new System.Drawing.Point(1280, 251);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 13);
             this.label11.TabIndex = 45;
@@ -447,7 +390,7 @@
             // label_timeout
             // 
             this.label_timeout.AutoSize = true;
-            this.label_timeout.Location = new System.Drawing.Point(1290, 137);
+            this.label_timeout.Location = new System.Drawing.Point(1280, 137);
             this.label_timeout.Name = "label_timeout";
             this.label_timeout.Size = new System.Drawing.Size(41, 13);
             this.label_timeout.TabIndex = 46;
@@ -456,7 +399,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1345, 153);
+            this.label13.Location = new System.Drawing.Point(1280, 153);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 13);
             this.label13.TabIndex = 47;
@@ -465,7 +408,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1408, 234);
+            this.label2.Location = new System.Drawing.Point(1280, 234);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 49;
@@ -534,7 +477,7 @@
             // label_inaccessible
             // 
             this.label_inaccessible.AutoSize = true;
-            this.label_inaccessible.Location = new System.Drawing.Point(1290, 121);
+            this.label_inaccessible.Location = new System.Drawing.Point(1280, 121);
             this.label_inaccessible.Name = "label_inaccessible";
             this.label_inaccessible.Size = new System.Drawing.Size(96, 13);
             this.label_inaccessible.TabIndex = 68;
@@ -543,7 +486,7 @@
             // label_brand_id
             // 
             this.label_brand_id.AutoSize = true;
-            this.label_brand_id.Location = new System.Drawing.Point(1549, 376);
+            this.label_brand_id.Location = new System.Drawing.Point(1453, 376);
             this.label_brand_id.Name = "label_brand_id";
             this.label_brand_id.Size = new System.Drawing.Size(49, 13);
             this.label_brand_id.TabIndex = 61;
@@ -552,7 +495,7 @@
             // label_text_search_urgent
             // 
             this.label_text_search_urgent.AutoSize = true;
-            this.label_text_search_urgent.Location = new System.Drawing.Point(1564, 390);
+            this.label_text_search_urgent.Location = new System.Drawing.Point(1453, 390);
             this.label_text_search_urgent.Name = "label_text_search_urgent";
             this.label_text_search_urgent.Size = new System.Drawing.Size(92, 13);
             this.label_text_search_urgent.TabIndex = 67;
@@ -561,7 +504,7 @@
             // label_ifloadornot_urgent
             // 
             this.label_ifloadornot_urgent.AutoSize = true;
-            this.label_ifloadornot_urgent.Location = new System.Drawing.Point(1598, 478);
+            this.label_ifloadornot_urgent.Location = new System.Drawing.Point(1453, 478);
             this.label_ifloadornot_urgent.Name = "label_ifloadornot_urgent";
             this.label_ifloadornot_urgent.Size = new System.Drawing.Size(57, 13);
             this.label_ifloadornot_urgent.TabIndex = 66;
@@ -571,7 +514,7 @@
             // label_timerstartpause_urgent
             // 
             this.label_timerstartpause_urgent.AutoSize = true;
-            this.label_timerstartpause_urgent.Location = new System.Drawing.Point(1593, 463);
+            this.label_timerstartpause_urgent.Location = new System.Drawing.Point(1453, 463);
             this.label_timerstartpause_urgent.Name = "label_timerstartpause_urgent";
             this.label_timerstartpause_urgent.Size = new System.Drawing.Size(84, 13);
             this.label_timerstartpause_urgent.TabIndex = 65;
@@ -580,7 +523,7 @@
             // label_brandhide_urgent
             // 
             this.label_brandhide_urgent.AutoSize = true;
-            this.label_brandhide_urgent.Location = new System.Drawing.Point(1539, 419);
+            this.label_brandhide_urgent.Location = new System.Drawing.Point(1453, 419);
             this.label_brandhide_urgent.Name = "label_brandhide_urgent";
             this.label_brandhide_urgent.Size = new System.Drawing.Size(67, 13);
             this.label_brandhide_urgent.TabIndex = 64;
@@ -589,7 +532,7 @@
             // label_domainhide_urgent
             // 
             this.label_domainhide_urgent.AutoSize = true;
-            this.label_domainhide_urgent.Location = new System.Drawing.Point(1547, 404);
+            this.label_domainhide_urgent.Location = new System.Drawing.Point(1453, 404);
             this.label_domainhide_urgent.Name = "label_domainhide_urgent";
             this.label_domainhide_urgent.Size = new System.Drawing.Size(74, 13);
             this.label_domainhide_urgent.TabIndex = 63;
@@ -598,7 +541,7 @@
             // label_timeout_urgent
             // 
             this.label_timeout_urgent.AutoSize = true;
-            this.label_timeout_urgent.Location = new System.Drawing.Point(1518, 348);
+            this.label_timeout_urgent.Location = new System.Drawing.Point(1453, 348);
             this.label_timeout_urgent.Name = "label_timeout_urgent";
             this.label_timeout_urgent.Size = new System.Drawing.Size(74, 13);
             this.label_timeout_urgent.TabIndex = 51;
@@ -608,7 +551,7 @@
             // label_timeoutcount_urgent
             // 
             this.label_timeoutcount_urgent.AutoSize = true;
-            this.label_timeoutcount_urgent.Location = new System.Drawing.Point(1593, 362);
+            this.label_timeoutcount_urgent.Location = new System.Drawing.Point(1453, 362);
             this.label_timeoutcount_urgent.Name = "label_timeoutcount_urgent";
             this.label_timeoutcount_urgent.Size = new System.Drawing.Size(71, 13);
             this.label_timeoutcount_urgent.TabIndex = 52;
@@ -618,7 +561,7 @@
             // label_currentindex_urgent
             // 
             this.label_currentindex_urgent.AutoSize = true;
-            this.label_currentindex_urgent.Location = new System.Drawing.Point(1576, 334);
+            this.label_currentindex_urgent.Location = new System.Drawing.Point(1453, 334);
             this.label_currentindex_urgent.Name = "label_currentindex_urgent";
             this.label_currentindex_urgent.Size = new System.Drawing.Size(13, 13);
             this.label_currentindex_urgent.TabIndex = 62;
@@ -678,43 +621,43 @@
             this.dataGridView_domain.AllowUserToAddRows = false;
             this.dataGridView_domain.AllowUserToDeleteRows = false;
             this.dataGridView_domain.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_domain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle121.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_domain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle121;
             this.dataGridView_domain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_domain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_domain.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_domain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_domain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle122.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle122.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle122.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle122.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle122.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle122.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle122.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle122.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_domain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle122;
             this.dataGridView_domain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_domain.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle123.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle123.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle123.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle123.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle123.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle123.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle123.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_domain.DefaultCellStyle = dataGridViewCellStyle123;
             this.dataGridView_domain.Location = new System.Drawing.Point(14, 7);
             this.dataGridView_domain.MultiSelect = false;
             this.dataGridView_domain.Name = "dataGridView_domain";
             this.dataGridView_domain.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle124.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle124.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle124.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle124.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle124.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle124.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle124.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_domain.RowHeadersDefaultCellStyle = dataGridViewCellStyle124;
             this.dataGridView_domain.RowHeadersVisible = false;
             this.dataGridView_domain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_domain.Size = new System.Drawing.Size(196, 276);
@@ -744,46 +687,46 @@
             this.dataGridView_history.AllowUserToAddRows = false;
             this.dataGridView_history.AllowUserToDeleteRows = false;
             this.dataGridView_history.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_history.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle125.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_history.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle125;
             this.dataGridView_history.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_history.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_history.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_history.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_history.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle126.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle126.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle126.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle126.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle126.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle126.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle126.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle126.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_history.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle126;
             this.dataGridView_history.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_history.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.History});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle127.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle127.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle127.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle127.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle127.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle127.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle127.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_history.DefaultCellStyle = dataGridViewCellStyle127;
             this.dataGridView_history.Enabled = false;
             this.dataGridView_history.Location = new System.Drawing.Point(14, 289);
             this.dataGridView_history.MultiSelect = false;
             this.dataGridView_history.Name = "dataGridView_history";
             this.dataGridView_history.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_history.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle128.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle128.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle128.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle128.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle128.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle128.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle128.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_history.RowHeadersDefaultCellStyle = dataGridViewCellStyle128;
             this.dataGridView_history.RowHeadersVisible = false;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_history.Size = new System.Drawing.Size(196, 300);
@@ -797,7 +740,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1353, 318);
+            this.label6.Location = new System.Drawing.Point(1280, 318);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 38;
@@ -852,25 +795,16 @@
             // label_timerstartpause
             // 
             this.label_timerstartpause.AutoSize = true;
-            this.label_timerstartpause.Location = new System.Drawing.Point(1339, 302);
+            this.label_timerstartpause.Location = new System.Drawing.Point(1280, 302);
             this.label_timerstartpause.Name = "label_timerstartpause";
             this.label_timerstartpause.Size = new System.Drawing.Size(35, 13);
             this.label_timerstartpause.TabIndex = 34;
             this.label_timerstartpause.Text = "label5";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1375, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "label4";
-            // 
             // label_currentindex
             // 
             this.label_currentindex.AutoSize = true;
-            this.label_currentindex.Location = new System.Drawing.Point(1344, 89);
+            this.label_currentindex.Location = new System.Drawing.Point(1280, 89);
             this.label_currentindex.Name = "label_currentindex";
             this.label_currentindex.Size = new System.Drawing.Size(13, 13);
             this.label_currentindex.TabIndex = 37;
@@ -931,7 +865,7 @@
             // label_brandhide
             // 
             this.label_brandhide.AutoSize = true;
-            this.label_brandhide.Location = new System.Drawing.Point(1339, 187);
+            this.label_brandhide.Location = new System.Drawing.Point(1280, 187);
             this.label_brandhide.Name = "label_brandhide";
             this.label_brandhide.Size = new System.Drawing.Size(0, 13);
             this.label_brandhide.TabIndex = 28;
@@ -939,7 +873,7 @@
             // label_domainhide
             // 
             this.label_domainhide.AutoSize = true;
-            this.label_domainhide.Location = new System.Drawing.Point(1349, 203);
+            this.label_domainhide.Location = new System.Drawing.Point(1280, 203);
             this.label_domainhide.Name = "label_domainhide";
             this.label_domainhide.Size = new System.Drawing.Size(0, 13);
             this.label_domainhide.TabIndex = 29;
@@ -947,7 +881,7 @@
             // label_ifloadornot
             // 
             this.label_ifloadornot.AutoSize = true;
-            this.label_ifloadornot.Location = new System.Drawing.Point(1367, 234);
+            this.label_ifloadornot.Location = new System.Drawing.Point(1280, 234);
             this.label_ifloadornot.Name = "label_ifloadornot";
             this.label_ifloadornot.Size = new System.Drawing.Size(35, 13);
             this.label_ifloadornot.TabIndex = 32;
@@ -1047,116 +981,28 @@
             this.webBrowser_new.Size = new System.Drawing.Size(1024, 583);
             this.webBrowser_new.TabIndex = 0;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1509, 284);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 80;
-            this.textBox1.TabStop = false;
-            // 
             // label_erroraborted
             // 
             this.label_erroraborted.AutoSize = true;
-            this.label_erroraborted.Location = new System.Drawing.Point(1575, 190);
+            this.label_erroraborted.Location = new System.Drawing.Point(1453, 190);
             this.label_erroraborted.Name = "label_erroraborted";
             this.label_erroraborted.Size = new System.Drawing.Size(67, 13);
             this.label_erroraborted.TabIndex = 79;
             this.label_erroraborted.Text = "error aborted";
             // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(1506, 190);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(70, 13);
-            this.label48.TabIndex = 78;
-            this.label48.Text = "error aborted:";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(1506, 177);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(89, 13);
-            this.label43.TabIndex = 77;
-            this.label43.Text = "else loaded timer:";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(1506, 151);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(96, 13);
-            this.label42.TabIndex = 76;
-            this.label42.Text = "test one more time:";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(1506, 138);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(83, 13);
-            this.label41.TabIndex = 75;
-            this.label41.Text = "inaccessible list:";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(1506, 164);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(64, 13);
-            this.label40.TabIndex = 74;
-            this.label40.Text = "else loaded:";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(1506, 124);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(75, 13);
-            this.label39.TabIndex = 73;
-            this.label39.Text = "loaded detect:";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(1506, 111);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(65, 13);
-            this.label38.TabIndex = 72;
-            this.label38.Text = "start loaded:";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(1506, 98);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(63, 13);
-            this.label37.TabIndex = 71;
-            this.label37.Text = "fully loaded:";
-            // 
             // label_testonemoretime
             // 
             this.label_testonemoretime.AutoSize = true;
-            this.label_testonemoretime.Location = new System.Drawing.Point(1600, 151);
+            this.label_testonemoretime.Location = new System.Drawing.Point(1453, 151);
             this.label_testonemoretime.Name = "label_testonemoretime";
             this.label_testonemoretime.Size = new System.Drawing.Size(84, 13);
             this.label_testonemoretime.TabIndex = 69;
             this.label_testonemoretime.Text = "testonemoretime";
             // 
-            // textBox_webtitle
-            // 
-            this.textBox_webtitle.Location = new System.Drawing.Point(1274, 606);
-            this.textBox_webtitle.Name = "textBox_webtitle";
-            this.textBox_webtitle.Size = new System.Drawing.Size(100, 20);
-            this.textBox_webtitle.TabIndex = 68;
-            this.textBox_webtitle.TabStop = false;
-            // 
             // label_inaccessiblelist
             // 
             this.label_inaccessiblelist.AutoSize = true;
-            this.label_inaccessiblelist.Location = new System.Drawing.Point(1589, 138);
+            this.label_inaccessiblelist.Location = new System.Drawing.Point(1453, 138);
             this.label_inaccessiblelist.Name = "label_inaccessiblelist";
             this.label_inaccessiblelist.Size = new System.Drawing.Size(80, 13);
             this.label_inaccessiblelist.TabIndex = 67;
@@ -1165,7 +1011,7 @@
             // label_fully_loaded
             // 
             this.label_fully_loaded.AutoSize = true;
-            this.label_fully_loaded.Location = new System.Drawing.Point(1567, 98);
+            this.label_fully_loaded.Location = new System.Drawing.Point(1453, 98);
             this.label_fully_loaded.Name = "label_fully_loaded";
             this.label_fully_loaded.Size = new System.Drawing.Size(60, 13);
             this.label_fully_loaded.TabIndex = 60;
@@ -1174,7 +1020,7 @@
             // label_start_detect
             // 
             this.label_start_detect.AutoSize = true;
-            this.label_start_detect.Location = new System.Drawing.Point(1570, 111);
+            this.label_start_detect.Location = new System.Drawing.Point(1453, 111);
             this.label_start_detect.Name = "label_start_detect";
             this.label_start_detect.Size = new System.Drawing.Size(60, 13);
             this.label_start_detect.TabIndex = 61;
@@ -1183,7 +1029,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(1600, 177);
+            this.label18.Location = new System.Drawing.Point(1453, 177);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(41, 13);
             this.label18.TabIndex = 66;
@@ -1192,7 +1038,7 @@
             // label_loadeddetect
             // 
             this.label_loadeddetect.AutoSize = true;
-            this.label_loadeddetect.Location = new System.Drawing.Point(1581, 125);
+            this.label_loadeddetect.Location = new System.Drawing.Point(1453, 125);
             this.label_loadeddetect.Name = "label_loadeddetect";
             this.label_loadeddetect.Size = new System.Drawing.Size(72, 13);
             this.label_loadeddetect.TabIndex = 62;
@@ -1201,7 +1047,7 @@
             // label_elseloaded
             // 
             this.label_elseloaded.AutoSize = true;
-            this.label_elseloaded.Location = new System.Drawing.Point(1575, 166);
+            this.label_elseloaded.Location = new System.Drawing.Point(1453, 166);
             this.label_elseloaded.Name = "label_elseloaded";
             this.label_elseloaded.Size = new System.Drawing.Size(0, 13);
             this.label_elseloaded.TabIndex = 65;
@@ -1209,7 +1055,7 @@
             // label_webtitle
             // 
             this.label_webtitle.AutoSize = true;
-            this.label_webtitle.Location = new System.Drawing.Point(1320, 334);
+            this.label_webtitle.Location = new System.Drawing.Point(1280, 334);
             this.label_webtitle.Name = "label_webtitle";
             this.label_webtitle.Size = new System.Drawing.Size(43, 13);
             this.label_webtitle.TabIndex = 63;
@@ -1317,43 +1163,43 @@
             this.dataGridView_urgent.AllowUserToAddRows = false;
             this.dataGridView_urgent.AllowUserToDeleteRows = false;
             this.dataGridView_urgent.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
-            this.dataGridView_urgent.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle129.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(254)))));
+            this.dataGridView_urgent.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle129;
             this.dataGridView_urgent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_urgent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_urgent.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_urgent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_urgent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle130.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle130.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle130.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle130.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle130.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle130.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle130.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle130.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_urgent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle130;
             this.dataGridView_urgent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_urgent.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle131.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle131.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle131.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle131.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle131.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle131.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle131.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_urgent.DefaultCellStyle = dataGridViewCellStyle131;
             this.dataGridView_urgent.Location = new System.Drawing.Point(14, 7);
             this.dataGridView_urgent.MultiSelect = false;
             this.dataGridView_urgent.Name = "dataGridView_urgent";
             this.dataGridView_urgent.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_urgent.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle132.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle132.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle132.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle132.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            dataGridViewCellStyle132.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(142)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle132.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle132.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_urgent.RowHeadersDefaultCellStyle = dataGridViewCellStyle132;
             this.dataGridView_urgent.RowHeadersVisible = false;
             this.dataGridView_urgent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_urgent.Size = new System.Drawing.Size(196, 582);
@@ -1554,7 +1400,7 @@
             // label_text_search
             // 
             this.label_text_search.AutoSize = true;
-            this.label_text_search.Location = new System.Drawing.Point(1333, 217);
+            this.label_text_search.Location = new System.Drawing.Point(1280, 217);
             this.label_text_search.Name = "label_text_search";
             this.label_text_search.Size = new System.Drawing.Size(59, 13);
             this.label_text_search.TabIndex = 53;
@@ -1563,7 +1409,7 @@
             // label_domaintitle
             // 
             this.label_domaintitle.AutoSize = true;
-            this.label_domaintitle.Location = new System.Drawing.Point(1577, 577);
+            this.label_domaintitle.Location = new System.Drawing.Point(1453, 577);
             this.label_domaintitle.Name = "label_domaintitle";
             this.label_domaintitle.Size = new System.Drawing.Size(0, 13);
             this.label_domaintitle.TabIndex = 54;
@@ -1571,7 +1417,7 @@
             // label_hijacked
             // 
             this.label_hijacked.AutoSize = true;
-            this.label_hijacked.Location = new System.Drawing.Point(1290, 105);
+            this.label_hijacked.Location = new System.Drawing.Point(1280, 105);
             this.label_hijacked.Name = "label_hijacked";
             this.label_hijacked.Size = new System.Drawing.Size(78, 13);
             this.label_hijacked.TabIndex = 55;
@@ -1580,7 +1426,7 @@
             // label_webtitle_urgent
             // 
             this.label_webtitle_urgent.AutoSize = true;
-            this.label_webtitle_urgent.Location = new System.Drawing.Point(1585, 491);
+            this.label_webtitle_urgent.Location = new System.Drawing.Point(1453, 491);
             this.label_webtitle_urgent.Name = "label_webtitle_urgent";
             this.label_webtitle_urgent.Size = new System.Drawing.Size(93, 13);
             this.label_webtitle_urgent.TabIndex = 56;
@@ -1589,20 +1435,11 @@
             // label_inaccessible_error_message
             // 
             this.label_inaccessible_error_message.AutoSize = true;
-            this.label_inaccessible_error_message.Location = new System.Drawing.Point(1386, 367);
+            this.label_inaccessible_error_message.Location = new System.Drawing.Point(1280, 367);
             this.label_inaccessible_error_message.Name = "label_inaccessible_error_message";
             this.label_inaccessible_error_message.Size = new System.Drawing.Size(0, 13);
             this.label_inaccessible_error_message.TabIndex = 57;
             this.label_inaccessible_error_message.TextChanged += new System.EventHandler(this.label_inaccessible_error_message_TextChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1505, 660);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 58;
-            this.label12.Text = "label12";
             // 
             // timer_elseloaded
             // 
@@ -1617,271 +1454,10 @@
             // label_detectnotloading
             // 
             this.label_detectnotloading.AutoSize = true;
-            this.label_detectnotloading.Location = new System.Drawing.Point(1361, 350);
+            this.label_detectnotloading.Location = new System.Drawing.Point(1280, 350);
             this.label_detectnotloading.Name = "label_detectnotloading";
             this.label_detectnotloading.Size = new System.Drawing.Size(0, 13);
             this.label_detectnotloading.TabIndex = 69;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(1273, 350);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(89, 13);
-            this.label19.TabIndex = 70;
-            this.label19.Text = "detectnotloading:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(1274, 105);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(16, 13);
-            this.label20.TabIndex = 71;
-            this.label20.Text = "h:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(1274, 121);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(13, 13);
-            this.label21.TabIndex = 72;
-            this.label21.Text = "I:";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(1274, 153);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(73, 13);
-            this.label22.TabIndex = 73;
-            this.label22.Text = "timeout value:";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(1274, 170);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(69, 13);
-            this.label23.TabIndex = 74;
-            this.label23.Text = "timeout timer:";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(1274, 186);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(60, 13);
-            this.label24.TabIndex = 75;
-            this.label24.Text = "brand hide:";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(1274, 202);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(67, 13);
-            this.label25.TabIndex = 76;
-            this.label25.Text = "domain hide:";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1274, 218);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(59, 13);
-            this.label26.TabIndex = 77;
-            this.label26.Text = "textsearch:";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(1273, 251);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(88, 13);
-            this.label27.TabIndex = 78;
-            this.label27.Text = "datetime running:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(1274, 302);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(64, 13);
-            this.label28.TabIndex = 79;
-            this.label28.Text = "loader timer:";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(1274, 137);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(13, 13);
-            this.label29.TabIndex = 80;
-            this.label29.Text = "t:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(1274, 234);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(92, 13);
-            this.label30.TabIndex = 81;
-            this.label30.Text = "textchanged load:";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(1273, 268);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(79, 13);
-            this.label31.TabIndex = 82;
-            this.label31.Text = "datetime folder:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(1273, 285);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(97, 13);
-            this.label32.TabIndex = 83;
-            this.label32.Text = "datetime folder get:";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(1274, 317);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(79, 13);
-            this.label33.TabIndex = 84;
-            this.label33.Text = "uploaded timer:";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(1274, 89);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(71, 13);
-            this.label34.TabIndex = 85;
-            this.label34.Text = "current index:";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(1505, 647);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(63, 13);
-            this.label35.TabIndex = 86;
-            this.label35.Text = "domain title:";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(1273, 334);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(46, 13);
-            this.label36.TabIndex = 87;
-            this.label36.Text = "webtitle:";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(1505, 376);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(48, 13);
-            this.label44.TabIndex = 88;
-            this.label44.Text = "brand id:";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(1505, 334);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(71, 13);
-            this.label45.TabIndex = 89;
-            this.label45.Text = "current index:";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(1505, 390);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(59, 13);
-            this.label46.TabIndex = 90;
-            this.label46.Text = "textsearch:";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(1505, 404);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(44, 13);
-            this.label47.TabIndex = 91;
-            this.label47.Text = "domain:";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(1505, 463);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(87, 13);
-            this.label49.TabIndex = 93;
-            this.label49.Text = "start pause timer:";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(1505, 419);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(37, 13);
-            this.label50.TabIndex = 94;
-            this.label50.Text = "brand:";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(1506, 478);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(92, 13);
-            this.label51.TabIndex = 95;
-            this.label51.Text = "textchanged load:";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(1506, 348);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(13, 13);
-            this.label52.TabIndex = 96;
-            this.label52.Text = "t:";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(1505, 362);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(69, 13);
-            this.label53.TabIndex = 97;
-            this.label53.Text = "timeout timer:";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(1505, 491);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(79, 13);
-            this.label54.TabIndex = 98;
-            this.label54.Text = "webtitle urgent:";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(1272, 367);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(113, 13);
-            this.label55.TabIndex = 99;
-            this.label55.Text = "inaccessible message:";
             // 
             // timer_timefor
             // 
@@ -1891,38 +1467,20 @@
             // label_timer_timefor
             // 
             this.label_timer_timefor.AutoSize = true;
-            this.label_timer_timefor.Location = new System.Drawing.Point(1342, 411);
+            this.label_timer_timefor.Location = new System.Drawing.Point(1280, 411);
             this.label_timer_timefor.Name = "label_timer_timefor";
             this.label_timer_timefor.Size = new System.Drawing.Size(41, 13);
             this.label_timer_timefor.TabIndex = 100;
             this.label_timer_timefor.Text = "label56";
             // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(1272, 411);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(69, 13);
-            this.label57.TabIndex = 101;
-            this.label57.Text = "time for timer:";
-            // 
             // label_cyclein_get
             // 
             this.label_cyclein_get.AutoSize = true;
-            this.label_cyclein_get.Location = new System.Drawing.Point(1317, 426);
+            this.label_cyclein_get.Location = new System.Drawing.Point(1280, 426);
             this.label_cyclein_get.Name = "label_cyclein_get";
             this.label_cyclein_get.Size = new System.Drawing.Size(110, 13);
             this.label_cyclein_get.TabIndex = 102;
             this.label_cyclein_get.Text = "21/07/2018 23:00:00";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(1272, 426);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(46, 13);
-            this.label16.TabIndex = 103;
-            this.label16.Text = "cycle in:";
             // 
             // timer_cyclein
             // 
@@ -1930,55 +1488,28 @@
             this.timer_cyclein.Interval = 1000;
             this.timer_cyclein.Tick += new System.EventHandler(this.Timer_cyclein_Tick);
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1273, 441);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(104, 13);
-            this.label15.TabIndex = 104;
-            this.label15.Text = "textchanged text for:";
-            // 
             // label_textchangedtimefor
             // 
             this.label_textchangedtimefor.AutoSize = true;
-            this.label_textchangedtimefor.Location = new System.Drawing.Point(1375, 441);
+            this.label_textchangedtimefor.Location = new System.Drawing.Point(1280, 441);
             this.label_textchangedtimefor.Name = "label_textchangedtimefor";
             this.label_textchangedtimefor.Size = new System.Drawing.Size(101, 13);
             this.label_textchangedtimefor.TabIndex = 105;
             this.label_textchangedtimefor.Text = "textchanged text for";
             // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(1272, 457);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(50, 13);
-            this.label56.TabIndex = 106;
-            this.label56.Text = "webtype:";
-            // 
             // label_webtype
             // 
             this.label_webtype.AutoSize = true;
-            this.label_webtype.Location = new System.Drawing.Point(1320, 457);
+            this.label_webtype.Location = new System.Drawing.Point(1280, 457);
             this.label_webtype.Name = "label_webtype";
             this.label_webtype.Size = new System.Drawing.Size(47, 13);
             this.label_webtype.TabIndex = 107;
             this.label_webtype.Text = "webtype";
             // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(1272, 471);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(109, 13);
-            this.label58.TabIndex = 108;
-            this.label58.Text = "total count of domain:";
-            // 
             // label_totalcountofdomain
             // 
             this.label_totalcountofdomain.AutoSize = true;
-            this.label_totalcountofdomain.Location = new System.Drawing.Point(1377, 471);
+            this.label_totalcountofdomain.Location = new System.Drawing.Point(1280, 471);
             this.label_totalcountofdomain.Name = "label_totalcountofdomain";
             this.label_totalcountofdomain.Size = new System.Drawing.Size(106, 13);
             this.label_totalcountofdomain.TabIndex = 109;
@@ -1987,25 +1518,16 @@
             // label_timeget
             // 
             this.label_timeget.AutoSize = true;
-            this.label_timeget.Location = new System.Drawing.Point(1380, 285);
+            this.label_timeget.Location = new System.Drawing.Point(1280, 285);
             this.label_timeget.Name = "label_timeget";
             this.label_timeget.Size = new System.Drawing.Size(35, 13);
             this.label_timeget.TabIndex = 111;
             this.label_timeget.Text = "label5";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1272, 488);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
-            this.label5.TabIndex = 112;
-            this.label5.Text = "last load:";
-            // 
             // label_lastload
             // 
             this.label_lastload.AutoSize = true;
-            this.label_lastload.Location = new System.Drawing.Point(1319, 488);
+            this.label_lastload.Location = new System.Drawing.Point(1280, 488);
             this.label_lastload.Name = "label_lastload";
             this.label_lastload.Size = new System.Drawing.Size(46, 13);
             this.label_lastload.TabIndex = 113;
@@ -2014,20 +1536,11 @@
             // label_macid
             // 
             this.label_macid.AutoSize = true;
-            this.label_macid.Location = new System.Drawing.Point(1311, 503);
+            this.label_macid.Location = new System.Drawing.Point(1280, 503);
             this.label_macid.Name = "label_macid";
             this.label_macid.Size = new System.Drawing.Size(41, 13);
             this.label_macid.TabIndex = 117;
             this.label_macid.Text = "label61";
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(1271, 503);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(41, 13);
-            this.label60.TabIndex = 116;
-            this.label60.Text = "mac id:";
             // 
             // label_domainscount
             // 
@@ -2040,19 +1553,10 @@
             this.label_domainscount.Text = "label59";
             this.label_domainscount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(1504, 433);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(50, 13);
-            this.label61.TabIndex = 118;
-            this.label61.Text = "webtype:";
-            // 
             // label_webtype_urgent
             // 
             this.label_webtype_urgent.AutoSize = true;
-            this.label_webtype_urgent.Location = new System.Drawing.Point(1550, 433);
+            this.label_webtype_urgent.Location = new System.Drawing.Point(1453, 433);
             this.label_webtype_urgent.Name = "label_webtype_urgent";
             this.label_webtype_urgent.Size = new System.Drawing.Size(80, 13);
             this.label_webtype_urgent.TabIndex = 119;
@@ -2079,7 +1583,7 @@
             // label_getdatetime_urgent
             // 
             this.label_getdatetime_urgent.AutoSize = true;
-            this.label_getdatetime_urgent.Location = new System.Drawing.Point(1587, 516);
+            this.label_getdatetime_urgent.Location = new System.Drawing.Point(1453, 516);
             this.label_getdatetime_urgent.Name = "label_getdatetime_urgent";
             this.label_getdatetime_urgent.Size = new System.Drawing.Size(0, 13);
             this.label_getdatetime_urgent.TabIndex = 61;
@@ -2087,28 +1591,10 @@
             // label_datetimetextfile_urgent
             // 
             this.label_datetimetextfile_urgent.AutoSize = true;
-            this.label_datetimetextfile_urgent.Location = new System.Drawing.Point(1621, 532);
+            this.label_datetimetextfile_urgent.Location = new System.Drawing.Point(1453, 532);
             this.label_datetimetextfile_urgent.Name = "label_datetimetextfile_urgent";
             this.label_datetimetextfile_urgent.Size = new System.Drawing.Size(0, 13);
             this.label_datetimetextfile_urgent.TabIndex = 62;
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(1506, 516);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(83, 13);
-            this.label62.TabIndex = 122;
-            this.label62.Text = "datetime urgent:";
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(1505, 532);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(116, 13);
-            this.label63.TabIndex = 123;
-            this.label63.Text = "datetime textfile urgent:";
             // 
             // timer_urgent_detect
             // 
@@ -2121,19 +1607,10 @@
             this.timer_start_urgent.Interval = 6000;
             this.timer_start_urgent.Tick += new System.EventHandler(this.timer_start_urgent_Tick);
             // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(1507, 556);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(73, 13);
-            this.label64.TabIndex = 126;
-            this.label64.Text = "urgent detect:";
-            // 
             // label_urgent_detect
             // 
             this.label_urgent_detect.AutoSize = true;
-            this.label_urgent_detect.Location = new System.Drawing.Point(1577, 556);
+            this.label_urgent_detect.Location = new System.Drawing.Point(1453, 556);
             this.label_urgent_detect.Name = "label_urgent_detect";
             this.label_urgent_detect.Size = new System.Drawing.Size(70, 13);
             this.label_urgent_detect.TabIndex = 125;
@@ -2142,77 +1619,29 @@
             // label_time_urgent
             // 
             this.label_time_urgent.AutoSize = true;
-            this.label_time_urgent.Location = new System.Drawing.Point(1575, 577);
+            this.label_time_urgent.Location = new System.Drawing.Point(1453, 577);
             this.label_time_urgent.Name = "label_time_urgent";
             this.label_time_urgent.Size = new System.Drawing.Size(59, 13);
             this.label_time_urgent.TabIndex = 61;
             this.label_time_urgent.Text = "time urgent";
             // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(1508, 577);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(65, 13);
-            this.label65.TabIndex = 127;
-            this.label65.Text = "timer urgent:";
-            // 
             // label_utype
             // 
             this.label_utype.AutoSize = true;
-            this.label_utype.Location = new System.Drawing.Point(1549, 600);
+            this.label_utype.Location = new System.Drawing.Point(1453, 600);
             this.label_utype.Name = "label_utype";
             this.label_utype.Size = new System.Drawing.Size(39, 13);
             this.label_utype.TabIndex = 128;
             this.label_utype.Text = "u_type";
             // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(1507, 600);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(42, 13);
-            this.label66.TabIndex = 129;
-            this.label66.Text = "u_type:";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(1275, 675);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(98, 23);
-            this.button3.TabIndex = 121;
-            this.button3.TabStop = false;
-            this.button3.Text = "upload zip file";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1299, 583);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 133;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label_textsearch_brand
             // 
             this.label_textsearch_brand.AutoSize = true;
-            this.label_textsearch_brand.Location = new System.Drawing.Point(1359, 521);
+            this.label_textsearch_brand.Location = new System.Drawing.Point(1280, 521);
             this.label_textsearch_brand.Name = "label_textsearch_brand";
             this.label_textsearch_brand.Size = new System.Drawing.Size(86, 13);
             this.label_textsearch_brand.TabIndex = 61;
             this.label_textsearch_brand.Text = "textsearch brand";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(1272, 521);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(89, 13);
-            this.label67.TabIndex = 134;
-            this.label67.Text = "textsearch brand:";
             // 
             // Form_Main
             // 
@@ -2220,80 +1649,31 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1254, 725);
-            this.Controls.Add(this.label67);
             this.Controls.Add(this.label_textsearch_brand);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label66);
             this.Controls.Add(this.label_utype);
-            this.Controls.Add(this.label65);
             this.Controls.Add(this.label_time_urgent);
             this.Controls.Add(this.label_timeoutcount_urgent);
-            this.Controls.Add(this.label64);
             this.Controls.Add(this.label_urgent_detect);
-            this.Controls.Add(this.label63);
-            this.Controls.Add(this.label62);
             this.Controls.Add(this.label_datetimetextfile_urgent);
             this.Controls.Add(this.label_getdatetime_urgent);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.label_domainscount_urgent);
             this.Controls.Add(this.panel_new);
             this.Controls.Add(this.label_webtype_urgent);
-            this.Controls.Add(this.label61);
             this.Controls.Add(this.label_timeget);
             this.Controls.Add(this.panel_uploaded);
             this.Controls.Add(this.label_domainscount);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label_erroraborted);
-            this.Controls.Add(this.label48);
-            this.Controls.Add(this.label43);
-            this.Controls.Add(this.label42);
-            this.Controls.Add(this.label41);
-            this.Controls.Add(this.textBox_webtitle);
-            this.Controls.Add(this.label55);
-            this.Controls.Add(this.label40);
-            this.Controls.Add(this.label54);
-            this.Controls.Add(this.label53);
-            this.Controls.Add(this.label52);
-            this.Controls.Add(this.label39);
-            this.Controls.Add(this.label51);
-            this.Controls.Add(this.label50);
-            this.Controls.Add(this.label49);
-            this.Controls.Add(this.label38);
-            this.Controls.Add(this.label47);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label46);
-            this.Controls.Add(this.label37);
-            this.Controls.Add(this.label45);
-            this.Controls.Add(this.label44);
-            this.Controls.Add(this.label36);
-            this.Controls.Add(this.label35);
             this.Controls.Add(this.label_testonemoretime);
-            this.Controls.Add(this.label34);
-            this.Controls.Add(this.label33);
-            this.Controls.Add(this.label32);
-            this.Controls.Add(this.label31);
             this.Controls.Add(this.label_inaccessiblelist);
-            this.Controls.Add(this.label30);
             this.Controls.Add(this.label_fully_loaded);
             this.Controls.Add(this.label_start_detect);
-            this.Controls.Add(this.label29);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label_webtitle);
             this.Controls.Add(this.label_loadeddetect);
-            this.Controls.Add(this.label28);
             this.Controls.Add(this.label_elseloaded);
-            this.Controls.Add(this.label27);
-            this.Controls.Add(this.label26);
-            this.Controls.Add(this.label25);
-            this.Controls.Add(this.label24);
-            this.Controls.Add(this.label23);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label19);
             this.Controls.Add(this.label_detectnotloading);
             this.Controls.Add(this.label_inaccessible);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label_inaccessible_error_message);
             this.Controls.Add(this.label9);
@@ -2314,7 +1694,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label_currentindex_urgent);
             this.Controls.Add(this.label_currentindex);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label_timerstartpause);
             this.Controls.Add(this.label_ifloadornot);
@@ -2326,18 +1705,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel_top);
             this.Controls.Add(this.label_macid);
-            this.Controls.Add(this.label60);
             this.Controls.Add(this.label_lastload);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label_totalcountofdomain);
-            this.Controls.Add(this.label58);
             this.Controls.Add(this.label_webtype);
-            this.Controls.Add(this.label56);
             this.Controls.Add(this.label_textchangedtimefor);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.label_cyclein_get);
-            this.Controls.Add(this.label57);
             this.Controls.Add(this.label_timer_timefor);
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_retry);
@@ -2413,7 +1785,6 @@
         private System.Windows.Forms.Timer timer_loader;
         private System.Windows.Forms.Timer timer_rtc;
         private System.Windows.Forms.Label label_timerstartpause;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label_currentindex;
         private System.Windows.Forms.Panel panel_browser;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -2467,7 +1838,6 @@
         private System.Windows.Forms.Label label_webtitle_urgent;
         private System.Windows.Forms.Label label_inaccessible;
         private System.Windows.Forms.Label label_inaccessible_error_message;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel_new;
         private System.Windows.Forms.WebBrowser webBrowser_new;
         private System.Windows.Forms.Label label_fully_loaded;
@@ -2478,68 +1848,21 @@
         private System.Windows.Forms.Timer timer_elseloaded;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label_inaccessiblelist;
-        private System.Windows.Forms.TextBox textBox_webtitle;
         private System.Windows.Forms.Label label_testonemoretime;
         private System.Windows.Forms.Timer timer_detectnotloading;
         private System.Windows.Forms.Label label_detectnotloading;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label_erroraborted;
-        private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Timer timer_timefor;
         private System.Windows.Forms.Label label_timer_timefor;
-        private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label_cyclein_get;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Timer timer_cyclein;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label_textchangedtimefor;
-        private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label_webtype;
-        private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label_totalcountofdomain;
         private System.Windows.Forms.Label label_timeget;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label_lastload;
         private System.Windows.Forms.Label label_macid;
-        private System.Windows.Forms.Label label60;
         private System.Windows.Forms.Label label_domainscount;
-        private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label_webtype_urgent;
         private System.Windows.Forms.Label label_domainscount_urgent;
         private System.Windows.Forms.Timer timer_deviceon;
@@ -2547,19 +1870,11 @@
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label_getdatetime_urgent;
         private System.Windows.Forms.Label label_datetimetextfile_urgent;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label label63;
         private System.Windows.Forms.Timer timer_urgent_detect;
         private System.Windows.Forms.Timer timer_start_urgent;
-        private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label_urgent_detect;
         private System.Windows.Forms.Label label_time_urgent;
-        private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label_utype;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label_textsearch_brand;
-        private System.Windows.Forms.Label label67;
     }
 }

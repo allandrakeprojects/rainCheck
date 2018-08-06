@@ -97,6 +97,10 @@ namespace rainCheck
                     StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
                     sw_create.Close();
 
+                    string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                    StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                    sw_autoyes.Close();
+
                     can_close = false;
                     Close();
                     Application.Restart();
@@ -163,6 +167,10 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                sw_autoyes.Close();
+                
                 can_close = false;
                 Close();
                 Application.Restart();
@@ -192,6 +200,10 @@ namespace rainCheck
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                sw_autoyes.Close();
 
                 can_close = false;
                 Close();
@@ -230,7 +242,11 @@ namespace rainCheck
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                
+
+                string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                sw_autoyes.Close();
+
                 can_close = false;
                 Close();
                 Application.Restart();
@@ -5957,6 +5973,10 @@ namespace rainCheck
                     }
                     else
                     {
+                        string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                        StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                        sw_autoyes.Close();
+
                         can_close = false;
                         Close();
                         Application.Restart();
@@ -6540,6 +6560,10 @@ namespace rainCheck
 
                         if (server)
                         {
+                            string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                            StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                            sw_autoyes.Close();
+
                             can_close = false;
                             Close();
                             Application.Restart();
@@ -6937,6 +6961,10 @@ namespace rainCheck
 
                     if (server)
                     {
+                        string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                        StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                        sw_autoyes.Close();
+
                         can_close = false;
                         Close();
                         Application.Restart();
@@ -7555,6 +7583,10 @@ namespace rainCheck
                     }
                     else
                     {
+                        string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                        StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                        sw_autoyes.Close();
+
                         can_close = false;
                         Close();
                         Application.Restart();
@@ -7732,10 +7764,14 @@ namespace rainCheck
                     var st = new StackTrace(ex, true);
                     var frame = st.GetFrame(0);
                     var line = frame.GetFileLineNumber();
-                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
                     {
+                        string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                        StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                        sw_autoyes.Close();
+
                         can_close = false;
                         Close();
                         Application.Restart();
@@ -7797,7 +7833,11 @@ namespace rainCheck
                     var st = new StackTrace(ex, true);
                     var frame = st.GetFrame(0);
                     var line = frame.GetFileLineNumber();
-                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                    StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                    sw_autoyes.Close();
 
                     can_close = false;
                     Close();
@@ -7835,6 +7875,10 @@ namespace rainCheck
 
                     if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
                     {
+                        string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                        StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                        sw_autoyes.Close();
+
                         can_close = false;
                         Close();
                         Application.Restart();
@@ -8355,6 +8399,10 @@ namespace rainCheck
                             StreamWriter sw_create = new StreamWriter(path_urgent_domain_detect, true, Encoding.UTF8);
                             sw_create.Close();
 
+                            string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
+                            StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
+                            sw_autoyes.Close();
+                            
                             can_close = false;
                             Close();
                             Application.Restart();

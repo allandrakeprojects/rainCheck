@@ -450,6 +450,7 @@ namespace rainCheck
                 string path = Path.GetTempPath() + @"\raincheck_brand.txt";
                 string path_history = Path.GetTempPath() + @"\raincheck_history.txt";
                 string path_lastcurrentindex = Path.GetTempPath() + @"\raincheck_lastcurrentindex.txt";
+                string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
                 string result = "";
 
                 string path_datetime = Path.GetTempPath() + @"\raincheck_datetime.txt";
@@ -538,8 +539,7 @@ namespace rainCheck
                         {
                             if (File.Exists(path))
                             {
-                                DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (dr == DialogResult.Yes)
+                                if (File.Exists(path_autoyes))
                                 {
                                     Form_Main.SetResult = "Yes";
 
@@ -558,23 +558,49 @@ namespace rainCheck
 
                                     Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
+
+                                    File.Delete(path_autoyes);
                                 }
                                 else
                                 {
-                                    Form_Main.SetResult = "No";
-
-                                    if (File.Exists(path_lastcurrentindex))
+                                    DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (dr == DialogResult.Yes)
                                     {
-                                        File.Delete(path_lastcurrentindex);
-                                    }
+                                        Form_Main.SetResult = "Yes";
 
-                                    if (File.Exists(path_datetime))
+                                        string read = File.ReadAllText(path);
+                                        Form_Main.BrandIDs = read;
+
+                                        if (File.Exists(path_lastcurrentindex))
+                                        {
+                                            string read_lastcurrentindex = File.ReadAllText(path_lastcurrentindex);
+                                            Form_Main.LastCurrentIndex = read_lastcurrentindex;
+                                        }
+                                        else
+                                        {
+                                            Form_Main.LastCurrentIndex = "1";
+                                        }
+
+                                        Form_Main form_main = new Form_Main(city, country, isp);
+                                        form_main.ShowDialog();
+                                    }
+                                    else
                                     {
-                                        File.Delete(path_datetime);
-                                    }
+                                        Form_Main.SetResult = "No";
 
-                                    Form_Main form_main = new Form_Main(city, country, isp);
-                                    form_main.ShowDialog();
+                                        if (File.Exists(path_lastcurrentindex))
+                                        {
+                                            File.Delete(path_lastcurrentindex);
+                                        }
+
+                                        if (File.Exists(path_datetime))
+                                        {
+                                            File.Delete(path_datetime);
+                                        }
+
+                                        Form_Main form_main = new Form_Main(city, country, isp);
+                                        form_main.ShowDialog();
+                                    }
                                 }
                             }
                             else
@@ -627,8 +653,7 @@ namespace rainCheck
                         {
                             if (File.Exists(path))
                             {
-                                DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (dr == DialogResult.Yes)
+                                if (File.Exists(path_autoyes))
                                 {
                                     Form_Main.SetResult = "Yes";
 
@@ -647,23 +672,49 @@ namespace rainCheck
 
                                     Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
+
+                                    File.Delete(path_autoyes);
                                 }
                                 else
                                 {
-                                    Form_Main.SetResult = "No";
-
-                                    if (File.Exists(path_lastcurrentindex))
+                                    DialogResult dr = MessageBox.Show("Do you want to continue the previous checking?", "rainCheck", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (dr == DialogResult.Yes)
                                     {
-                                        File.Delete(path_lastcurrentindex);
-                                    }
+                                        Form_Main.SetResult = "Yes";
 
-                                    if (File.Exists(path_datetime))
+                                        string read = File.ReadAllText(path);
+                                        Form_Main.BrandIDs = read;
+
+                                        if (File.Exists(path_lastcurrentindex))
+                                        {
+                                            string read_lastcurrentindex = File.ReadAllText(path_lastcurrentindex);
+                                            Form_Main.LastCurrentIndex = read_lastcurrentindex;
+                                        }
+                                        else
+                                        {
+                                            Form_Main.LastCurrentIndex = "1";
+                                        }
+
+                                        Form_Main form_main = new Form_Main(city, country, isp);
+                                        form_main.ShowDialog();
+                                    }
+                                    else
                                     {
-                                        File.Delete(path_datetime);
-                                    }
+                                        Form_Main.SetResult = "No";
 
-                                    Form_Main form_main = new Form_Main(city, country, isp);
-                                    form_main.ShowDialog();
+                                        if (File.Exists(path_lastcurrentindex))
+                                        {
+                                            File.Delete(path_lastcurrentindex);
+                                        }
+
+                                        if (File.Exists(path_datetime))
+                                        {
+                                            File.Delete(path_datetime);
+                                        }
+
+                                        Form_Main form_main = new Form_Main(city, country, isp);
+                                        form_main.ShowDialog();
+                                    }
                                 }
                             }
                             else

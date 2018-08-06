@@ -541,6 +541,8 @@ namespace rainCheck
                             {
                                 if (File.Exists(path_autoyes))
                                 {
+                                    File.Delete(path_autoyes);
+
                                     Form_Main.SetResult = "Yes";
 
                                     string read = File.ReadAllText(path);
@@ -558,8 +560,6 @@ namespace rainCheck
 
                                     Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
-
-                                    File.Delete(path_autoyes);
                                 }
                                 else
                                 {
@@ -655,6 +655,8 @@ namespace rainCheck
                             {
                                 if (File.Exists(path_autoyes))
                                 {
+                                    File.Delete(path_autoyes);
+                                    
                                     Form_Main.SetResult = "Yes";
 
                                     string read = File.ReadAllText(path);
@@ -672,8 +674,6 @@ namespace rainCheck
 
                                     Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
-
-                                    File.Delete(path_autoyes);
                                 }
                                 else
                                 {

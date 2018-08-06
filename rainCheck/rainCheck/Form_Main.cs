@@ -4467,16 +4467,25 @@ namespace rainCheck
                                 {
                                     if (label_webtitle.Text == "-" && textBox_domain.Text.Contains(label_domainhide.Text))
                                     {
-                                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        }
                                     }
                                     else
                                     {
-                                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                    if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                    {
+                                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                    }
                                 }
                             }
                         }
@@ -4627,16 +4636,25 @@ namespace rainCheck
                                 {
                                     if (label_webtitle.Text == "-" && textBox_domain.Text.Contains(label_domainhide.Text))
                                     {
-                                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        }
                                     }
                                     else
                                     {
-                                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                    if (!textbox_domain_get.Contains(label_domainhide.Text))
+                                    {
+                                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                    }
                                 }
                             }
                         }
@@ -5343,16 +5361,25 @@ namespace rainCheck
                                 {
                                     if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
                                     {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        }
                                     }
                                     else
                                     {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                    if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                    {
+                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                    }
                                 }
                             }
                         }
@@ -5511,16 +5538,25 @@ namespace rainCheck
                                 {
                                     if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
                                     {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        }
                                     }
                                     else
                                     {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                        {
+                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                    if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
+                                    {
+                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                    }
                                 }
                             }
                         }

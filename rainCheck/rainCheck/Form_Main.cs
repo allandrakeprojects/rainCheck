@@ -722,6 +722,15 @@ namespace rainCheck
             }));
         }
 
+        private void ChromiumWebBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                MessageBox.Show(e.Title);
+                label_webtitle.Text = "adsadas1";
+            }));
+        }
+
         private void ChromiumWebBrowser_BrowserLoadError(object sender, LoadErrorEventArgs e)
         {
             Invoke(new Action(() =>
@@ -835,10 +844,19 @@ namespace rainCheck
 
                         string webtitle = webBrowser_new.DocumentTitle;
                         label_webtitle.Text = webtitle;
+                        MessageBox.Show(label_webtitle.Text);
                     }));
 
                     if (label_fully_loaded.Text == "1")
                     {
+                        //chromeBrowser.TitleChanged += ChromiumWebBrowser_TitleChanged;
+                        //if (textbox_domain_detect == true)
+                        //{
+                        //    MessageBox.Show("Webtitle: " + label_webtitle.Text + "\nDomain name: " + label_domainhide.Text);
+                        //    textbox_domain_detect = false;
+                        //    domainhide_detect = false;
+                        //}
+
                         // Inaccessible Status
                         string result = "";
                         string search_replace = label_webtitle.Text;
@@ -4452,10 +4470,10 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
 
-                        if (textbox_domain_get.Contains(label_domainhide.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc"))
+                        if (textbox_domain_get.Contains(label_domainhide.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
-                            {
+                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
+                            { 
                                 textbox_domain_get = "http://nuwa8a5.com/";
                             }
 
@@ -4626,9 +4644,9 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle.Text;
                         string textbox_domain_get = textBox_domain.Text;
 
-                        if (textbox_domain_get.Contains(label_domainhide.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc"))
+                        if (textbox_domain_get.Contains(label_domainhide.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
                             {
                                 textbox_domain_get = "http://nuwa8a5.com/";
                             }
@@ -5340,9 +5358,9 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
 
-                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc"))
+                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
                             {
                                 textbox_domain_get = "http://nuwa8a5.com/";
                             }
@@ -5514,9 +5532,9 @@ namespace rainCheck
                         string label_webtitle_get = label_webtitle_urgent.Text;
                         string textbox_domain_get = textBox_domain_urgent.Text;
 
-                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc"))
+                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
                         {
-                            if (label_webtitle_get.Contains("平台紧急通知公告"))
+                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
                             {
                                 textbox_domain_get = "http://nuwa8a5.com/";
                             }
@@ -8234,6 +8252,7 @@ namespace rainCheck
         private bool server = false;
         private int estimatedLength;
         private bool domainhide_detect;
+        private bool textbox_domain_detect;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
@@ -8627,97 +8646,105 @@ namespace rainCheck
             {
                 if (!textBox_domain.Text.Contains(label_domainhide.Text))
                 {
-                    int webBrowser_i = 0;
-                    while (webBrowser_i <= 2)
-                    {
-                        webBrowser_new.Navigate(label_domainhide.Text);
-                        webBrowser_i++;
-                    }
-
-                    MessageBox.Show("not contains");
-
-                    chromeBrowser.Stop();
-                    timer_domain.Stop();
-                    timer_detectnotloading.Stop();
-                    detectnotloading = 0;
-                    fully_loaded = 0;
-                    start_detect = 0;
-                    
-                    string datetime_folder = label9.Text;
-                    string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    string path = path_desktop + "\\result.txt";
-                    var oldLines = File.ReadAllLines(path);
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path, newLines);
-
-                    string strValue = label_textsearch_brand.Text;
-                    string[] strArray = strValue.Split(',');
-                    string result = "";
-
-                    foreach (string obj in strArray)
-                    {
-                        bool contains = label_webtitle.Text.Contains(obj);
-
-                        if (contains == true)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                result = "not hijacked";
-                            }));
-
-                            break;
-                        }
-                        else if (!contains)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                result = "hijacked";
-                            }));
-                        }
-                    }
-
-                    if (result == "hijacked")
-                    {
-                        MessageBox.Show(label_webtitle.Text);
-                        MessageBox.Show("hijacked");
-                        // Data to text file
-                        DataToTextFileHijacked();
-                    }
-                    else
-                    {
-                        MessageBox.Show("not hijacked");
-                        DataToTextFileSuccess();
-                    }
-
-                    Invoke(new Action(() =>
-                    {
-                        // For timeout
-                        i = 1;
-                        timer_timeout.Stop();
-
-                        pictureBox_loader.Visible = false;
-
-                        label_timeout.Text = "";
-                        label_hijacked.Text = "";
-                        label_inaccessible.Text = "";
-                        label_inaccessible_error_message.Text = "";
-                        
-                        fully_loaded = 0;
-                        start_detect = 0;
-                        //label_ifloadornot.Text = "1";
-                        //label_ifloadornot.Text = "0";
-
-                        testonemoretime = 0;
-                        panel_new.Visible = false;
-                    }));
+                    textbox_domain_detect = true;
                 }
-                else
-                {
-                    MessageBox.Show("contains");
-                }
-
-                domainhide_detect = false;
             }
+
+            //if (domainhide_detect == true)
+            //{
+            //    if (!textBox_domain.Text.Contains(label_domainhide.Text))
+            //    {
+            //        int webBrowser_i = 0;
+            //        while (webBrowser_i <= 2)
+            //        {
+            //            webBrowser_new.Navigate(label_domainhide.Text);
+            //            webBrowser_i++;
+            //        }
+
+            //        MessageBox.Show("not contains");
+
+            //        chromeBrowser.Stop();
+            //        timer_domain.Stop();
+            //        timer_detectnotloading.Stop();
+            //        detectnotloading = 0;
+            //        fully_loaded = 0;
+            //        start_detect = 0;
+                    
+            //        string datetime_folder = label9.Text;
+            //        string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //        string path = path_desktop + "\\result.txt";
+            //        var oldLines = File.ReadAllLines(path);
+            //        var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+            //        File.WriteAllLines(path, newLines);
+
+            //        string strValue = label_textsearch_brand.Text;
+            //        string[] strArray = strValue.Split(',');
+            //        string result = "";
+
+            //        foreach (string obj in strArray)
+            //        {
+            //            bool contains = label_webtitle.Text.Contains(obj);
+
+            //            if (contains == true)
+            //            {
+            //                Invoke(new Action(() =>
+            //                {
+            //                    result = "not hijacked";
+            //                }));
+
+            //                break;
+            //            }
+            //            else if (!contains)
+            //            {
+            //                Invoke(new Action(() =>
+            //                {
+            //                    result = "hijacked";
+            //                }));
+            //            }
+            //        }
+
+            //        if (result == "hijacked")
+            //        {
+            //            MessageBox.Show(label_webtitle.Text);
+            //            MessageBox.Show("hijacked");
+            //            // Data to text file
+            //            DataToTextFileHijacked();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("not hijacked");
+            //            DataToTextFileSuccess();
+            //        }
+
+            //        Invoke(new Action(() =>
+            //        {
+            //            // For timeout
+            //            i = 1;
+            //            timer_timeout.Stop();
+
+            //            pictureBox_loader.Visible = false;
+
+            //            label_timeout.Text = "";
+            //            label_hijacked.Text = "";
+            //            label_inaccessible.Text = "";
+            //            label_inaccessible_error_message.Text = "";
+                        
+            //            fully_loaded = 0;
+            //            start_detect = 0;
+            //            //label_ifloadornot.Text = "1";
+            //            //label_ifloadornot.Text = "0";
+
+            //            testonemoretime = 0;
+            //            panel_new.Visible = false;
+            //        }));
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("contains");
+            //    }
+
+            //    domainhide_detect = false;
+            //}
         }
     }
 }

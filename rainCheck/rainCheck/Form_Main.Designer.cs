@@ -444,7 +444,6 @@
             this.panel_top.Controls.Add(this.label1);
             this.panel_top.Controls.Add(this.label_globe);
             this.panel_top.Controls.Add(this.label_domain_urgent);
-            this.panel_top.Controls.Add(this.label_webtitle);
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_top.Location = new System.Drawing.Point(0, 0);
             this.panel_top.Name = "panel_top";
@@ -1059,7 +1058,7 @@
             // label_webtitle
             // 
             this.label_webtitle.AutoSize = true;
-            this.label_webtitle.Location = new System.Drawing.Point(776, 19);
+            this.label_webtitle.Location = new System.Drawing.Point(1280, 334);
             this.label_webtitle.Name = "label_webtitle";
             this.label_webtitle.Size = new System.Drawing.Size(43, 13);
             this.label_webtitle.TabIndex = 63;
@@ -1673,6 +1672,7 @@
             this.Controls.Add(this.label_fully_loaded);
             this.Controls.Add(this.label_start_detect);
             this.Controls.Add(this.label18);
+            this.Controls.Add(this.label_webtitle);
             this.Controls.Add(this.label_loadeddetect);
             this.Controls.Add(this.label_elseloaded);
             this.Controls.Add(this.label_detectnotloading);

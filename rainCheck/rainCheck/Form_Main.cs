@@ -714,11 +714,11 @@ namespace rainCheck
             {
                 if (panel_main.Visible == true)
                 {
-                    textBox_domain.Text = e.Address;
+                    cefsharp_domain = e.Address;
                 }
                 else if (panel_urgent.Visible == true)
                 {
-                    textBox_domain_urgent.Text = e.Address;
+                    cefsharp_domain = e.Address;
                 }
             }));
         }
@@ -848,13 +848,10 @@ namespace rainCheck
 
                     if (label_fully_loaded.Text == "1")
                     {
-                        MessageBox.Show(textBox_domain.Text);
-                        //if (textbox_domain_detect == true)
-                        //{
-                        //    MessageBox.Show("Webtitle: " + label_webtitle.Text + "\nDomain name: " + label_domainhide.Text);
-                        //    textbox_domain_detect = false;
-                        //    domainhide_detect = false;
-                        //}
+                        Invoke(new Action(() =>
+                        {
+                            textBox_domain.Text = cefsharp_domain;
+                        }));
 
                         // Inaccessible Status
                         string result = "";
@@ -1964,6 +1961,11 @@ namespace rainCheck
 
                     if (label_fully_loaded.Text == "1")
                     {
+                        Invoke(new Action(() =>
+                        {
+                            textBox_domain.Text = cefsharp_domain;
+                        }));
+
                         // Inaccessible Status
                         string result = "";
                         string search_replace = label_webtitle.Text;
@@ -2754,6 +2756,11 @@ namespace rainCheck
                         // Hijacked Status
                         else
                         {
+                            Invoke(new Action(() =>
+                            {
+                                label_webtitle.Text = cefsharp_title;
+                            }));
+
                             // inaccessible
                             if (label_webtitle.Text == label_domainhide.Text)
                             {
@@ -3106,6 +3113,11 @@ namespace rainCheck
 
                     if (label_fully_loaded.Text == "1")
                     {
+                        Invoke(new Action(() =>
+                        {
+                            textBox_domain_urgent.Text = cefsharp_domain;
+                        }));
+
                         // Inaccessible Status
                         string result = "";
                         string search_replace = label_webtitle_urgent.Text;
@@ -3880,6 +3892,11 @@ namespace rainCheck
                         // Hijacked Status
                         else
                         {
+                            Invoke(new Action(() =>
+                            {
+                                label_webtitle_urgent.Text = cefsharp_title;
+                            }));
+
                             // inaccessible
                             if (label_webtitle_urgent.Text == label_domainhide_urgent.Text)
                             {
@@ -4449,7 +4466,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4458,7 +4475,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4495,8 +4512,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-
+                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                         swww.Close();
                     }
                 }
@@ -4509,7 +4525,7 @@ namespace rainCheck
                     sw.Close();
 
                     // Header
-                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type";
+                    string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type";
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
@@ -4518,7 +4534,7 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                         //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
-                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, datetime_created, action_by, type");
+                        swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
                     }
@@ -4555,7 +4571,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
+                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
 
                         swww.Close();
                     }
@@ -4615,11 +4631,6 @@ namespace rainCheck
                         if (label_webtitle.Text != "")
                         {
                             error_message = label_webtitle.Text;
-
-                            if (label_webtitle.Text == label_domainhide.Text)
-                            {
-                                error_message = "Domain name expired";
-                            }
                         }
                         else
                         {
@@ -4722,11 +4733,6 @@ namespace rainCheck
                         if (label_webtitle.Text != "")
                         {
                             error_message = label_webtitle.Text;
-
-                            if (label_webtitle.Text == label_domainhide.Text)
-                            {
-                                error_message = "Domain name expired";
-                            }
                         }
                         else
                         {
@@ -5115,16 +5121,17 @@ namespace rainCheck
                 {
                     StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
                     sw.Close();
-                    
+
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
@@ -5138,63 +5145,12 @@ namespace rainCheck
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
-                        
-                        string label_webtitle_get = label_webtitle_urgent.Text;
-                        string textbox_domain_get = textBox_domain_urgent.Text;
-
-                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
-                        {
-                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
-
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("体育投"))
-                            {
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
-
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
-                        }
 
                         if (label_webtitle_urgent.Text == "")
                         {
                             Invoke(new Action(() =>
                             {
-                                label_webtitle_urgent.Text = "-";
+                                label_webtitle_urgent.Text = textBox_domain_urgent.Text;
                             }));
                         }
 
@@ -5207,78 +5163,13 @@ namespace rainCheck
                         {
                             city_get = "-";
                         }
-                        
+
                         string webtitle_replace = label_webtitle_urgent.Text;
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        string strValue = label_textsearch_brand.Text;
-                        string[] strArray = strValue.Split(',');
-                        string result = "";
-
-                        foreach (string obj in strArray)
-                        {
-                            bool contains = label_webtitle_urgent.Text.Contains(obj);
-
-                            if (contains == true)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    result = "not hijacked";
-                                }));
-
-                                break;
-                            }
-                            else if (!contains)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    result = "hijacked";
-                                }));
-                            }
-                        }
-
-                        StringBuilder start_load_replace = new StringBuilder(start_load);
-                        start_load_replace.Replace(":", "");
-                        start_load_replace.Replace(".", "");
-
-                        StringBuilder end_load_replace = new StringBuilder(end_load);
-                        end_load_replace.Replace(":", "");
-                        end_load_replace.Replace(".", "");
-
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
-                        {
-                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                            TimeSpan span = end_load_timespan - start_load_timespan;
-                            int sec = (int)span.TotalSeconds;
-
-                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
-
-                            if (sec < timeout_get)
-                            {
-                                if (result == "hijacked")
-                                {
-                                    if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
-                                    {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                    }
-                                    else
-                                    {
-                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
-                                        {
-                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                }
-                            }
-                        }
-
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                         swww.Close();
                     }
                 }
@@ -5292,13 +5183,14 @@ namespace rainCheck
 
                     // Header
                     string contain_text_header = "id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type";
-                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text_header)))
+                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text_header)))
                     {
                         // Leave for blank
                     }
                     else
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        //swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + label_webtitle.Text + "," + textBox_domain.Text + "," + "," + "," + "," + isp_get + "," + city_get + "," + datetime + "," + ",N");
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
@@ -5313,62 +5205,11 @@ namespace rainCheck
                     {
                         StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
 
-                        string label_webtitle_get = label_webtitle_urgent.Text;
-                        string textbox_domain_get = textBox_domain_urgent.Text;
-
-                        if (textbox_domain_get.Contains(label_domainhide_urgent.Text) || textbox_domain_get.Contains("cf") || textbox_domain_get.Contains("cl") || textbox_domain_get.Contains("cc") || textbox_domain_get.Contains("fs") || textbox_domain_get.Contains("fy") || textbox_domain_get.Contains("tianfa") || textbox_domain_get.Contains("s2") || textbox_domain_get.Contains("s3") || textbox_domain_get.Contains("s6"))
-                        {
-                            if (label_webtitle_get.Contains("平台紧急通知公告") || label_webtitle_get.Contains("加载中"))
-                            {
-                                textbox_domain_get = "http://nuwa8a5.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("世界杯指定投注网站"))
-                            {
-                                textbox_domain_get = "http://www.hgaa02.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("澳門太陽城集團"))
-                            {
-                                textbox_domain_get = "http://www.suncity-group.com/tc";
-                            }
-
-                            if (label_webtitle_get.Contains("太阳城集团"))
-                            {
-                                textbox_domain_get = "http://703297.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("盈彩网"))
-                            {
-                                textbox_domain_get = "http://www.cdtxyzs.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("体育投"))
-                            {
-                                textbox_domain_get = "http://www.bet365.com/zh-CHS/";
-                            }
-
-                            if (label_webtitle_get.Contains("全新改"))
-                            {
-                                textbox_domain_get = "http://ee938.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("合并公告"))
-                            {
-                                textbox_domain_get = "http://7vwb.com/";
-                            }
-
-                            if (label_webtitle_get.Contains("网易"))
-                            {
-                                textbox_domain_get = "http://i00081.com/";
-                            }
-                        }
-
                         if (label_webtitle_urgent.Text == "")
                         {
                             Invoke(new Action(() =>
                             {
-                                label_webtitle_urgent.Text = "-";
+                                label_webtitle_urgent.Text = textBox_domain_urgent.Text;
                             }));
                         }
 
@@ -5387,72 +5228,7 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        string strValue = label_textsearch_brand.Text;
-                        string[] strArray = strValue.Split(',');
-                        string result = "";
-
-                        foreach (string obj in strArray)
-                        {
-                            bool contains = label_webtitle_urgent.Text.Contains(obj);
-
-                            if (contains == true)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    result = "not hijacked";
-                                }));
-
-                                break;
-                            }
-                            else if (!contains)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    result = "hijacked";
-                                }));
-                            }
-                        }
-
-                        StringBuilder start_load_replace = new StringBuilder(start_load);
-                        start_load_replace.Replace(":", "");
-                        start_load_replace.Replace(".", "");
-
-                        StringBuilder end_load_replace = new StringBuilder(end_load);
-                        end_load_replace.Replace(":", "");
-                        end_load_replace.Replace(".", "");
-
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
-                        {
-                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
-                            TimeSpan span = end_load_timespan - start_load_timespan;
-                            int sec = (int)span.TotalSeconds;
-
-                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
-
-                            if (sec < timeout_get)
-                            {
-                                if (result == "hijacked")
-                                {
-                                    if (label_webtitle_urgent.Text == "-" && textBox_domain_urgent.Text.Contains(label_domainhide_urgent.Text))
-                                    {
-                                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                    }
-                                    else
-                                    {
-                                        if (!textbox_domain_get.Contains(label_domainhide_urgent.Text))
-                                        {
-                                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textbox_domain_get + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                                }
-                            }
-                        }
-
+                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                         swww.Close();
                     }
                 }
@@ -5511,11 +5287,6 @@ namespace rainCheck
                         if (label_webtitle_urgent.Text != "")
                         {
                             error_message = label_webtitle_urgent.Text;
-
-                            if (label_webtitle_urgent.Text == label_domainhide_urgent.Text)
-                            {
-                                error_message = "Domain name expired";
-                            }
                         }
                         else
                         {
@@ -5618,11 +5389,6 @@ namespace rainCheck
                         if (label_webtitle_urgent.Text != "")
                         {
                             error_message = label_webtitle_urgent.Text;
-
-                            if (label_webtitle_urgent.Text == label_domainhide_urgent.Text)
-                            {
-                                error_message = "Domain name expired";
-                            }
                         }
                         else
                         {
@@ -8038,6 +7804,7 @@ namespace rainCheck
         private bool domainhide_detect;
         private bool textbox_domain_detect;
         private string cefsharp_title;
+        private string cefsharp_domain;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {

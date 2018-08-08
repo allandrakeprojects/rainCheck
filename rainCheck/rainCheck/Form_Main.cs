@@ -4211,7 +4211,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle_get + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4278,7 +4295,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle_get + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4358,7 +4392,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4419,7 +4470,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4694,7 +4762,21 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4796,7 +4878,21 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4883,7 +4979,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle_get + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -4950,7 +5063,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + @"\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle_get + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -5030,7 +5160,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -5091,7 +5238,24 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -5366,7 +5530,21 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -5468,7 +5646,21 @@ namespace rainCheck
                         end_load_replace.Replace(":", "");
                         end_load_replace.Replace(".", "");
 
-                        if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
                         {
                             DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
                             DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);

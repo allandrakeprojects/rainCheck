@@ -443,6 +443,7 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                can_close = false;
                 Close();
             }
 
@@ -475,6 +476,7 @@ namespace rainCheck
                 var line = frame.GetFileLineNumber();
                 MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                can_close = false;
                 Close();
             }
             
@@ -1824,7 +1826,7 @@ namespace rainCheck
                                     await Task.Delay(1000);
                                 });
 
-                                string strValue = label_text_search.Text;
+                                string strValue = label_textsearch_brand.Text;
                                 string[] strArray = strValue.Split(',');
 
                                 foreach (string obj in strArray)
@@ -2946,7 +2948,7 @@ namespace rainCheck
                                     await Task.Delay(1000);
                                 });
 
-                                string strValue = label_text_search.Text;
+                                string strValue = label_textsearch_brand.Text;
                                 string[] strArray = strValue.Split(',');
 
                                 foreach (string obj in strArray)
@@ -4078,7 +4080,7 @@ namespace rainCheck
                                     await Task.Delay(1000);
                                 });
 
-                                string strValue = label_text_search_urgent.Text;
+                                string strValue = label_textsearch_brand.Text;
                                 string[] strArray = strValue.Split(',');
 
                                 foreach (string obj in strArray)
@@ -4580,16 +4582,68 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
-                        {
-                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        }
-                        else
-                        {
-                            swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        }
+                        StringBuilder start_load_replace = new StringBuilder(start_load);
+                        start_load_replace.Replace(":", "");
+                        start_load_replace.Replace(".", "");
 
-                        swww.Close();
+                        StringBuilder end_load_replace = new StringBuilder(end_load);
+                        end_load_replace.Replace(":", "");
+                        end_load_replace.Replace(".", "");
+
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else if (IsChinese(label_webtitle.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else if (IsChinese(label_webtitle.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+
+                                swww.Close();
+                            }
+                        }
                     }
                 }
                 else
@@ -4647,16 +4701,68 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
-                        {
-                            swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        }
-                        else
-                        {
-                            swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        }
+                        StringBuilder start_load_replace = new StringBuilder(start_load);
+                        start_load_replace.Replace(":", "");
+                        start_load_replace.Replace(".", "");
 
-                        swww.Close();
+                        StringBuilder end_load_replace = new StringBuilder(end_load);
+                        end_load_replace.Replace(":", "");
+                        end_load_replace.Replace(".", "");
+
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else if (IsChinese(label_webtitle.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle.Text == "" || label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else if (IsChinese(label_webtitle.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+
+                                swww.Close();
+                            }
+                        }
                     }
                 }
             }
@@ -4773,7 +4879,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                if (label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
                             }
                         }
                         else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
@@ -4787,7 +4900,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                if (label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
                             }
                         }
 
@@ -4889,7 +5009,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                if (label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
                             }
                         }
                         else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
@@ -4903,7 +5030,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                if (label_webtitle.Text.Contains(label_domainhide.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                                }
                             }
                         }
 
@@ -5347,17 +5481,69 @@ namespace rainCheck
                         StringBuilder webtitle = new StringBuilder(webtitle_replace);
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
-                        
-                        if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
-                        {
-                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        }
-                        else
-                        {
-                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        }
 
-                        swww.Close();
+                        StringBuilder start_load_replace = new StringBuilder(start_load);
+                        start_load_replace.Replace(":", "");
+                        start_load_replace.Replace(".", "");
+
+                        StringBuilder end_load_replace = new StringBuilder(end_load);
+                        end_load_replace.Replace(":", "");
+                        end_load_replace.Replace(".", "");
+
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else if (IsChinese(label_webtitle_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else if (IsChinese(label_webtitle_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+
+                                swww.Close();
+                            }
+                        }
                     }
                 }
                 else
@@ -5415,16 +5601,68 @@ namespace rainCheck
                         webtitle.Replace(",", "");
                         webtitle.Replace("，", " ");
 
-                        if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
-                        {
-                            swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        }
-                        else
-                        {
-                            swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        }
+                        StringBuilder start_load_replace = new StringBuilder(start_load);
+                        start_load_replace.Replace(":", "");
+                        start_load_replace.Replace(".", "");
 
-                        swww.Close();
+                        StringBuilder end_load_replace = new StringBuilder(end_load);
+                        end_load_replace.Replace(":", "");
+                        end_load_replace.Replace(".", "");
+
+                        if (Convert.ToInt32(start_load_replace.ToString()) > Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else if (IsChinese(label_webtitle_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+
+                                swww.Close();
+                            }
+                        }
+                        else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
+                        {
+                            DateTime start_load_timespan = DateTime.ParseExact(start_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            DateTime end_load_timespan = DateTime.ParseExact(end_load, "HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            TimeSpan span = end_load_timespan - start_load_timespan;
+                            int sec = (int)span.TotalSeconds;
+
+                            int timeout_get = Convert.ToInt32(label13.Text) + 10;
+
+                            if (sec < timeout_get)
+                            {
+                                if (label_webtitle_urgent.Text == "" || label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else if (IsChinese(label_webtitle_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + textBox_domain_urgent.Text + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+
+                                swww.Close();
+                            }
+                        }     
                     }
                 }
             }
@@ -5541,7 +5779,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                if (label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
                             }
                         }
                         else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
@@ -5555,7 +5800,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                if (label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
                             }
                         }
 
@@ -5657,7 +5909,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                if (label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
                             }
                         }
                         else if (Convert.ToInt32(start_load_replace.ToString()) < Convert.ToInt32(end_load_replace.ToString()))
@@ -5671,7 +5930,14 @@ namespace rainCheck
 
                             if (sec < timeout_get)
                             {
-                                swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                if (label_webtitle_urgent.Text.Contains(label_domainhide_urgent.Text))
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
+                                else
+                                {
+                                    swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + error_message + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                                }
                             }
                         }
 
@@ -8520,6 +8786,11 @@ namespace rainCheck
 
             //    domainhide_detect = false;
             //}
+        }
+
+        public bool IsChinese(string text)
+        {
+            return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
         }
     }
 }

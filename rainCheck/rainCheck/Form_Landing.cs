@@ -113,14 +113,6 @@ namespace rainCheck
         // Get MAC Address
         public static string GetMACAddress()
         {
-            //var macAddr =
-            //(
-            //    from nic in NetworkInterface.GetAllNetworkInterfaces()
-            //    where nic.OperationalStatus == OperationalStatus.Up
-            //    select nic.GetPhysicalAddress().ToString()
-            //).FirstOrDefault();
-
-            //return macAddr;
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
             String sMacAddress = string.Empty;
             foreach (NetworkInterface adapter in nics)

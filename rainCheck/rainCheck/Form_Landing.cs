@@ -509,7 +509,7 @@ namespace rainCheck
                             File.Delete(path_datetime);
                         }
 
-                        Form_Main form_main = new Form_Main();
+                        Form_Main form_main = new Form_Main(city, country, isp);
                         form_main.ShowDialog();
                     }
                     else
@@ -533,7 +533,7 @@ namespace rainCheck
                                 File.Delete(path_datetime);
                             }
 
-                            Form_Main form_main = new Form_Main();
+                            Form_Main form_main = new Form_Main(city, country, isp);
                             form_main.ShowDialog();
                         }
                         else
@@ -559,7 +559,7 @@ namespace rainCheck
                                         Form_Main.LastCurrentIndex = "1";
                                     }
 
-                                    Form_Main form_main = new Form_Main();
+                                    Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
                                 }
                                 else
@@ -582,7 +582,7 @@ namespace rainCheck
                                             Form_Main.LastCurrentIndex = "1";
                                         }
 
-                                        Form_Main form_main = new Form_Main();
+                                        Form_Main form_main = new Form_Main(city, country, isp);
                                         form_main.ShowDialog();
                                     }
                                     else
@@ -599,7 +599,7 @@ namespace rainCheck
                                             File.Delete(path_datetime);
                                         }
 
-                                        Form_Main form_main = new Form_Main();
+                                        Form_Main form_main = new Form_Main(city, country, isp);
                                         form_main.ShowDialog();
                                     }
                                 }
@@ -618,7 +618,7 @@ namespace rainCheck
                                     File.Delete(path_datetime);
                                 }
 
-                                Form_Main form_main = new Form_Main();
+                                Form_Main form_main = new Form_Main(city, country, isp);
                                 form_main.ShowDialog();
                             }
                         }
@@ -645,7 +645,7 @@ namespace rainCheck
                             File.Delete(path_datetime);
                         }
 
-                        Form_Main form_main = new Form_Main();
+                        Form_Main form_main = new Form_Main(city, country, isp);
                         form_main.ShowDialog();
                     }
                     else
@@ -673,7 +673,7 @@ namespace rainCheck
                                         Form_Main.LastCurrentIndex = "1";
                                     }
 
-                                    Form_Main form_main = new Form_Main();
+                                    Form_Main form_main = new Form_Main(city, country, isp);
                                     form_main.ShowDialog();
                                 }
                                 else
@@ -696,7 +696,7 @@ namespace rainCheck
                                             Form_Main.LastCurrentIndex = "1";
                                         }
 
-                                        Form_Main form_main = new Form_Main();
+                                        Form_Main form_main = new Form_Main(city, country, isp);
                                         form_main.ShowDialog();
                                     }
                                     else
@@ -713,7 +713,7 @@ namespace rainCheck
                                             File.Delete(path_datetime);
                                         }
 
-                                        Form_Main form_main = new Form_Main();
+                                        Form_Main form_main = new Form_Main(city, country, isp);
                                         form_main.ShowDialog();
                                     }
                                 }
@@ -732,7 +732,7 @@ namespace rainCheck
                                     File.Delete(path_datetime);
                                 }
 
-                                Form_Main form_main = new Form_Main();
+                                Form_Main form_main = new Form_Main(city, country, isp);
                                 form_main.ShowDialog();
                             }
                         }
@@ -750,7 +750,7 @@ namespace rainCheck
                                 File.Delete(path_datetime);
                             }
 
-                            Form_Main form_main = new Form_Main();
+                            Form_Main form_main = new Form_Main(city, country, isp);
                             form_main.ShowDialog();
                         }
                     }

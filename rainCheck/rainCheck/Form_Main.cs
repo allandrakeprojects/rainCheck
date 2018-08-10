@@ -518,17 +518,25 @@ namespace rainCheck
         // Get MAC Address
         public static string GetMACAddress()
         {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            String sMacAddress = string.Empty;
-            foreach (NetworkInterface adapter in nics)
-            {
-                if (sMacAddress == String.Empty)
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
-            }
-            return sMacAddress;
+            var macAddr =
+            (
+                from nic in NetworkInterface.GetAllNetworkInterfaces()
+                where nic.OperationalStatus == OperationalStatus.Up
+                select nic.GetPhysicalAddress().ToString()
+            ).FirstOrDefault();
+
+            return macAddr;
+            //NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            //String sMacAddress = string.Empty;
+            //foreach (NetworkInterface adapter in nics)
+            //{
+            //    if (sMacAddress == String.Empty)
+            //    {
+            //        IPInterfaceProperties properties = adapter.GetIPProperties();
+            //        sMacAddress = adapter.GetPhysicalAddress().ToString();
+            //    }
+            //}
+            //return sMacAddress;
         }
 
         private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -4605,7 +4613,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
-                                else if (IsChinese(label_webtitle.Text))
+                                else if (!IsChinese(label_webtitle.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
@@ -4632,7 +4640,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
-                                else if (IsChinese(label_webtitle.Text))
+                                else if (!IsChinese(label_webtitle.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
@@ -4724,7 +4732,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
-                                else if (IsChinese(label_webtitle.Text))
+                                else if (!IsChinese(label_webtitle.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
@@ -4751,7 +4759,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
-                                else if (IsChinese(label_webtitle.Text))
+                                else if (!IsChinese(label_webtitle.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
                                 }
@@ -5505,7 +5513,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
-                                else if (IsChinese(label_webtitle_urgent.Text))
+                                else if (!IsChinese(label_webtitle_urgent.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
@@ -5532,7 +5540,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
-                                else if (IsChinese(label_webtitle_urgent.Text))
+                                else if (!IsChinese(label_webtitle_urgent.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
@@ -5624,7 +5632,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
-                                else if (IsChinese(label_webtitle_urgent.Text))
+                                else if (!IsChinese(label_webtitle_urgent.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + end_load + "," + start_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
@@ -5651,7 +5659,7 @@ namespace rainCheck
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }
-                                else if (IsChinese(label_webtitle_urgent.Text))
+                                else if (!IsChinese(label_webtitle_urgent.Text))
                                 {
                                     swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
                                 }

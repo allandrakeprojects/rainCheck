@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -112,17 +113,25 @@ namespace rainCheck
         // Get MAC Address
         public static string GetMACAddress()
         {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            String sMacAddress = string.Empty;
-            foreach (NetworkInterface adapter in nics)
-            {
-                if (sMacAddress == String.Empty)
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
-            }
-            return sMacAddress;
+            var macAddr =
+            (
+                from nic in NetworkInterface.GetAllNetworkInterfaces()
+                where nic.OperationalStatus == OperationalStatus.Up
+                select nic.GetPhysicalAddress().ToString()
+            ).FirstOrDefault();
+
+            return macAddr;
+            //NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            //String sMacAddress = string.Empty;
+            //foreach (NetworkInterface adapter in nics)
+            //{
+            //    if (sMacAddress == String.Empty)
+            //    {
+            //        IPInterfaceProperties properties = adapter.GetIPProperties();
+            //        sMacAddress = adapter.GetPhysicalAddress().ToString();
+            //    }
+            //}
+            //return sMacAddress;
         }
 
         int i = 0;

@@ -54,8 +54,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
             this.panel_retry = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_blank = new System.Windows.Forms.Panel();
             this.timer_apichanges = new System.Windows.Forms.Timer(this.components);
@@ -64,6 +62,8 @@
             this.label26 = new System.Windows.Forms.Label();
             this.timer_gotomain = new System.Windows.Forms.Timer(this.components);
             this.timer_authorisation = new System.Windows.Forms.Timer(this.components);
+            this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_authorization.SuspendLayout();
             this.panel_loader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
@@ -329,29 +329,6 @@
             this.panel_retry.Size = new System.Drawing.Size(680, 457);
             this.panel_retry.TabIndex = 16;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(286, 236);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Trying to reconnect...";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(216, 201);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(250, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "No Internet connection";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // timer
             // 
             this.timer.Enabled = true;
@@ -407,6 +384,28 @@
             this.timer_authorisation.Interval = 1000;
             this.timer_authorisation.Tick += new System.EventHandler(this.Timer_authorisation_Tick);
             // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(3, 236);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(677, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Check your Internet connection.";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(-1, 201);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(680, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "You\'re Offline";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form_Landing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,7 +434,6 @@
             this.panel_loader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).EndInit();
             this.panel_retry.ResumeLayout(false);
-            this.panel_retry.PerformLayout();
             this.panel_verified.ResumeLayout(false);
             this.panel_verified.PerformLayout();
             this.ResumeLayout(false);
@@ -451,7 +449,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel_retry;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label_city;
         private System.Windows.Forms.Label label5;
@@ -466,7 +463,6 @@
         private System.Windows.Forms.Label label_macid;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel_blank;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timer_apichanges;
         private System.Windows.Forms.Label label_apichanges;
         private System.Windows.Forms.Panel panel_verified;
@@ -477,5 +473,7 @@
         private System.Windows.Forms.Timer timer_authorisation;
         private System.Windows.Forms.Label label_authorisation;
         private System.Windows.Forms.Label label_timefor;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label1;
     }
 }

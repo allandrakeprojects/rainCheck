@@ -160,7 +160,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1040", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1000", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
                 StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
@@ -194,7 +194,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1041", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
                 StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
@@ -236,7 +236,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1042", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 string path_autoyes = Path.GetTempPath() + @"\raincheck_autoyes.txt";
                 StreamWriter sw_autoyes = new StreamWriter(path_autoyes, true, Encoding.UTF8);
@@ -281,7 +281,7 @@ namespace rainCheck
                 //var st = new StackTrace(ex, true);
                 //var frame = st.GetFrame(0);
                 //var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
             }
@@ -436,7 +436,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1002", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1004", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 can_close = false;
                 Close();
@@ -470,7 +470,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1003", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1005", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 can_close = false;
                 Close();
@@ -1789,7 +1789,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1009", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1013", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
             }
@@ -1879,7 +1879,7 @@ namespace rainCheck
                 var st = new StackTrace(ex, true);
                 var frame = st.GetFrame(0);
                 var line = frame.GetFileLineNumber();
-                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1013", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1014", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Close();
             }
@@ -2107,7 +2107,7 @@ namespace rainCheck
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1030", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1015", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         // Timer Main
@@ -4182,7 +4182,7 @@ namespace rainCheck
                         }
                         catch (Exception ex)
                         {
-                            //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1030", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         // Enable visible buttons
@@ -4377,7 +4377,7 @@ namespace rainCheck
                     var st = new StackTrace(ex, true);
                     var frame = st.GetFrame(0);
                     var line = frame.GetFileLineNumber();
-                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1022", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1017", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
                     {
@@ -4945,6 +4945,49 @@ namespace rainCheck
         public bool IsChinese(string text)
         {
             return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(GetMacAddress());
+        }
+
+        private string GetMacAddress()
+        {
+            //const int MIN_MAC_ADDR_LENGTH = 12;
+            //string macAddress = string.Empty;
+            //long maxSpeed = -1;
+
+            //foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            //{
+            //    //MessageBox.Show(
+            //    //    "Found MAC Address: " + nic.GetPhysicalAddress() +
+            //    //    " Type: " + nic.NetworkInterfaceType);
+
+            //    string tempMac = nic.GetPhysicalAddress().ToString();
+            //    if (nic.Speed > maxSpeed &&
+            //        !string.IsNullOrEmpty(tempMac) &&
+            //        tempMac.Length >= MIN_MAC_ADDR_LENGTH)
+            //    {
+            //        //MessageBox.Show("New Max Speed = " + nic.Speed + ", MAC: " + tempMac);
+            //        //maxSpeed = nic.Speed;
+            //        macAddress = tempMac;
+            //    }
+            //}
+
+            //return macAddress;
+
+            string macAddresses = string.Empty;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                // Only consider Ethernet network interfaces, thereby ignoring any
+                // loopback devices etc.
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                nic.OperationalStatus == OperationalStatus.Up && !nic.Name.Contains("Tunnel") && !nic.Name.Contains("VirtualBox"))
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+            }
+
+            return macAddresses;
         }
     }
 }

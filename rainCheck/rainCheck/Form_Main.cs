@@ -512,19 +512,17 @@ namespace rainCheck
         }
 
         // Get MAC Address
-        public static string GetMACAddress()
+        private string GetMACAddress()
         {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            String sMacAddress = string.Empty;
-            foreach (NetworkInterface adapter in nics)
+            string macAddress = string.Empty;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (sMacAddress == String.Empty)
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                    nic.OperationalStatus == OperationalStatus.Up && !nic.Name.Contains("Tunnel") && !nic.Name.Contains("VirtualBox") && !nic.Name.Contains("Adapter") && !nic.Description.Contains("Npcap") && !nic.Description.Contains("Loopback"))
+                    macAddress += nic.GetPhysicalAddress().ToString();
             }
-            return sMacAddress;
+
+            return macAddress;
         }
 
         private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
@@ -1864,7 +1862,7 @@ namespace rainCheck
                     {
                         label_brand_id.Text = "";
 
-                        Form_Brand form_brand = new Form_Brand(domain);
+                        Form_Brand form_brand = new Form_Brand(label_domainhide.Text);
                         form_brand.ShowDialog();
 
                         label_brandhide.Text = SetValueForTextBrandID;
@@ -2214,6 +2212,11 @@ namespace rainCheck
 
         private void Button_pause_Click(object sender, EventArgs e)
         {
+            textBox_domain.Visible = true;
+            label_domain.Visible = true;
+            button_go.Visible = true;
+            pictureBox_loader.Location = new Point(795, -19); 
+
             button_start_fires = false;
 
             timer_blink.Start();
@@ -2236,6 +2239,11 @@ namespace rainCheck
 
         private void Button_resume_Click(object sender, EventArgs e)
         {
+            textBox_domain.Visible = false;
+            label_domain.Visible = false;
+            button_go.Visible = false;
+            pictureBox_loader.Location = new Point(1178, -19);
+            
             if (SetResult == "No" || SetResult == "Not Exists")
             {
                 if (!buttonDetect)
@@ -4945,49 +4953,6 @@ namespace rainCheck
         public bool IsChinese(string text)
         {
             return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(GetMacAddress());
-        }
-
-        private string GetMacAddress()
-        {
-            //const int MIN_MAC_ADDR_LENGTH = 12;
-            //string macAddress = string.Empty;
-            //long maxSpeed = -1;
-
-            //foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            //{
-            //    //MessageBox.Show(
-            //    //    "Found MAC Address: " + nic.GetPhysicalAddress() +
-            //    //    " Type: " + nic.NetworkInterfaceType);
-
-            //    string tempMac = nic.GetPhysicalAddress().ToString();
-            //    if (nic.Speed > maxSpeed &&
-            //        !string.IsNullOrEmpty(tempMac) &&
-            //        tempMac.Length >= MIN_MAC_ADDR_LENGTH)
-            //    {
-            //        //MessageBox.Show("New Max Speed = " + nic.Speed + ", MAC: " + tempMac);
-            //        //maxSpeed = nic.Speed;
-            //        macAddress = tempMac;
-            //    }
-            //}
-
-            //return macAddress;
-
-            string macAddresses = string.Empty;
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                // Only consider Ethernet network interfaces, thereby ignoring any
-                // loopback devices etc.
-                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
-                nic.OperationalStatus == OperationalStatus.Up && !nic.Name.Contains("Tunnel") && !nic.Name.Contains("VirtualBox"))
-                    macAddresses += nic.GetPhysicalAddress().ToString();
-            }
-
-            return macAddresses;
         }
     }
 }

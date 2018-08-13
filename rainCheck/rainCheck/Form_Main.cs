@@ -5289,13 +5289,27 @@ namespace rainCheck
 
         private void Button_go_Click(object sender, EventArgs e)
         {
-            // Set browser panel dock style
-            chromeBrowser.Dock = DockStyle.Fill;
+            // asdasd
+            start_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            webBrowser_handler.Visible = true;
+            webBrowser_handler.BringToFront();
+            pictureBox_loader.Visible = true;
+            pictureBox_loader.Enabled = true;
 
-            i = 1;
+            timer_handler.Stop();
+            timer_handler.Start();
 
-            label_domainhide.Text = textBox_domain.Text;
-            string domain_urgent = label_domainhide.Text;
+            completed = true;
+            timeout = true;
+            buttonGoWasClicked = true;
+            buttonDetect = true;
+            domain = textBox_domain.Text;
+            label_domainhide.Text = domain;
+            
+            StringBuilder domain_replace = new StringBuilder(domain);
+            domain_replace.Replace("https://", "");
+            domain_replace.Replace("http://", "");
+            domain_replace.Replace("/", "");
 
             // API Brand
             try
@@ -5305,13 +5319,12 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "brand";
                     string request = "http://raincheck.ssitex.com/api/api.php";
-                    string domain = domain_urgent;
 
                     NameValueCollection postData = new NameValueCollection()
                     {
                         { "auth", auth },
                         { "type", type },
-                        { "domain", domain }
+                        { "domain", domain_replace.ToString() }
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
@@ -5331,7 +5344,7 @@ namespace rainCheck
                     {
                         label_brand_id.Text = "";
 
-                        Form_Brand form_brand = new Form_Brand(domain_urgent);
+                        Form_Brand form_brand = new Form_Brand(domain);
                         form_brand.ShowDialog();
 
                         label_brandhide.Text = SetValueForTextBrandID;
@@ -5351,13 +5364,20 @@ namespace rainCheck
                 //Close();
             }
 
-            buttonGoWasClicked = true;
-            buttonDetect = true;
+            webBrowser_handler.Navigate(domain);
 
-            if (label_brandhide.Text != "3")
-            {
-                chromeBrowser.Load(textBox_domain.Text);
-            }
+            //// Set browser panel dock style
+            //chromeBrowser.Dock = DockStyle.Fill;
+
+            //i = 1;
+
+            //label_domainhide.Text = textBox_domain.Text;
+            //string domain_urgent = label_domainhide.Text;
+                        
+            //if (label_brandhide.Text != "3")
+            //{
+            //    chromeBrowser.Load(textBox_domain.Text);
+            //}
         }
 
         private void Label_domain_Paint(object sender, PaintEventArgs e)
@@ -5838,7 +5858,7 @@ namespace rainCheck
                         
                         if (button_start_fires)
                         {
-                            start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                            start_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                             webBrowser_handler.Visible = true;
                             webBrowser_handler.BringToFront();
                             pictureBox_loader.Visible = true;
@@ -5887,7 +5907,7 @@ namespace rainCheck
                         if (e.Url == webBrowser_handler.Url)
                         {
                             // handlers
-                            end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                            end_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                             webbrowser_handler_title = webBrowser_handler.DocumentTitle;
                             webbrowser_handler_url = webBrowser_handler.Url;
                             timeout = false;
@@ -5948,7 +5968,7 @@ namespace rainCheck
 
                             if (isInaccessible)
                             {
-                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
+                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page" || webbrowser_handler_title == "")
                                 {
                                     var html = "";
 
@@ -6078,6 +6098,7 @@ namespace rainCheck
                                 {
                                     label_ifloadornot.Text = "1";
                                     label_ifloadornot.Text = "0";
+                                    buttonGoWasClicked = false;
                                 }
                             }
                             else if (panel_urgent.Visible == true)
@@ -6102,7 +6123,7 @@ namespace rainCheck
                 if (timeout)
                 {
                     // handlers
-                    end_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                    end_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                     webbrowser_handler_title = webBrowser_handler.DocumentTitle;
                     webbrowser_handler_url = webBrowser_handler.Url;
                     completed = false;
@@ -6139,13 +6160,67 @@ namespace rainCheck
 
                     if (isHijacked)
                     {
-                        if (panel_main.Visible == true)
+                        if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page")
                         {
-                            DataToTextFileHijacked();
+                            var html = "";
+
+                            if (!domain.Contains("http"))
+                            {
+                                try
+                                {
+                                    replace_domain_get = "http://" + domain;
+                                    html = new WebClient().DownloadString(replace_domain_get);
+                                }
+                                catch (Exception)
+                                {
+                                    html = "";
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    html = new WebClient().DownloadString(domain);
+                                }
+                                catch (Exception)
+                                {
+                                    html = "";
+                                }
+                            }
+
+                            if (html.Contains("landing_image"))
+                            {
+                                if (panel_main.Visible == true)
+                                {
+                                    DataToTextFileSuccess();
+                                }
+                                else if (panel_urgent.Visible == true)
+                                {
+                                    DataToTextFileSuccess_Urgent();
+                                }
+                            }
+                            else
+                            {
+                                if (panel_main.Visible == true)
+                                {
+                                    DataToTextFileHijacked();
+                                }
+                                else if (panel_urgent.Visible == true)
+                                {
+                                    DataToTextFileHijacked_Urgent();
+                                }
+                            }
                         }
-                        else if (panel_urgent.Visible == true)
+                        else
                         {
-                            DataToTextFileHijacked_Urgent();
+                            if (panel_main.Visible == true)
+                            {
+                                DataToTextFileHijacked();
+                            }
+                            else if (panel_urgent.Visible == true)
+                            {
+                                DataToTextFileHijacked_Urgent();
+                            }
                         }
                     }
                     else
@@ -6170,6 +6245,7 @@ namespace rainCheck
                     {
                         label_ifloadornot.Text = "1";
                         label_ifloadornot.Text = "0";
+                        buttonGoWasClicked = false;
                     }
                     else if (panel_urgent.Visible == true)
                     {
@@ -7201,7 +7277,7 @@ namespace rainCheck
             {
                 pictureBox_loader.Visible = false;
                 pictureBox_loader.Enabled = false;
-                textBox_domain.Text = "";
+                //textBox_domain.Text = "";
             }
         }
 
@@ -7461,7 +7537,7 @@ namespace rainCheck
                     
                     if (button_start_urgent_fires)
                     {
-                        start_load = DateTime.Now.ToString("HH:mm:ss.fff");
+                        start_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                         webBrowser_handler.Visible = true;
                         webBrowser_handler.BringToFront();
                         pictureBox_loader_urgent.Visible = true;
@@ -8052,11 +8128,11 @@ namespace rainCheck
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             }
 
-            if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
-            {
-                pictureBox_loader.Visible = false;
-                textBox_domain.Text = "";
-            }
+            //if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
+            //{
+            //    pictureBox_loader.Visible = false;
+            //    textBox_domain.Text = "";
+            //}
         }
 
         int timefor = 0;

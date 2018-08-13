@@ -1,12 +1,10 @@
-﻿using CefSharp;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -824,11 +822,6 @@ namespace rainCheck
             {
                 label_timefor.Text = "22:00";
             }
-        }
-
-        private void Form_Landing_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Cef.Shutdown();
         }
     }
 }

@@ -79,7 +79,6 @@
             this.label_separator = new System.Windows.Forms.Label();
             this.button_startover = new System.Windows.Forms.Button();
             this.label_cycle_in_1 = new System.Windows.Forms.Label();
-            this.timer_timeout = new System.Windows.Forms.Timer(this.components);
             this.dataGridView_domain = new System.Windows.Forms.DataGridView();
             this.label_status = new System.Windows.Forms.Label();
             this.History = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -141,8 +140,6 @@
             this.label_hijacked = new System.Windows.Forms.Label();
             this.label_webtitle_urgent = new System.Windows.Forms.Label();
             this.label_inaccessible_error_message = new System.Windows.Forms.Label();
-            this.timer_elseloaded = new System.Windows.Forms.Timer(this.components);
-            this.timer_detectnotloading = new System.Windows.Forms.Timer(this.components);
             this.label_detectnotloading = new System.Windows.Forms.Label();
             this.timer_timefor = new System.Windows.Forms.Timer(this.components);
             this.label_timer_timefor = new System.Windows.Forms.Label();
@@ -167,9 +164,6 @@
             this.label_utype = new System.Windows.Forms.Label();
             this.label_textsearch_brand = new System.Windows.Forms.Label();
             this.timer_handler = new System.Windows.Forms.Timer(this.components);
-            this.panel_browser = new System.Windows.Forms.Panel();
-            this.panel_new = new System.Windows.Forms.Panel();
-            this.webBrowser_new = new System.Windows.Forms.WebBrowser();
             this.webBrowser_handler = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
             this.panel_retry.SuspendLayout();
@@ -184,7 +178,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_urgent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader_urgent)).BeginInit();
             this.panel3.SuspendLayout();
-            this.panel_new.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_pause
@@ -613,11 +606,6 @@
             this.label_cycle_in_1.TabIndex = 46;
             this.label_cycle_in_1.Text = "Cycle In:";
             // 
-            // timer_timeout
-            // 
-            this.timer_timeout.Interval = 1000;
-            this.timer_timeout.Tick += new System.EventHandler(this.Timer_timeout_Tick);
-            // 
             // dataGridView_domain
             // 
             this.dataGridView_domain.AllowUserToAddRows = false;
@@ -933,7 +921,6 @@
             // 
             // panel_main
             // 
-            this.panel_main.Controls.Add(this.panel_browser);
             this.panel_main.Controls.Add(this.label_timefor);
             this.panel_main.Controls.Add(this.dataGridView_domain);
             this.panel_main.Controls.Add(this.label_cycle_in);
@@ -1414,16 +1401,6 @@
             this.label_inaccessible_error_message.TabIndex = 57;
             this.label_inaccessible_error_message.TextChanged += new System.EventHandler(this.label_inaccessible_error_message_TextChanged);
             // 
-            // timer_elseloaded
-            // 
-            this.timer_elseloaded.Interval = 1000;
-            this.timer_elseloaded.Tick += new System.EventHandler(this.timer_elseloaded_Tick);
-            // 
-            // timer_detectnotloading
-            // 
-            this.timer_detectnotloading.Interval = 1000;
-            this.timer_detectnotloading.Tick += new System.EventHandler(this.Timer_detectnotloading_Tick);
-            // 
             // label_detectnotloading
             // 
             this.label_detectnotloading.AutoSize = true;
@@ -1621,35 +1598,6 @@
             this.timer_handler.Interval = 2000;
             this.timer_handler.Tick += new System.EventHandler(this.timer_handler_TickAsync);
             // 
-            // panel_browser
-            // 
-            this.panel_browser.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel_browser.BackColor = System.Drawing.Color.White;
-            this.panel_browser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel_browser.Location = new System.Drawing.Point(216, 46);
-            this.panel_browser.Name = "panel_browser";
-            this.panel_browser.Size = new System.Drawing.Size(1024, 583);
-            this.panel_browser.TabIndex = 19;
-            // 
-            // panel_new
-            // 
-            this.panel_new.Controls.Add(this.webBrowser_new);
-            this.panel_new.Location = new System.Drawing.Point(216, 126);
-            this.panel_new.Name = "panel_new";
-            this.panel_new.Size = new System.Drawing.Size(1024, 583);
-            this.panel_new.TabIndex = 59;
-            this.panel_new.Visible = false;
-            // 
-            // webBrowser_new
-            // 
-            this.webBrowser_new.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser_new.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser_new.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser_new.Name = "webBrowser_new";
-            this.webBrowser_new.ScriptErrorsSuppressed = true;
-            this.webBrowser_new.Size = new System.Drawing.Size(1024, 583);
-            this.webBrowser_new.TabIndex = 0;
-            // 
             // webBrowser_handler
             // 
             this.webBrowser_handler.Location = new System.Drawing.Point(216, 124);
@@ -1657,7 +1605,7 @@
             this.webBrowser_handler.Name = "webBrowser_handler";
             this.webBrowser_handler.ScriptErrorsSuppressed = true;
             this.webBrowser_handler.Size = new System.Drawing.Size(1023, 584);
-            this.webBrowser_handler.TabIndex = 129;
+            this.webBrowser_handler.TabIndex = 130;
             this.webBrowser_handler.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_handler_DocumentCompletedAsync);
             // 
             // Form_Main
@@ -1675,7 +1623,6 @@
             this.Controls.Add(this.label_datetimetextfile_urgent);
             this.Controls.Add(this.label_getdatetime_urgent);
             this.Controls.Add(this.label_domainscount_urgent);
-            this.Controls.Add(this.panel_new);
             this.Controls.Add(this.label_webtype_urgent);
             this.Controls.Add(this.label_timeget);
             this.Controls.Add(this.panel_uploaded);
@@ -1759,7 +1706,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader_urgent)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel_new.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1790,7 +1736,6 @@
         private System.Windows.Forms.Label label_separator;
         private System.Windows.Forms.Button button_startover;
         private System.Windows.Forms.Label label_cycle_in_1;
-        private System.Windows.Forms.Timer timer_timeout;
         private System.Windows.Forms.DataGridView dataGridView_domain;
         private System.Windows.Forms.Label label_status;
         private System.Windows.Forms.DataGridViewTextBoxColumn History;
@@ -1860,11 +1805,9 @@
         private System.Windows.Forms.Label label_loadeddetect;
         private System.Windows.Forms.Label label_webtitle;
         private System.Windows.Forms.Label label_elseloaded;
-        private System.Windows.Forms.Timer timer_elseloaded;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label_inaccessiblelist;
         private System.Windows.Forms.Label label_testonemoretime;
-        private System.Windows.Forms.Timer timer_detectnotloading;
         private System.Windows.Forms.Label label_detectnotloading;
         private System.Windows.Forms.Label label_erroraborted;
         private System.Windows.Forms.Timer timer_timefor;
@@ -1892,9 +1835,6 @@
         private System.Windows.Forms.Label label_utype;
         private System.Windows.Forms.Label label_textsearch_brand;
         private System.Windows.Forms.Timer timer_handler;
-        private System.Windows.Forms.Panel panel_browser;
-        private System.Windows.Forms.Panel panel_new;
-        private System.Windows.Forms.WebBrowser webBrowser_new;
         private System.Windows.Forms.WebBrowser webBrowser_handler;
     }
 }

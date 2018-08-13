@@ -428,7 +428,6 @@
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rainCheck";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Landing_FormClosing);
             this.Load += new System.EventHandler(this.Form_Landing_Load);
             this.panel_authorization.ResumeLayout(false);
             this.panel_authorization.PerformLayout();

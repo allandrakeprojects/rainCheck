@@ -699,7 +699,7 @@ namespace rainCheck
 
                 if (Directory.Exists(path))
                 {
-                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
                     sw.Close();
 
                     // Header
@@ -710,16 +710,16 @@ namespace rainCheck
                     }
                     else
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, System.Text.Encoding.UTF8);
+                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
                         swww.WriteLine("id, domain_name, status, brand, start_load, end_load, text_search, url_hijacker, hijacker, remarks, printscreen, isp, city, t_id, datetime_created, action_by, type");
 
                         swww.Close();
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -778,9 +778,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -858,9 +858,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -918,9 +918,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -998,9 +998,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1054,9 +1054,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1128,9 +1128,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1197,9 +1197,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1287,9 +1287,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1347,9 +1347,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1426,9 +1426,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1476,9 +1476,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1546,9 +1546,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
@@ -1602,9 +1602,9 @@ namespace rainCheck
                     }
 
                     // Delete when line of domain when exists
-                    var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    File.WriteAllLines(path + "\\result.txt", newLines);
+                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
+                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
+                    //File.WriteAllLines(path + "\\result.txt", newLines);
 
                     string contain_text = label_domainhide_urgent.Text;
                     if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))

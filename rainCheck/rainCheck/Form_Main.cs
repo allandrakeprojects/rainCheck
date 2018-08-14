@@ -30,13 +30,41 @@ namespace rainCheck
         public static string SetValueForTextBrandID = "";
         public static string SetValueForTextSearch = "";
         public static string SetValueForWebsiteType = "";
-
         static bool networkIsAvailable = false;
-
         static List<string> inaccessble_lists = new List<string>();
-
         string city_get;
         string isp_get;
+        int timefor = 0;
+        int detect_start = 0;
+        private bool textchanged_timefor = false;
+        private int domain_total;
+        private int index;
+        private bool timerfornext = false;
+        private bool start_detect_button = false;
+        private string pagesource_history;
+        private bool detectnohistoryyet = false;
+        private DialogResult dr;
+        private bool can_close = true;
+        private bool auto_start = true;
+        private int index_urgent;
+        private bool server = false;
+        private int estimatedLength;
+        private bool domainhide_detect;
+        private bool textbox_domain_detect;
+        private string cefsharp_title;
+        private string cefsharp_domain;
+        private bool button_start_fires = false;
+        private string domain;
+        private bool upload_one_time = true;
+        private bool timeout = true;
+        private bool completed = true;
+        private string webbrowser_handler_title;
+        private Uri webbrowser_handler_url;
+        private bool isHijacked;
+        private bool isInaccessible;
+        private string replace_domain_get;
+        private bool button_start_urgent_fires;
+        private string timeout_get;
 
         public Form_Main(string city, string country, string isp)
         {
@@ -460,9 +488,9 @@ namespace rainCheck
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
-                    string result = pagesource.Replace("\"", "") + "000";
-                    label13.Text = result;
-                    timer_handler.Interval = Convert.ToInt32(result);
+                    timeout_get = pagesource.Replace("\"", "") + "000";
+                    label13.Text = timeout_get;
+                    timer_handler.Interval = Convert.ToInt32(timeout_get);
                 }
             }
             catch (Exception ex)
@@ -4556,44 +4584,16 @@ namespace rainCheck
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             }
-
-            //if (label_currentindex.Text == "0" && label_status.Text == "[Waiting]")
-            //{
-            //    pictureBox_loader.Visible = false;
-            //    textBox_domain.Text = "";
-            //}
+            
+            if (label_brandhide.Text == "3")
+            {
+                timer_handler.Interval = 10000;
+            }
+            else
+            {
+                timer_handler.Interval = Convert.ToInt32(timeout_get);
+            }
         }
-
-        int timefor = 0;
-        int detect_start = 0;
-        private bool textchanged_timefor = false;
-        private int domain_total;
-        private int index;
-        private bool timerfornext = false;
-        private bool start_detect_button = false;
-        private string pagesource_history;
-        private bool detectnohistoryyet = false;
-        private DialogResult dr;
-        private bool can_close = true;
-        private bool auto_start = true;
-        private int index_urgent;
-        private bool server = false;
-        private int estimatedLength;
-        private bool domainhide_detect;
-        private bool textbox_domain_detect;
-        private string cefsharp_title;
-        private string cefsharp_domain;
-        private bool button_start_fires = false;
-        private string domain;
-        private bool upload_one_time = true;
-        private bool timeout = true;
-        private bool completed = true;
-        private string webbrowser_handler_title;
-        private Uri webbrowser_handler_url;
-        private bool isHijacked;
-        private bool isInaccessible;
-        private string replace_domain_get;
-        private bool button_start_urgent_fires;
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {

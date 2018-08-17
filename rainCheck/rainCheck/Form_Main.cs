@@ -744,44 +744,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
                 else
                 {
@@ -805,44 +791,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide.Text + ",S" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -885,43 +857,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-                        
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
                 else
                 {
@@ -945,43 +904,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide.Text + ",T" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1025,38 +971,25 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1081,38 +1014,25 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide.Text + ",H" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1155,52 +1075,39 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-                        
-                        string domain_replace = label_domainhide.Text;
-                        StringBuilder sb_pic = new StringBuilder(domain_replace);
-                        sb_pic.Replace("\\", "");
-                        sb_pic.Replace("/", "");
-                        sb_pic.Replace("\"", "");
-                        sb_pic.Replace("*", "");
-                        sb_pic.Replace(":", "");
-                        sb_pic.Replace("?", "");
-                        sb_pic.Replace("<", "");
-                        sb_pic.Replace(">", "");
-                        sb_pic.Replace("|", "");
-                        sb_pic.Replace(" ", "");
-                        sb_pic.Replace("_", "");
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string domain_replace = label_domainhide.Text;
+                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                    sb_pic.Replace("\\", "");
+                    sb_pic.Replace("/", "");
+                    sb_pic.Replace("\"", "");
+                    sb_pic.Replace("*", "");
+                    sb_pic.Replace(":", "");
+                    sb_pic.Replace("?", "");
+                    sb_pic.Replace("<", "");
+                    sb_pic.Replace(">", "");
+                    sb_pic.Replace("|", "");
+                    sb_pic.Replace(" ", "");
+                    sb_pic.Replace("_", "");
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1224,52 +1131,39 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string domain_replace = label_domainhide.Text;
-                        StringBuilder sb_pic = new StringBuilder(domain_replace);
-                        sb_pic.Replace("\\", "");
-                        sb_pic.Replace("/", "");
-                        sb_pic.Replace("\"", "");
-                        sb_pic.Replace("*", "");
-                        sb_pic.Replace(":", "");
-                        sb_pic.Replace("?", "");
-                        sb_pic.Replace("<", "");
-                        sb_pic.Replace(">", "");
-                        sb_pic.Replace("|", "");
-                        sb_pic.Replace(" ", "");
-                        sb_pic.Replace("_", "");
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string domain_replace = label_domainhide.Text;
+                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                    sb_pic.Replace("\\", "");
+                    sb_pic.Replace("/", "");
+                    sb_pic.Replace("\"", "");
+                    sb_pic.Replace("*", "");
+                    sb_pic.Replace(":", "");
+                    sb_pic.Replace("?", "");
+                    sb_pic.Replace("<", "");
+                    sb_pic.Replace(">", "");
+                    sb_pic.Replace("|", "");
+                    sb_pic.Replace(" ", "");
+                    sb_pic.Replace("_", "");
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide.Text + ",I" + "," + label_brandhide.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_n_" + sb_pic.ToString() + "," + isp_get + "," + city_get + ",-," + datetime + "," + ",N");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1314,43 +1208,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1374,43 +1255,30 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
-
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
-
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+
+                    if (String.IsNullOrEmpty(webtitle_replace))
+                    {
+                        webtitle_replace = "-";
+                    }
+
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",S" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1453,33 +1321,20 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    string webtitle_replace = webbrowser_handler_title;
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (String.IsNullOrEmpty(webtitle_replace))
                     {
-                        // Leave for blank
+                        webtitle_replace = "-";
                     }
-                    else
-                    {                        
-                        string webtitle_replace = webbrowser_handler_title;
 
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
 
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
-                    }
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1503,33 +1358,20 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    string webtitle_replace = webbrowser_handler_title;
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (String.IsNullOrEmpty(webtitle_replace))
                     {
-                        // Leave for blank
+                        webtitle_replace = "-";
                     }
-                    else
-                    {
-                        string webtitle_replace = webbrowser_handler_title;
 
-                        if (String.IsNullOrEmpty(webtitle_replace))
-                        {
-                            webtitle_replace = "-";
-                        }
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
 
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
-                    }
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",T" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1573,38 +1415,25 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1629,38 +1458,25 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    // Delete when line of domain when exists
-                    //var oldLines = File.ReadAllLines(path + "\\result.txt");
-                    //var newLines = oldLines.Where(line => !line.Contains(label_domainhide_urgent.Text));
-                    //File.WriteAllLines(path + "\\result.txt", newLines);
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + @"\result.txt").Any(line => line.Contains(contain_text)))
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",H" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + "," + webbrowser_handler_url + ",-" + ",-" + ",-" + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -1703,47 +1519,39 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text)))
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string domain_replace = label_domainhide.Text;
-                        StringBuilder sb_pic = new StringBuilder(domain_replace);
-                        sb_pic.Replace("\\", "");
-                        sb_pic.Replace("/", "");
-                        sb_pic.Replace("\"", "");
-                        sb_pic.Replace("*", "");
-                        sb_pic.Replace(":", "");
-                        sb_pic.Replace("?", "");
-                        sb_pic.Replace("<", "");
-                        sb_pic.Replace(">", "");
-                        sb_pic.Replace("|", "");
-                        sb_pic.Replace(" ", "");
-                        sb_pic.Replace("_", "");
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string domain_replace = label_domainhide.Text;
+                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                    sb_pic.Replace("\\", "");
+                    sb_pic.Replace("/", "");
+                    sb_pic.Replace("\"", "");
+                    sb_pic.Replace("*", "");
+                    sb_pic.Replace(":", "");
+                    sb_pic.Replace("?", "");
+                    sb_pic.Replace("<", "");
+                    sb_pic.Replace(">", "");
+                    sb_pic.Replace("|", "");
+                    sb_pic.Replace(" ", "");
+                    sb_pic.Replace("_", "");
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
                 else
                 {
@@ -1767,47 +1575,39 @@ namespace rainCheck
                         swww.Close();
                     }
 
-                    string contain_text = label_domainhide_urgent.Text;
-                    if (File.ReadLines(path + "\\result.txt").Any(line => line.Contains(contain_text)))
+                    StreamWriter swwww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
+
+                    if (string.IsNullOrEmpty(isp_get))
                     {
-                        // Leave for blank
+                        isp_get = "-";
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(city_get))
                     {
-                        StreamWriter swww = new StreamWriter(path + "\\result.txt", true, Encoding.UTF8);
-
-                        if (string.IsNullOrEmpty(isp_get))
-                        {
-                            isp_get = "-";
-                        }
-
-                        if (string.IsNullOrEmpty(city_get))
-                        {
-                            city_get = "-";
-                        }
-
-                        string domain_replace = label_domainhide.Text;
-                        StringBuilder sb_pic = new StringBuilder(domain_replace);
-                        sb_pic.Replace("\\", "");
-                        sb_pic.Replace("/", "");
-                        sb_pic.Replace("\"", "");
-                        sb_pic.Replace("*", "");
-                        sb_pic.Replace(":", "");
-                        sb_pic.Replace("?", "");
-                        sb_pic.Replace("<", "");
-                        sb_pic.Replace(">", "");
-                        sb_pic.Replace("|", "");
-                        sb_pic.Replace(" ", "");
-                        sb_pic.Replace("_", "");
-
-                        string webtitle_replace = webbrowser_handler_title;
-                        StringBuilder webtitle = new StringBuilder(webtitle_replace);
-                        webtitle.Replace(",", "");
-                        webtitle.Replace("，", " ");
-
-                        swww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
-                        swww.Close();
+                        city_get = "-";
                     }
+
+                    string domain_replace = label_domainhide.Text;
+                    StringBuilder sb_pic = new StringBuilder(domain_replace);
+                    sb_pic.Replace("\\", "");
+                    sb_pic.Replace("/", "");
+                    sb_pic.Replace("\"", "");
+                    sb_pic.Replace("*", "");
+                    sb_pic.Replace(":", "");
+                    sb_pic.Replace("?", "");
+                    sb_pic.Replace("<", "");
+                    sb_pic.Replace(">", "");
+                    sb_pic.Replace("|", "");
+                    sb_pic.Replace(" ", "");
+                    sb_pic.Replace("_", "");
+
+                    string webtitle_replace = webbrowser_handler_title;
+                    StringBuilder webtitle = new StringBuilder(webtitle_replace);
+                    webtitle.Replace(",", "");
+                    webtitle.Replace("，", " ");
+
+                    swwww.WriteLine("," + label_domainhide_urgent.Text + ",I" + "," + label_brandhide_urgent.Text + "," + start_load + "," + end_load + "," + webtitle.ToString() + ",-" + ",-" + "," + webtitle.ToString() + "," + datetime_folder + "_" + label_macid.Text + "_u_" + sb_pic.ToString() + "," + isp_get + "," + city_get + "," + label_utype.Text + "," + label_datetimetextfile_urgent.Text + "," + ",U");
+                    swwww.Close();
                 }
             }
             catch (Exception ex)
@@ -2433,6 +2233,7 @@ namespace rainCheck
                             end_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                             webbrowser_handler_title = webBrowser_handler.DocumentTitle;
                             webbrowser_handler_url = webBrowser_handler.Url;
+                            
                             timeout = false;
                             timer_handler.Stop();
 
@@ -4583,15 +4384,6 @@ namespace rainCheck
             {
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
-            }
-            
-            if (label_brandhide.Text == "3")
-            {
-                timer_handler.Interval = 10000;
-            }
-            else
-            {
-                timer_handler.Interval = Convert.ToInt32(timeout_get);
             }
         }
 

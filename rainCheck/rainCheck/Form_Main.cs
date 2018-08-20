@@ -126,7 +126,6 @@ namespace rainCheck
 
                     can_close = false;
                     Close();
-                    Application.Restart();
                 }
 
                 if (can_close)
@@ -196,7 +195,6 @@ namespace rainCheck
                 
                 can_close = false;
                 Close();
-                Application.Restart();
             }
 
             try
@@ -230,7 +228,6 @@ namespace rainCheck
 
                 can_close = false;
                 Close();
-                Application.Restart();
             }
 
             try
@@ -272,7 +269,6 @@ namespace rainCheck
 
                 can_close = false;
                 Close();
-                Application.Restart();
             }
             
             foreach (DataGridViewColumn column in dataGridView_domain.Columns)
@@ -1839,7 +1835,6 @@ namespace rainCheck
 
                             can_close = false;
                             Close();
-                            Application.Restart();
                         }
 
                         StringBuilder sb = new StringBuilder();
@@ -2911,7 +2906,6 @@ namespace rainCheck
 
                             can_close = false;
                             Close();
-                            Application.Restart();
                         }
                     }
                     else
@@ -3315,7 +3309,6 @@ namespace rainCheck
 
                         can_close = false;
                         Close();
-                        Application.Restart();
                     }
                 }
                 else
@@ -3934,7 +3927,6 @@ namespace rainCheck
 
                             can_close = false;
                             Close();
-                            Application.Restart();
                         }
 
                         StringBuilder sb = new StringBuilder();
@@ -4117,7 +4109,6 @@ namespace rainCheck
 
                         can_close = false;
                         Close();
-                        Application.Restart();
                     }
                     else
                     {
@@ -4184,7 +4175,6 @@ namespace rainCheck
 
                     can_close = false;
                     Close();
-                    Application.Restart();
                 }
 
                 try
@@ -4224,7 +4214,6 @@ namespace rainCheck
 
                         can_close = false;
                         Close();
-                        Application.Restart();
                     }
                     else
                     {
@@ -4670,7 +4659,6 @@ namespace rainCheck
                             
                             can_close = false;
                             Close();
-                            Application.Restart();
                         }
 
                         if (can_close)

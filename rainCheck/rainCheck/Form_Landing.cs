@@ -304,7 +304,6 @@ namespace rainCheck
                 //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: RC1001", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Close();
-                Application.Restart();
             }
         }
 

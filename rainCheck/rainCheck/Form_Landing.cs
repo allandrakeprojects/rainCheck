@@ -325,8 +325,6 @@ namespace rainCheck
                         { "mac_id", mac_id }
                     };
 
-                    // client.UploadValues returns page's source as byte array (byte[])
-                    // so it must be transformed into a string
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
 
                     //MessageBox.Show(pagesource);

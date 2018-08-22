@@ -2416,57 +2416,26 @@ namespace rainCheck
 
                             if (isInaccessible)
                             {
-                                if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page" || webbrowser_handler_title == "")
+                                if (label_webtype.Text == "Landing Page" && webbrowser_handler_title == "")
                                 {
-                                    var html = "";
-
-                                    if (!domain.Contains("http"))
+                                    if (panel_main.Visible == true)
                                     {
-                                        try
-                                        {
-                                            replace_domain_get = "http://" + domain;
-                                            html = new WebClient().DownloadString(replace_domain_get);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            html = "";
-                                        }
+                                        DataToTextFileSuccess();
                                     }
-                                    else
+                                    else if (panel_urgent.Visible == true)
                                     {
-                                        try
-                                        {
-                                            html = new WebClient().DownloadString(domain);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            html = "";
-                                        }
+                                        DataToTextFileSuccess_Urgent();
                                     }
-
-                                    if (html.Contains("landing_image"))
+                                }
+                                else if (webbrowser_handler_title == "")
+                                {
+                                    if (panel_main.Visible == true)
                                     {
-                                        if (panel_main.Visible == true)
-                                        {
-                                            DataToTextFileSuccess();
-                                        }
-                                        else if (panel_urgent.Visible == true)
-                                        {
-                                            DataToTextFileSuccess_Urgent();
-                                        }
+                                        DataToTextFileSuccess();
                                     }
-                                    else
+                                    else if (panel_urgent.Visible == true)
                                     {
-                                        if (panel_main.Visible == true)
-                                        {
-                                            TakeScreenShot();
-                                            DataToTextFileInaccessible();
-                                        }
-                                        else if (panel_urgent.Visible == true)
-                                        {
-                                            TakeScreenShot_Urgent();
-                                            DataToTextFileInaccessible_Urgent();
-                                        }
+                                        DataToTextFileSuccess_Urgent();
                                     }
                                 }
                                 else
@@ -2608,55 +2577,26 @@ namespace rainCheck
 
                     if (isHijacked)
                     {
-                        if (label_webtype.Text == "Landing Page" || label_webtype.Text == "Landing page" || webbrowser_handler_title == "")
+                        if (label_webtype.Text == "Landing Page" && webbrowser_handler_title == "")
                         {
-                            var html = "";
-
-                            if (!domain.Contains("http"))
+                            if (panel_main.Visible == true)
                             {
-                                try
-                                {
-                                    replace_domain_get = "http://" + domain;
-                                    html = new WebClient().DownloadString(replace_domain_get);
-                                }
-                                catch (Exception)
-                                {
-                                    html = "";
-                                }
+                                DataToTextFileSuccess();
                             }
-                            else
+                            else if (panel_urgent.Visible == true)
                             {
-                                try
-                                {
-                                    html = new WebClient().DownloadString(domain);
-                                }
-                                catch (Exception)
-                                {
-                                    html = "";
-                                }
+                                DataToTextFileSuccess_Urgent();
                             }
-
-                            if (html.Contains("landing_image"))
+                        }
+                        else if (webbrowser_handler_title == "")
+                        {
+                            if (panel_main.Visible == true)
                             {
-                                if (panel_main.Visible == true)
-                                {
-                                    DataToTextFileSuccess();
-                                }
-                                else if (panel_urgent.Visible == true)
-                                {
-                                    DataToTextFileSuccess_Urgent();
-                                }
+                                DataToTextFileSuccess();
                             }
-                            else
+                            else if (panel_urgent.Visible == true)
                             {
-                                if (panel_main.Visible == true)
-                                {
-                                    DataToTextFileHijacked();
-                                }
-                                else if (panel_urgent.Visible == true)
-                                {
-                                    DataToTextFileHijacked_Urgent();
-                                }
+                                DataToTextFileSuccess_Urgent();
                             }
                         }
                         else

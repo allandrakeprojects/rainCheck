@@ -209,11 +209,20 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
+                    
                     if (pagesource != "")
                     {
                         JArray jsonObject = JArray.Parse(pagesource);
                         string status = jsonObject[0]["status"].Value<string>();
+                        string city_get = jsonObject[0]["city"].Value<string>();
+                        string province_get = jsonObject[0]["province"].Value<string>();
+                        string country_get = jsonObject[0]["country"].Value<string>();
+                        string isp_get = jsonObject[0]["isp"].Value<string>();
+
+                        city = city_get;
+                        country = country_get;
+                        isp = isp_get;
+                        region = province_get;
 
                         if (status == "A")
                         {
@@ -326,15 +335,22 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                    //MessageBox.Show(pagesource);
-
+                    
                     if (pagesource != "")
                     {
                         if (pagesource != label_apichanges.Text)
                         {
                             JArray jsonObject = JArray.Parse(pagesource);
                             string status = jsonObject[0]["status"].Value<string>();
+                            string city_get = jsonObject[0]["city"].Value<string>();
+                            string province_get = jsonObject[0]["province"].Value<string>();
+                            string country_get = jsonObject[0]["country"].Value<string>();
+                            string isp_get = jsonObject[0]["isp"].Value<string>();
+
+                            city = city_get;
+                            country = country_get;
+                            isp = isp_get;
+                            region = province_get;
 
                             if (status == "A")
                             {

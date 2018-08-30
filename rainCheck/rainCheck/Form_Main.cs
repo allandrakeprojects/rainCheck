@@ -4822,10 +4822,5 @@ namespace rainCheck
             button_start_urgent.PerformClick();
             timer_start_urgent.Stop();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message:", "来自网页的消息", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
     }
 }

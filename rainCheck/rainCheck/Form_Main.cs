@@ -15,8 +15,10 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -4443,6 +4445,28 @@ namespace rainCheck
                 label_cycle_in.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
                 label_cyclein_urgent.Text = timeRemaining.Minutes + mins_view + timeRemaining.Seconds + secs_view;
             }
+
+            CloseMessageBox();
+        }
+        
+        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true, CharSet = CharSet.Unicode)]
+        static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+        
+        const UInt32 WM_CLOSE = 0x0010;
+
+        void CloseMessageBox()
+        {
+            IntPtr windowPtr = FindWindowByCaption(IntPtr.Zero, "来自网页的消息");
+            
+            if (windowPtr == IntPtr.Zero)
+            {
+                return;
+            }
+
+            SendMessage(windowPtr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
         }
 
         private void label_timefor_TextChanged(object sender, EventArgs e)
@@ -4799,9 +4823,9 @@ namespace rainCheck
             timer_start_urgent.Stop();
         }
 
-        public bool IsChinese(string text)
+        private void button1_Click(object sender, EventArgs e)
         {
-            return text.Any(c => (uint)c >= 0x4E00 && (uint)c <= 0x2FA1F);
+            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message:", "来自网页的消息", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -2359,7 +2359,6 @@ namespace rainCheck
                             end_load = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                             webbrowser_handler_title = webBrowser_handler.DocumentTitle;
                             webbrowser_handler_url = webBrowser_handler.Url;
-                            
                             timeout = false;
                             timer_handler.Stop();
 
@@ -2551,57 +2550,125 @@ namespace rainCheck
                     webBrowser_handler.Stop();
                     timer_handler.Stop();
 
-                    // -------- Data To Text File
-                    string strValue = label_textsearch_brand.Text;
-                    string[] strArray = strValue.Split(',');
-
-                    foreach (string obj in strArray)
+                    if (panel_main.Visible == true)
                     {
-                        bool contains = webbrowser_handler_title.Contains(obj);
+                        pictureBox_loader.Visible = false;
+                        pictureBox_loader.Enabled = false;
+                    }
+                    else if (panel_urgent.Visible == true)
+                    {
+                        pictureBox_loader_urgent.Visible = false;
+                        pictureBox_loader_urgent.Enabled = false;
+                    }
 
-                        if (contains == true)
+                    textBox_domain.Text = webBrowser_handler.Url.ToString();
+
+                    // -------- Data To Text File
+                    string search_replace = webbrowser_handler_title;
+                    string upper_search = search_replace.ToUpper().ToString();
+
+                    StringBuilder sb = new StringBuilder(upper_search);
+                    sb.Replace("-", "");
+                    sb.Replace(".", "");
+                    sb.Replace(",", "");
+                    sb.Replace("!", "");
+
+                    string final_search = Regex.Replace(sb.ToString(), " {2,}", " ");
+                    var final_inaccessble_lists = inaccessble_lists.Select(m => m.ToUpper());
+                    string[] words = final_search.Split(' ');
+                    int i = 0;
+
+                    foreach (string word in words)
+                    {
+                        i++;
+
+                        if (word != "")
                         {
-                            Invoke(new Action(() =>
-                            {
-                                isHijacked = false;
-                            }));
+                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
 
-                            break;
+                            if (match != null)
+                            {
+                                isInaccessible = true;
+                                break;
+                            }
+                            else
+                            {
+                                isInaccessible = false;
+                            }
                         }
-                        else if (!contains)
+
+                        if (i == 1 && search_replace == "")
                         {
-                            Invoke(new Action(() =>
-                            {
-                                isHijacked = true;
-                            }));
+                            isInaccessible = true;
                         }
                     }
 
-                    if (isHijacked)
+                    if (isInaccessible)
                     {
                         if (label_webtype.Text == "Landing Page" && webbrowser_handler_title == "")
                         {
                             if (panel_main.Visible == true)
                             {
-                                DataToTextFileSuccess();
+                                DataToTextFileTimeout();
                             }
                             else if (panel_urgent.Visible == true)
                             {
-                                DataToTextFileSuccess_Urgent();
+                                DataToTextFileTimeout_Urgent();
                             }
                         }
                         else if (webbrowser_handler_title == "")
                         {
                             if (panel_main.Visible == true)
                             {
-                                DataToTextFileSuccess();
+                                DataToTextFileTimeout();
                             }
                             else if (panel_urgent.Visible == true)
                             {
-                                DataToTextFileSuccess_Urgent();
+                                DataToTextFileTimeout_Urgent();
                             }
                         }
                         else
+                        {
+                            if (panel_main.Visible == true)
+                            {
+                                TakeScreenShot();
+                                DataToTextFileInaccessible();
+                            }
+                            else if (panel_urgent.Visible == true)
+                            {
+                                TakeScreenShot_Urgent();
+                                DataToTextFileInaccessible_Urgent();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string strValue = label_textsearch_brand.Text;
+                        string[] strArray = strValue.Split(',');
+
+                        foreach (string obj in strArray)
+                        {
+                            bool contains = webbrowser_handler_title.Contains(obj);
+
+                            if (contains == true)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    isHijacked = false;
+                                }));
+
+                                break;
+                            }
+                            else if (!contains)
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    isHijacked = true;
+                                }));
+                            }
+                        }
+
+                        if (isHijacked)
                         {
                             if (panel_main.Visible == true)
                             {
@@ -2612,16 +2679,16 @@ namespace rainCheck
                                 DataToTextFileHijacked_Urgent();
                             }
                         }
-                    }
-                    else
-                    {
-                        if (panel_main.Visible == true)
+                        else
                         {
-                            DataToTextFileTimeout();
-                        }
-                        else if (panel_urgent.Visible == true)
-                        {
-                            DataToTextFileTimeout_Urgent();
+                            if (panel_main.Visible == true)
+                            {
+                                DataToTextFileTimeout();
+                            }
+                            else if (panel_urgent.Visible == true)
+                            {
+                                DataToTextFileTimeout_Urgent();
+                            }
                         }
                     }
                     // -------- End of Data To Text File
@@ -2630,17 +2697,23 @@ namespace rainCheck
                     {
                         await Task.Delay(3000);
                     });
-                    
+
                     if (panel_main.Visible == true)
                     {
-                        label_ifloadornot.Text = "1";
-                        label_ifloadornot.Text = "0";
-                        buttonGoWasClicked = false;
+                        if (button_start_fires)
+                        {
+                            label_ifloadornot.Text = "1";
+                            label_ifloadornot.Text = "0";
+                            buttonGoWasClicked = false;
+                        }
                     }
                     else if (panel_urgent.Visible == true)
                     {
-                        label_ifloadornot_urgent.Text = "1";
-                        label_ifloadornot_urgent.Text = "0";
+                        if (button_start_urgent_fires)
+                        {
+                            label_ifloadornot_urgent.Text = "1";
+                            label_ifloadornot_urgent.Text = "0";
+                        }
                     }
                 }
             }

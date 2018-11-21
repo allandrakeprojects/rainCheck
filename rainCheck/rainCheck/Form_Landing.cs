@@ -139,7 +139,7 @@ namespace rainCheck
 
                 if (networkIsAvailable)
                 {
-                    var API_PATH_IP_API = "http://ip-api.com/json/" + GetExternalIp();
+                    var API_PATH_IP_API = "http://ip-api.com/json/";
 
                     using (HttpClient client = new HttpClient())
                     {
@@ -154,7 +154,7 @@ namespace rainCheck
                             if (locationDetails != null)
                             {
                                 label_macid.Text = GetMACAddress();
-                                label_ip.Text = GetExternalIp();
+                                label_ip.Text = locationDetails.query;
                                 label_city.Text = locationDetails.city;
                                 label_region.Text = locationDetails.regionName;
                                 label_country.Text = locationDetails.country;

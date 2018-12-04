@@ -190,6 +190,7 @@ namespace rainCheck
         {
             try
             {
+                Application.DoEvents();
                 using (var client = new WebClient())
                 {
                     string auth = "r@inCh3ckd234b70";

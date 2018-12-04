@@ -18,7 +18,6 @@ using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -2066,17 +2065,18 @@ namespace rainCheck
                         domain_i = 0;
 
                         string date = DateTime.Now.ToString("MMM dd");
+                        // update
                         // Balloon Notification
-                        var notification = new NotifyIcon()
-                        {
-                            Visible = true,
-                            Icon = SystemIcons.Information,
-                            BalloonTipIcon = ToolTipIcon.Info,
-                            BalloonTipTitle = "Information",
-                            BalloonTipText = date + " " + label_timeget.Text + " done.",
-                        };
+                        //var notification = new NotifyIcon()
+                        //{
+                        //    Visible = true,
+                        //    Icon = SystemIcons.Information,
+                        //    BalloonTipIcon = ToolTipIcon.Info,
+                        //    BalloonTipTitle = "Information",
+                        //    BalloonTipText = date + " " + label_timeget.Text + " done.",
+                        //};
 
-                        notification.ShowBalloonTip(1000);
+                        //notification.ShowBalloonTip(1000);
 
                         // Random domains
                         dataGridView_domain.DataSource = null;
@@ -2394,9 +2394,9 @@ namespace rainCheck
                             {
                                 i++;
 
-                                if (word != "")
+                                if (word.Trim() != "" && word.Trim() != "|")
                                 {
-                                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+                                    var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word.Trim()));
 
                                     if (match != null)
                                     {
@@ -2582,9 +2582,9 @@ namespace rainCheck
                     {
                         i++;
 
-                        if (word != "")
+                        if (word.Trim() != "" && word.Trim() != "|")
                         {
-                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word));
+                            var match = final_inaccessble_lists.FirstOrDefault(stringToCheck => stringToCheck.Contains(word.Trim()));
 
                             if (match != null)
                             {

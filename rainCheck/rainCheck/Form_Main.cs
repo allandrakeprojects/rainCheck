@@ -1865,7 +1865,7 @@ namespace rainCheck
             }
         }
         
-        private void Label2_TextChanged(object sender, EventArgs e)
+        private async void Label2_TextChangedAsync(object sender, EventArgs e)
         {
             if (label_ifloadornot.Text == "0")
             {
@@ -1995,7 +1995,7 @@ namespace rainCheck
                                         { "reports", reports },
                                     };
 
-                                    pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                                    pagesource_history = Encoding.UTF8.GetString(await client.UploadValuesTaskAsync(request, postData));
 
                                     if (pagesource_history == "SUCCESS")
                                     {
@@ -2043,23 +2043,24 @@ namespace rainCheck
                             }
                         }
 
-                        try
-                        {
-                            FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder);
-                            req.UseBinary = true;
-                            req.Method = WebRequestMethods.Ftp.UploadFile;
-                            req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
-                            byte[] fileData = File.ReadAllBytes(outputpath);
+                        // uncomment
+                        //try
+                        //{
+                        //    FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder);
+                        //    req.UseBinary = true;
+                        //    req.Method = WebRequestMethods.Ftp.UploadFile;
+                        //    req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
+                        //    byte[] fileData = File.ReadAllBytes(outputpath);
 
-                            req.ContentLength = fileData.Length;
-                            Stream reqStream = req.GetRequestStream();
-                            reqStream.Write(fileData, 0, fileData.Length);
-                            reqStream.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1015", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        //    req.ContentLength = fileData.Length;
+                        //    Stream reqStream = req.GetRequestStream();
+                        //    reqStream.Write(fileData, 0, fileData.Length);
+                        //    reqStream.Close();
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1015", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //}
 
                         // Timer Main
                         domain_i = 0;
@@ -4023,7 +4024,7 @@ namespace rainCheck
             label_timerstartpause_urgent.Text = domain_urgent++.ToString();
         }
 
-        private void Label_ifloadornot_urgent_TextChanged(object sender, EventArgs e)
+        private async void Label_ifloadornot_urgent_TextChangedAsync(object sender, EventArgs e)
         {
             if (label_ifloadornot_urgent.Text == "0")
             {
@@ -4101,7 +4102,7 @@ namespace rainCheck
                                         { "reports", reports },
                                     };
 
-                                    pagesource_history = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                                    pagesource_history = Encoding.UTF8.GetString(await client.UploadValuesTaskAsync(request, postData));
 
                                     if (pagesource_history == "SUCCESS")
                                     {
@@ -4140,23 +4141,24 @@ namespace rainCheck
                             }
                         }
 
-                        try
-                        {
-                            FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder + "_urgent_" + i_timeout);
-                            req.UseBinary = true;
-                            req.Method = WebRequestMethods.Ftp.UploadFile;
-                            req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
-                            byte[] fileData = File.ReadAllBytes(outputpath);
+                        // uncomment
+                        //try
+                        //{
+                        //    FtpWebRequest req = (FtpWebRequest)WebRequest.Create("ftp://raincheck.ssitex.com/public/zip/" + datetime_folder + "_urgent_" + i_timeout);
+                        //    req.UseBinary = true;
+                        //    req.Method = WebRequestMethods.Ftp.UploadFile;
+                        //    req.Credentials = new NetworkCredential("ftpuser@hades.ssitex.com", "p0w3r@SSI");
+                        //    byte[] fileData = File.ReadAllBytes(outputpath);
 
-                            req.ContentLength = fileData.Length;
-                            Stream reqStream = req.GetRequestStream();
-                            reqStream.Write(fileData, 0, fileData.Length);
-                            reqStream.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        //    req.ContentLength = fileData.Length;
+                        //    Stream reqStream = req.GetRequestStream();
+                        //    reqStream.Write(fileData, 0, fileData.Length);
+                        //    reqStream.Close();
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1016", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //}
 
                         // Enable visible buttons
                         button_start_urgent.Visible = true;

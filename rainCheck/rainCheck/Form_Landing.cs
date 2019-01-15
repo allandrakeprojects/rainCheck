@@ -133,55 +133,73 @@ namespace rainCheck
             panel_loader.BringToFront();
             i++;
 
-            if (i > 20)
+            try
             {
-                timer.Stop();
-
-                if (networkIsAvailable)
+                if (i > 20)
                 {
-                    var API_PATH_IP_API = "http://ip-api.com/json/";
+                    timer.Stop();
 
-                    using (HttpClient client = new HttpClient())
+                    if (networkIsAvailable)
                     {
-                        client.DefaultRequestHeaders.Accept.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                        var API_PATH_IP_API = "http://ip-api.com/json/";
 
-                        client.BaseAddress = new Uri(API_PATH_IP_API);
-                        HttpResponseMessage response = client.GetAsync(API_PATH_IP_API).GetAwaiter().GetResult();
-                        if (response.IsSuccessStatusCode)
+                        using (HttpClient client = new HttpClient())
                         {
-                            var locationDetails = response.Content.ReadAsAsync<IpInfo>().GetAwaiter().GetResult();
-                            if (locationDetails != null)
+                            client.DefaultRequestHeaders.Accept.Clear();
+                            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                            client.BaseAddress = new Uri(API_PATH_IP_API);
+                            HttpResponseMessage response = client.GetAsync(API_PATH_IP_API).GetAwaiter().GetResult();
+                            if (response.IsSuccessStatusCode)
                             {
-                                label_macid.Text = GetMACAddress();
-                                label_ip.Text = locationDetails.query;
-                                label_city.Text = locationDetails.city;
-                                label_region.Text = locationDetails.regionName;
-                                label_country.Text = locationDetails.country;
-                                label_isp.Text = locationDetails.isp;
+                                var locationDetails = response.Content.ReadAsAsync<IpInfo>().GetAwaiter().GetResult();
+                                if (locationDetails != null)
+                                {
+                                    label_macid.Text = GetMACAddress();
+                                    label_ip.Text = locationDetails.query;
+                                    label_city.Text = locationDetails.city;
+                                    label_region.Text = locationDetails.regionName;
+                                    label_country.Text = locationDetails.country;
+                                    label_isp.Text = locationDetails.isp;
 
-                                city = locationDetails.city;
-                                country = locationDetails.country;
-                                isp = locationDetails.isp; 
-                                region = locationDetails.regionName;
+                                    city = locationDetails.city;
+                                    country = locationDetails.country;
+                                    isp = locationDetails.isp;
+                                    region = locationDetails.regionName;
 
-                                string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                // INSERT device
-                                //InsertDeviceCondition("INSERT INTO `devices`(`id`, `device_id`, `status`, `city`, `province`, `country`, `isp`, `date_received`, `updated_by`, `updated_date`) VALUES (null,'" + GetMACAddress() + "','X','" + locationDetails.city + "','" + locationDetails.regionName + "','" + locationDetails.country + "','" + locationDetails.isp + "','" + datetime + "',null,null)"); 
+                                    // INSERT device
+                                    //InsertDeviceCondition("INSERT INTO `devices`(`id`, `device_id`, `status`, `city`, `province`, `country`, `isp`, `date_received`, `updated_by`, `updated_date`) VALUES (null,'" + GetMACAddress() + "','X','" + locationDetails.city + "','" + locationDetails.regionName + "','" + locationDetails.country + "','" + locationDetails.isp + "','" + datetime + "',null,null)"); 
 
-                                // Test get
-                                //TestGet();
+                                    // Test get
+                                    //TestGet();
 
-                                InsertDeviceCondition();
+                                    InsertDeviceCondition();
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        panel_retry.BringToFront();
+                    }
                 }
-                else
-                {
-                    panel_retry.BringToFront();
-                }
+            }
+            catch (Exception err)
+            {
+                label_macid.Text = "DCFE0714662E";
+                label_city.Text = "Chengdu";
+                label_region.Text = "Sichuan";
+                label_country.Text = "China";
+                label_isp.Text = "UNICOM Sichuan";
+
+                city = "Chengdu";
+                country = "China";
+                isp = "UNICOM Sichuan";
+                region = "Sichuan";
+
+                InsertDeviceCondition();
             }
         }
 

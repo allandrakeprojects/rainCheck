@@ -506,7 +506,7 @@
             this.label_ifloadornot_urgent.Size = new System.Drawing.Size(57, 13);
             this.label_ifloadornot_urgent.TabIndex = 66;
             this.label_ifloadornot_urgent.Text = "load or not";
-            this.label_ifloadornot_urgent.TextChanged += new System.EventHandler(this.Label_ifloadornot_urgent_TextChanged);
+            this.label_ifloadornot_urgent.TextChanged += new System.EventHandler(this.Label_ifloadornot_urgent_TextChangedAsync);
             // 
             // label_timerstartpause_urgent
             // 
@@ -868,7 +868,7 @@
             this.label_ifloadornot.Size = new System.Drawing.Size(35, 13);
             this.label_ifloadornot.TabIndex = 32;
             this.label_ifloadornot.Text = "label2";
-            this.label_ifloadornot.TextChanged += new System.EventHandler(this.Label2_TextChanged);
+            this.label_ifloadornot.TextChanged += new System.EventHandler(this.Label2_TextChangedAsync);
             // 
             // label_uploadstatus
             // 

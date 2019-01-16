@@ -1946,7 +1946,11 @@ namespace rainCheck
                         // set time for next to false
                         timerfornext = false;
 
-                        string datetime_folder = label9.Text;
+                        // update
+                        //string datetime_folder = label9.Text;
+                        string datetime_folder_ = DateTime.Now.ToString("yyyy-MM-dd_");
+                        string replace = label_lastload.Text.Replace(":", "");
+                        string datetime_folder = datetime_folder_ + replace;
                         string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                         string path = path_desktop + "\\rainCheck\\" + datetime_folder;
@@ -2026,7 +2030,7 @@ namespace rainCheck
                             try
                             {
                                 outputpath = path_desktop + "\\rainCheck\\" + datetime_folder + ".zip";
-                                zip.Password = "r@inCh3ckd234b70";
+                                zip.Password = "@ccess456";
                                 zip.AddDirectory(path);
                                 zip.Save(outputpath);
 
@@ -2042,7 +2046,7 @@ namespace rainCheck
                                 //Close();
                             }
                         }
-
+                        
                         // uncomment
                         //try
                         //{
@@ -4052,8 +4056,12 @@ namespace rainCheck
 
                         index_urgent = 0;
                         label_domainscount_urgent.Text = "Total: " + domain_total.ToString();
-                        
-                        string datetime_folder = label9.Text;
+
+                        // update
+                        //string datetime_folder = label9.Text;
+                        string datetime_folder_ = DateTime.Now.ToString("yyyy-MM-dd_");
+                        string replace = label_lastload.Text.Replace(":", "");
+                        string datetime_folder = datetime_folder_ + replace;
                         string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                         string path = path_desktop + "\\rainCheck\\" + label_getdatetime_urgent.Text + "_urgent_" + i_timeout;
@@ -4124,7 +4132,7 @@ namespace rainCheck
                             try
                             {
                                 outputpath = path + ".zip";
-                                zip.Password = "r@inCh3ckd234b70";
+                                zip.Password = "@ccess456";
                                 zip.AddDirectory(path);
                                 zip.Save(outputpath);
 
@@ -4418,6 +4426,7 @@ namespace rainCheck
                 label_cyclein_get.Text = DateTime.Now.ToString("dd/MM/yyyy 12:00:00");
                 label_lastload.Text = "08:00";
             }
+            // update
             else if (Convert.ToDouble(result) >= 12 && Convert.ToDouble(result) <= 13.59)
             {
                 label_timefor.Text = "12:00";

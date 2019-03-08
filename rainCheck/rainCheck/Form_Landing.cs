@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Specialized;
@@ -128,7 +129,7 @@ namespace rainCheck
         string country;
         string isp;
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private async void Timer_TickAsync(object sender, EventArgs e)
         {
             panel_loader.BringToFront();
             i++;
@@ -141,44 +142,34 @@ namespace rainCheck
 
                     if (networkIsAvailable)
                     {
-                        var API_PATH_IP_API = "http://ip-api.com/json/";
+                        WebClient wc = new WebClient();
+                        wc.Encoding = Encoding.UTF8;
+                        wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                        
+                        byte[] result = await wc.DownloadDataTaskAsync("http://ip-api.com/json/");
+                        string responsebody = Encoding.UTF8.GetString(result);
+                        var deserialize_object = JsonConvert.DeserializeObject(responsebody);
+                        JObject jo = JObject.Parse(deserialize_object.ToString());
 
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Accept.Clear();
-                            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                        JToken query = jo.SelectToken("$.query");
+                        JToken city = jo.SelectToken("$.city");
+                        JToken regionName = jo.SelectToken("$.regionName");
+                        JToken country = jo.SelectToken("$.country");
+                        JToken isp = jo.SelectToken("$.isp");
 
-                            client.BaseAddress = new Uri(API_PATH_IP_API);
-                            HttpResponseMessage response = client.GetAsync(API_PATH_IP_API).GetAwaiter().GetResult();
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var locationDetails = response.Content.ReadAsAsync<IpInfo>().GetAwaiter().GetResult();
-                                if (locationDetails != null)
-                                {
-                                    label_macid.Text = GetMACAddress();
-                                    label_ip.Text = locationDetails.query;
-                                    label_city.Text = locationDetails.city;
-                                    label_region.Text = locationDetails.regionName;
-                                    label_country.Text = locationDetails.country;
-                                    label_isp.Text = locationDetails.isp;
+                        label_macid.Text = GetMACAddress();
+                        label_ip.Text = query.ToString();
+                        label_city.Text = city.ToString();
+                        label_region.Text = regionName.ToString();
+                        label_country.Text = country.ToString();
+                        label_isp.Text = isp.ToString();
+                        
+                        city = city.ToString();
+                        country = country.ToString();
+                        isp = isp.ToString();
+                        region = regionName.ToString();
 
-                                    city = locationDetails.city;
-                                    country = locationDetails.country;
-                                    isp = locationDetails.isp;
-                                    region = locationDetails.regionName;
-
-                                    string datetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                    // INSERT device
-                                    //InsertDeviceCondition("INSERT INTO `devices`(`id`, `device_id`, `status`, `city`, `province`, `country`, `isp`, `date_received`, `updated_by`, `updated_date`) VALUES (null,'" + GetMACAddress() + "','X','" + locationDetails.city + "','" + locationDetails.regionName + "','" + locationDetails.country + "','" + locationDetails.isp + "','" + datetime + "',null,null)"); 
-
-                                    // Test get
-                                    //TestGet();
-
-                                    InsertDeviceCondition();
-                                }
-                            }
-                        }
+                        InsertDeviceCondition();
                     }
                     else
                     {
@@ -198,7 +189,7 @@ namespace rainCheck
                 country = "China";
                 isp = "UNICOM Sichuan";
                 region = "Sichuan";
-
+                
                 InsertDeviceCondition();
             }
         }
@@ -214,7 +205,7 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "landing";
                     string request = "http://raincheck.ssitex.com/api/api.php";
-                    string mac_id = GetMACAddress();
+                    string mac_id = label_macid.Text;
 
                     NameValueCollection postData = new NameValueCollection()
                     {

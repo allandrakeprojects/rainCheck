@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rainCheck
@@ -128,69 +129,75 @@ namespace rainCheck
         string country;
         string isp;
 
-        private async void Timer_TickAsync(object sender, EventArgs e)
+        private void Timer_TickAsync(object sender, EventArgs e)
         {
             panel_loader.BringToFront();
             i++;
-
-            try
+            Task task_01 = new Task(delegate
             {
-                if (i > 20)
+                Invoke(new Action(async () =>
                 {
-                    timer.Stop();
-
-                    if (networkIsAvailable)
+                    try
                     {
-                        WebClient wc = new WebClient();
-                        wc.Encoding = Encoding.UTF8;
-                        wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                        
-                        byte[] result = await wc.DownloadDataTaskAsync("http://ip-api.com/json/");
-                        string responsebody = Encoding.UTF8.GetString(result);
-                        var deserialize_object = JsonConvert.DeserializeObject(responsebody);
-                        JObject jo = JObject.Parse(deserialize_object.ToString());
+                        if (i > 20)
+                        {
+                            timer.Stop();
 
-                        JToken query = jo.SelectToken("$.query");
-                        JToken city = jo.SelectToken("$.city");
-                        JToken regionName = jo.SelectToken("$.regionName");
-                        JToken country = jo.SelectToken("$.country");
-                        JToken isp = jo.SelectToken("$.isp");
+                            if (networkIsAvailable)
+                            {
+                                WebClient wc = new WebClient();
+                                wc.Encoding = Encoding.UTF8;
+                                wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-                        label_macid.Text = GetMACAddress();
-                        label_ip.Text = query.ToString();
-                        label_city.Text = city.ToString();
-                        label_region.Text = regionName.ToString();
-                        label_country.Text = country.ToString();
-                        label_isp.Text = isp.ToString();
-                        
-                        city = city.ToString();
-                        country = country.ToString();
-                        isp = isp.ToString();
-                        region = regionName.ToString();
+                                byte[] result = await wc.DownloadDataTaskAsync("http://ip-api.com/json/");
+                                string responsebody = Encoding.UTF8.GetString(result);
+                                var deserialize_object = JsonConvert.DeserializeObject(responsebody);
+                                JObject jo = JObject.Parse(deserialize_object.ToString());
+
+                                JToken query = jo.SelectToken("$.query");
+                                JToken _city = jo.SelectToken("$.city");
+                                JToken _regionName = jo.SelectToken("$.regionName");
+                                JToken _country = jo.SelectToken("$.country");
+                                JToken _isp = jo.SelectToken("$.isp");
+
+                                label_macid.Text = GetMACAddress();
+                                label_ip.Text = query.ToString();
+                                label_city.Text = _city.ToString();
+                                label_region.Text = _regionName.ToString();
+                                label_country.Text = _country.ToString();
+                                label_isp.Text = _isp.ToString();
+
+                                city = _city.ToString();
+                                country = _regionName.ToString();
+                                isp = _country.ToString();
+                                region = _isp.ToString();
+
+                                InsertDeviceCondition();
+                            }
+                            else
+                            {
+                                panel_retry.BringToFront();
+                            }
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        label_macid.Text = "DCFE0714662E";
+                        label_city.Text = "Chengdu";
+                        label_region.Text = "Sichuan";
+                        label_country.Text = "China";
+                        label_isp.Text = "UNICOM Sichuan";
+
+                        city = "Chengdu";
+                        country = "China";
+                        isp = "UNICOM Sichuan";
+                        region = "Sichuan";
 
                         InsertDeviceCondition();
                     }
-                    else
-                    {
-                        panel_retry.BringToFront();
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                label_macid.Text = "DCFE0714662E";
-                label_city.Text = "Chengdu";
-                label_region.Text = "Sichuan";
-                label_country.Text = "China";
-                label_isp.Text = "UNICOM Sichuan";
-
-                city = "Chengdu";
-                country = "China";
-                isp = "UNICOM Sichuan";
-                region = "Sichuan";
-                
-                InsertDeviceCondition();
-            }
+                }));
+            });
+            task_01.Start();
         }
 
         // Insert device condition
@@ -217,8 +224,7 @@ namespace rainCheck
                         { "isp", isp }
                     };
 
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                    
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));         
                     if (pagesource != "")
                     {
                         JArray jsonObject = JArray.Parse(pagesource);

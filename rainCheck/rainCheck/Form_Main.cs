@@ -103,7 +103,7 @@ namespace rainCheck
                     {
                         string auth_1 = "r@inCh3ckd234b70";
                         string type_1 = "domain_urgent";
-                        string request_1 = "http://raincheck.ssitex.com/api/api.php";
+                        string request_1 = "http://raincheck.ssitex.com/Api";
 
                         NameValueCollection postData_1 = new NameValueCollection()
                         {
@@ -170,7 +170,7 @@ namespace rainCheck
                     string type = "running";
                     string mac_id = GetMACAddress();
                     string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); ;
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -204,7 +204,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "text_search_brand";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -238,7 +238,7 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "urgent_device";
                     string mac_id = GetMACAddress();
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -442,7 +442,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "category";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
                     string mac_id = GetMACAddress();
 
                     NameValueCollection postData = new NameValueCollection()
@@ -474,7 +474,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "timeout";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
                     string mac_id = GetMACAddress();
 
                     NameValueCollection postData = new NameValueCollection()
@@ -1790,7 +1790,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "brand";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -1800,8 +1800,7 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                    if (pagesource != "")
+                    if (pagesource != "" && pagesource != "[]")
                     {
                         JArray jsonObject = JArray.Parse(pagesource);
                         string brand_name = jsonObject[0]["brand_name"].Value<string>();
@@ -1981,7 +1980,7 @@ namespace rainCheck
                         }
 
                         int upload = 1;
-                        while (upload <= 5)
+                        while (upload <= 10)
                         {
                             try
                             {
@@ -1989,7 +1988,7 @@ namespace rainCheck
                                 {
                                     string auth = "r@inCh3ckd234b70";
                                     string type = "reports_normal";
-                                    string request = "http://raincheck.ssitex.com/api/api.php";
+                                    string request = "http://raincheck.ssitex.com/Api";
                                     string reports = sb.ToString();
 
                                     NameValueCollection postData = new NameValueCollection()
@@ -2448,12 +2447,12 @@ namespace rainCheck
                                 {
                                     if (panel_main.Visible == true)
                                     {
-                                        TakeScreenShot();
+                                        //TakeScreenShot();
                                         DataToTextFileInaccessible();
                                     }
                                     else if (panel_urgent.Visible == true)
                                     {
-                                        TakeScreenShot_Urgent();
+                                        //TakeScreenShot_Urgent();
                                         DataToTextFileInaccessible_Urgent();
                                     }
                                 }
@@ -2636,12 +2635,12 @@ namespace rainCheck
                         {
                             if (panel_main.Visible == true)
                             {
-                                TakeScreenShot();
+                                //TakeScreenShot();
                                 DataToTextFileInaccessible();
                             }
                             else if (panel_urgent.Visible == true)
                             {
-                                TakeScreenShot_Urgent();
+                                //TakeScreenShot_Urgent();
                                 DataToTextFileInaccessible_Urgent();
                             }
                         }
@@ -3809,7 +3808,7 @@ namespace rainCheck
                             {
                                 string auth = "r@inCh3ckd234b70";
                                 string type = "brand";
-                                string request = "http://raincheck.ssitex.com/api/api.php";
+                                string request = "http://raincheck.ssitex.com/Api";
                                 string domain = domain_urgent;
 
                                 NameValueCollection postData = new NameValueCollection()
@@ -3820,8 +3819,7 @@ namespace rainCheck
                                 };
 
                                 string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-
-                                if (pagesource != "")
+                                if (pagesource != "" && pagesource != "[]")
                                 {
                                     JArray jsonObject = JArray.Parse(pagesource);
 
@@ -4092,7 +4090,7 @@ namespace rainCheck
                         }
 
                         int upload = 1;
-                        while (upload <= 5)
+                        while (upload <= 10)
                         {
                             try
                             {
@@ -4100,7 +4098,7 @@ namespace rainCheck
                                 {
                                     string auth = "r@inCh3ckd234b70";
                                     string type = "reports_normal";
-                                    string request = "http://raincheck.ssitex.com/api/api.php";
+                                    string request = "http://raincheck.ssitex.com/Api";
                                     string reports = sb.ToString();
 
                                     NameValueCollection postData = new NameValueCollection()
@@ -4234,7 +4232,7 @@ namespace rainCheck
                         string auth = "r@inCh3ckd234b70";
                         string type = "brand_set";
                         string nbrs = BrandIDs;
-                        string request = "http://raincheck.ssitex.com/api/api.php";
+                        string request = "http://raincheck.ssitex.com/Api";
 
                         NameValueCollection postData = new NameValueCollection()
                         {
@@ -4281,7 +4279,7 @@ namespace rainCheck
                     {
                         string auth = "r@inCh3ckd234b70";
                         string type = "brand_get";
-                        string request = "http://raincheck.ssitex.com/api/api.php";
+                        string request = "http://raincheck.ssitex.com/Api";
 
                         NameValueCollection postData = new NameValueCollection()
                         {
@@ -4338,7 +4336,7 @@ namespace rainCheck
                         string auth = "r@inCh3ckd234b70";
                         string type = "domain_main";
                         string nbrs = BrandIDs;
-                        string request = "http://raincheck.ssitex.com/api/api.php";
+                        string request = "http://raincheck.ssitex.com/Api";
 
                         NameValueCollection postData = new NameValueCollection()
                         {
@@ -4709,7 +4707,7 @@ namespace rainCheck
                     string type = "running";
                     string mac_id = GetMACAddress();
                     string run_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -4781,7 +4779,7 @@ namespace rainCheck
                     string auth = "r@inCh3ckd234b70";
                     string type = "urgent_device";
                     string mac_id = GetMACAddress();
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
 
                     NameValueCollection postData = new NameValueCollection()
                     {
@@ -4811,7 +4809,7 @@ namespace rainCheck
                             using (var client_1 = new WebClient())
                             {
                                 string type_1 = "domain_urgent";
-                                string request_1 = "http://raincheck.ssitex.com/api/api.php";
+                                string request_1 = "http://raincheck.ssitex.com/Api";
 
                                 NameValueCollection postData_1 = new NameValueCollection()
                                 {
@@ -4893,9 +4891,11 @@ namespace rainCheck
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + ex.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + err.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                //can_close = false;
                 //Close();
             }
         }

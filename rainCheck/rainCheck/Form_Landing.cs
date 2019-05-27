@@ -168,9 +168,9 @@ namespace rainCheck
                                 label_isp.Text = _isp.ToString();
 
                                 city = _city.ToString();
-                                country = _regionName.ToString();
-                                isp = _country.ToString();
-                                region = _isp.ToString();
+                                country = _country.ToString();
+                                isp = _isp.ToString();
+                                region = _regionName.ToString();
 
                                 InsertDeviceCondition();
                             }
@@ -210,7 +210,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "landing";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
                     string mac_id = label_macid.Text;
 
                     NameValueCollection postData = new NameValueCollection()
@@ -219,13 +219,13 @@ namespace rainCheck
                         { "type", type },
                         { "mac_id", mac_id },
                         { "city", city },
-                        { "region", region },
+                        { "province", region },
                         { "country", country },
                         { "isp", isp }
                     };
 
-                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));         
-                    if (pagesource != "")
+                    string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
+                    if (pagesource != "" && pagesource != "[]")
                     {
                         JArray jsonObject = JArray.Parse(pagesource);
                         string status = jsonObject[0]["status"].Value<string>();
@@ -298,7 +298,7 @@ namespace rainCheck
                             { "type", type },
                             { "mac_id", mac_id },
                             { "city", city },
-                            { "region", region },
+                            { "province", region },
                             { "country", country },
                             { "isp", isp }
                         };
@@ -339,7 +339,7 @@ namespace rainCheck
                 {
                     string auth = "r@inCh3ckd234b70";
                     string type = "landing";
-                    string request = "http://raincheck.ssitex.com/api/api.php";
+                    string request = "http://raincheck.ssitex.com/Api";
                     string mac_id = GetMACAddress();
 
                     NameValueCollection postData = new NameValueCollection()
@@ -350,8 +350,7 @@ namespace rainCheck
                     };
 
                     string pagesource = Encoding.UTF8.GetString(client.UploadValues(request, postData));
-                    
-                    if (pagesource != "")
+                    if (pagesource != "" && pagesource != "[]")
                     {
                         if (pagesource != label_apichanges.Text)
                         {
@@ -426,7 +425,7 @@ namespace rainCheck
                             { "type", type },
                             { "mac_id", mac_id },
                             { "city", city },
-                            { "region", region },
+                            { "province", region },
                             { "country", country },
                             { "isp", isp }
                         };

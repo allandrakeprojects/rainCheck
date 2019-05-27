@@ -38,6 +38,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.label_timer = new System.Windows.Forms.Label();
             this.label_loader = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_raincheck
@@ -116,12 +117,24 @@
             this.label_loader.TabIndex = 5;
             this.label_loader.Text = "Loading";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(472, 224);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 12);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "v3.0.0";
+            // 
             // Form_Loader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(69)))), ((int)(((byte)(87)))));
             this.ClientSize = new System.Drawing.Size(507, 239);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label_loader);
             this.Controls.Add(this.label_timer);
             this.Controls.Add(this.label_raincheck);
@@ -149,6 +162,7 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label_timer;
         private System.Windows.Forms.Label label_loader;
+        private System.Windows.Forms.Label label1;
     }
 }
 

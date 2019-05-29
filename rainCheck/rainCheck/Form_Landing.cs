@@ -567,7 +567,7 @@ namespace rainCheck
                                 {
                                     File.Delete(path_autoyes);
 
-                                    Form_Main.SetResult = "Yes";
+                                    Form_Main.SetResult = "Yes"; 
 
                                     string read = File.ReadAllText(path);
                                     Form_Main.BrandIDs = read;
@@ -582,8 +582,15 @@ namespace rainCheck
                                         Form_Main.LastCurrentIndex = "1";
                                     }
 
-                                    Form_Main form_main = new Form_Main(city, country, isp);
-                                    form_main.ShowDialog();
+                                    try
+                                    {
+                                        Form_Main form_main = new Form_Main(city, country, isp);
+                                        form_main.ShowDialog();
+                                    }
+                                    catch (Exception err)
+                                    {
+                                        MessageBox.Show("No space left on device.", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                                 else
                                 {

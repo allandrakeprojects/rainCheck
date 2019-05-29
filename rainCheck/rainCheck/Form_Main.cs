@@ -1943,18 +1943,28 @@ namespace rainCheck
                         timer_domain.Stop();
                         
                         // set time for next to false
-                        timerfornext = false;
-
+                        //ghghghg
                         // update
                         //string datetime_folder = label9.Text;
                         string datetime_folder_ = DateTime.Now.ToString("yyyy-MM-dd_");
                         string replace = label_lastload.Text.Replace(":", "");
-                        string datetime_folder = datetime_folder_ + replace;
+                        string datetime_folder = "";
+                        if (timerfornext)
+                        {
+                            datetime_folder = datetime_folder_ + replace;
+                        }
+                        else
+                        {
+                            datetime_folder = label9.Text;
+                        }
+                        
+                        timerfornext = false;
+
                         string path_desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                         string path = path_desktop + "\\rainCheck\\" + datetime_folder;
                         string read = "";
-
+                        
                         // Insert
                         if (File.Exists(path + "\\result.txt"))
                         {
@@ -4550,7 +4560,7 @@ namespace rainCheck
 
             SendMessage(windowPtr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
         }
-
+        
         private void label_timefor_TextChanged(object sender, EventArgs e)
         {
             if (!urgentRunning)
@@ -4894,7 +4904,7 @@ namespace rainCheck
             catch (Exception err)
             {
                 //MessageBox.Show("There is a problem with the server! Please contact IT support. \n\nError Message: " + err.Message + "\nError Code: rc1036", "rainCheck", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 //can_close = false;
                 //Close();
             }

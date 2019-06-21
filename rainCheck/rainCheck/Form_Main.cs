@@ -108,7 +108,8 @@ namespace rainCheck
                         NameValueCollection postData_1 = new NameValueCollection()
                         {
                             { "auth", auth_1 },
-                            { "type", type_1 }
+                            { "type", type_1 },
+                            { "mac_id", GetMACAddress() }
                         };
 
                         string pagesource_1 = Encoding.UTF8.GetString(client_1.UploadValues(request_1, postData_1));
@@ -131,11 +132,28 @@ namespace rainCheck
 
                 if (can_close)
                 {
+                    // Urgent
+                    string urgent = "#394557";
+                    Color color_change = ColorTranslator.FromHtml(urgent);
+
+                    panel_top.BackColor = color_change;
+                    button_start_urgent.BackColor = color_change;
+                    button_pause_urgent.BackColor = color_change;
+                    button_startover_urgent.BackColor = color_change;
+                    label_domainscount_urgent.ForeColor = color_change;
+
+                    label_status_1_urgent.ForeColor = color_change;
+                    label_status_urgent.ForeColor = color_change;
+
+                    label_timefor_1_urgent.ForeColor = color_change;
+                    label_timefor_urgent.ForeColor = color_change;
+
+                    label_cyclein_1_urgent.ForeColor = color_change;
+                    label_cyclein_urgent.ForeColor = color_change;
+                    
                     // Table UI
                     dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-                    string hex = "#438eb9";
-                    Color color = ColorTranslator.FromHtml(hex);
-                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color;
+                    dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color_change;
                     dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
                     dataGridView_urgent.Columns["domain_name"].Visible = false;
                     dataGridView_urgent.Columns["id"].Visible = false;
@@ -4869,8 +4887,6 @@ namespace rainCheck
 
                             // Table UI
                             dataGridView_urgent.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-                            string hex = "#438eb9";
-                            Color color = ColorTranslator.FromHtml(hex);
                             dataGridView_urgent.DefaultCellStyle.SelectionBackColor = color_change;
                             dataGridView_urgent.DefaultCellStyle.SelectionForeColor = Color.White;
                             dataGridView_urgent.Columns["domain_name"].Visible = false;
